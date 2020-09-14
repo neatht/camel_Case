@@ -4,8 +4,8 @@ files:
   - source: /
     destination: /home/ec2-user/application
 hooks:
-  BeforeInstall:
-    - location: scripts/preInstall.sh
+  Install:
+    - location: scripts/install.sh
       timeout: 300
       runas: root
   AfterInstall:
@@ -18,3 +18,5 @@ hooks:
       runas: root
   ApplicationStop:
     - location: scripts/stopServer.sh
+      timeout: 300
+      runas: root
