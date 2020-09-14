@@ -61,4 +61,3 @@ Once you are done, the app should automatically launch, however, the app can be 
 localhost:3000
 ```
 
-small change to readme
