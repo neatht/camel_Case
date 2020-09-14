@@ -1,4 +1,4 @@
 echo preinstall
-pushd ../api
+pushd api
 npm install >> ./log.txt
 popd
