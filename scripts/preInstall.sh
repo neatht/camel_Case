@@ -1,4 +1,4 @@
 echo preinstall
-pushd api
-npm install >> ./log.txt
+pushd /home/ec2-user/application/api
+npm install
 popd
