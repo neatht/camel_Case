@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { PageHeader, Button, Avatar, Input, Menu, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
+import './Header.css';
+
 //const { Search } = Input;
 //const { Title } = Typography;
 
@@ -34,7 +36,7 @@ export function Header({ pageKey }: HeaderProps) {
                 <BrowserRouter>
                     <PageHeader
                       className="site-page-header"
-                      title={<NavLink exact to="/" className="NavTitle"> <span role="img" aria-hidden="true">📝</span> ePortfolio </NavLink>}
+                      title={<NavLink exact to="/" className="navTitle"> <span role="img" aria-hidden="true">📝</span> ePortfolio </NavLink>}
                       extra={[
                           <Avatar icon={<UserOutlined/>} />
                       ]} 
