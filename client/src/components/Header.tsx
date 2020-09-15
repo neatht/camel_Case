@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink, BrowserRouter } from 'react-router-dom';
 
-import { PageHeader, Avatar, Menu } from 'antd';
+import { PageHeader, Avatar, Menu, Input, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
+
+const { Search } = Input;
 
 // From antd spec
 type MenuClickEvent = {
@@ -33,10 +35,15 @@ export function Header({ pageKey }: HeaderProps) {
                     <PageHeader
                       className="site-page-header"
                       title={<NavLink exact to="/" className="navTitle"> <span role="img" aria-hidden="true">📝</span> ePortfolio </NavLink>}
-                      extra={[
-                          <Avatar icon={<UserOutlined/>} />
-                      ]} 
-                      />
+                      extra={
+                        <div>
+                            <Space>
+                                <Search enterButton />
+                                <Avatar icon={<UserOutlined/>} />
+                            </Space>
+                        </div>
+                      } 
+                    />
                 </BrowserRouter>
 
                 <Menu
