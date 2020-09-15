@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink, BrowserRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-import { PageHeader, Button, Avatar, Input, Menu, Typography } from 'antd';
+import { PageHeader, Avatar, Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
-
-//const { Search } = Input;
-//const { Title } = Typography;
 
 // From antd spec
 type MenuClickEvent = {
@@ -49,11 +45,11 @@ export function Header({ pageKey }: HeaderProps) {
                   mode="horizontal"
                 > 
 
-                      <Menu.Item key="home" icon={"🏠 "}>
+                      <Menu.Item key="home" icon={<span role="img" aria-hidden="true">🏠 </span>}>
                         <NavLink exact to="/">Home</NavLink>
                       </Menu.Item>
 
-                      <Menu.Item key="profile" icon={"👨‍💼 "}>
+                      <Menu.Item key="profile" icon={<span role="img" aria-hidden="true">👨‍💼 </span>}>
                         <NavLink exact to="/profile">Profile</NavLink> {/* TODO: Protected route once authentication is set up */}
                       </Menu.Item>
 
