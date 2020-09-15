@@ -38,7 +38,7 @@ export function Header({ pageKey }: HeaderProps) {
                       extra={
                         <div>
                             <Space>
-                                <Search enterButton />
+                                <Search style={{ width: 300 }}enterButton />
                                 <Avatar icon={<UserOutlined/>} />
                             </Space>
                         </div>
