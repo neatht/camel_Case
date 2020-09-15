@@ -4,7 +4,7 @@ import Header from '../components/Header';
 function Profile() {
     return(
         <div className="App">
-            <Header />
+            <Header pageKey="profile" />
             <h1>👨 Profile</h1>
         </div>
     );

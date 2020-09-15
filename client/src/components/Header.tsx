@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, BrowserRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { PageHeader, Button, Avatar, Input, Menu, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -15,9 +16,13 @@ type MenuClickEvent = {
     domEvent: Event
 }
 
-function Header() {
+type HeaderProps = {
+    pageKey: string,
+}
 
-    const [ currentPageSelection, setCurrentPageSelection ] = useState('home');
+export function Header({ pageKey }: HeaderProps) {
+
+    const [ currentPageSelection, setCurrentPageSelection ] = useState(pageKey);
 
     const handleMenuClick = (event: MenuClickEvent) => {
         setCurrentPageSelection(event.key);
