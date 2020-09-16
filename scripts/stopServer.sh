@@ -1,1 +1,2 @@
 echo stopServer
+killall node
