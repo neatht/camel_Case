@@ -4,7 +4,7 @@ files:
   - source: /
     destination: /home/ec2-user/application
 hooks:
-  Install:
+  BeforeInstall:
     - location: scripts/install.sh
       timeout: 300
       runas: root
