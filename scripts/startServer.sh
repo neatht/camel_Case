@@ -8,3 +8,4 @@ nohup yarn start &
 disown
 popd
 echo done
+exit 0
