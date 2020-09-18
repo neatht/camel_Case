@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { NavLink, BrowserRouter, Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
-import { PageHeader, Avatar, Menu, Input, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { PageHeader, Menu, Input, Space } from 'antd';
+//import { UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
 import LoginButton from './LoginButton';
