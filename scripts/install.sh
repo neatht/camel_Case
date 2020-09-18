@@ -1,4 +1,5 @@
 echo preinstall
+npm install -g pm2
 pushd /home/ec2-user/application/api
 npm install
 npm run build
