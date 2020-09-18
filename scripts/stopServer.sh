@@ -1,2 +1,2 @@
 echo stopServer
-killall node
+pm2 delete all
