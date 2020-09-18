@@ -5,6 +5,7 @@ import { PageHeader, Avatar, Menu, Input, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
+import LoginButton from './LoginButton';
 
 const { Search } = Input;
 
@@ -38,7 +39,8 @@ export function Header({ pageKey }: HeaderProps) {
                         <div>
                             <Space>
                                 <Search style={{ width: 300 }}enterButton />
-                                <Avatar icon={<UserOutlined/>} />
+                                {/*<Avatar icon={<UserOutlined/>} />*/}
+                                <LoginButton />
                             </Space>
                         </div>
                       } 
