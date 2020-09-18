@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, BrowserRouter } from 'react-router-dom';
+import { NavLink, BrowserRouter, Link } from 'react-router-dom';
 
 import { PageHeader, Avatar, Menu, Input, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -31,10 +31,9 @@ export function Header({ pageKey }: HeaderProps) {
     return(
         <div>
             <header>
-                <BrowserRouter>
                     <PageHeader
                       className="site-page-header"
-                      title={<NavLink exact to="/" className="navTitle"> <span role="img" aria-hidden="true">📝</span> ePortfolio </NavLink>}
+                      title={<Link to="/" className="navTitle"> <span role="img" aria-hidden="true">📝</span> ePortfolio </Link>}
                       extra={
                         <div>
                             <Space>
@@ -44,7 +43,6 @@ export function Header({ pageKey }: HeaderProps) {
                         </div>
                       } 
                     />
-                </BrowserRouter>
 
                 <Menu
                   onClick={() => handleMenuClick}
