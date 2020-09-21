@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Spin } from 'antd';
 
 import Header from '../components/Header';
+import SocialLinks from '../components/SocialLinks';
 
 function Home() {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -24,6 +25,9 @@ function Home() {
                 <h2> Not logged in </h2>
               </div>
             }
+
+            <SocialLinks />
+
         </div>
     );
 }
