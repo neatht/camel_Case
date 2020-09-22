@@ -3,4 +3,4 @@ import { addUser } from './controller';
 
 const router = express.Router();
 
-router.post
+router.post('/add', addUser);

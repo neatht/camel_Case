@@ -1,3 +1,3 @@
-export const addUser = () {
-  return;
+export const addUser = () => {
+    return;
 }
