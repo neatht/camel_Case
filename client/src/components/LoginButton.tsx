@@ -19,7 +19,7 @@ function LoginButton() {
             : <Button 
                 type="primary"
                 onClick={() => loginWithRedirect()}>
-                    <span role="img" aria-hidden="true">🔑</span> Login
+                    Login 
               </Button>}
         </div>
     );
