@@ -19,12 +19,10 @@ function Home() {
     return(
         <div className="App">
             <Header pageKey="home" />
-            <h1><span role="img" aria-hidden="true">🐪</span> camel_Case</h1>
+
             <div className="browse">
 
-              <div className="floatingBox">
-                <FilterAndSort />
-              </div>
+              <FilterAndSort />
 
               <div className="mainContent">
                 <PortfolioGrid />
