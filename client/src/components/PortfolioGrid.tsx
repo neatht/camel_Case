@@ -111,9 +111,10 @@ function PortfolioGrid(props: PortfolioGridProps) {
               title={<><Emoji symbol="👀" /> Browse</>}
             /> */}
             
-            <Row > {/* 180px (portfolio object height) + 30px padding*/}
+            <div className="grid"> {/* 180px (portfolio object height) + 30px padding*/}
                 {portfolioObjects.map( (value, index, array) => {
-                    return  <Col flex="0px"> {/* 240px (portfolio object) + 30px (padding) */} 
+                    return (
+                    // return  <Col flex="0px"> {/* 240px (portfolio object) + 30px (padding) */} 
                                 <PortfolioObject
                                     id = {value.key} 
                                     title = {value.title}  
@@ -125,10 +126,12 @@ function PortfolioGrid(props: PortfolioGridProps) {
                                     views = {value.views}  
                                     location = {value.location}
                                     portfolioObjectOpen = {openPortfolioObject} 
+                    
                                 />
-                            </Col>
+                    )
+                            // </Col>
                 })}
-            </Row>
+            </div>
         </div>
     );
 }
