@@ -18,7 +18,9 @@ type PortfolioObjectProps = {
     shortDescription: string, 
     views: string, 
     location: string,
+    picture: string,
     portfolioObjectOpen: any
+
 }
 
 function PortfolioObject(props: PortfolioObjectProps) {
@@ -34,7 +36,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
         <div className={`portfolioObject ${thumbnail ? "thumbnail" : ""}`}>
             <div onClick={handleClick} className="portfolioExit"></div>
             <h2>{props.title}</h2>
-            <div className="portfolioHero"></div>
+            <div className="portfolioHero" style={{ backgroundImage: `url(${props.picture})`}}></div>
             <div className="portfolioObjectOverlay">
                 <div className="portfolioMeta">
                     <h4><strong>{props.title}</strong></h4>

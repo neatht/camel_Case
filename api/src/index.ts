@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import path from "path";
+import dbRoutes from "./routes/db-routes";
 
 dotenv.config();
 
@@ -9,6 +10,8 @@ const port = process.env.SERVER_PORT || 5000;
 
 // Serve static react build
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+app.use('/db', dbRoutes);
 
 // Test
 app.get('/api/getList', (req, res) => {
