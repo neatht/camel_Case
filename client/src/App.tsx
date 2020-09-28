@@ -9,6 +9,7 @@ import './css/layout.css';
 
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import ProfileSetup from './pages/ProfileSetup';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/profile" exact component={Profile} />
+          <Route path="/profile-setup" exact component={ProfileSetup} />
         </Switch>
       </Router>
   );
