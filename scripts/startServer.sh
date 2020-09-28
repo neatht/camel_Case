@@ -1,8 +1,5 @@
 echo startServer
 pushd /home/ec2-user/application/api
-pm2 start ./dist/index.js --name "APIBackend"
-popd
-pushd /home/ec2-user/application/client
-pm2 start ./node_modules/react-scripts/scripts/start.js --name "ReactClient"
+pm2 start ./dist/index.js --name "APIBackend" --log "/home/ecc2-user/application/log.txt" --time
 popd
 echo done
