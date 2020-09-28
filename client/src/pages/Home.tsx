@@ -8,6 +8,7 @@ import PortfolioGrid from '../components/PortfolioGrid';
 import FilterAndSort from '../components/FilterAndSort';
 
 import './Home.css';
+import HomeHero from '../components/HomeHero';
 
 function Home() {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -19,6 +20,8 @@ function Home() {
     return(
         <div className="App">
             <Header pageKey="home" />
+
+            <HomeHero />
 
             <div className="browse">
 
