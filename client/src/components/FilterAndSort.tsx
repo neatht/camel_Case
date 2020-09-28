@@ -11,7 +11,7 @@ const { Option } = Select;
 
 function FilterAndSort() {
 
-    const [ isOpen, setIsOpen ] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     if (!isOpen) {
         return (
@@ -24,60 +24,58 @@ function FilterAndSort() {
     }
 
     return (
-        <div className="floatingBox">
-            <div className="content">
-                <Space direction="vertical" style={{ width: 'calc(100% - 30px)' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <h4><strong>Filter</strong></h4>
-                        <div className="collapseFloatingBoxIcon" onClick={() => setIsOpen(!isOpen)}>
-                            <Tooltip title="Hide" placement="bottom">
-                                <CloseOutlined />
-                            </Tooltip>
-                        </div>
-                        
+        <div className="container-primary floatingBox">
+            <Space direction="vertical" style={{ width: 'calc(100%)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <h4><strong>Filter</strong></h4>
+                    <div className="collapseFloatingBoxIcon" onClick={() => setIsOpen(!isOpen)}>
+                        <Tooltip title="Hide" placement="bottom">
+                            <CloseOutlined />
+                        </Tooltip>
                     </div>
-                
-                    <Select
-                      mode="multiple"
-                      placeholder="Project type"
-                      style={{ width: '100%' }}
-                    >
-                        <Option value="app"><Emoji symbol="📱" /> App</Option>
-                        <Option value="website"><Emoji symbol="🖥" /> Website</Option>
-                    </Select>
 
-                    <Input
-                      placeholder="Name"
-                    />
+                </div>
 
-                    <Select
-                      mode="multiple"
-                      placeholder="Tag"
-                      style={{ width: '100%' }}
-                    >
-                        <Option value="tag1">Tag 1</Option>
-                        <Option value="tag2">Tag 2</Option>
-                    </Select>
+                <Select
+                    mode="multiple"
+                    placeholder="Project type"
+                    style={{ width: '100%' }}
+                >
+                    <Option value="app"><Emoji symbol="📱" /> App</Option>
+                    <Option value="website"><Emoji symbol="🖥" /> Website</Option>
+                </Select>
 
-                </Space>
+                <Input
+                    placeholder="Name"
+                />
 
-                <Space direction="vertical" style={{ width: 'calc(100% - 30px)' }}>
+                <Select
+                    mode="multiple"
+                    placeholder="Tag"
+                    style={{ width: '100%' }}
+                >
+                    <Option value="tag1">Tag 1</Option>
+                    <Option value="tag2">Tag 2</Option>
+                </Select>
 
-                    <br/> 
+            </Space>
 
-                    <h4><strong>Sort</strong></h4>
+            <Space direction="vertical" style={{ width: 'calc(100%)' }}>
 
-                    <Select
-                      defaultValue="mostPopular"
-                      style={{ width: '100%' }}
-                    >
-                        <Option value="mostPopular">Most Popular</Option>
-                        <Option value="alphabetical">Alphabetical</Option>
-                    </Select>
+                <br />
 
-                </Space>
+                <h4><strong>Sort</strong></h4>
 
-            </div>
+                <Select
+                    defaultValue="mostPopular"
+                    style={{ width: '100%' }}
+                >
+                    <Option value="mostPopular">Most Popular</Option>
+                    <Option value="alphabetical">Alphabetical</Option>
+                </Select>
+
+            </Space>
+
         </div>
     )
 }

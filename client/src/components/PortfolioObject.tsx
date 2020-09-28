@@ -5,7 +5,6 @@ import SocialLinks from './SocialLinks';
 
 import './PortfolioObject.css';
 import Emoji from './Emoji';
-import { UserOutlined } from '@ant-design/icons';
 import AuthorBadge from './AuthorBadge';
 
 type PortfolioObjectProps = {
@@ -33,18 +32,18 @@ function PortfolioObject(props: PortfolioObjectProps) {
     }
 
     return(
-        <div className={`portfolioObject ${thumbnail ? "thumbnail" : ""}`}>
-            <div onClick={handleClick} className="portfolioExit"></div>
-            <h2>{props.title}</h2>
-            <div className="portfolioHero" style={{ backgroundImage: `url(${props.picture})`}}></div>
-            <div className="portfolioObjectOverlay">
-                <div className="portfolioMeta">
+        <div className={`container-primary portfolio-object ${thumbnail ? "thumbnail" : ""}`}>
+            <div onClick={handleClick} className="portfolio-exit"></div>
+            <div className="portfolio-title"><h2>{props.title}</h2></div>
+            <div className="container-secondary portfolio-hero" style={{ backgroundImage: `url(${props.picture})`}}></div>
+            <div className="portfolio-object-overlay">
+                <div className="portfolio-meta">
                     <h4><strong>{props.title}</strong></h4>
                     <h5>{props.author}</h5>
                 </div>
             </div>
-            <div className="portfolioObjectBody">
-                <div className="portfolioSideBar">
+            <div className="portfolio-object-body">
+                <div className="container-secondary portfolio-side-bar">
                     <ul>
                         <li><Emoji symbol="💻" label="Type:"/> {props.type}</li>
                         <li><Emoji symbol="📅" label="Date:"/> {props.date}</li>

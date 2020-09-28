@@ -1,0 +1,28 @@
+:root {
+  --color-app: #000000;
+
+  --background-color-app: #ffffff;
+  --background-color-primary: #fafafa;
+  --background-color-secondary: rgba(255, 255, 255, 0.7);
+
+  --border-radius-primary: 10px;
+  --border-radius-secondary: 8px;
+
+  --drop-shadow: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-app: #ffffff;
+  
+    --background-color-app: #000000;
+    --background-color-primary: #3d3d3d;
+    --background-color-secondary: rgba(255, 255, 255, 0.178);
+  
+    --border-radius-primary: 10px;
+    --border-radius-secondary: 8px;
+
+    --drop-shadow: drop-shadow(0px 2px 8px rgba(255, 255, 255, 0.3));
+  }
+}
