@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
 
 import PortfolioObject from './PortfolioObject';
-import PortfolioGridHeader from './PortfolioGridHeader';
-import Emoji from './Emoji';
+
 
 import './PortfolioGrid.css';
 
@@ -150,7 +149,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
     }
     
     return(
-        <div className={`portfolioGrid ${portfolioObjectOpen ? "portfolioObjectOpen" : ""}`}>
+        <div className={`portfolioGrid ${portfolioObjectOpen ? "portfolio-object-open" : ""}`}>
             {/* <PortfolioGridHeader
               title={<><Emoji symbol="👀" /> Browse</>}
             /> */}

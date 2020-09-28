@@ -1,0 +1,40 @@
+.container-primary {
+  background-color: #fafafa;
+  border-radius: 10px;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+  padding: 30px;
+  margin: 15px;
+  overflow: hidden;
+}
+
+.container-secondary {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+  
+}
+
+.floatingBox {
+  text-align: left;
+  position: relative;
+  width: 40vw;
+  height: 60vh;
+  left: 30px;
+  top: 30px;
+
+  min-width: 350px;
+  max-width: 450px;
+}
+
+.browse {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mainContent {
+  padding: 30px;
+  position: relative;
+  flex: 1;
+  left: 30px;
+}
