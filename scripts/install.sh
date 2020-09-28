@@ -6,5 +6,5 @@ popd
 pushd /home/ec2-user/application/client
 yarn install
 yarn build
-popd
+popd 
 echo done
