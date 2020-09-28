@@ -1,22 +1,26 @@
 body {
   overflow-y: scroll;
   overflow-x: hidden;
+
+  color: var(--color-app);
+  background-color: var(--background-color-app);
+  
 }
 
 .ant-select-selector {
-  border-radius: 10px !important;
+  border-radius: var(--border-radius-primary) !important;
 }
 
 .ant-select-dropdown {
-  border-radius: 10px;
+  border-radius: var(--border-radius-primary);
 }
 
 .ant-select-selection-item {
-  border-radius: 10px !important;
+  border-radius: var(--border-radius-primary) !important;
 }
 
 .floatingBox .ant-input {
-  border-radius: 10px !important;
+  border-radius: var(--border-radius-primary) !important;
 }
 
 .App {

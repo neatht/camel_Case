@@ -21,7 +21,8 @@
 .portfolio-exit {
   width: 24px;
   height: 24px;
-  background-color: rgba(168, 168, 168, 0.5);
+  background-color: var(--background-color-secondary);
+  filter: var(--drop-shadow);
   border-radius: 24px;
   z-index: 1;
   position: relative;

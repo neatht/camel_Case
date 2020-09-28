@@ -1,7 +1,7 @@
 .container-primary {
-  background-color: #fafafa;
-  border-radius: 10px;
-  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+  background-color: var(--background-color-primary);
+  border-radius: var(--border-radius-primary);
+  filter: var(--drop-shadow);
   padding: 30px;
   margin: 15px;
   overflow: hidden;
@@ -9,9 +9,9 @@
 
 .container-secondary {
   padding: 15px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+  background-color: var(--background-color-secondary);
+  border-radius: var(--border-radius-secondary);
+  filter: var(--drop-shadow);
   
 }
 
