@@ -11,15 +11,15 @@ type PortfolioGridProps = {
 }
 
 type PortfolioObjectMetaType = {
-    "key": string, 
-    "title": string, 
-    "type": string, 
-    "media": string,
-    "date": string, 
-    "author": string, 
-    "shortDescription": string, 
-    "views": string, 
-    "location": string,
+    key: string, 
+    title: string, 
+    type: string, 
+    media: string,
+    date: string, 
+    author: string, 
+    shortDescription: string, 
+    views: string, 
+    location: string
 }
 
 function PortfolioGrid(props: PortfolioGridProps) {
@@ -143,24 +143,40 @@ function PortfolioGrid(props: PortfolioGridProps) {
         fetchPortfolioObjects();
     }, []);
 
+    const [portfolioObjectOpen, setPortfolioObjectOpen] = useState(false);
+
+    const openPortfolioObject = (open: boolean) => {
+        setPortfolioObjectOpen(open);
+    }
+    
     return(
-        <div className="portfolioGrid">
-            <PortfolioGridHeader
+        <div className={`portfolioGrid ${portfolioObjectOpen ? "portfolioObjectOpen" : ""}`}>
+            {/* <PortfolioGridHeader
               title={<><Emoji symbol="👀" /> Browse</>}
-            />
+            /> */}
             
-            <Row gutter={[30, 30]}> {/* 180px (portfolio object height) + 30px padding*/}
+            <div className="grid"> {/* 180px (portfolio object height) + 30px padding*/}
                 {portfolioObjects.map( (value, index, array) => {
-                    return  <Col flex="270px"> {/* 240px (portfolio object) + 30px (padding) */} 
+                    return (
+                    // return  <Col flex="0px"> {/* 240px (portfolio object) + 30px (padding) */} 
                                 <PortfolioObject
-                                    id={value.key}
-                                    title={value.title}
-                                    author={value.author}
+                                    id = {value.key} 
+                                    title = {value.title}  
+                                    type = {value.type}  
+                                    media = {value.media} 
+                                    date = {value.date}  
+                                    author = {value.author} 
+                                    shortDescription = {value.shortDescription}  
+                                    views = {value.views}  
+                                    location = {value.location}
+                                    portfolioObjectOpen = {openPortfolioObject} 
                                     picture={value.media}
+                   
                                 />
-                            </Col>
+                    )
+                            // </Col>
                 })}
-            </Row>
+            </div>
         </div>
     );
 }

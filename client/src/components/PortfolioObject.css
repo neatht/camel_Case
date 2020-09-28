@@ -1,18 +1,112 @@
 .portfolioObject {
-    border-radius: 10px;
-    background-color: #f0f0f0;
+  display: inline-block;
+  /* position: relative; */
+  background-color: #FAFAFA;
 
-    height: 180px;
-    width: 240px;
+  
+  border-radius: 10px;
+  background-color: #f0f0f0;
 
-    /* drop-shadow/0.15 */
-    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
-    border-radius: 10px;
+  /* drop-shadow/0.15 */
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+  border-radius: 10px;
+
+  padding: 30px;
+  margin: 15px;
+
+  width: 768px;
+  height: 100vh;
+  overflow: hidden;
+  transition: filter 0.3s, border-color 0.5s, width 1s, height 1s 0s, padding 0.3s, margin 0.3s, opacity 0.2s;
+}
+
+.thumbnail {
+  padding: 0;
+  height: 180px;
+  width: 240px;
+}
+
+.portfolioExit{
+  width: 24px;
+  height: 24px;
+  background-color:rgba(168, 168, 168,0.5);
+
+  
+  /* border: 1px solid rgba(168, 168, 168,0.5); */
+  border-radius: 24px;
+  /* background-color: aqua; */
+  /* float: right; */
+  z-index: 1;
+  position: relative;
+  float: left;
+  /* top: -24px; */
+  /* right: -24px; */
+  /* transition: width 1s, height 1s; */
+  /* display: inline-flex; */
+  
+}
+.portfolioExit::before{
+  content: "✕";
+  font-size: 1.15em;
+  /* margin-top: 100px; */
+}
+
+.thumbnail .portfolioExit::before{
+  content: "";
+}
+.thumbnail .portfolioExit{
+  top: 0;
+  right: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+.portfolioHero {
+  background-image: url(../placeholder-folio-image.png);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 330px;
+
+  border-radius: 8px;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+
+  transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s, margin 0.5s, opacity 0.2s;
+}
+.thumbnail .portfolioHero  {
+
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  margin: 0;
 }
 
 .portfolioObjectOverlay {
+  /* display: none; */
+  opacity: 0;
+  height: 0;
+  font-size: 1.3em;
+  position: relative;
+  top: 0%;
+  /* padding-left: -10px; */
+  padding-top: 20px;
+  
+  /* height: auto; */
+  
+
+  transition: opacity 0.3s ease, top 0.3s ease, background 0.3s ease;
+
+  background: linear-gradient(180deg, rgba(240, 240, 240, 0) 0%, rgba(240, 240, 240, 0) 100%);
+
+}
+
+.thumbnail .portfolioObjectOverlay {
     opacity: 0;
-    transition: opacity 0.3s ease;
+    font-size: 1em;
+    position: relative;
+    top: -80%;
 
     background: linear-gradient(180deg, rgba(240, 240, 240, 0) 0%, #FFFFFF 100%);
 
@@ -23,9 +117,15 @@
     display: flex; 
 }
 
-.portfolioObjectOverlay:hover {
-    opacity: 1;
-    border-radius: 10px;
+
+
+.thumbnail:hover{
+  filter: drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.2));
+}
+
+.thumbnail:hover > .portfolioObjectOverlay {
+  opacity: 1;
+  top: -100%;
 }
 
 .portfolioObjectOverlay .portfolioMeta {
@@ -37,3 +137,71 @@
     padding-left: 20px;
     padding-bottom: 20px;
 }
+.portfolioObjectBody{
+  opacity: 1;
+  transition: opacity 1s;
+  text-align: left;
+  /* background-color: aqua; */
+
+}
+.thumbnail .portfolioObjectBody{
+  opacity: 0;
+  /* width: 0; */
+  /* height: 0; */
+  
+}
+
+h2{
+  opacity: 1;
+  transition: opacity 1s, height 1s, margin 1s;
+  height: 1em;
+  margin-bottom: 30px;
+  /* background-color: aqua; */
+
+}
+.thumbnail h2{
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+.portfolioSideBar{
+  /* margin-top: 30px; */
+  padding: 15px;
+  float: right;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.50);
+  /* border-left: 1px solid #FFFFFF; */
+  border-radius: 8px;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
+  width: 200px;
+  height: 100%;
+  margin-left: 30px;
+}
+.portfolioSideBar ul{
+  padding: 0;
+  list-style-type: none;
+}
+.portfolioSideBar li{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+ .portfolioObjectOpen .thumbnail  {
+  /* top: -70%; */
+  opacity: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  transition: width 0.8s, height 1s 0s, padding 0.3s, margin 0.3s, opacity 0.2s;
+}
+
+.portfolioAuthor{
+  background-color: aqua;
+  float: left;
+  text-align: left;
+  display: inline-flex;
+}
+
