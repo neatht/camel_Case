@@ -33,7 +33,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
     return(
         <div className={`container-primary portfolio-object ${thumbnail ? "thumbnail" : ""}`}>
-            <div onClick={handleClick} className="portfolio-exit"></div>
+            <div onClick={handleClick} className="exit-button"></div>
             <div className="portfolio-title"><h2>{props.title}</h2></div>
             <div className="container-secondary portfolio-hero" style={{ backgroundImage: `url(${props.picture})`}}></div>
             <div className="portfolio-object-overlay">

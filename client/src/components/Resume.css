@@ -1,0 +1,63 @@
+
+.resume {
+  text-align: center;
+  /* display: flexbox; */
+  /* flex-direction: column; */
+  /* flex-wrap: nowrap; */
+  height: auto;
+  /* overflow-y: scroll; */
+}
+
+.resume-badges ul {
+  padding: 0;
+  list-style-type: none;
+}
+.resume-badges li {
+  padding: auto;
+  text-align: center;
+  margin: 5px;
+  background-color: var(--background-color-secondary);
+  filter: var(--drop-shadow);
+  border-radius: 100px;
+  /* border: 1px solid; */
+  width: 30px;
+  /* height: 30px; */
+  line-height: 30px;
+  display: inline-block;
+}
+
+.resume-hero {
+  background-image: url(../placeholder-image.png);
+  background-size: cover;
+  background-position: bottom;
+  width: 100%;
+  height: 160px;
+
+  /* transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s, */
+    /* margin 0.5s, opacity 0.2s; */
+}
+
+.resume-picture {
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: var(--color-primary);
+  width: 96px;
+  height: 96px;
+  border-radius: 96px;
+  padding: 16px;
+  /* position: relative; */
+  margin-top: -50px;
+ 
+}
+.resume-name {
+  /* padding: 16px; */
+  /* position: relative; */
+  /* top: -50px; */
+  margin: 0;
+}
+
+.resume-profile {
+  text-align: left;
+  /* padding: 16px;  */
+}

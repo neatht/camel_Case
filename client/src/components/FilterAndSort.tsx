@@ -24,15 +24,13 @@ function FilterAndSort() {
     }
 
     return (
-        <div className="container-primary floatingBox">
+        <div className="container-primary floating-box">
             <Space direction="vertical" style={{ width: 'calc(100%)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <h4><strong>Filter</strong></h4>
-                    <div className="collapseFloatingBoxIcon" onClick={() => setIsOpen(!isOpen)}>
-                        <Tooltip title="Hide" placement="bottom">
-                            <CloseOutlined />
-                        </Tooltip>
-                    </div>
+                    <Tooltip title="Hide" placement="bottom">
+                    <div className="exit-button" onClick={() => setIsOpen(!isOpen)}></div>
+                </Tooltip>
 
                 </div>
 

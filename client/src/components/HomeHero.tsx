@@ -19,11 +19,11 @@ function HomeHero() {
             { isOpen
                 ? <div className="home-hero" style={{ backgroundColor: '#fafafa' }}>
 
-                    <div className="toggle-home-hero" onClick={() => setIsOpen(!isOpen)}>
-                        <Tooltip title="Hide" placement="bottom">
-                            <CloseOutlined />
-                        </Tooltip>
-                    </div>
+                    {/* <div className="toggle-home-hero" onClick={() => setIsOpen(!isOpen)}> */}
+                    <Tooltip title="Hide" placement="bottom">
+                    <div className="toggle-home-hero exit-button" onClick={() => setIsOpen(!isOpen)}></div>
+                    </Tooltip>
+                    {/* </div> */}
 
                     <div className="home-CTA" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 250}}>
                         <h1><Emoji symbol="📝" /> <strong>ePortfolio</strong></h1> 
