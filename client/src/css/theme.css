@@ -1,6 +1,8 @@
 :root {
   --color-app: #000000;
 
+  --color-primary: #40a9ff;
+
   --background-color-app: #ffffff;
   --background-color-primary: #fafafa;
   --background-color-secondary: rgba(255, 255, 255, 0.7);

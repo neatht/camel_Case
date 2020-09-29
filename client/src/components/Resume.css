@@ -19,6 +19,7 @@
   /* flex-direction: column; */
   /* flex-wrap: nowrap; */
   height: auto;
+  /* overflow-y: scroll; */
 }
 
 .resume-hero {
@@ -26,17 +27,17 @@
   background-size: cover;
   background-position: bottom;
   width: 100%;
-  height: 200px;
+  height: 160px;
 
-  transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
-    margin 0.5s, opacity 0.2s;
+  /* transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s, */
+    /* margin 0.5s, opacity 0.2s; */
 }
 
 .resume-picture {
   margin: auto;
   margin-top: 0;
   margin-bottom: 0;
-  background-color: #40a9ff;
+  background-color: var(--color-primary);
   width: 96px;
   height: 96px;
   border-radius: 96px;
@@ -46,45 +47,13 @@
  
 }
 .resume-name {
-  padding: 16px;
-  position: relative;
+  /* padding: 16px; */
+  /* position: relative; */
   /* top: -50px; */
   margin: 0;
 }
 
 .resume-profile {
-  text-align: justify;
-}
-
-.floatingHamburger .anticon {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  padding-top: 7px;
-}
-
-.floatingHamburger:hover {
-  /* drop-shadow/0.12+0.8+0.5 */
-  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12),
-    0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
-}
-
-.anticon-menu {
-  transition: color 0.3s;
-}
-
-.anticon-menu:hover {
-  color: #bfbfbf;
-}
-
-.anticon-close {
-  transition: color 0.3s;
-}
-
-.anticon-close:hover {
-  color: #bfbfbf;
-}
-
-.ant-tooltip-inner {
-  border-radius: 10px !important;
+  text-align: left;
+  /* padding: 16px;  */
 }
