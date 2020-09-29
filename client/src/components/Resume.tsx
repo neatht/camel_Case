@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 
-import { Select, Space, Input, Tooltip } from 'antd';
-import { CloseOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 import Emoji from './Emoji';
 
 import './Resume.css';
 import ResumeEntry from './ResumeEntry';
-
-const { Option } = Select;
 
 type ResumeProps = {
     name: string,
@@ -29,8 +27,6 @@ function Resume(props: ResumeProps) {
         } else {
             return;
         }
-
-        
     }
     
     const workbadges = () => {
@@ -55,18 +51,6 @@ function Resume(props: ResumeProps) {
             return;
         }
         
-    }
-
-    const [isOpen, setIsOpen] = useState(true);
-
-    if (!isOpen) {
-        return (
-            <Tooltip title="Browse Options" placement="right" trigger={window.innerWidth <= 800 ? 'click' : 'hover'}>
-                <div className="floatingHamburger" onClick={() => setIsOpen(!isOpen)}>
-                    <MenuOutlined />
-                </div>
-            </Tooltip>
-        )
     }
 
     return (
@@ -98,30 +82,30 @@ function Resume(props: ResumeProps) {
                     </div>
                     <ResumeEntry title="Skills" display="inline" 
                         entries={[
-                            {date: "", text: "HTML", subText: ""},
-                            {date: "", text: "CSS", subText: ""},
-                            {date: "", text: "JavaScript", subText: ""},
-                            {date: "", text: "React.js", subText: ""},
-                            {date: "", text: "Python", subText: ""},
-                            {date: "", text: "C", subText: ""},
-                            {date: "", text: "Java", subText: ""},
-                            {date: "", text: "Graphic Design", subText: ""},
-                            {date: "", text: "Photoshop", subText: ""},
-                            {date: "", text: "Illustrator", subText: ""}
+                            {text: "HTML"},
+                            {text: "CSS"},
+                            {text: "JavaScript"},
+                            {text: "React.js"},
+                            {text: "Python"},
+                            {text: "C"},
+                            {text: "Java"},
+                            {text: "Graphic Design"},
+                            {text: "Photoshop"},
+                            {text: "Illustrator"}
                         ]}
                     />
                     <ResumeEntry title="Experience" display="block"
                         entries={[
                             {date: "2020", text: "Internship at a Company", subText: "as a Full Stack Developer"},
                             {date: "2019", text: "Internship at a different Company", subText: "as a Front end Developer"},
-                            {date: "2018-Current", text: "Part time job", subText: ""}
+                            {date: "2018-Current", text: "Part time job"}
                         ]}
                     />
 
                     <ResumeEntry title="Achievements" display="inline"
                         entries={[
-                            {date: "2020", text: "First Cass Honours", subText: ""},
-                            {date: "2020", text: "First in Hackathon", subText: ""}
+                            {date: "2020", text: "First Cass Honours"},
+                            {date: "2020", text: "First in Hackathon"}
                         ]}
                     />
 

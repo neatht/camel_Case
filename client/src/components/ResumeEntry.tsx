@@ -10,7 +10,7 @@ import './ResumeEntry.css';
 type  ResumeEntryProps = {
     title: string,
     display: string,
-    entries: {date: string, text: string, subText: string}[]
+    entries: {date?: string, text: string, subText?: string}[]
 }
 
 function ResumeEntry(props: ResumeEntryProps) {
