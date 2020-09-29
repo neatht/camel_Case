@@ -11,6 +11,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 
 import { jwtCheck } from './middleware/auth';
+import dbRoutes from "./routes/db-routes";
 
 dotenv.config();
 
@@ -21,6 +22,15 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.json());
+
+app.use('/db', dbRoutes);
+
+// Test
+app.get('/api/getList', (req, res) => {
+	const list = ['item1', 'item2'];
+	res.json(list);
+})
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
 });

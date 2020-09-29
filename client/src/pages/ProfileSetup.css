@@ -1,0 +1,29 @@
+.content-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.steps {
+    width: 900px;
+}
+
+.profile-form {
+    width: 500px;
+    padding: 60px;
+}
+
+.ant-form-item .ant-input {
+    border-radius: 10px !important;
+}
+
+.ant-picker {
+    border-radius: 10px !important;
+}
+
+.ant-picker-panel-container {
+    border-radius: 10px !important;
+}

@@ -1,0 +1,19 @@
+.authorBadge {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+.profilePicture {
+  background-color: #40a9ff;
+  width: 48px;
+  height: 48px;
+  border-radius: 64px;
+  padding: 8px;
+}
+
+.authorName {
+  margin-left: 16px;
+}
