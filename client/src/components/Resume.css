@@ -22,6 +22,24 @@
   /* overflow-y: scroll; */
 }
 
+.resume-badges ul {
+  padding: 0;
+  list-style-type: none;
+}
+.resume-badges li {
+  padding: auto;
+  text-align: center;
+  margin: 5px;
+  background-color: var(--background-color-secondary);
+  filter: var(--drop-shadow);
+  border-radius: 100px;
+  /* border: 1px solid; */
+  width: 30px;
+  /* height: 30px; */
+  line-height: 30px;
+  display: inline-block;
+}
+
 .resume-hero {
   background-image: url(../placeholder-image.png);
   background-size: cover;

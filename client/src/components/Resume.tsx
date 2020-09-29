@@ -10,7 +10,52 @@ import ResumeEntry from './ResumeEntry';
 
 const { Option } = Select;
 
-function Resume() {
+type ResumeProps = {
+    name: string,
+    profile: string,
+    student: string,
+    location: string,
+    work: boolean,
+}
+
+function Resume(props: ResumeProps) {
+
+    const studentbadges = () => {
+
+        if (props.student !== "") {
+            return (
+                <Tooltip title={props.student} placement="bottom"><li><Emoji symbol="🧑‍🎓" label="Student"/></li></Tooltip>
+            )
+        } else {
+            return;
+        }
+
+        
+    }
+    
+    const workbadges = () => {
+
+        if (props.work) {
+            return (
+                <Tooltip title="Open to work opportunities" placement="bottom"><li><Emoji symbol="✅" label="Open to work opportunities"/></li></Tooltip>
+            )
+        } else {
+            return;
+        }
+        
+    }
+    
+    const locationbadges = () => {
+
+        if (props.location !== "") {
+            return (
+                <Tooltip title={props.location} placement="bottom"><li><Emoji symbol="🌏" label="Location"/></li></Tooltip>
+            )
+        } else {
+            return;
+        }
+        
+    }
 
     const [isOpen, setIsOpen] = useState(true);
 
@@ -37,10 +82,19 @@ function Resume() {
                     <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
                     </div>
                     <div className="resume-name">
-                    <h1><strong>Jane Doe</strong></h1>
+                    <h1><strong>{props.name}</strong></h1>
+
+                    <div className="resume-badges">
+                        <ul>
+                            {studentbadges()}
+                            {workbadges()}
+                            {locationbadges()}
+                        </ul>
                     </div>
-                    <div className="resume-profile"> 
-                    I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design. 
+                    
+                    </div>
+                    <div className="resume-profile">
+                        {props.profile} 
                     </div>
                     <ResumeEntry title="Skills" display="inline" 
                         entries={[
