@@ -1,39 +1,202 @@
-.portfolioObject {
-    border-radius: 10px;
-    background-color: #f0f0f0;
-
-    height: 180px;
-    width: 240px;
-
-    /* drop-shadow/0.15 */
-    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.15));
-    border-radius: 10px;
+.portfolio-object {
+  display: inline-block;
+  width: 768px;
+  height: 100vh;
+  transition: filter 0.3s, border-color 0.5s, width 1s, height 1s 0s,
+    padding 0.3s, margin 0.3s, opacity 0.2s;
 }
 
-.portfolioObjectOverlay {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-
-    background: linear-gradient(180deg, rgba(240, 240, 240, 0) 0%, #FFFFFF 100%);
-
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-
-    display: flex; 
+.thumbnail {
+  padding: 0;
+  height: 180px;
+  width: 240px;
 }
 
-.portfolioObjectOverlay:hover {
-    opacity: 1;
-    border-radius: 10px;
+
+
+/*===========================
+  portfolio exit button
+  ===========================*/
+
+.portfolio-exit {
+  width: 24px;
+  height: 24px;
+  background-color: var(--background-color-secondary);
+  filter: var(--drop-shadow);
+  border-radius: 24px;
+  z-index: 1;
+  position: relative;
+  float: right;
+}
+.portfolio-exit::before {
+  content: "✕";
+  font-size: 1.15em;
+  /* margin-top: 100px; */
 }
 
-.portfolioObjectOverlay .portfolioMeta {
-    margin-top: auto;
-    text-align: left;
-
-    border-radius: 10px;
-
-    padding-left: 20px;
-    padding-bottom: 20px;
+.thumbnail .portfolio-exit::before {
+  content: "";
 }
+
+.thumbnail .portfolio-exit {
+  top: 0;
+  right: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+
+
+/*===========================
+  portfolio hero image
+  ===========================*/
+
+.portfolio-hero {
+  background-image: url(../placeholder-folio-image.png);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 330px;
+
+  transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
+    margin 0.5s, opacity 0.2s;
+}
+.thumbnail .portfolio-hero {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/*===========================
+  portfolio overlay on hover
+  ===========================*/
+
+.portfolio-object-overlay {
+  opacity: 0;
+  height: 0;
+  font-size: 1em;
+  display: flex;
+  position: relative;
+  top: 0%;
+  padding-top: 20px;
+
+  transition: opacity 0.3s ease, top 0.3s ease, background 0.3s ease;
+  background: linear-gradient(
+    180deg,
+    rgba(240, 240, 240, 0) 0%,
+    rgba(240, 240, 240, 0) 100%
+  );
+}
+
+.thumbnail .portfolio-object-overlay {
+  opacity: 0;
+  top: -80%;
+  background: linear-gradient(180deg, rgba(240, 240, 240, 0) 0%, #ffffff 100%);
+  height: 100%;
+  width: 100%;
+}
+
+.thumbnail:hover > .portfolio-object-overlay {
+  opacity: 1;
+  top: -100%;
+}
+
+.thumbnail:hover {
+  filter: drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.2));
+}
+
+.portfolio-object-overlay .portfolio-meta {
+  margin-top: auto;
+  text-align: left;
+
+  border-radius: 10px;
+
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+
+
+/*===========================
+  portfolio body and info
+  ===========================*/
+
+.portfolio-object-body {
+  opacity: 1;
+  transition: opacity 1s;
+  text-align: left;
+}
+.thumbnail .portfolio-object-body {
+  opacity: 0;
+}
+
+
+
+/*===========================
+  portfolio title and
+  author info
+  ===========================*/
+
+.portfolio-title {
+  opacity: 1;
+  transition: opacity 1s, height 1s, margin 1s;
+  height: 1em;
+  margin-bottom: 30px;
+  /* background-color: aqua; */
+}
+.thumbnail .portfolio-title {
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
+
+.portfolio-author {
+  background-color: aqua;
+  float: left;
+  text-align: left;
+  display: inline-flex;
+}
+
+
+
+/*===========================
+  portfolio side bar
+  ===========================*/
+
+.portfolio-side-bar {
+  float: right;
+  text-align: left;
+  width: 200px;
+  height: 100%;
+  margin-left: 30px;
+}
+.portfolio-side-bar ul {
+  padding: 0;
+  list-style-type: none;
+}
+.portfolio-side-bar li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+
+/*===========================
+  hide portfolio entry when
+  other entry is open
+  ===========================*/
+
+.portfolio-object-open .thumbnail {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  transition: width 0.8s, height 1s 0s, padding 0.3s, margin 0.3s, opacity 0.2s;
+}
+
+

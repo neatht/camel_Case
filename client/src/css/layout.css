@@ -1,0 +1,40 @@
+.container-primary {
+  background-color: var(--background-color-primary);
+  border-radius: var(--border-radius-primary);
+  filter: var(--drop-shadow);
+  padding: 30px;
+  margin: 15px;
+  overflow: hidden;
+}
+
+.container-secondary {
+  padding: 15px;
+  background-color: var(--background-color-secondary);
+  border-radius: var(--border-radius-secondary);
+  filter: var(--drop-shadow);
+  
+}
+
+.floatingBox {
+  text-align: left;
+  position: relative;
+  width: 40vw;
+  height: 60vh;
+  left: 30px;
+  top: 30px;
+
+  min-width: 350px;
+  max-width: 450px;
+}
+
+.browse {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mainContent {
+  padding: 30px;
+  position: relative;
+  flex: 1;
+  left: 30px;
+}

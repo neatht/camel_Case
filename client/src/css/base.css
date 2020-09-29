@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Livvic:regular,bold,italic&subset=latin,latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Rubik:regular,bold,italic&subset=latin,latin-ext');
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Livvic";
+}
+
+.navTitle {
+  font-family: "Livvic";
+}
+
+.ant-page-header-heading-title {
+  font-family: "Livvic";
+}
+
+html, body {
+  font-family: "Rubik";
+}
+
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  color: var(--color-app);
+  background-color: var(--background-color-app);
+  
+}
+
+.ant-select-selector {
+  border-radius: var(--border-radius-primary) !important;
+}
+
+.ant-select-dropdown {
+  border-radius: var(--border-radius-primary);
+}
+
+.ant-select-selection-item {
+  border-radius: var(--border-radius-primary) !important;
+}
+
+.floatingBox .ant-input {
+  border-radius: var(--border-radius-primary) !important;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
