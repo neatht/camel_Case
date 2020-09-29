@@ -26,6 +26,23 @@ body {
   
 }
 
+.exit-button {
+  text-align: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--background-color-secondary);
+  filter: var(--drop-shadow);
+  border-radius: 24px;
+  position: relative;
+  z-index: 1;
+  float: right;
+}
+.exit-button::before {
+  content: "✕";
+  font-size: 1.15em;
+  /* margin-top: 100px; */
+}
+
 .ant-select-selector {
   border-radius: var(--border-radius-primary) !important;
 }
@@ -38,7 +55,7 @@ body {
   border-radius: var(--border-radius-primary) !important;
 }
 
-.floatingBox .ant-input {
+.floating-box .ant-input {
   border-radius: var(--border-radius-primary) !important;
 }
 

@@ -18,27 +18,26 @@
   portfolio exit button
   ===========================*/
 
-.portfolio-exit {
+/* .portfolio-exit {
   width: 24px;
   height: 24px;
   background-color: var(--background-color-secondary);
   filter: var(--drop-shadow);
   border-radius: 24px;
   z-index: 1;
-  position: relative;
   float: right;
 }
 .portfolio-exit::before {
   content: "✕";
   font-size: 1.15em;
-  /* margin-top: 100px; */
-}
+ 
+} */
 
-.thumbnail .portfolio-exit::before {
+.thumbnail .exit-button::before {
   content: "";
 }
 
-.thumbnail .portfolio-exit {
+.thumbnail .exit-button {
   top: 0;
   right: 0;
   border: 0;

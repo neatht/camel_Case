@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Header from '../components/Header';
 import SocialLinks from '../components/SocialLinks';
 import PortfolioGrid from '../components/PortfolioGrid';
-import FilterAndSort from '../components/FilterAndSort';
+import Resume from '../components/Resume';
 
 
 
@@ -14,14 +14,10 @@ function Profile() {
     return(
         <div className="App">
             <Header pageKey="profile" />
-            <h1><span role="img" aria-hidden="true">👨</span> Profile</h1>
-        
-
+            
         <div className="browse">
 
-              <div className="floatingBox">
-                <FilterAndSort />
-              </div>
+        <Resume />
 
               <div className="mainContent">
                 <PortfolioGrid />

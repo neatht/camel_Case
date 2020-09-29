@@ -1,0 +1,90 @@
+.floatingHamburger {
+  position: absolute;
+  margin: 30px;
+  margin-top: 50px;
+  border-radius: 50%;
+  background-color: #fafafa;
+  height: 30px;
+  width: 30px;
+  z-index: 10; /* Bring to front so onClick works */
+
+  /* drop-shadow/0.15 */
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.resume {
+  text-align: center;
+  /* display: flexbox; */
+  /* flex-direction: column; */
+  /* flex-wrap: nowrap; */
+  height: auto;
+}
+
+.resume-hero {
+  background-image: url(../placeholder-image.png);
+  background-size: cover;
+  background-position: bottom;
+  width: 100%;
+  height: 200px;
+
+  transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
+    margin 0.5s, opacity 0.2s;
+}
+
+.resume-picture {
+  margin: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: #40a9ff;
+  width: 96px;
+  height: 96px;
+  border-radius: 96px;
+  padding: 16px;
+  /* position: relative; */
+  margin-top: -50px;
+ 
+}
+.resume-name {
+  padding: 16px;
+  position: relative;
+  /* top: -50px; */
+  margin: 0;
+}
+
+.resume-profile {
+  text-align: justify;
+}
+
+.floatingHamburger .anticon {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding-top: 7px;
+}
+
+.floatingHamburger:hover {
+  /* drop-shadow/0.12+0.8+0.5 */
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+
+.anticon-menu {
+  transition: color 0.3s;
+}
+
+.anticon-menu:hover {
+  color: #bfbfbf;
+}
+
+.anticon-close {
+  transition: color 0.3s;
+}
+
+.anticon-close:hover {
+  color: #bfbfbf;
+}
+
+.ant-tooltip-inner {
+  border-radius: 10px !important;
+}
