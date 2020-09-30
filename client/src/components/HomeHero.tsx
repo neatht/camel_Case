@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Button, Tooltip } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
 
 import Emoji from './Emoji';
 

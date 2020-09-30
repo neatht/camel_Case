@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Select, Space, Input, Tooltip } from 'antd';
-import { CloseOutlined, MenuOutlined } from '@ant-design/icons';
+import { MenuOutlined } from '@ant-design/icons';
 
 import Emoji from './Emoji';
 
