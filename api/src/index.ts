@@ -17,18 +17,22 @@ dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;
- 
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.json());
 
+// all routes that begin with '/db' will use routes defined in dbRoutes
 app.use('/db', dbRoutes);
 
-// Test
-app.get('/api/getList', (req, res) => {
-	const list = ['item1', 'item2'];
-	res.json(list);
+// middleware that requires auth for all routes
+// can exclude some routes to make them public i.e. getting profiles
+app.use(jwtCheck);
+
+// api to check if routes that require route is working
+app.get('/checkAuth', (req, res) => {
+	res.sendStatus(400);
 })
 
 app.get("*", (req, res) => {

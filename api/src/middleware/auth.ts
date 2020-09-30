@@ -11,7 +11,7 @@ dotenv.config();
 
 /**
  * jwtCheck() checks for a token in the Authorization header.
- * 
+ *
  * Token must be in the form of:    Bearer <TOKEN>
  * An error is returned if the token is invalid or not present.
  * jwt() call from express-jwt library specifies 4 parameters:
