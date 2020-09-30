@@ -148,7 +148,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
     }
     
     return(
-        <div className={`portfolioGrid ${portfolioObjectOpen ? "portfolio-object-open" : ""}`}>
+        <div className={`${portfolioObjectOpen ? "portfolio-object-open" : ""}`}>
             {/* <PortfolioGridHeader
               title={<><Emoji symbol="👀" /> Browse</>}
             /> */}
