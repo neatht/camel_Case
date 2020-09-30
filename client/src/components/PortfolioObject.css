@@ -1,6 +1,6 @@
 .portfolio-object {
   display: inline-block;
-  width:  800px;
+  width:  var(--unit-width);
   height: 80vh;
   /* overflow-y: scroll; */
   transition: filter 0.3s, border-color 0.5s, width 1s, height 1s 0s,
@@ -60,7 +60,7 @@
   background-size: cover;
   background-position: center;
   width: 100%;
-  height:  calc( (3*var(--unit) * var(--unit-ratio)) - 60px);
+  height:  calc( (0.75 * var(--unit-width) * var(--unit-ratio)));
 
   transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
     margin 0.5s, opacity 0.2s;

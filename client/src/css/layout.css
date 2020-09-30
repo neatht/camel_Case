@@ -43,8 +43,9 @@
 
 .browse {
   display: inline-grid;
-  grid-template-columns: auto auto;
-  grid-gap: 30px;
+  grid-template-columns: auto var(--unit-width);
+  grid-gap: calc(2* var(--unit-margin));
+  margin: var(--unit-margin) calc(4*var(--unit-margin));
   /* background-color: rosybrown; */
 }
 
