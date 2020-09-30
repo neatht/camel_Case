@@ -23,7 +23,7 @@ function Home() {
 
             <HomeHero />
 
-            <div className="browse">
+            <div className="grid-main-layout-primary">
 
               <FilterAndSort />
 

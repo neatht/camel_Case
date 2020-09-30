@@ -54,7 +54,7 @@ function Resume(props: ResumeProps) {
     }
 
     return (
-        <div className="container-primary floating-box resume">
+        <div className="container-primary floating-box resume container-scroll-auto-hide">
             
                 {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
                 {/* <Tooltip title="Hide" placement="bottom">

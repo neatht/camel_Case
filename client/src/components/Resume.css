@@ -1,13 +1,9 @@
 
 .resume {
   text-align: center;
-  /* display: flexbox; */
-  /* flex-direction: column; */
-  /* flex-wrap: nowrap; */
   height: 80vh;
   width: 100%;
   max-width: 600px;
-  /* overflow-y: scroll; */
 }
 
 .resume-badges ul {

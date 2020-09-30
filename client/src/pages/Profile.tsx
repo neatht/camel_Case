@@ -15,7 +15,7 @@ function Profile() {
         <div className="App">
             <Header pageKey="profile" />
             
-        <div className="browse">
+        <div className="grid-main-layout-primary">
 
         <Resume
           name="Jane Doe"

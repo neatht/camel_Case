@@ -2,56 +2,52 @@
   background-color: var(--background-color-primary);
   border-radius: var(--border-radius-primary);
   filter: var(--drop-shadow);
-  padding: 30px;
-  /* margin: var(--unit-margin); */
-  overflow: hidden;
-}
-
-.container-primary::-webkit-scrollbar {
-  /* width: 1em; */
-  width: 5px;
-  overflow: visible;
-}
-
-.container-primary::-webkit-scrollbar-track {
-  /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-  /* width: 0; */
-}
-
-.container-primary::-webkit-scrollbar-thumb {
-  background-color: none;
-  outline: slategrey solid 10px;
-  transition: background-color 0.5s;
-
-}
-.container-primary:hover::-webkit-scrollbar-thumb {
-  background-color:  rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  filter: var(--drop-shadow);
-  outline: slategrey solid 10px;
-  
-
+  padding: calc(2*var(--unit-margin));
 }
 
 .container-secondary {
-  padding: 15px;
+  padding: var(--unit-margin);
   background-color: var(--background-color-secondary);
   border-radius: var(--border-radius-secondary);
   filter: var(--drop-shadow);
-  
 }
 
-.browse {
+.grid-main-layout-primary {
   display: inline-grid;
   grid-template-columns: auto var(--unit-width);
   grid-gap: calc(2* var(--unit-margin));
   margin: var(--unit-margin) calc(4*var(--unit-margin));
-  /* background-color: rosybrown; */
 }
 
-.mainContent {
-  /* padding: 30px;
-  position: relative;
-  flex: 1;
-  left: 30px; */
+
+.container-scroll {
+  scrollbar-width: thin;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: var(--background-color-tertiary) #ffffff00;
 }
+
+.container-scroll-auto-hide {
+  scrollbar-width: thin;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  scrollbar-color: var(--background-color-tertiary) #ffffff00;
+}
+.container-scroll-auto-hide:hover {
+  overflow-y: scroll;
+  padding-right: calc(2*var(--unit-margin) - 6px);
+}
+
+.container-scroll-auto-hide::-webkit-scrollbar, .container-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.container-scroll-auto-hide::-webkit-scrollbar-track, .container-scroll::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0);
+}
+
+.container-scroll-auto-hide::-webkit-scrollbar-thumb, .container-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--background-color-tertiary) ;
+  border-radius: 6px;
+}
+
