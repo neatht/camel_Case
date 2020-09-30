@@ -9,6 +9,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
+import https from 'https';
+import http from 'http';
+import fs from 'fs';
 
 import { jwtCheck } from './middleware/auth';
 import dbRoutes from "./routes/db-routes";
@@ -35,7 +38,20 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
 });
 
-app.listen(port, () => {
+https.createServer({
+	key: fs.readFileSync(process.env.SSL_KEY_FILE),
+	cert: fs.readFileSync(process.env.SSL_CRT_FILE)
+}, app).listen(port, () => {
 	// tslint:disable-next-line:no-console
 	console.log(`Server started at localhost:${port}`);
 });
+
+const httpApp = express();
+
+httpApp.get("*", (req, res) => {
+	res.redirect('https://' + req.hostname + req.url);
+});
+
+http.createServer(httpApp).listen(80, () => {
+	console.log(`redirect Server started at localhost:80`)
+})

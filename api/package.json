@@ -41,7 +41,9 @@
     "typescript": "^4.0.2"
   },
   "nodemonConfig": {
-	  "watch": ["src"],
-	  "ext": "js, json, ts, proto"
+    "watch": [
+      "src"
+    ],
+    "ext": "js, json, ts, proto"
   }
 }
