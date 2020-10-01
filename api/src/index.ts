@@ -53,5 +53,5 @@ httpApp.get("*", (req, res) => {
 });
 
 http.createServer(httpApp).listen(80, () => {
-	console.log(`redirect Server started at localhost:80`)
+	console.log(`redirect Server started at localhost:80`);
 })
