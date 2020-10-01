@@ -49,7 +49,6 @@ https.createServer({
 const httpApp = express();
 
 httpApp.get("*", (req, res) => {
-	console.log('https://' + req.hostname + req.originalUrl);
 	res.redirect('https://' + req.hostname + req.originalUrl);
 });
 
