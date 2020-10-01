@@ -20,8 +20,8 @@ dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;
- 
-app.use(express.static(path.join(__dirname, 'client/build')));
+
+app.use(express.static(path.join(__dirname, '../../../client/build')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.json());
