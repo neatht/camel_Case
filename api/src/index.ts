@@ -49,9 +49,10 @@ https.createServer({
 const httpApp = express();
 
 httpApp.get("*", (req, res) => {
-	res.redirect('https://' + req.hostname + req.url);
+	console.log('https://' + req.hostname + req.originalUrl);
+	res.redirect('https://' + req.hostname + req.originalUrl);
 });
 
-http.createServer(httpApp).listen(80, () => {
+http.createServer(httpApp).listen(80, '0.0.0.0', () => {
 	console.log(`redirect Server started at localhost:80`);
 })
