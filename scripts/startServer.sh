@@ -5,4 +5,4 @@ popd
 pushd /home/ec2-user/application/scripts
 pm2 start ./serveReact.sh --name "ReactFrontend" --log "/home/ec2-user/application/reactlog.txt" --time
 popd
-cho done
+echo done
