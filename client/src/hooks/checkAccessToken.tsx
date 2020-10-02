@@ -13,7 +13,7 @@ export default function useCheckAccessToken() {
         try {
           const accessToken = await getAccessTokenSilently();
 
-          const response = await fetch('/checkAuth', {
+          const response = await fetch('/auth/check', {
             headers: {
               'Authorization': `Bearer ${accessToken}`,
             }

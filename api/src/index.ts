@@ -10,8 +10,9 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 
-import { jwtCheck } from './middleware/auth';
+import { jwtCheck } from './middleware/jwt';
 import dbRoutes from "./routes/db-routes";
+import authRoutes from './routes/auth-routes';
 
 dotenv.config();
 
@@ -23,17 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.json());
 
-// all routes that begin with '/db' will use routes defined in dbRoutes
 app.use('/db', dbRoutes);
-
-// middleware that requires auth for all routes
-// can exclude some routes to make them public i.e. getting profiles
-app.use(jwtCheck);
-
-// api to check if routes that require route is working
-app.get('/checkAuth', (req, res) => {
-	res.sendStatus(400);
-})
+app.use ('/auth', authRoutes);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
