@@ -4,7 +4,6 @@
  */
 
 import express from 'express';
-import { query } from '../../db';
 import { pool } from '../../config/postgres';
 
 /**

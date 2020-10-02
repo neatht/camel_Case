@@ -24,7 +24,6 @@ export const register = (app: express.Application) => {
   app.use(express.json());
 
   // Register routes
-  // app.use('/db', dbRoutes);
   app.use('/api/profile', profileRouter);
   app.get('/api/getList', jwtCheck, (req, res) => {
     const list = ['item1', 'item2'];
