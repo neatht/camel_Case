@@ -15,8 +15,8 @@ function FilterAndSort() {
 
     if (!isOpen) {
         return (
-            <Tooltip title="Browse Options" placement="right" trigger={window.innerWidth <= 800 ? 'click' : 'hover'}>
-                <div className="floatingHamburger" onClick={() => setIsOpen(!isOpen)}>
+            <Tooltip title="Browse Options" placement="left" trigger={window.innerWidth <= 800 ? 'click' : 'hover'}>
+                <div className="floating-hamburger" onClick={() => setIsOpen(!isOpen)}>
                     <MenuOutlined />
                 </div>
             </Tooltip>
@@ -24,7 +24,7 @@ function FilterAndSort() {
     }
 
     return (
-        <div className="container-primary floating-box">
+        <div className="container-primary filter-and-sort">
             <Space direction="vertical" style={{ width: 'calc(100%)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <h4><strong>Filter</strong></h4>

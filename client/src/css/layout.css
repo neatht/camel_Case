@@ -20,34 +20,31 @@
 }
 
 
+
 .container-scroll {
   scrollbar-width: thin;
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-color: var(--background-color-tertiary) #ffffff00;
-}
-
-.container-scroll-auto-hide {
-  scrollbar-width: thin;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  scrollbar-color: var(--background-color-tertiary) #ffffff00;
-}
-.container-scroll-auto-hide:hover {
-  overflow-y: scroll;
   padding-right: calc(2*var(--unit-margin) - 6px);
 }
 
-.container-scroll-auto-hide::-webkit-scrollbar, .container-scroll::-webkit-scrollbar {
+.container-scroll::-webkit-scrollbar {
   width: 6px;
 }
 
-.container-scroll-auto-hide::-webkit-scrollbar-track, .container-scroll::-webkit-scrollbar-track {
+.container-scroll::-webkit-scrollbar-track {
   background: rgba(0,0,0,0);
 }
 
-.container-scroll-auto-hide::-webkit-scrollbar-thumb, .container-scroll::-webkit-scrollbar-thumb {
+.container-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0);
+  
+}
+
+.container-scroll:hover::-webkit-scrollbar-thumb {
   background-color: var(--background-color-tertiary) ;
+  border-right: 3px solid var(--background-color-primary);
   border-radius: 6px;
 }
 

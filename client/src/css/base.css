@@ -44,22 +44,20 @@ body {
   /* margin-top: 100px; */
 }
 
-
-
 .ant-select-selector {
-  border-radius: var(--border-radius-primary) !important;
+  border-radius: var(--border-radius-secondary) !important;
 }
 
 .ant-select-dropdown {
-  border-radius: var(--border-radius-primary);
+  border-radius: var(--border-radius-secondary);
 }
 
 .ant-select-selection-item {
-  border-radius: var(--border-radius-primary) !important;
+  border-radius: var(--border-radius-secondary) !important;
 }
 
-.floating-box .ant-input {
-  border-radius: var(--border-radius-primary) !important;
+.container-primary .ant-input {
+  border-radius: var(--border-radius-secondary) !important;
 }
 
 .App {

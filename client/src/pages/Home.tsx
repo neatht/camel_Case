@@ -26,10 +26,8 @@ function Home() {
             <div className="grid-main-layout-primary">
 
               <FilterAndSort />
-
-              <div className="mainContent">
-                <PortfolioGrid />
-              </div>
+              <PortfolioGrid />
+              
 
             </div>
           
