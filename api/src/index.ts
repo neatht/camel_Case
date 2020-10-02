@@ -10,26 +10,22 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 
-import { jwtCheck } from './middleware/auth';
+import { jwtCheck } from './middleware/jwt';
 import dbRoutes from "./routes/db-routes";
+import authRoutes from './routes/auth-routes';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;
- 
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.json());
 
 app.use('/db', dbRoutes);
-
-// Test
-app.get('/api/getList', (req, res) => {
-	const list = ['item1', 'item2'];
-	res.json(list);
-})
+app.use ('/auth', authRoutes);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
