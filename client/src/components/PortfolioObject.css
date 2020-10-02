@@ -1,7 +1,7 @@
 .portfolio-object {
   display: inline-block;
   width:  var(--unit-width);
-  height: 80vh;
+  height: calc(100vh - 116px);
   
   transition: filter 0.3s, border-color 0.5s, width 1s, height 1s 0s,
     padding 0.3s, margin 0.3s, opacity 0.2s;
