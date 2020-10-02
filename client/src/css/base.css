@@ -31,6 +31,12 @@ body {
   text-align: center;
   width: 24px;
   height: 24px;
+  
+  /* make button take up 0 width */
+  position: relative;
+  right: 24px;
+  margin-right: -24px;
+
   background-color: var(--background-color-secondary);
   filter: var(--drop-shadow);
   border-radius: 24px;
@@ -45,19 +51,19 @@ body {
 }
 
 .ant-select-selector {
-  border-radius: var(--border-radius-primary) !important;
+  border-radius: var(--border-radius-secondary) !important;
 }
 
 .ant-select-dropdown {
-  border-radius: var(--border-radius-primary);
+  border-radius: var(--border-radius-secondary);
 }
 
 .ant-select-selection-item {
-  border-radius: var(--border-radius-primary) !important;
+  border-radius: var(--border-radius-secondary) !important;
 }
 
-.floating-box .ant-input {
-  border-radius: var(--border-radius-primary) !important;
+.container-primary .ant-input {
+  border-radius: var(--border-radius-secondary) !important;
 }
 
 .App {

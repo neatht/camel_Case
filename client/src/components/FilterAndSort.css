@@ -1,26 +1,32 @@
-.floatingHamburger {
-  position: absolute;
-  margin: 30px;
-  margin-top: 50px;
+.filter-and-sort {
+  text-align: left;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: var(--unit-margin);
+  padding-bottom: calc(3*var(--unit-margin));
+  height: fit-content;
+}
+.floating-hamburger {
   border-radius: 50%;
-  background-color: #fafafa;
+  background-color: var(--background-color-secondary);
   height: 30px;
   width: 30px;
+  margin-left: -30px; /* Center folio grid */
   z-index: 10; /* Bring to front so onClick works */
-
-  /* drop-shadow/0.15 */
+  position: sticky;
+  top: var(--unit-margin);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease;
 }
 
-.floatingHamburger .anticon {
+.floating-hamburger .anticon {
   display: flex;
   align-content: center;
   justify-content: center;
   padding-top: 7px;
 }
 
-.floatingHamburger:hover {
+.floating-hamburger:hover {
   /* drop-shadow/0.12+0.8+0.5 */
   box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12),
     0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);

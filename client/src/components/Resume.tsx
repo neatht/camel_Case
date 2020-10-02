@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Tooltip } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -54,7 +54,7 @@ function Resume(props: ResumeProps) {
     }
 
     return (
-        <div className="container-primary floating-box resume">
+        <div className="container-primary resume container-scroll">
             
                 {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
                 {/* <Tooltip title="Hide" placement="bottom">
