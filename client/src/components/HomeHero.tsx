@@ -31,7 +31,7 @@ function HomeHero() {
                         
                         { 
                             !isAuthenticated
-                            ? <Button type="primary" onClick={() => loginWithRedirect()}> <span style={{paddingRight: 5}}><Emoji symbol="🚀" /></span> <strong>Get Discoverd</strong></Button>
+                            ? <Button type="primary" onClick={() => loginWithRedirect()}> <span style={{paddingRight: 5}}><Emoji symbol="🚀" /></span> <strong>Get Discovered</strong></Button>
                             : null
                         }
                         </div>
