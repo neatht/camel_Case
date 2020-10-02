@@ -1,17 +1,17 @@
 /**
  * This file contains controller functions for the /api/profile endpoint. If it
- * makes sense to validate data, a controller function will first validate the
- * received data. Then the controller function will perform the database query
- * according to its corresponding function in the service file for this
- * component.
+ * makes sense to validate data, a controller function will first check the
+ * validation result. If there were no validation errors, the controller will
+ * then call the corresponding service function to execute the database query.
  */
 
 import express from 'express';
-import expressValidator from 'express-validator';
+import { validationResult } from 'express-validator';
 import { addUserService } from './service';
 
 /**
- * addUser() vaidates profile data and then adds the user to the database.
+ * addUser() checks the validation result for profile data and then adds
+ * the user to the database by calling addUserService().
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -19,6 +19,12 @@ import { addUserService } from './service';
  */
 export const addUser = (req: express.Request, res: express.Response,
   next: express.NextFunction) => {
-
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.json({
+        status: 'fail',
+        data: errors.array()
+      })
+    }
     addUserService(req, res, next);
 }
