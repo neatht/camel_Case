@@ -13,8 +13,9 @@ import https from 'https';
 import http from 'http';
 import fs from 'fs';
 
-import { jwtCheck } from './middleware/auth';
+import { jwtCheck } from './middleware/jwt';
 import dbRoutes from "./routes/db-routes";
+import authRoutes from './routes/auth-routes';
 
 dotenv.config();
 
@@ -27,12 +28,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use('/db', dbRoutes);
-
-// Test
-app.get('/api/getList', (req, res) => {
-	const list = ['item1', 'item2'];
-	res.json(list);
-})
+app.use ('/auth', authRoutes);
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
