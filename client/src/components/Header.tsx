@@ -34,22 +34,15 @@ export function Header({ pageKey }: HeaderProps) {
             <header>
                     <PageHeader
                       className="site-page-header"
-                      title={<Link to="/" className="navTitle"> <span role="img" aria-hidden="true">📝</span> ePortfolio </Link>}
-                      extra={
-                        <div>
-                            <Space>
-                                <Search style={{ width: 300 }}enterButton />
-                                {/*<Avatar icon={<UserOutlined/>} />*/}
-                                <LoginButton />
-                            </Space>
-                        </div>
-                      } 
+                      title={<Link to="/" className="navTitle"> <span role="img" aria-hidden="true">📝</span> Glowbal </Link>}
+                    
                     />
-
+              
                 <Menu
                   onClick={() => handleMenuClick}
                   selectedKeys={[currentPageSelection]}
                   mode="horizontal"
+                  style={{textAlign: "center"}}
                 > 
 
                       <Menu.Item key="home" icon={<span role="img" aria-hidden="true">🏠 </span>}>
@@ -61,6 +54,14 @@ export function Header({ pageKey }: HeaderProps) {
                       </Menu.Item>
 
                 </Menu>
+
+                
+                            <Space style={{marginLeft: "auto", marginRight: "20px"}}>
+                                <Search style={{ width: 300 }}enterButton />
+                                {/*<Avatar icon={<UserOutlined/>} />*/}
+                                <LoginButton />
+                            </Space>
+                       
 
             </header>
         </div>
