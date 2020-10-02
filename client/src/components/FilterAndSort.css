@@ -1,5 +1,10 @@
 .filter-and-sort {
   text-align: left;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: var(--unit-margin);
+  padding-bottom: calc(3*var(--unit-margin));
+  height: fit-content;
 }
 .floating-hamburger {
   border-radius: 50%;
@@ -8,7 +13,8 @@
   width: 30px;
   margin-left: -30px; /* Center folio grid */
   z-index: 10; /* Bring to front so onClick works */
-
+  position: sticky;
+  top: var(--unit-margin);
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease;
 }

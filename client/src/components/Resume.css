@@ -4,6 +4,10 @@
   height: calc(100vh - 116px);
   width: 100%;
   max-width: 600px;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: var(--unit-margin);
+
 }
 
 .resume-badges ul {
