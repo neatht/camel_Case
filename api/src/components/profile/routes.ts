@@ -3,4 +3,6 @@ import { addUser } from './controller';
 
 const router = express.Router();
 
-router.post('/add', addUser);
+router.post('/', addUser);
+
+export default router;

@@ -1,6 +1,6 @@
-import express from "express";
-import client from "../config/postgres";
+// import express from "express";
+// import client from "../config/postgres";
 
-const router = express.Router();
+// const router = express.Router();
 
-export default router;
+// export default router;

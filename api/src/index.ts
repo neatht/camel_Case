@@ -1,41 +1,19 @@
 /**
- * This file is responsible for starting the Express server and adding routes
- * and middleware to the application. Libraries, routes and middleware are
- * first imported and then the routes and middleware are added. Finally, the
- * server is started on a port specified in the .env file, or 5000 by default.
+ * This file is responsible for starting the Express server. Registering routes
+ * and middleware is delegated to a routes file.
  */
 
 import dotenv from 'dotenv';
 import express from 'express';
-import path from 'path';
-import bodyParser from 'body-parser';
-
-import { jwtCheck } from './middleware/auth';
-import dbRoutes from "./routes/db-routes";
+import { register } from './routes';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;
- 
-app.use(express.static(path.join(__dirname, 'client/build')));
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use(express.json());
 
-app.use('/db', dbRoutes);
-
-// Test
-app.get('/api/getList', (req, res) => {
-	const list = ['item1', 'item2'];
-	res.json(list);
-})
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
-});
+register(app);
 
 app.listen(port, () => {
-	// tslint:disable-next-line:no-console
 	console.log(`Server started at localhost:${port}`);
 });

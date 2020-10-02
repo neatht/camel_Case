@@ -11,7 +11,7 @@ dotenv.config();
 
 /**
  * jwtCheck() checks for a token in the Authorization header.
- * 
+ *
  * Token must be in the form of:    Bearer <TOKEN>
  * An error is returned if the token is invalid or not present.
  * jwt() call from express-jwt library specifies 4 parameters:
@@ -21,11 +21,11 @@ dotenv.config();
  *    4) algorithms: RSA-256
  */
 export const jwtCheck = jwt({
-    secret: jwks.expressJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: process.env.JWKS_URI
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: process.env.JWKS_URI
 }),
 audience: process.env.AUTH0_AUDIENCE,
 issuer: process.env.AUTH0_ISSUER,
