@@ -36,10 +36,11 @@ app.get("*", (req, res) => {
 
 https.createServer({
 	key: fs.readFileSync(process.env.SSL_KEY_FILE),
-	cert: fs.readFileSync(process.env.SSL_CRT_FILE)
+	cert: fs.readFileSync(process.env.SSL_CRT_FILE),
+	passphrase: process.env.SSL_PASSPHRASE
 }, app).listen(port, () => {
 	// tslint:disable-next-line:no-console
-	console.log(`Server started at localhost:${port}`);
+	console.log(`Server started at https://localhost:${port}`);
 });
 
 const httpApp = express();
@@ -49,5 +50,5 @@ httpApp.get("*", (req, res) => {
 });
 
 http.createServer(httpApp).listen(80, '0.0.0.0', () => {
-	console.log(`redirect Server started at localhost:80`);
+	console.log(`redirect Server started at http://localhost:80`);
 })
