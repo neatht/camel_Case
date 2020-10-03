@@ -31,7 +31,8 @@ body {
   text-align: center;
   width: 24px;
   height: 24px;
-  
+  cursor: pointer;
+
   /* make button take up 0 width */
   position: relative;
   right: 24px;

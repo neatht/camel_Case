@@ -2,6 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 
 import SocialLinks from './SocialLinks';
+import PortfolioHero from './PortfolioHero';
 
 import './PortfolioObject.css';
 import Emoji from './Emoji';
@@ -59,7 +60,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 </h2>
             </div>
 
-            <div className="container-secondary portfolio-hero" style={{ backgroundImage: `url(${props.picture})`}}></div>
+            <PortfolioHero />
             <div className="portfolio-object-overlay">
                 <div className="portfolio-meta">
                     <h4><strong>{props.title}</strong></h4>

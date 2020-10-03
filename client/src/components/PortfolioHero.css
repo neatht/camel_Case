@@ -1,0 +1,95 @@
+
+
+/*===========================
+  portfolio hero image
+  ===========================*/
+
+.portfolio-hero {
+  /* display: inline-grid; */
+  /* grid-auto-flow: column; */
+  width:  100%;
+  height:  calc( (0.75 * var(--unit-width) * var(--unit-ratio)));
+  padding: 0;
+  /* overflow-x: scroll; */
+  transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
+    margin 0.5s, opacity 0.2s;
+  
+}
+.thumbnail .portfolio-hero {
+  width: 100%;
+  height: 100%;
+}
+.portfolio-hero-edit {
+  text-align: left;
+  padding: var(--unit-margin);
+  /* display: flexbox; */
+}
+.portfolio-hero-edit .portfolio-hero-media {
+  
+  margin: var(--unit-margin);
+  padding: 0;
+  opacity: 1;
+  height: calc( calc(var(--unit)/1.5) * var(--unit-ratio));
+  width: calc(var(--unit)/1.5);
+  overflow: hidden;
+}
+
+.portfolio-hero-botton {
+  width: fit-content;
+  font-size: 1.5em;
+  cursor: pointer;
+  
+}
+.display-left {
+  position:absolute;
+  top:50%;
+  left:calc(2*var(--unit-margin));
+  transform:translate(0%,-50%);
+  -ms-transform:translate(-0%,-50%);
+  transition: left 0.5s;
+  z-index: 1;
+}
+.display-left:hover {
+  left:var(--unit-margin);
+}
+.display-right {
+  position:absolute;
+  top:50%;
+  right: calc(2*var(--unit-margin));
+  transform:translate(0%,-50%);
+  -ms-transform:translate(0%,-50%);
+  transition: right 0.5s;
+  z-index: 1;
+}
+.display-right:hover {
+  right:var(--unit-margin);
+}
+.portfolio-hero-media {
+  /* display: inline-block; */
+  display: inline-block;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 0;
+  overflow: hidden;
+  opacity: 0.5;
+  transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
+    margin 0.5s, opacity 1s;
+}
+.portfolio-hero-media-max {
+  /* background-color: blue; */
+  /* display: inline-block; */
+  /* display: inline-block; */
+  /* margin: 0; */
+  /* padding: 0; */
+  /* height: 100%; */
+  width: 100%;
+  opacity: 1;
+  /* overflow: hidden; */
+}
+
+
+
+
