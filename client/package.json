@@ -48,6 +48,10 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
-    "@types/emoji-mart": "^3.0.2"
+    "@types/emoji-mart": "^3.0.2",
+    "@types/enzyme": "^3.10.7",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "react-test-renderer": "^16.13.1"
   }
 }
