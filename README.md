@@ -18,7 +18,11 @@
 These instructions will help you get a copy of the project up and running for development and testing. This project runs on an Express backend and React frontend with TypeScript. You will need `npm` and `yarn` installed to start.
 
 ### SSL certificate
-Before building either servers, you will need an ssl certificate. In a terminal, or command prompt on windows, cd to the camelCase directory, and run `openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.cert -days 365`, entering appropriate values when prompted. You will then need to specify where these files are in each servers `.env` file. Add `SSL_CRT_FILE=../server.cert` and `SSL_KEY_FILE=../server.key` to the `.env` file in each subdirectory (api and client).
+Before building either servers, you will need an ssl certificate. In a terminal, or command prompt on windows, cd to the camelCase directory, and run `openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.cert -days 365`.
+
+You will be prompted to enter a passphrase (minimum 4 characters) which will need to add `SSL_PASSPHRASE=<YOUR PASSPHRASE>` to each `.env` file in the `api` and `client` directory. It will also prompt you to add specific details for the certificate (i.e. locality, country code, etc.) all of which you can enter `'.'` as the value except for the `Common Name` field which you can enter any value. Afterwards `server.cert` and `server.key` will be created which you can add `SSL_CRT_FILE=../server.cert` and `SSL_KEY_FILE=../server.key` to the `.env` files.
+
+If you face an issue when running API server and receiving a 'credentials scrambled' error from Chrome, enter this URL `chrome://flags/#allow-insecure-localhost` and enable the option.
 
 #### API Server: Express
 
