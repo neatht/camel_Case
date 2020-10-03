@@ -29,7 +29,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,11 +50,20 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@storybook/addon-actions": "^6.0.22",
+    "@storybook/addon-essentials": "^6.0.22",
+    "@storybook/addon-links": "^6.0.22",
+    "@storybook/node-logger": "^6.0.22",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.22",
     "@types/emoji-mart": "^3.0.2",
     "@types/enzyme": "^3.10.7",
+    "babel-loader": "^8.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
+    "react-is": "^16.13.1",
     "react-test-renderer": "^16.13.1"
   },
   "jest": {
