@@ -1,7 +1,9 @@
 import React from 'react';
 
 type EmojiProps = {
+    /** Aria-label for accessibility */
     label?: string,
+    /** Emoji symbol to display e.g. 🚀 */
     symbol: string;
 }
 
