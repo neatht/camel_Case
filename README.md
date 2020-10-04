@@ -17,6 +17,9 @@
 
 These instructions will help you get a copy of the project up and running for development and testing. This project runs on an Express backend and React frontend with TypeScript. You will need `npm` and `yarn` installed to start.
 
+### SSL certificate
+Before building either servers, you will need an ssl certificate. In a terminal, or command prompt on windows, cd to the camelCase directory, and run `openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.cert -days 365`, entering appropriate values when prompted. You will then need to specify where these files are in each servers `.env` file. Add `SSL_CRT_FILE=../server.cert` and `SSL_KEY_FILE=../server.key` to the `.env` file in each subdirectory (api and client).
+
 #### API Server: Express
 
 First start by installing and running the Express backend in the `api` directory.
@@ -46,7 +49,7 @@ First start by installing and running the React frontend in the `client` directo
 
 ```
 cd client
-yarn add
+yarn install
 ```
 
 In the `client` directory, you can start the React app by running:
