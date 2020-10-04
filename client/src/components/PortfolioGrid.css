@@ -1,29 +1,11 @@
 .grid {
   display: inline-grid;
-  grid-template-columns: auto;
-  grid-gap: 0;
+  grid-template-columns: repeat(var(--unit-col-num), auto);
+  grid-gap:  var(--unit-margin);
+  transition: grid-gap 0.3s;
+}
+.portfolio-object-open .grid {
+  grid-gap: 0px;
 }
 
-@media only screen and (min-width: 1000px) {
-  .grid {
-    grid-template-columns: auto auto;
-  }
-}
 
-@media only screen and (min-width: 1300px) {
-  .grid {
-    grid-template-columns: auto auto auto;
-  }
-}
-
-@media only screen and (min-width: 1600px) {
-  .grid {
-    grid-template-columns: auto auto auto auto;
-  }
-}
-
-@media only screen and (min-width: 1900px) {
-  .grid {
-    grid-template-columns: auto auto auto auto auto;
-  }
-}

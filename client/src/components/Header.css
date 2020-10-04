@@ -1,3 +1,14 @@
+header{
+  display: flex;
+}
+
+header ul {
+  
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  border: 0 !important;
+}
+
 a.navTitle {
   color: rgba(0, 0, 0, 0.85);
 }
