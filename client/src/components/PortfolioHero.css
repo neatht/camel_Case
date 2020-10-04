@@ -5,12 +5,15 @@
   ===========================*/
 
 .portfolio-hero {
+  /* display: inline; */
   /* display: inline-grid; */
   /* grid-auto-flow: column; */
   width:  100%;
   height:  calc( (0.75 * var(--unit-width) * var(--unit-ratio)));
   padding: 0;
-  /* overflow-x: scroll; */
+  overflow: hidden;
+  text-align: left;
+  /* overflow-x: visible; */
   transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
     margin 0.5s, opacity 0.2s;
   
@@ -20,8 +23,9 @@
   height: 100%;
 }
 .portfolio-hero-edit {
-  text-align: left;
+  /* text-align: left; */
   padding: var(--unit-margin);
+  overflow-y: scroll;
   /* display: flexbox; */
 }
 .portfolio-hero-edit .portfolio-hero-media {
@@ -34,12 +38,25 @@
   overflow: hidden;
 }
 
-.portfolio-hero-botton {
+.portfolio-hero-button {
   width: fit-content;
   font-size: 1.5em;
   cursor: pointer;
-  
+  opacity: 1;
+  transition: opacity 0.2s;
 }
+
+.portfolio-hero-edit .portfolio-hero-button {
+
+  opacity: 0;
+
+}
+
+.thumbnail .portfolio-hero-button {
+  opacity: 0;
+}
+
+
 .display-left {
   position:absolute;
   top:50%;
@@ -64,6 +81,15 @@
 .display-right:hover {
   right:var(--unit-margin);
 }
+.display-top-right {
+  position:absolute;
+  top:calc(2*var(--unit-margin));
+  right: calc(2*var(--unit-margin));
+  /* transform:translate(0%,-50%); */
+  /* -ms-transform:translate(0%,-50%); */
+  z-index: 1;
+}
+
 .portfolio-hero-media {
   /* display: inline-block; */
   display: inline-block;
@@ -74,9 +100,9 @@
   height: 100%;
   width: 0;
   overflow: hidden;
-  opacity: 0.5;
-  transition: box-shadow 0.5s, border-color 0.5s, width 1s, height 0.5s 0s,
-    margin 0.5s, opacity 1s;
+  opacity: 0;
+  transition: box-shadow 0.5s, border-color 0.5s, width 0.5s, height 0.5s 0.5s,
+    margin 0.5s, opacity 0.5s;
 }
 .portfolio-hero-media-max {
   /* background-color: blue; */

@@ -60,7 +60,14 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 </h2>
             </div>
 
-            <PortfolioHero />
+            <PortfolioHero isOpen={!thumbnail} isMyProfile = {isMyProfile} media={[
+                {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+            ]} />
             <div className="portfolio-object-overlay">
                 <div className="portfolio-meta">
                     <h4><strong>{props.title}</strong></h4>
