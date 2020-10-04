@@ -64,3 +64,19 @@ Once you are done, the app should automatically launch, however, the app can be 
 localhost:3000
 ```
 
+## Component Documentation
+
+The frontend React components are documented using [Storybook](https://storybook.js.org)
+
+To start Storybook, in the `client` folder, run:
+
+```
+yarn storybook
+```
+
+In should open automatically, however the app can be found at:
+
+```
+localhost:6006
+```
+

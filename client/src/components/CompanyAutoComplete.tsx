@@ -29,8 +29,11 @@ async function searchResult(query: string) {
 };
 
 type CompanyAutoCompleteProps = {
+    /** Callback function for when a company is selected */
     onSelect?: (value: string) => void;
+    /** Callback function for when the input field is changed */
     onChange?: (value: string) => void;
+    //** Initial value for the input field */
     initialValue?: string;
 }
 
