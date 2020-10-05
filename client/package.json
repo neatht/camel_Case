@@ -33,7 +33,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "format": "prettier --write src/**/*.ts{,x}",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
+    "format-check": "prettier --check src/**/*.ts{,x} && prettier --check src/*.ts{,x} ",
+    "lint": "tsc --noEmit && eslint src/**/*.ts{,x} && eslint src/*.ts{,x}"
   },
   "eslintConfig": {
     "extends": "react-app"
