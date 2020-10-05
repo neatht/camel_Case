@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing HomeHero hides when closed 1`] = `<HomeHero />`;
+
+exports[`Testing HomeHero renders without crashing 1`] = `
+<Fragment>
+  <div
+    className="home-hero"
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="bottom"
+      title="Hide"
+      transitionName="zoom-big-fast"
+    >
+      <div
+        className="toggle-home-hero exit-button"
+        onClick={[Function]}
+      />
+    </Tooltip>
+    <div
+      className="home-CTA"
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+          "minHeight": 250,
+        }
+      }
+    >
+      <h1>
+        <Emoji
+          symbol="📝"
+        />
+         
+        <strong>
+          Glowbal
+        </strong>
+      </h1>
+      <p>
+         Showcase your best work by creating a profile and...
+      </p>
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+        onClick={[Function]}
+        type="primary"
+      >
+         
+        <span
+          style={
+            Object {
+              "paddingRight": 5,
+            }
+          }
+        >
+          <Emoji
+            symbol="🚀"
+          />
+        </span>
+         
+        <strong>
+          Get Discovered
+        </strong>
+      </Button>
+    </div>
+  </div>
+</Fragment>
+`;
