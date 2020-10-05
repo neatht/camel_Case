@@ -12,7 +12,7 @@ type PortfolioObjectMetaType = {
     key: string, 
     title: string, 
     type: string, 
-    media: string,
+    media: {type: string, url: string}[],
     date: string, 
     author: string, 
     shortDescription: string, 
@@ -40,7 +40,15 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "1", 
                 "title": "Project 1",
                 "type": "website",
-                "media": "https://i.ibb.co/BNZxQ2z/example0.jpg",
+                "media":
+                [
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 1",
                 "shortDescription": "This is a short description about the project",
@@ -51,7 +59,15 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "2", 
                 "title": "Project 2",
                 "type": "website",
-                "media": "https://i.ibb.co/TYYyXDH/example1.png",
+                "media":
+                [
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 2",
                 "shortDescription": "This is a short description about the project",
@@ -62,7 +78,15 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "3", 
                 "title": "Project 3",
                 "type": "website",
-                "media": "https://i.ibb.co/pZmXQb5/example2.png",
+                "media":
+                [
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 3",
                 "shortDescription": "This is a short description about the project",
@@ -73,7 +97,15 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "4", 
                 "title": "Project 4",
                 "type": "website",
-                "media": "https://i.ibb.co/SwzRr9S/example3.png",
+                "media": 
+                [
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 4",
                 "shortDescription": "This is a short description about the project",
@@ -84,7 +116,16 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "5", 
                 "title": "Project 5",
                 "type": "website",
-                "media": "https://i.ibb.co/CsNzYxy/example5.png",
+                "media": 
+                [
+                    {type: "image", url: "https://i.ibb.co/CsNzYxy/example5.png"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 5",
                 "shortDescription": "This is a short description about the project",
@@ -95,7 +136,16 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "6", 
                 "title": "Project 6",
                 "type": "website",
-                "media": "https://i.ibb.co/gWDkgdh/example6.jpg",
+                "media": 
+                [
+                    {type: "image", url: "https://i.ibb.co/gWDkgdh/example6.jpg"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 6",
                 "shortDescription": "This is a short description about the project",
@@ -106,7 +156,16 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "7", 
                 "title": "Project 7",
                 "type": "website",
-                "media": "https://i.ibb.co/8j5MMLw/example7.jpg",
+                "media":
+                [
+                    {type: "image", url: "https://i.ibb.co/8j5MMLw/example7.jpg"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 7",
                 "shortDescription": "This is a short description about the project",
@@ -117,7 +176,16 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "8", 
                 "title": "Project 8",
                 "type": "website",
-                "media": "https://i.ibb.co/rybJT5c/example4.png",
+                "media":
+                [
+                    {type: "image", url: "https://i.ibb.co/rybJT5c/example4.png"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 8",
                 "shortDescription": "This is a short description about the project",
@@ -128,7 +196,16 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 "key": "9", 
                 "title": "Project 9",
                 "type": "website",
-                "media": "https://i.ibb.co/SBWrhmP/example30.png",
+                "media":
+                [
+                    {type: "image", url: "https://i.ibb.co/SBWrhmP/example30.png"},
+                    {type: "image", url: "https://i.ibb.co/BNZxQ2z/example0.jpg"},
+                    {type: "image", url: "https://i.ibb.co/TYYyXDH/example1.png"},
+                    {type: "image", url: "https://i.ibb.co/pZmXQb5/example2.png"},
+                    {type: "image", url: "https://i.ibb.co/SwzRr9S/example3.png"},
+                    {type: "pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"},
+                    {type: "video", url: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"}
+                ],
                 "date": "2020-01",
                 "author": "Author 9",
                 "shortDescription": "This is a short description about the project",
@@ -168,7 +245,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
                                     views = {value.views}  
                                     location = {value.location}
                                     portfolioObjectOpen = {openPortfolioObject} 
-                                    picture={value.media}
+                                    // picture={value.media}
                    
                                 />
                     )

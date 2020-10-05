@@ -25,7 +25,7 @@
 .portfolio-hero-edit {
   /* text-align: left; */
   padding: var(--unit-margin);
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   /* display: flexbox; */
 }
 .portfolio-hero-edit .portfolio-hero-media {
@@ -33,9 +33,11 @@
   margin: var(--unit-margin);
   padding: 0;
   opacity: 1;
-  height: calc( calc(var(--unit)/1.5) * var(--unit-ratio));
-  width: calc(var(--unit)/1.5);
+  height: calc( calc(var(--unit)/1) * var(--unit-ratio));
+  width: calc(var(--unit)/1);
   overflow: hidden;
+  transition: box-shadow 0.5s, border-color 0.5s, width 0.5s, height 0.5s 0.5s,
+    margin 0.5s, opacity 0.5s;
 }
 
 .portfolio-hero-button {
@@ -48,7 +50,7 @@
 
 .portfolio-hero-edit .portfolio-hero-button {
 
-  opacity: 0;
+  display: none;
 
 }
 
@@ -101,7 +103,7 @@
   width: 0;
   overflow: hidden;
   opacity: 0;
-  transition: box-shadow 0.5s, border-color 0.5s, width 0.5s, height 0.5s 0.5s,
+  transition: box-shadow 0.5s, border-color 0.5s, width 0.5s, height 1s 0.1s,
     margin 0.5s, opacity 0.5s;
 }
 .portfolio-hero-media-max {

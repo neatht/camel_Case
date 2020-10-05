@@ -9,6 +9,8 @@ import AuthorBadge from './AuthorBadge';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import { useAuth0 } from '@auth0/auth0-react';
 import { EditOutlined } from '@ant-design/icons';
+import placeholderFolioImage from '../placeholder-folio-image.png';
+
 
 type PortfolioHeroProps = {
     isOpen: boolean,
@@ -33,34 +35,33 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
     }
 
-    return(
-        <div className={`container-secondary portfolio-hero ${editing ? "portfolio-hero-edit container-scroll" : ""}`}>
-            <div onClick={() => {
+    // props.isOpen ?
+    if (props.isOpen){
+        return(
+            <div className={`container-secondary portfolio-hero ${editing ? "portfolio-hero-edit container-scroll" : ""}`}>
+                <div onClick={() => {
                 setEditing(!editing);
-                setSlide(0);
-            }} className="display-top-right container-secondary"><EditOutlined /></div>
-            <div className="portfolio-hero-button display-left container-secondary" onClick={
-                () => slide > 0 ? setSlide(slide-1) : setSlide(slide)
-            }>&#8249;</div>
-            <div className="portfolio-hero-button display-right container-secondary" onClick={
-                () => slide < media.length - 1 ? setSlide(slide+1) : setSlide(slide)
-            }>&#8250;</div>
-            {props.isOpen
-            ?
-                <div style={{height: "100%"}}>
-                    
-                    {media.map( (value, index, array) => {
-                        return addMedia(value.type, value.url, index);
-                    })}
-                </div>
-            
-            :
-                <div className={`portfolio-hero-media container-secondary ${slide===0 ? "portfolio-hero-media-max" : ""}`} style={{backgroundImage: 'url(https://i.ibb.co/BNZxQ2z/example0.jpg)'}}>0</div>
-            }
-            
-        </div>
-
-    );
+                // setSlide(0);
+                }} style={{cursor: "pointer"}} className="display-top-right container-secondary"><EditOutlined /></div>
+                <div className="portfolio-hero-button display-left container-secondary" onClick={
+                    () => slide > 0 ? setSlide(slide-1) : setSlide(media.length-1)
+                }>&#8249;</div>
+                <div className="portfolio-hero-button display-right container-secondary" onClick={
+                    () => slide < media.length - 1 ? setSlide(slide+1) : setSlide(0)
+                }>&#8250;</div>
+                
+                {media.map( (value, index, array) => {
+                    return addMedia(value.type, value.url, index);
+                })}
+            </div>
+        );
+    } else {
+        return(
+            <div className={`container-secondary portfolio-hero`} >
+                <div className={`portfolio-hero-media container-secondary portfolio-hero-media-max`} style={{backgroundImage: `url(${media[0].type==="image" ? media[0].url : placeholderFolioImage})`}}></div>
+            </div>
+        );
+    }
 }
 
 export default PortfolioHero; 
