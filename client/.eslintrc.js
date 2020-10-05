@@ -1,8 +1,8 @@
 module.exports = {
   extends: [
-    'airbnb-typescript',
-    'airbnb/hooks',
-    'plugin:@typescript-eslint/recommended',
+    //'airbnb-typescript',
+    //'airbnb/hooks',
+    //'plugin:@typescript-eslint/recommended',
     'plugin:jest/recommended',
     'prettier',
     'prettier/react',
@@ -30,6 +30,8 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off',
+    '@typescript-eslint/no-unused-vars': 1,
+    '@typescript-eslint/camelcase': 'off',
     'prettier/prettier': [
       'error',
       {
