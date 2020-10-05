@@ -17,6 +17,8 @@
     "@types/react-router-dom": "^5.1.5",
     "antd": "^4.6.4",
     "emoji-mart": "^3.0.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "pm2": "^4.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
