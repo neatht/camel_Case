@@ -13,5 +13,5 @@ const Template: Story<any> = (args) => <Emoji {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  symbol: "🚀",
+  symbol: '🚀',
 };
