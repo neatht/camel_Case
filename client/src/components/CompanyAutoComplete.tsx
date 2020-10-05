@@ -12,7 +12,7 @@ async function fetchCompanyAutoComplete(query: string): Promise<Array<any>> {
 async function searchResult(query: string) {
   const data = await fetchCompanyAutoComplete(query);
 
-  return data.map((item: any, idx: any) => {
+  return data.map((item: any, _idx: any) => {
     return {
       value: `${item.name}`,
       label: (
