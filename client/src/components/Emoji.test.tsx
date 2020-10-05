@@ -15,13 +15,6 @@ describe('Emoji component accessibility', () => {
     expect(component.find({ className: 'emoji' }).prop('aria-hidden')).toBe(
       true
     );
-  });
-
-  it('sets aria-hidden when no label is passed', () => {
-    const component = mount(<Emoji symbol="🙂" />);
-    expect(component.find({ className: 'emoji' }).prop('aria-hidden')).toBe(
-      true
-    );
     expect(component.find({ className: 'emoji' }).prop('aria-label')).toBe(
       undefined
     );
