@@ -30,7 +30,12 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off',
-    '@typescript-eslint/no-unused-vars': 1,
+    '@typescript-eslint/no-unused-vars': [
+      'warn', 
+      { 
+        argsIgnorePattern: "^_" 
+      }
+    ],
     '@typescript-eslint/camelcase': 'off',
     'prettier/prettier': [
       'error',
