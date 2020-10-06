@@ -96,7 +96,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                                                 ref={dragProvided.innerRef}
                                                                
                                                             >
-                                                                <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} >{index === 0?<div><br />Warning,<br />{value.type} can not be<br />a thumbnail.</div>:<div><br /><br />Embedded Media:<br /><strong>[{value.type}]</strong></div>}</div>
+                                                                <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} >{index === 0?<div><br />Warning,<br /><strong>{value.type}</strong> can not be<br />a thumbnail.</div>:<div><br /><br />Embedded<br /><strong>{value.type}</strong></div>}</div>
                                                             </div>
                                                         )}
                                                     </Draggable>
