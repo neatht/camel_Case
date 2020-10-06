@@ -65,7 +65,20 @@ function PortfolioHero(props: PortfolioHeroProps) {
                     () => slide < media.length - 1 ? setSlide(slide+1) : setSlide(0)
                 }>&#8250;</div>
                 <DragDropContext
-                    onDragEnd={({ destination, source }) => {}}
+                    onDragEnd={({ destination, source }) => {
+                        if (!destination) return;
+                        if (
+                            destination.droppableId === source.droppableId &&
+                            destination.index === source.index
+                        ) return;
+
+                        const newMedia = [...media];
+                        const movedMedia = newMedia[source.index]; 
+                        newMedia.splice(source.index, 1);
+                        newMedia.splice(destination.index, 0, movedMedia);
+                        setMedia(newMedia);
+                        //PUSH UPDATE
+                    }}
                 >
                     <div style={{height: "100%"}}>
                     <Droppable
@@ -73,6 +86,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                         type={"CARD"}
                         direction="horizontal"
                         isCombineEnabled={false}
+                        
                     >
                         {dropProvided => (
                             <div style={{height: "100%"}} {...dropProvided.droppableProps}>
