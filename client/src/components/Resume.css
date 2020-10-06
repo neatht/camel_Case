@@ -19,7 +19,7 @@
   text-align: center;
   margin: 5px;
   background-color: var(--background-color-secondary);
-  filter: var(--drop-shadow);
+  box-shadow: var(--drop-shadow);
   border-radius: 100px;
   /* border: 1px solid; */
   width: 30px;

@@ -1,7 +1,8 @@
 .container-primary {
   background-color: var(--background-color-primary);
   border-radius: var(--border-radius-primary);
-  filter: var(--drop-shadow);
+  /* filter: var(--drop-shadow); */
+  box-shadow: var(--drop-shadow);
   padding: calc(2*var(--unit-margin));
 }
 
@@ -9,7 +10,8 @@
   padding: var(--unit-margin);
   background-color: var(--background-color-secondary);
   border-radius: var(--border-radius-secondary);
-  filter: var(--drop-shadow);
+  /* filter: var(--drop-shadow); */
+  box-shadow: var(--drop-shadow);
 }
 
 .grid-main-layout-primary {
