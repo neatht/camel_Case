@@ -57,7 +57,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 <div onClick={() => {
                 setEditing(!editing);
                 // setSlide(0);
-                }} style={{cursor: "pointer"}} className="display-top-right container-secondary"><EditOutlined /></div>
+                }} className="display-top-right container-secondary"><EditOutlined /></div>
                 <div className="portfolio-hero-button display-left container-secondary" onClick={
                     () => slide > 0 ? setSlide(slide-1) : setSlide(media.length-1)
                 }>&#8249;</div>

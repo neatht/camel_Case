@@ -5,7 +5,8 @@
   ===========================*/
 
 .portfolio-hero {
-  /* display: inline; */
+  /* display: flex; */
+  /* flex-direction: row; */
   /* display: inline-grid; */
   /* grid-auto-flow: column; */
   width:  100%;
@@ -41,11 +42,16 @@
 }
 
 .portfolio-hero-button {
-  width: fit-content;
-  font-size: 1.5em;
+
+  font-size: 1.2em;
   cursor: pointer;
   opacity: 1;
+  position: relative;
+  top: calc(4*var(--unit-margin));
+  width: 70px;
+  border-radius: 100px;
   transition: opacity 0.2s;
+  transition: padding-left 0.3s, padding-right 0.3s;
 }
 
 .portfolio-hero-edit .portfolio-hero-button {
@@ -60,35 +66,37 @@
 
 
 .display-left {
-  position:absolute;
-  top:50%;
-  left:calc(2*var(--unit-margin));
-  transform:translate(0%,-50%);
-  -ms-transform:translate(-0%,-50%);
-  transition: left 0.5s;
-  z-index: 1;
+  text-align: right;
+  float: left;
+  margin-left: -70px;
+  left: 40px;
+  padding-right: 20px;
 }
 .display-left:hover {
-  left:var(--unit-margin);
+  padding-right: 25px;
 }
 .display-right {
-  position:absolute;
-  top:50%;
-  right: calc(2*var(--unit-margin));
-  transform:translate(0%,-50%);
-  -ms-transform:translate(0%,-50%);
-  transition: right 0.5s;
-  z-index: 1;
+  text-align: left;
+  float: right;
+  margin-right: -70px;
+  right: 40px;
+  padding-left: 20px;
 }
 .display-right:hover {
-  right:var(--unit-margin);
+  padding-left: 25px;
 }
 .display-top-right {
-  position:absolute;
-  top:calc(2*var(--unit-margin));
-  right: calc(2*var(--unit-margin));
-  /* transform:translate(0%,-50%); */
-  /* -ms-transform:translate(0%,-50%); */
+  cursor: pointer;
+  opacity: 1;
+  position: relative;
+  top: calc(0*var(--unit-margin));
+  width: 70px;
+  border-radius: 100px;
+  text-align: left;
+  float: right;
+  margin-right: -70px;
+  right: 40px;
+  padding-left: 20px;
   z-index: 1;
 }
 
@@ -113,9 +121,15 @@
   /* margin: 0; */
   /* padding: 0; */
   /* height: 100%; */
-  width: 100%;
+  width: calc(var( --unit-width) - 60px);
   opacity: 1;
+   transition: width 0.5s;
   /* overflow: hidden; */
+}
+
+.thumbnail .portfolio-hero-media-max {
+  width: var( --unit);
+  transition: width 0.5s;
 }
 
 
