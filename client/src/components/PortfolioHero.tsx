@@ -23,6 +23,7 @@ type PortfolioHeroProps = {
 function PortfolioHero(props: PortfolioHeroProps) {
 
     const [editing, setEditing] = useState(false);
+    const [editingState, setEditingState] = useState(false);
     const [slide, setSlide] = useState(0);
     const [media, setMedia] = useState(props.media);
 
@@ -30,9 +31,10 @@ function PortfolioHero(props: PortfolioHeroProps) {
     if (props.isOpen){
         return(
             <div className={`portfolio-hero  ${editing ? "portfolio-hero-edit container-scroll" : ""}`}>
-                <div onClick={() => {
-                setEditing(!editing);
-                // setSlide(0);
+                <div onMouseDown={() => {
+                    setEditingState(!editingState);
+                }} onMouseUp={() => {
+                    setEditing(!editing);
                 }} className="display-top-right container-secondary"><EditOutlined /></div>
                 <div className="portfolio-hero-button display-left container-secondary" onClick={
                     () => slide > 0 ? setSlide(slide-1) : setSlide(media.length-1)
@@ -40,7 +42,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 <div className="portfolio-hero-button display-right container-secondary" onClick={
                     () => slide < media.length - 1 ? setSlide(slide+1) : setSlide(0)
                 }>&#8250;</div>
-                {editing ?
+                {editingState ?
                     <DragDropContext
                         onDragEnd={({ destination, source }) => {
                             if (!destination) return;
@@ -66,7 +68,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                         >
                             {dropProvided => (
                                 <div style={{height: "100%"}} {...dropProvided.droppableProps}>
-                                    <div style={{height: "100%",  alignItems: "center" ,overflowX: "scroll", display: "flex", position: "relative", top: "-7px" }} ref={dropProvided.innerRef}>
+                                    <div style={{height: "100%" ,overflowX: "scroll", overflowY: "hidden", display: "flex", position: "relative", top: "-7px" }} ref={dropProvided.innerRef}>
                                         {media.map( (value, index, array) => {
                                             if (value.type === 'image') {
                                                 return (
