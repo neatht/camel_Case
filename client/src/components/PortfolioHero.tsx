@@ -85,12 +85,23 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                                         )}
                                                     </Draggable>
                                                 );
+                        
+                                            } else {
+                                                return (
+                                                    <Draggable key={value.url} draggableId={value.url} index={index}>
+                                                        {dragProvided => (
+                                                            <div
+                                                                {...dragProvided.dragHandleProps}
+                                                                {...dragProvided.draggableProps}
+                                                                ref={dragProvided.innerRef}
+                                                               
+                                                            >
+                                                                <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} >{index === 0?<div><br />Warning,<br />{value.type} can not be<br />a thumbnail.</div>:<div><br /><br />Embedded Media:<br /><strong>[{value.type}]</strong></div>}</div>
+                                                            </div>
+                                                        )}
+                                                    </Draggable>
+                                                );
                                             }
-                                            // } else if (type === 'video') {
-                                            //     return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><video width="100%" height="100%" controls><source src={`${url}`} /></video></div>)
-                                            // } else {
-                                            //     return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><embed src= {`${url}`} width="100%" height="100%" /></div>)
-                                            // }
                                     
                                         })}
                                         {dropProvided.placeholder}
