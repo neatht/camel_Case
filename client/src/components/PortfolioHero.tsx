@@ -25,35 +25,11 @@ function PortfolioHero(props: PortfolioHeroProps) {
     const [editing, setEditing] = useState(false);
     const [slide, setSlide] = useState(0);
     const [media, setMedia] = useState(props.media);
-    const addMedia = (type: string, url: string, index: number) => {
-        if (type === 'image') {
-            return (
-                <Draggable key={url} draggableId={url} index={index}>
-                    {dragProvided => (
-                        <div
-                            {...dragProvided.dragHandleProps}
-                            {...dragProvided.draggableProps}
-                            ref={dragProvided.innerRef}
-                           
-                        >
-                            <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} style={{backgroundImage: `url(${url})`}}></div>
-                        </div>
-                    )}
-                </Draggable>
-            );
-        }
-        // } else if (type === 'video') {
-        //     return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><video width="100%" height="100%" controls><source src={`${url}`} /></video></div>)
-        // } else {
-        //     return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><embed src= {`${url}`} width="100%" height="100%" /></div>)
-        // }
-
-    }
 
     // props.isOpen ?
     if (props.isOpen){
         return(
-            <div className={`portfolio-hero ${editing ? "portfolio-hero-edit container-scroll" : ""}`}>
+            <div className={`portfolio-hero  ${editing ? "portfolio-hero-edit container-scroll" : ""}`}>
                 <div onClick={() => {
                 setEditing(!editing);
                 // setSlide(0);
@@ -64,44 +40,80 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 <div className="portfolio-hero-button display-right container-secondary" onClick={
                     () => slide < media.length - 1 ? setSlide(slide+1) : setSlide(0)
                 }>&#8250;</div>
-                <DragDropContext
-                    onDragEnd={({ destination, source }) => {
-                        if (!destination) return;
-                        if (
-                            destination.droppableId === source.droppableId &&
-                            destination.index === source.index
-                        ) return;
+                {editing ?
+                    <DragDropContext
+                        onDragEnd={({ destination, source }) => {
+                            if (!destination) return;
+                            if (
+                                destination.droppableId === source.droppableId &&
+                                destination.index === source.index
+                            ) return;
 
-                        const newMedia = [...media];
-                        const movedMedia = newMedia[source.index]; 
-                        newMedia.splice(source.index, 1);
-                        newMedia.splice(destination.index, 0, movedMedia);
-                        setMedia(newMedia);
-                        //PUSH UPDATE
-                    }}
-                >
-                    <div style={{height: "100%"}}>
-                    <Droppable
-                        droppableId={"0"}
-                        type={"CARD"}
-                        direction="horizontal"
-                        isCombineEnabled={false}
-                        
+                            const newMedia = [...media];
+                            const movedMedia = newMedia[source.index]; 
+                            newMedia.splice(source.index, 1);
+                            newMedia.splice(destination.index, 0, movedMedia);
+                            setMedia(newMedia);
+                            //PUSH UPDATE
+                        }}
                     >
-                        {dropProvided => (
-                            <div style={{height: "100%"}} {...dropProvided.droppableProps}>
-                                <div style={{height: "100%", display: "flex", position: "relative", top: "-7px" }} ref={dropProvided.innerRef}>
-                                    {media.map( (value, index, array) => {
-                                        return addMedia(value.type, value.url, index);
-                                    })}
-                                    {dropProvided.placeholder}
+                        <div style={{height: "100%"}}>
+                        <Droppable
+                            droppableId={"0"}
+                            type={"CARD"}
+                            direction="horizontal"
+                            isCombineEnabled={false}
+                        >
+                            {dropProvided => (
+                                <div style={{height: "100%"}} {...dropProvided.droppableProps}>
+                                    <div style={{height: "100%",  alignItems: "center" ,overflowX: "scroll", display: "flex", position: "relative", top: "-7px" }} ref={dropProvided.innerRef}>
+                                        {media.map( (value, index, array) => {
+                                            if (value.type === 'image') {
+                                                return (
+                                                    <Draggable key={value.url} draggableId={value.url} index={index}>
+                                                        {dragProvided => (
+                                                            <div
+                                                                {...dragProvided.dragHandleProps}
+                                                                {...dragProvided.draggableProps}
+                                                                ref={dragProvided.innerRef}
+                                                               
+                                                            >
+                                                                <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} style={{backgroundImage: `url(${value.url})`}}></div>
+                                                            </div>
+                                                        )}
+                                                    </Draggable>
+                                                );
+                                            }
+                                            // } else if (type === 'video') {
+                                            //     return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><video width="100%" height="100%" controls><source src={`${url}`} /></video></div>)
+                                            // } else {
+                                            //     return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><embed src= {`${url}`} width="100%" height="100%" /></div>)
+                                            // }
+                                    
+                                        })}
+                                        {dropProvided.placeholder}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    </Droppable>
-                    </div>
-                </DragDropContext>
-                
+                            )}
+                        </Droppable>
+                        </div>
+                    </DragDropContext>
+                :
+                    <div style={{height: "100%", display: "flex" }}>
+                        {media.map( (value, index, array) => {
+                            if (value.type === 'image') {
+                                return (
+                                    <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} style={{backgroundImage: `url(${value.url})`}}></div>   
+                                );
+                            } else if (value.type === 'video') {
+                                return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><video width="100%" height="100%" controls><source src={`${value.url}`} /></video></div>)
+                            } else {
+                                return (<div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} ><embed src= {`${value.url}`} width="100%" height="100%" /></div>)
+                            } 
+                        })}
+                        
+                    </div>      
+                }
             </div>
         );
     } else {
