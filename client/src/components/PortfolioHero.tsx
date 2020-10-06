@@ -68,7 +68,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                         >
                             {dropProvided => (
                                 <div style={{height: "100%"}} {...dropProvided.droppableProps}>
-                                    <div style={{height: "100%" ,overflowX: "scroll", overflowY: "hidden", display: "flex", position: "relative", top: "-7px" }} ref={dropProvided.innerRef}>
+                                    <div style={{height: "100%" ,overflowX: "scroll", overflowY: "hidden", display: "flex" }} ref={dropProvided.innerRef}>
                                         {media.map( (value, index, array) => {
                                             if (value.type === 'image') {
                                                 return (
@@ -131,8 +131,8 @@ function PortfolioHero(props: PortfolioHeroProps) {
         );
     } else {
         return(
-            <div className={`container-secondary portfolio-hero`} >
-                <div className={`portfolio-hero-media container-secondary portfolio-hero-media-max`} style={{backgroundImage: `url(${media[0].type==="image" ? media[0].url : placeholderFolioImage})`}}></div>
+            <div className={`portfolio-hero`} style={{backgroundImage: `url(${media[0].type==="image" ? media[0].url : placeholderFolioImage})`}}>
+                {/* <div className={`portfolio-hero-media container-secondary portfolio-hero-media-max`} ></div> */}
             </div>
         );
     }

@@ -5,6 +5,8 @@
   ===========================*/
 
 .portfolio-hero {
+  background-size: cover;
+  background-position: center;
   /* display: flex; */
   /* flex-direction: row; */
   /* display: inline-grid; */
@@ -36,8 +38,8 @@
   margin: var(--unit-margin);
   padding: 0;
   opacity: 1;
-  height: calc( calc(var(--unit)/1) * var(--unit-ratio));
-  width: calc(var(--unit)/1);
+  height: calc( calc(var(--unit)/0.8) * var(--unit-ratio));
+  width: calc(var(--unit)/1.5);
   overflow: hidden;
   transition: box-shadow 0.5s, border-color 0.5s, width 0.5s, height 0.5s 0.5s,
     margin 0.5s, opacity 0.5s;
