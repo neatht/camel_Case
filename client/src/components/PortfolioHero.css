@@ -33,7 +33,7 @@
 }
 .portfolio-hero-edit .portfolio-hero-media {
   text-align: center;
-  font-size: 1.25em;
+  /* font-size: 1.25em; */
   
   margin: var(--unit-margin);
   padding: 0;

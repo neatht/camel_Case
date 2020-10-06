@@ -11,6 +11,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { EditOutlined } from '@ant-design/icons';
 import placeholderFolioImage from '../placeholder-folio-image.png';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { Tooltip } from 'antd';
 
 
 type PortfolioHeroProps = {
@@ -68,7 +69,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                         >
                             {dropProvided => (
                                 <div style={{height: "100%"}} {...dropProvided.droppableProps}>
-                                    <div style={{height: "100%" ,overflowX: "scroll", overflowY: "hidden", display: "flex" }} ref={dropProvided.innerRef}>
+                                    <div className="container-scroll-x" style={{height: "100%", display: "flex" }} ref={dropProvided.innerRef}>
                                         {media.map( (value, index, array) => {
                                             if (value.type === 'image') {
                                                 return (
@@ -80,7 +81,18 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                                                 ref={dragProvided.innerRef}
                                                                
                                                             >
-                                                                <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} style={{backgroundImage: `url(${value.url})`}}></div>
+                                                                <div
+                                                                    className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`}
+                                                                    style={{backgroundImage: `url(${value.url})`}}
+                                                                >
+                                                                        <Tooltip title="Remove" placement="bottom">
+                                                                            <div className="exit-button" onClick={() => {
+                                                                                const newMedia = [...media];
+                                                                                newMedia.splice(index, 1);
+                                                                                setMedia(newMedia);
+                                                                            }}></div>
+                                                                        </Tooltip>
+                                                                </div>
                                                             </div>
                                                         )}
                                                     </Draggable>
@@ -96,7 +108,40 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                                                 ref={dragProvided.innerRef}
                                                                
                                                             >
-                                                                <div className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`} >{index === 0?<div><br />Warning,<br /><strong>{value.type}</strong> can not be<br />a thumbnail.</div>:<div><br /><br />Embedded<br /><strong>{value.type}</strong></div>}</div>
+                                                                <div
+                                                                    className={`portfolio-hero-media container-secondary ${slide===index ? "portfolio-hero-media-max" : ""}`}
+                                                                >
+                                                                    <Tooltip title="Remove" placement="bottom">
+                                                                        <div className="exit-button" onClick={() => {
+                                                                            const newMedia = [...media];
+                                                                            newMedia.splice(index, 1);
+                                                                            setMedia(newMedia);
+                                                                            //PUSH UPDATE
+                                                                        }}></div>
+                                                                    </Tooltip>
+                                                                    { index === 0 ?
+                                                                        <div>
+                                                                            <br /><br /><br />
+                                                                            Warning,
+                                                                            <br />
+                                                                            <strong>
+                                                                                {value.type} 
+                                                                            </strong>
+                                                                            &nbsp;can not be
+                                                                            <br />
+                                                                            a thumbnail.
+                                                                        </div>
+                                                                    :
+                                                                        <div>
+                                                                            <br /><br /><br />
+                                                                            Embedded
+                                                                            <br />
+                                                                            <strong>
+                                                                                {value.type}
+                                                                            </strong>
+                                                                        </div>
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         )}
                                                     </Draggable>
@@ -105,6 +150,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                     
                                         })}
                                         {dropProvided.placeholder}
+                                        {/* <div className="portfolio-hero-media container-secondary">add</div> */}
                                     </div>
                                 </div>
                             )}
@@ -131,7 +177,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
         );
     } else {
         return(
-            <div className={`portfolio-hero`} style={{backgroundImage: `url(${media[0].type==="image" ? media[0].url : placeholderFolioImage})`}}>
+            <div className={`portfolio-hero`} style={{backgroundImage: `url(${media.length > 0 && media[0].type==="image" ? media[0].url : placeholderFolioImage})`}}>
                 {/* <div className={`portfolio-hero-media container-secondary portfolio-hero-media-max`} ></div> */}
             </div>
         );
