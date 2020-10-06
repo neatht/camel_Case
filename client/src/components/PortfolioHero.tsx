@@ -53,7 +53,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
     // props.isOpen ?
     if (props.isOpen){
         return(
-            <div className={`container-secondary portfolio-hero ${editing ? "portfolio-hero-edit container-scroll" : ""}`}>
+            <div className={`portfolio-hero ${editing ? "portfolio-hero-edit container-scroll" : ""}`}>
                 <div onClick={() => {
                 setEditing(!editing);
                 // setSlide(0);
@@ -76,7 +76,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                     >
                         {dropProvided => (
                             <div style={{height: "100%"}} {...dropProvided.droppableProps}>
-                                <div style={{height: "100%", display: "flex" }} ref={dropProvided.innerRef}>
+                                <div style={{height: "100%", display: "flex", position: "relative", top: "-7px" }} ref={dropProvided.innerRef}>
                                     {media.map( (value, index, array) => {
                                         return addMedia(value.type, value.url, index);
                                     })}
