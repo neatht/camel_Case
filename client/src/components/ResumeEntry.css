@@ -10,7 +10,7 @@
   padding: 10px;
   margin: 5px;
   background-color: var(--background-color-secondary);
-  filter: var(--drop-shadow);
+  box-shadow: var(--drop-shadow);
   border-radius: 100px;
   /* border: 1px solid; */
   min-width: 50px;
@@ -35,7 +35,7 @@
   padding: 5px;
   margin-bottom: 5px;
   background-color: var(--background-color-secondary);
-  filter: var(--drop-shadow);
+  box-shadow: var(--drop-shadow);
   border-radius: var(--border-radius-secondary);
   display: grid;
   grid-template-columns: 85px auto;

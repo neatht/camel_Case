@@ -2,26 +2,38 @@ import React from 'react';
 import { useState } from 'react';
 
 import SocialLinks from './SocialLinks';
+import PortfolioHero from './PortfolioHero';
 
 import './PortfolioObject.css';
 import Emoji from './Emoji';
 import AuthorBadge from './AuthorBadge';
+import Paragraph from 'antd/lib/typography/Paragraph';
+import { useAuth0 } from '@auth0/auth0-react';
 
 type PortfolioObjectProps = {
   id: string;
   title: string;
   type: string;
-  media: string;
+  media: { type: string; url: string }[];
   date: string;
   author: string;
   shortDescription: string;
   views: string;
   location: string;
-  picture: string;
+  // picture: string,
   portfolioObjectOpen: any;
 };
 
 function PortfolioObject(props: PortfolioObjectProps) {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const isMyProfile = true;
+
+  const [shortDescription, setShortDescription] = useState(
+    props.shortDescription
+  );
+  const [title, setTitle] = useState(props.title);
+
   const [thumbnail, setThumbnail] = useState(true);
 
   const handleClick = () => {
@@ -36,22 +48,58 @@ function PortfolioObject(props: PortfolioObjectProps) {
       }`}
     >
       <div onClick={handleClick} className="exit-button"></div>
+
       <div className="portfolio-title">
-        <h2>{props.title}</h2>
+        <h2>
+          <Paragraph
+            editable={
+              isMyProfile
+                ? {
+                    onChange: (newString: string) => {
+                      setTitle(newString);
+                      //POST UPDATE
+                    },
+                  }
+                : false
+            }
+          >
+            {title}
+          </Paragraph>
+        </h2>
       </div>
-      <div
-        className="container-secondary portfolio-hero"
-        style={{ backgroundImage: `url(${props.picture})` }}
-      ></div>
+
+      <PortfolioHero
+        isOpen={!thumbnail}
+        isMyProfile={isMyProfile}
+        media={props.media}
+      />
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
           <h4>
-            <strong>{props.title}</strong>
+            <strong>{title}</strong>
           </h4>
           <h5>{props.author}</h5>
         </div>
       </div>
       <div className="portfolio-object-body">
+        <div>
+          <AuthorBadge author={props.author} tagline="Author Tagline" />
+          <br />
+          <Paragraph
+            editable={
+              isMyProfile
+                ? {
+                    onChange: (newString: string) => {
+                      setShortDescription(newString);
+                      //POST UPDATE
+                    },
+                  }
+                : false
+            }
+          >
+            {shortDescription}
+          </Paragraph>
+        </div>
         <div className="container-secondary portfolio-side-bar">
           <ul>
             <li>
@@ -65,7 +113,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
             </li>
             <li>
               <Emoji symbol="🔗" label="Link:" />{' '}
-              <a href={props.media}>{props.media}</a>
+              <a href="{props.media}">props.media</a>
             </li>
             <li>
               <Emoji symbol="👁️" label="Views:" /> {props.views}
@@ -75,18 +123,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
             <SocialLinks />
           </div>
         </div>
-        <AuthorBadge author={props.author} tagline="Author Tagline" />
-        <br />
-        {props.shortDescription} <br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nisi
-        tellus, gravida in cursus et, ultrices eu libero. Nullam mollis ac nibh
-        at rutrum. Donec auctor orci odio. In non mi vel tellus faucibus blandit
-        pretium ac ante. Curabitur laoreet mauris eget justo tristique, finibus
-        ornare ex dapibus. Nunc scelerisque risus sed odio convallis
-        ullamcorper. Aenean bibendum molestie nisi in fermentum. Cras tempor,
-        elit in congue maximus, orci nulla vehicula purus, id aliquet augue
-        neque quis augue. Vestibulum vitae purus sit amet diam venenatis
-        pulvinar non quis mauris.
       </div>
     </div>
   );
