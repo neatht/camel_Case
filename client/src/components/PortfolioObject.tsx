@@ -28,7 +28,7 @@ type PortfolioObjectProps = {
 
 
 function PortfolioObject(props: PortfolioObjectProps) {
-  const [thumbnail, setThumbnail] = useState(true);
+  
 
     const { user, isAuthenticated, isLoading } = useAuth0();
 
@@ -100,20 +100,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
  
         </div>
-        <AuthorBadge author={props.author} tagline="Author Tagline" />
-        <br />
-        {props.shortDescription} <br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nisi
-        tellus, gravida in cursus et, ultrices eu libero. Nullam mollis ac nibh
-        at rutrum. Donec auctor orci odio. In non mi vel tellus faucibus blandit
-        pretium ac ante. Curabitur laoreet mauris eget justo tristique, finibus
-        ornare ex dapibus. Nunc scelerisque risus sed odio convallis
-        ullamcorper. Aenean bibendum molestie nisi in fermentum. Cras tempor,
-        elit in congue maximus, orci nulla vehicula purus, id aliquet augue
-        neque quis augue. Vestibulum vitae purus sit amet diam venenatis
-        pulvinar non quis mauris.
-      </div>
-    </div>
+        
   );
 }
 
