@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import Resume from './Resume';
 
 describe('Testing Resume', () => {
-
   it('renders without crashing', () => {
     const component = shallow(
       <Resume
@@ -12,9 +11,9 @@ describe('Testing Resume', () => {
         student="The University of Melbourne"
         location="Melbourne, Australia"
         work={true}
-      />);
+      />
+    );
     expect(component).toMatchSnapshot();
     component.unmount();
   });
-
-})
+});

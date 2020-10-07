@@ -3,7 +3,6 @@ import { shallow, mount } from 'enzyme';
 import LoginButton from './LoginButton';
 
 describe('Testing LoginButton', () => {
-
   it('renders without crashing', () => {
     const component = shallow(<LoginButton />);
     expect(component).toMatchSnapshot();
@@ -15,9 +14,7 @@ describe('Testing LoginButton', () => {
 
     component.find({ children: 'Login' });
     expect(component).toMatchSnapshot();
-    
+
     component.unmount();
   });
-
-})
-
+});
