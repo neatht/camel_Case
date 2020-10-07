@@ -1,0 +1,15 @@
+.home-hero {
+    background-color: var(--background-color-primary);
+}
+.toggle-home-hero {
+    position: relative;
+    top: 30px;
+    right: 50px;
+}
+
+.toggle-home-hero .anticon {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-top: 7px;
+}

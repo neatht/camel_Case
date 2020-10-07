@@ -1,1 +1,11 @@
- 
+.grid {
+  display: inline-grid;
+  grid-template-columns: repeat(var(--unit-col-num), auto);
+  grid-gap:  var(--unit-margin);
+  transition: grid-gap 0.3s;
+}
+.portfolio-object-open .grid {
+  grid-gap: 0px;
+}
+
+
