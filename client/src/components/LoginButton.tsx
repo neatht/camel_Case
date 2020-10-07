@@ -6,23 +6,21 @@ import { Button } from 'antd';
 import './LoginButton.css';
 
 function LoginButton() {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
-    return(
-        <div>
-            {isAuthenticated
-            ? <Button  
-                onClick={() => logout({ returnTo: window.location.origin })}>
-                    Logout
-              </Button>
-            : <Button 
-                type="primary"
-                onClick={() => loginWithRedirect()}>
-                    Login 
-              </Button>}
-        </div>
-    );
+  return (
+    <div>
+      {isAuthenticated ? (
+        <Button onClick={() => logout({ returnTo: window.location.origin })}>
+          Logout
+        </Button>
+      ) : (
+        <Button type="primary" onClick={() => loginWithRedirect()}>
+          Login
+        </Button>
+      )}
+    </div>
+  );
 }
 
 export default LoginButton;

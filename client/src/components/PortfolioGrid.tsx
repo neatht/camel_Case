@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import PortfolioObject from './PortfolioObject';
 
-
 import './PortfolioGrid.css';
 
-type PortfolioGridProps = {
-}
+type PortfolioGridProps = {};
 
 type PortfolioObjectMetaType = {
     key: string, 
@@ -18,21 +16,21 @@ type PortfolioObjectMetaType = {
     shortDescription: string, 
     views: string, 
     location: string
-}
+};
 
 function PortfolioGrid(props: PortfolioGridProps) {
+  const [portfolioObjects, setPortfolioObjects] = useState<
+    Array<PortfolioObjectMetaType>
+  >([]);
+  //const [fetchError, setFetchError] = useState(false);
 
-    const [portfolioObjects, setPortfolioObjects] = useState<Array<PortfolioObjectMetaType>>([]);
-    //const [fetchError, setFetchError] = useState(false);
-
-    async function fetchPortfolioObjects(): Promise<void> {
-        
-        //TODO: update with route once implemented on backend
-        //const res = await fetch ('/api/v/1/...')
-        //res
-        //  .json()
-        //  .then(res => setPortfolioObjects(res.data))
-        //  .catch(err => setFetchError(err));
+  async function fetchPortfolioObjects(): Promise<void> {
+    //TODO: update with route once implemented on backend
+    //const res = await fetch ('/api/v/1/...')
+    //res
+    //  .json()
+    //  .then(res => setPortfolioObjects(res.data))
+    //  .catch(err => setFetchError(err));
 
         // Dummy for now
         setPortfolioObjects([
@@ -214,21 +212,23 @@ function PortfolioGrid(props: PortfolioGridProps) {
             },
         ])};
 
-    useEffect(() => {
-        fetchPortfolioObjects();
-    }, []);
+  useEffect(() => {
+    fetchPortfolioObjects();
+  }, []);
 
-    const [portfolioObjectOpen, setPortfolioObjectOpen] = useState(false);
 
-    const openPortfolioObject = (open: boolean) => {
-        setPortfolioObjectOpen(open);
-    }
-    
-    return(
-        <div className={`${portfolioObjectOpen ? "portfolio-object-open" : ""}`}>
-            {/* <PortfolioGridHeader
+  const [portfolioObjectOpen, setPortfolioObjectOpen] = useState(false);
+
+  const openPortfolioObject = (open: boolean) => {
+    setPortfolioObjectOpen(open);
+  };
+
+  return (
+    <div className={`${portfolioObjectOpen ? 'portfolio-object-open' : ''}`}>
+      {/* <PortfolioGridHeader
               title={<><Emoji symbol="👀" /> Browse</>}
             /> */}
+
             
             <div className="grid"> {/* 180px (portfolio object height) + 30px padding*/}
                 {portfolioObjects.map( (value, index, array) => {
@@ -254,6 +254,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
             </div>
         </div>
     );
+
 }
 
 export default PortfolioGrid;

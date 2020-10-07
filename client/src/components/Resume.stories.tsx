@@ -17,9 +17,10 @@ const Template: Story<any> = (args) => <Resume {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    name: "Jane Doe", 
-    profile: "I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design. ",
-    student: "The University of Melbourne",
-    location: "Melbourne, Australia",
-    work: true
+  name: 'Jane Doe',
+  profile:
+    'I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design. ',
+  student: 'The University of Melbourne',
+  location: 'Melbourne, Australia',
+  work: true,
 };

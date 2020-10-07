@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing FilterAndSort renders without crashing 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="left"
+  title="Browse Options"
+  transitionName="zoom-big-fast"
+  trigger="hover"
+>
+  <div
+    className="floating-hamburger"
+    onClick={[Function]}
+  >
+    <ForwardRef(MenuOutlined) />
+  </div>
+</Tooltip>
+`;
