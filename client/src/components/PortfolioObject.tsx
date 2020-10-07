@@ -63,7 +63,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
             <PortfolioHero isOpen={!thumbnail} isMyProfile = {isMyProfile} media={props.media} />
             <div className="portfolio-object-overlay">
                 <div className="portfolio-meta">
-                    <h4><strong>{props.title}</strong></h4>
+                    <h4><strong>{title}</strong></h4>
                     <h5>{props.author}</h5>
                 </div>
             </div>
