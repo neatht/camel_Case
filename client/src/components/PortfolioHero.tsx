@@ -1,11 +1,11 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 
-import "./PortfolioHero.css";
-import { EditOutlined } from "@ant-design/icons";
-import placeholderFolioImage from "../placeholder-folio-image.png";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { Tooltip } from "antd";
+import './PortfolioHero.css';
+import { EditOutlined } from '@ant-design/icons';
+import placeholderFolioImage from '../placeholder-folio-image.png';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { Tooltip } from 'antd';
 
 type PortfolioHeroProps = {
   isOpen: boolean;
@@ -24,10 +24,10 @@ function PortfolioHero(props: PortfolioHeroProps) {
     return (
       <div
         className={`portfolio-hero  ${
-          editing ? "portfolio-hero-edit container-scroll" : ""
+          editing ? 'portfolio-hero-edit container-scroll' : ''
         }`}
       >
-        {props.isMyProfile ?
+        {props.isMyProfile ? (
           <div
             onMouseDown={() => {
               setEditingState(!editingState);
@@ -39,7 +39,9 @@ function PortfolioHero(props: PortfolioHeroProps) {
           >
             <EditOutlined />
           </div>
-        :""}
+        ) : (
+          ''
+        )}
         <div
           className="portfolio-hero-button display-left container-secondary"
           onClick={() =>
@@ -74,25 +76,25 @@ function PortfolioHero(props: PortfolioHeroProps) {
               //POST UPDATE
             }}
           >
-            <div style={{ height: "100%" }}>
+            <div style={{ height: '100%' }}>
               <Droppable
-                droppableId={"0"}
-                type={"CARD"}
+                droppableId={'0'}
+                type={'CARD'}
                 direction="horizontal"
                 isCombineEnabled={false}
               >
                 {(dropProvided) => (
                   <div
-                    style={{ height: "100%" }}
+                    style={{ height: '100%' }}
                     {...dropProvided.droppableProps}
                   >
                     <div
                       className="container-scroll-x"
-                      style={{ height: "100%", display: "flex" }}
+                      style={{ height: '100%', display: 'flex' }}
                       ref={dropProvided.innerRef}
                     >
                       {media.map((value, index, array) => {
-                        if (value.type === "image") {
+                        if (value.type === 'image') {
                           return (
                             <Draggable
                               key={value.url}
@@ -109,10 +111,9 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                     className={`
                                         portfolio-hero-media container-secondary
                                         ${
-                                          slide ===
-                                          index
-                                            ? "portfolio-hero-media-max"
-                                            : ""
+                                          slide === index
+                                            ? 'portfolio-hero-media-max'
+                                            : ''
                                         }
                                     `}
                                     style={{
@@ -150,10 +151,9 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                   <div
                                     className={`portfolio-hero-media container-secondary
                                       ${
-                                        slide ===
-                                        index
-                                          ? "portfolio-hero-media-max"
-                                          : ""
+                                        slide === index
+                                          ? 'portfolio-hero-media-max'
+                                          : ''
                                       }
                                       `}
                                   >
@@ -205,22 +205,22 @@ function PortfolioHero(props: PortfolioHeroProps) {
             </div>
           </DragDropContext>
         ) : (
-          <div style={{ height: "100%", display: "flex" }}>
+          <div style={{ height: '100%', display: 'flex' }}>
             {media.map((value, index, array) => {
-              if (value.type === "image") {
+              if (value.type === 'image') {
                 return (
                   <div
                     className={`portfolio-hero-media container-secondary ${
-                      slide === index ? "portfolio-hero-media-max" : ""
+                      slide === index ? 'portfolio-hero-media-max' : ''
                     }`}
                     style={{ backgroundImage: `url(${value.url})` }}
                   ></div>
                 );
-              } else if (value.type === "video") {
+              } else if (value.type === 'video') {
                 return (
                   <div
                     className={`portfolio-hero-media container-secondary ${
-                      slide === index ? "portfolio-hero-media-max" : ""
+                      slide === index ? 'portfolio-hero-media-max' : ''
                     }`}
                   >
                     <video width="100%" height="100%" controls>
@@ -232,7 +232,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 return (
                   <div
                     className={`portfolio-hero-media container-secondary ${
-                      slide === index ? "portfolio-hero-media-max" : ""
+                      slide === index ? 'portfolio-hero-media-max' : ''
                     }`}
                   >
                     <embed src={`${value.url}`} width="100%" height="100%" />
@@ -250,7 +250,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
         className={`portfolio-hero`}
         style={{
           backgroundImage: `url(${
-            media.length > 0 && media[0].type === "image"
+            media.length > 0 && media[0].type === 'image'
               ? media[0].url
               : placeholderFolioImage
           })`,
