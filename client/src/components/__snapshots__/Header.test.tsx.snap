@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Header renders home without crashing 1`] = `
+<div>
+  <header>
+    <PageHeader
+      className="site-page-header"
+      title={
+        <ForwardRef
+          className="navTitle"
+          to="/"
+        >
+           
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            📝
+          </span>
+           
+          Glowbal
+           
+        </ForwardRef>
+      }
+    />
+    <Menu
+      mode="horizontal"
+      onClick={[Function]}
+      selectedKeys={
+        Array [
+          "home",
+        ]
+      }
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            🏠
+             
+          </span>
+        }
+        key="home"
+      >
+        <NavLink
+          exact={true}
+          to="/"
+        >
+          Home
+        </NavLink>
+      </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            👨‍💼
+             
+          </span>
+        }
+        key="profile"
+      >
+        <NavLink
+          exact={true}
+          to="/profile"
+        >
+          Profile
+        </NavLink>
+         
+      </MenuItem>
+    </Menu>
+    <Space
+      style={
+        Object {
+          "marginLeft": "auto",
+          "marginRight": "20px",
+        }
+      }
+    >
+      <Search
+        enterButton={true}
+        style={
+          Object {
+            "width": 300,
+          }
+        }
+      />
+      <LoginButton />
+    </Space>
+  </header>
+</div>
+`;
+
+exports[`Testing Header renders profile without crashing 1`] = `
+<div>
+  <header>
+    <PageHeader
+      className="site-page-header"
+      title={
+        <ForwardRef
+          className="navTitle"
+          to="/"
+        >
+           
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            📝
+          </span>
+           
+          Glowbal
+           
+        </ForwardRef>
+      }
+    />
+    <Menu
+      mode="horizontal"
+      onClick={[Function]}
+      selectedKeys={
+        Array [
+          "profile",
+        ]
+      }
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            🏠
+             
+          </span>
+        }
+        key="home"
+      >
+        <NavLink
+          exact={true}
+          to="/"
+        >
+          Home
+        </NavLink>
+      </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            👨‍💼
+             
+          </span>
+        }
+        key="profile"
+      >
+        <NavLink
+          exact={true}
+          to="/profile"
+        >
+          Profile
+        </NavLink>
+         
+      </MenuItem>
+    </Menu>
+    <Space
+      style={
+        Object {
+          "marginLeft": "auto",
+          "marginRight": "20px",
+        }
+      }
+    >
+      <Search
+        enterButton={true}
+        style={
+          Object {
+            "width": 300,
+          }
+        }
+      />
+      <LoginButton />
+    </Space>
+  </header>
+</div>
+`;

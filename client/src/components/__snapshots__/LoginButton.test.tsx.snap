@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing LoginButton renders without crashing 1`] = `
+<div>
+  <Button
+    block={false}
+    ghost={false}
+    htmlType="button"
+    loading={false}
+    onClick={[Function]}
+    type="primary"
+  >
+    Login
+  </Button>
+</div>
+`;
+
+exports[`Testing LoginButton shows login when not authenticated 1`] = `
+<LoginButton>
+  <div>
+    <Button
+      block={false}
+      ghost={false}
+      htmlType="button"
+      loading={false}
+      onClick={[Function]}
+      type="primary"
+    >
+      <Wave>
+        <button
+          className="ant-btn ant-btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          <LoadingIcon
+            existIcon={false}
+            loading={false}
+            prefixCls="ant-btn"
+          >
+            <CSSMotion
+              motionName="ant-btn-loading-icon-motion"
+              onAppearActive={[Function]}
+              onAppearStart={[Function]}
+              onEnterActive={[Function]}
+              onEnterStart={[Function]}
+              onLeaveActive={[Function]}
+              onLeaveStart={[Function]}
+              removeOnLeave={true}
+              visible={false}
+            >
+              <DomWrapper />
+            </CSSMotion>
+          </LoadingIcon>
+          <span
+            key=".0"
+          >
+            Login
+          </span>
+        </button>
+      </Wave>
+    </Button>
+  </div>
+</LoginButton>
+`;

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing AuthorBadge renders without crashing 1`] = `
+<div
+  className="authorBadge"
+>
+  <div
+    className="profilePicture"
+  >
+    <ForwardRef(UserOutlined)
+      style={
+        Object {
+          "color": "#fff",
+          "fontSize": "32px",
+        }
+      }
+    />
+  </div>
+  <div
+    className="authorName"
+  >
+    <h4>
+      <strong>
+        author
+      </strong>
+    </h4>
+    <h5>
+      tagline
+    </h5>
+  </div>
+</div>
+`;

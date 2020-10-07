@@ -2,35 +2,6 @@ import React, { useState } from 'react';
 
 import { AutoComplete } from 'antd';
 
-async function fetchCompanyAutoComplete(query: string): Promise<Array<any>> {
-  const res = await fetch(
-    'https://autocomplete.clearbit.com/v1/companies/suggest?query=' + query
-  );
-  return res.json();
-}
-
-async function searchResult(query: string) {
-  const data = await fetchCompanyAutoComplete(query);
-
-  return data.map((item: any, _idx: any) => {
-    return {
-      value: `${item.name}`,
-      label: (
-        <div style={{ padding: 5 }}>
-          <span style={{ paddingRight: 10 }}>
-            <img
-              alt=" "
-              src={item.logo}
-              width="20px"
-              style={{ borderRadius: 10 }}
-            />
-          </span>
-          <span>{item.name}</span>
-        </div>
-      ),
-    };
-  });
-}
 
 type CompanyAutoCompleteProps = {
   /** Callback function for when a company is selected */
@@ -42,15 +13,41 @@ type CompanyAutoCompleteProps = {
 };
 
 function CompanyAutoComplete(props: CompanyAutoCompleteProps) {
-  const [options, setOptions] = useState<Array<any>>();
-  const [value, setValue] = useState(
-    props.initialValue ? props.initialValue : ''
-  );
+    
+    const [options, setOptions] = useState<Array<any>>();
+    const [value, setValue] = useState(props.initialValue ? props.initialValue : "");
+    
+    async function fetchCompanyAutoComplete(query: string): Promise<Array<any>> {
+        const res = await fetch ('https://autocomplete.clearbit.com/v1/companies/suggest?query=' + query);
+        return res.json();
+    }
+  
+    async function searchResult(query: string) {
 
-  const handleValueChange = (value: string) => {
-    setValue(value);
-    if (props.onChange) {
-      props.onChange(value);
+        const data = await fetchCompanyAutoComplete(query);
+    
+        return data
+            .map((item: any, idx: any) => {
+                return ({
+                    value: (`${item.name}`),
+                    label: (
+                        <div style={{ padding: 5 }}>
+                            <span style={{ paddingRight: 10 }}>
+                                <img alt=" " src={item.logo} width="20px" style={{borderRadius: 10}}/>
+                            </span>
+                            <span>
+                                {item.name}
+                            </span>
+                        </div>),
+                });
+        });
+    };
+
+    const handleValueChange = (value: string) => {
+        setValue(value);
+        if (props.onChange) {
+            props.onChange(value);
+        }
     }
   };
 
