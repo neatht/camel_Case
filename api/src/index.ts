@@ -1,28 +1,35 @@
-import dotenv from "dotenv";
-import express from "express";
-import path from "path";
+/**
+ * This file is responsible for starting the Express server. Registering routes
+ * and middleware is delegated to a routes file.
+ */
+
+import dotenv from 'dotenv';
+import express from 'express';
+import https from 'https';
+import http from 'http';
+import fs from 'fs';
+import { register } from './routes';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;
 
-// Serve static react build
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// Test
-app.get('/api/getList', (req, res) => {
-	const list = ['item1', 'item2'];
-	res.json(list);
-})
-
-// Route to React app by default
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname+'client/build/index.html'));
-});
-
-// Start the Express sever
-app.listen(port, () => {
-	// tslint:disable-next-line:no-console
+https.createServer({
+	key: fs.readFileSync(process.env.SSL_KEY_FILE),
+	cert: fs.readFileSync(process.env.SSL_CRT_FILE)
+}, app).listen(port, () => {
 	console.log(`Server started at localhost:${port}`);
 });
+
+const httpApp = express();
+
+httpApp.get("*", (req, res) => {
+	res.redirect('https://' + req.hostname + req.originalUrl);
+});
+
+http.createServer(httpApp).listen(80, '0.0.0.0', () => {
+	console.log(`redirect Server started at localhost:80`);
+})
+
+register(app);

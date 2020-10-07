@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing PortfolioObject renders without crashing 1`] = `
+<div
+  className="container-primary portfolio-object thumbnail"
+>
+  <div
+    className="exit-button"
+    onClick={[Function]}
+  />
+  <div
+    className="portfolio-title"
+  >
+    <h2>
+      <Paragraph
+        editable={
+          Object {
+            "onChange": [Function],
+          }
+        }
+      >
+        Project 1
+      </Paragraph>
+    </h2>
+  </div>
+  <PortfolioHero
+    isMyProfile={true}
+    isOpen={false}
+    media={
+      Array [
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/BNZxQ2z/example0.jpg",
+        },
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/TYYyXDH/example1.png",
+        },
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/pZmXQb5/example2.png",
+        },
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/SwzRr9S/example3.png",
+        },
+        Object {
+          "type": "pdf",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        },
+        Object {
+          "type": "video",
+          "url": "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
+        },
+      ]
+    }
+  />
+  <div
+    className="portfolio-object-overlay"
+  >
+    <div
+      className="portfolio-meta"
+    >
+      <h4>
+        <strong>
+          Project 1
+        </strong>
+      </h4>
+      <h5>
+        Author 1
+      </h5>
+    </div>
+  </div>
+  <div
+    className="portfolio-object-body"
+  >
+    <div>
+      <AuthorBadge
+        author="Author 1"
+        tagline="Author Tagline"
+      />
+      <br />
+      <Paragraph
+        editable={
+          Object {
+            "onChange": [Function],
+          }
+        }
+      >
+        This is a short description about the project
+      </Paragraph>
+    </div>
+    <div
+      className="container-secondary portfolio-side-bar"
+    >
+      <ul>
+        <li>
+          <Emoji
+            label="Type:"
+            symbol="💻"
+          />
+           
+          website
+        </li>
+        <li>
+          <Emoji
+            label="Date:"
+            symbol="📅"
+          />
+           
+          2020-01
+        </li>
+        <li>
+          <Emoji
+            label="Location:"
+            symbol="🌏"
+          />
+           
+          Melbourne, Australia
+        </li>
+        <li>
+          <Emoji
+            label="Link:"
+            symbol="🔗"
+          />
+           
+          <a
+            href="{props.media}"
+          >
+            props.media
+          </a>
+        </li>
+        <li>
+          <Emoji
+            label="Views:"
+            symbol="👁️"
+          />
+           
+          10
+        </li>
+      </ul>
+      <div
+        style={
+          Object {
+            "textAlign": "center",
+          }
+        }
+      >
+        <SocialLinks />
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,75 @@
+:root {
+  --color-app: #000000;
+
+  --color-primary: #40a9ff;
+
+  --color-gradient: #ffffff;
+
+  --background-color-app: #ffffff;
+  --background-color-primary: #fafafa;
+  --background-color-secondary: rgba(255, 255, 255, 0.7);
+  --background-color-tertiary: rgba(0, 0, 0, 0.2);
+
+  --border-radius-primary: 10px;
+  --border-radius-secondary: 8px;
+
+  --drop-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  
+  --unit: 240px;
+  --unit-col-num: 1;
+  --unit-ratio: 0.75;
+  --unit-margin: 15px;
+
+  --unit-width: calc( var(--unit-col-num)*var(--unit) + var(--unit-col-num)*var(--unit-margin) - var(--unit-margin));
+
+}
+
+@media only screen and (min-width: 1000px) {
+  :root {
+    --unit-col-num: 2;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  :root {
+    --unit-col-num: 3;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  :root {
+    --unit-col-num: 4;
+  }
+}
+
+@media only screen and (min-width: 1900px) {
+  :root {
+    --unit-col-num: 5;
+  }
+}
+
+@media only screen and (min-width: 2200px) {
+  :root {
+    --unit: 300px;
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-app: #ffffff;
+
+    --color-gradient: #444444;
+  
+    --background-color-app: #1f1f1f;
+    --background-color-primary: #000000;
+    --background-color-secondary: rgba(255, 255, 255, 0.178);
+  
+    --border-radius-primary: 10px;
+    --border-radius-secondary: 8px;
+
+    --drop-shadow: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.5));
+  }
+}
+
+

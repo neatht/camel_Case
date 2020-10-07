@@ -1,0 +1,30 @@
+name: Test React
+
+on: [push, pull_request]
+
+jobs:
+  
+  build:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Install modules
+        working-directory: ./client
+        run: yarn
+
+      - name: Run lint
+        working-directory: ./client
+        run: yarn lint
+
+      - name: Run format check
+        working-directory: ./client
+        run: yarn format-check
+        
+      - name: Run tests
+        working-directory: ./client
+        run: yarn test

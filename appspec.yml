@@ -5,18 +5,18 @@ files:
     destination: /home/ec2-user/application
 hooks:
   BeforeInstall:
-    - location: scripts/install.sh
+    - location: scripts/preInstall.sh
       timeout: 300
       runas: root
   AfterInstall:
-    - location: scripts/postInstall.sh
-      timeout: 300
+    - location: scripts/install.sh
+      timeout: 3600
       runas: root
   ApplicationStart:
     - location: scripts/startServer.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
   ApplicationStop:
     - location: scripts/stopServer.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
