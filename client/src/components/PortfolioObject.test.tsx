@@ -3,9 +3,8 @@ import { shallow } from 'enzyme';
 import PortfolioObject from './PortfolioObject';
 
 describe('Testing PortfolioObject', () => {
-
   /* TODO: update when API is linked */
-  
+
   it('renders without crashing', () => {
     const component = shallow(
       <PortfolioObject
@@ -19,10 +18,10 @@ describe('Testing PortfolioObject', () => {
         views="10"
         location="Melbourne, Australia"
         media=""
-        portfolioObjectOpen={false}    
-      />);
+        portfolioObjectOpen={false}
+      />
+    );
     expect(component).toMatchSnapshot();
     component.unmount();
   });
-    
-})
+});

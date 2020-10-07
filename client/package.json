@@ -17,6 +17,8 @@
     "@types/react-router-dom": "^5.1.5",
     "antd": "^4.6.4",
     "emoji-mart": "^3.0.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "pm2": "^4.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -25,13 +27,26 @@
     "react-scripts": "3.4.3",
     "typescript": "~3.7.2"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "eslint"
+    ],
+    "src/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "eslint"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "format": "prettier --write src/**/*.ts{,x} && prettier --write src/*.ts{,x}",
+    "format-check": "prettier --check src/**/*.ts{,x} && prettier --check src/*.ts{,x} ",
+    "lint": "tsc --noEmit && eslint src/**/*.ts{,x} && eslint src/*.ts{,x}"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -59,10 +74,22 @@
     "@storybook/react": "^6.0.22",
     "@types/emoji-mart": "^3.0.2",
     "@types/enzyme": "^3.10.7",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
     "babel-loader": "^8.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
+    "eslint-config-airbnb-typescript": "6.3.2",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "prettier": "^2.1.2",
     "react-is": "^16.13.1",
     "react-test-renderer": "^16.13.1"
   },
@@ -70,5 +97,10 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
