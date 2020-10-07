@@ -52,7 +52,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                         ? { onChange:
                             (newString: string) => {
                                 setTitle(newString);
-                                //POST
+                                //POST UPDATE
                             }
                         }
                         : false
@@ -68,6 +68,21 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 </div>
             </div>
             <div className="portfolio-object-body">
+                
+                <div>
+                    <AuthorBadge author = {props.author} tagline = "Author Tagline"/>    
+                    <br />
+                    <Paragraph editable={
+                        isMyProfile
+                        ? { onChange:
+                            (newString: string) => {
+                                setShortDescription(newString);
+                                //POST UPDATE
+                            }
+                        }
+                        : false
+                    }>{shortDescription}</Paragraph>
+                </div>
                 <div className="container-secondary portfolio-side-bar">
                     <ul>
                         <li><Emoji symbol="💻" label="Type:"/> {props.type}</li>
@@ -78,20 +93,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
                     </ul>
                     <div style={{textAlign: "center"}}><SocialLinks /></div>
                 </div>
-
-                <AuthorBadge author = {props.author} tagline = "Author Tagline"/>    
-            
-                <br />
-                <Paragraph editable={
-                    isMyProfile
-                    ? { onChange:
-                        (newString: string) => {
-                            setShortDescription(newString);
-                            //POST
-                        }
-                    }
-                    : false
-                }>{shortDescription}</Paragraph>
             </div>
         </div>
     );

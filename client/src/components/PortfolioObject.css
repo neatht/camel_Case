@@ -108,6 +108,9 @@
   ===========================*/
 
 .portfolio-object-body {
+  display: grid;
+  grid-template-columns: auto 200px;
+  grid-gap: 30px;
   padding-top: 7px;
   opacity: 1;
   transition: opacity 1s;
@@ -151,11 +154,11 @@
   ===========================*/
 
 .portfolio-side-bar {
-  float: right;
+  /* float: right; */
   text-align: left;
   width: 200px;
   height: 100%;
-  margin-left: 30px;
+  /* margin-left: 30px; */
   overflow: hidden;
 }
 .portfolio-side-bar ul {
@@ -182,5 +185,20 @@
   margin: 0;
   transition: width 0.8s, height 1s 0s, padding 0.3s, margin 0.3s, opacity 0.2s;
 }
+
+
+
+/*===========================
+  tweak edit textbox 
+  ===========================*/
+
+h2 .ant-typography-edit-content {
+  /* background-color: aqua !important; */
+  text-align: center !important;
+  margin-left: 15px !important;
+  margin-right: 30px !important;
+}
+
+
 
 

@@ -71,7 +71,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
               newMedia.splice(source.index, 1);
               newMedia.splice(destination.index, 0, movedMedia);
               setMedia(newMedia);
-              //PUSH UPDATE
+              //POST UPDATE
             }}
           >
             <div style={{ height: "100%" }}>
@@ -164,7 +164,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                           const newMedia = [...media];
                                           newMedia.splice(index, 1);
                                           setMedia(newMedia);
-                                          //PUSH UPDATE
+                                          //POST UPDATE
                                         }}
                                       ></div>
                                     </Tooltip>
