@@ -3,7 +3,7 @@ import { pool } from '../config/postgres';
 
 /**
  * connectPool() connects to the pg pool.
- * 
+ *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
@@ -16,9 +16,10 @@ export const connectPool = (req: any, res: express.Response,
      * the database.
      */
     if (connectErr) {
-      throw new Error('Error connecting to database')
+      next(new Error('Error connecting to database'));
     } else {
       req.poolClient = client;
       next();
     }
+  });
 }
