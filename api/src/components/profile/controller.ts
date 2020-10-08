@@ -7,7 +7,7 @@
 
 import express from 'express';
 import { validationResult } from 'express-validator';
-import { addUserService } from './service';
+import { addProfileService, getProfileService } from './service';
 
 /**
  * addUser() checks the validation result for profile data and then adds
@@ -26,5 +26,17 @@ export const addUser = (req: express.Request, res: express.Response,
         data: errors.array()
       })
     }
-    addUserService(req, res, next);
+    addProfileService(req, res, next);
+}
+
+/**
+ * getUser() gets a user by its ID in the database
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const getUser = (req: express.Request, res: express.Response,
+  next: express.NextFunction) => {
+    getProfileService(req, res, next);
 }
