@@ -11,6 +11,7 @@ import profileRouter from './components/profile/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
+import { errorHandler } from './middleware/error';
 
 /**
  * register() registers the routes and middleware. To add a route or middleware
@@ -25,10 +26,6 @@ export const register = (app: express.Application) => {
 
   // Register routes
   app.use('/api/profile', profileRouter);
-  app.use('/auth/check', jwtCheck, (req, res) => {
-    res.status(200);
-    res.json({message: "Hello!"});
-  });
   app.get('/api/getList', jwtCheck, (req, res) => {
     const list = ['item1', 'item2'];
     res.json(list);
@@ -36,4 +33,7 @@ export const register = (app: express.Application) => {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
   });
+
+  // Error handling
+  app.use(errorHandler);
 }
