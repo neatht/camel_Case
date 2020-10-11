@@ -1,7 +1,7 @@
-import Paragraph from 'antd/lib/typography/Paragraph';
 import React from 'react';
 
 import './ResumeEntry.css';
+import TextInput from './TextInput';
 
 type ResumeEntryProps = {
   title: string;
@@ -28,20 +28,8 @@ function ResumeEntry(props: ResumeEntryProps) {
             <li key={index}>
               <div className="resume-entry-date">{value.date}</div>
               <div>
-              <Paragraph
-              editable={
-                true
-                  ? {
-                      onChange: (newString: string) => {
-                        // setName(newString);
-                        //POST UPDATE
-                      },
-                    }
-                  : false
-              }
-            >
-              {value.text}
-            </Paragraph>
+                <TextInput text={value.text}/>
+                
                 <div className="resume-sub-text">{value.subText}</div>
               </div>
             </li>

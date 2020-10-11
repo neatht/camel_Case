@@ -8,6 +8,7 @@ import Emoji from './Emoji';
 import './Resume.css';
 import ResumeEntry from './ResumeEntry';
 import Paragraph from 'antd/lib/typography/Paragraph';
+import TextInput from './TextInput';
 
 type ResumeProps = {
   name: string;
@@ -79,7 +80,8 @@ function Resume(props: ResumeProps) {
       <div className="resume-name">
         <h1>
           <strong>
-            <Paragraph
+          <TextInput text={props.name}/>
+            {/* <Paragraph
               editable={
                 isMyProfile
                   ? {
@@ -92,7 +94,7 @@ function Resume(props: ResumeProps) {
               }
             >
               {name}
-            </Paragraph>
+            </Paragraph> */}
           </strong>
         </h1>
 
