@@ -29,7 +29,7 @@
     
 }
 
-.text-input input {
+.text-input input, .text-input textarea {
     text-align: inherit;
     font-weight: inherit;
     font-size: inherit;
@@ -42,3 +42,4 @@
     width: 100%;
     background-color: rgba(0, 0, 0, 0);
 }
+

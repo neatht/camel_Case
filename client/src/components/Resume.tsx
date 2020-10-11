@@ -83,21 +83,7 @@ function Resume(props: ResumeProps) {
           <TextInput editable={isMyProfile} onChange={(newString: string) => {
             setName(newString);
             //POST UPDATE
-          }} text={props.name}/>
-            {/* <Paragraph
-              editable={
-                isMyProfile
-                  ? {
-                      onChange: (newString: string) => {
-                        setName(newString);
-                        //POST UPDATE
-                      },
-                    }
-                  : false
-              }
-            >
-              {name}
-            </Paragraph> */}
+          }} text={name}/>
           </strong>
         </h1>
 
@@ -110,20 +96,10 @@ function Resume(props: ResumeProps) {
         </div>
       </div>
       <div className="resume-profile">
-        <Paragraph
-          editable={
-            isMyProfile
-              ? {
-                  onChange: (newString: string) => {
-                    setProfile(newString);
-                    //POST UPDATE
-                  },
-                }
-              : false
-          }
-        >
-          {profile}
-        </Paragraph>
+      <TextInput padding="10px" multiline={true} editable={isMyProfile} onChange={(newString: string) => {
+            setProfile(newString);
+            //POST UPDATE
+          }} text={profile}/>
       </div>
       <ResumeEntry
         title="Skills"

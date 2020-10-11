@@ -3,12 +3,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import './TextInput.css';
 
 type TextInputProps = {
-  // label?: string;
-  // symbol: string;
   text?: string;
   padding?: string;
   radius?: string;
   editable?: boolean;
+  multiline?: boolean;
   onChange: Function;
 };
 
@@ -27,7 +26,6 @@ function TextInput(props: TextInputProps) {
 
     const displayText = displayTextRef.current;
     displayText?.classList.add('something');
-    
   });
 
   const finish = () => {
@@ -45,35 +43,51 @@ function TextInput(props: TextInputProps) {
           : 'text-input'
       }
       onClick={() => {
-        // console.log(displayTextRef.current.offsetWidth+"px");
         if (props.editable) {
           setEditing(true);
           if (inputRef.current !== null && displayTextRef.current !== null) {
             inputRef.current.focus();
 
             let width = displayTextRef.current.offsetWidth;
-
             if (width > 0) {
-              inputRef.current.style.width = width+"px";
+              inputRef.current.style.width = width + 'px';
             }
-            
+
+            let height = displayTextRef.current.offsetHeight;
+            if (height > 0) {
+              inputRef.current.style.height = height + 'px';
+            }
           }
         }
       }}
     >
-      <div ref={displayTextRef} className={editing ? 'text-input-display-none' : ''}>{text}</div>
-      <div className={editing ? '' : 'text-input-display-none'}>
-        <input
-          // style={{width: displayTextRef.current.offsetWidth}}
-          ref={inputRef}
-          onBlur={() => finish()}
-          type="text"
-          value={text}
-          onChange={handleChange}
-        />
+      <div
+        ref={displayTextRef}
+        className={editing ? 'text-input-display-none' : ''}
+      >
+        {text}
       </div>
-
-      {/* <input type="text" value={text} onChange={handleChange} /> */}
+      {props.multiline ? (
+        <div className={editing ? '' : 'text-input-display-none'}>
+          <textarea
+            className="container-scroll"
+            ref={inputRef}
+            onBlur={() => finish()}
+            value={text}
+            onChange={handleChange}
+          />
+        </div>
+      ) : (
+        <div className={editing ? '' : 'text-input-display-none'}>
+          <input
+            ref={inputRef}
+            onBlur={() => finish()}
+            type="text"
+            value={text}
+            onChange={handleChange}
+          />
+        </div>
+      )}
     </div>
   );
 }

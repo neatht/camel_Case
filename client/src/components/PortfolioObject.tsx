@@ -7,7 +7,6 @@ import PortfolioHero from './PortfolioHero';
 import './PortfolioObject.css';
 import Emoji from './Emoji';
 import AuthorBadge from './AuthorBadge';
-import Paragraph from 'antd/lib/typography/Paragraph';
 import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
 
@@ -51,25 +50,16 @@ function PortfolioObject(props: PortfolioObjectProps) {
       <div onClick={handleClick} className="exit-button"></div>
 
       <div className="portfolio-title">
-        <h2 style={{marginRight: "35px"}}>
-        <TextInput padding="2px 0 2px 35px" editable={isMyProfile} onChange={(newString: string) => {
-            setTitle(newString);
-            //POST UPDATE
-          }} text={props.title}/>
-          {/* <Paragraph
-            editable={
-              isMyProfile
-                ? {
-                    onChange: (newString: string) => {
-                      setTitle(newString);
-                      //POST UPDATE
-                    },
-                  }
-                : false
-            }
-          >
-            {title}
-          </Paragraph> */}
+        <h2 style={{ marginRight: '35px' }}>
+          <TextInput
+            padding="2px 0 2px 35px"
+            editable={isMyProfile}
+            onChange={(newString: string) => {
+              setTitle(newString);
+              //POST UPDATE
+            }}
+            text={props.title}
+          />
         </h2>
       </div>
 
@@ -90,20 +80,18 @@ function PortfolioObject(props: PortfolioObjectProps) {
         <div>
           <AuthorBadge author={props.author} tagline="Author Tagline" />
           <br />
-          <Paragraph
-            editable={
-              isMyProfile
-                ? {
-                    onChange: (newString: string) => {
-                      setShortDescription(newString);
-                      //POST UPDATE
-                    },
-                  }
-                : false
-            }
-          >
-            {shortDescription}
-          </Paragraph>
+          <div style={{marginLeft: "-10px", marginTop: "-10px"}}>
+            <TextInput
+              padding="10px"
+              multiline={true}
+              editable={isMyProfile}
+              onChange={(newString: string) => {
+                setShortDescription(newString);
+                //POST UPDATE
+              }}
+              text={shortDescription}
+            />
+          </div>
         </div>
         <div className="container-secondary portfolio-side-bar">
           <ul>
