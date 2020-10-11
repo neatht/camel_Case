@@ -25,7 +25,11 @@ exports[`Testing Resume renders without crashing 1`] = `
     <h1>
       <strong>
         <Paragraph
-          editable={false}
+          editable={
+            Object {
+              "onChange": [Function],
+            }
+          }
         >
           Jane Doe
         </Paragraph>
@@ -90,7 +94,11 @@ exports[`Testing Resume renders without crashing 1`] = `
     className="resume-profile"
   >
     <Paragraph
-      editable={false}
+      editable={
+        Object {
+          "onChange": [Function],
+        }
+      }
     >
       I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design. 
     </Paragraph>
@@ -131,7 +139,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
-    isMyProfile={false}
+    isMyProfile={true}
     title="Skills"
   />
   <ResumeEntry
@@ -154,7 +162,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
-    isMyProfile={false}
+    isMyProfile={true}
     title="Experience"
   />
   <ResumeEntry
@@ -171,7 +179,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
-    isMyProfile={false}
+    isMyProfile={true}
     title="Achievements"
   />
   <ResumeEntry
@@ -190,7 +198,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
-    isMyProfile={false}
+    isMyProfile={true}
     title="Education"
   />
 </div>

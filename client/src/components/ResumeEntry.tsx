@@ -1,3 +1,4 @@
+import Paragraph from 'antd/lib/typography/Paragraph';
 import React from 'react';
 
 import './ResumeEntry.css';
@@ -24,10 +25,23 @@ function ResumeEntry(props: ResumeEntryProps) {
       <ul>
         {props.entries.map((value, index, array) => {
           return (
-            <li>
+            <li key={index}>
               <div className="resume-entry-date">{value.date}</div>
               <div>
-                {value.text}
+              <Paragraph
+              editable={
+                true
+                  ? {
+                      onChange: (newString: string) => {
+                        // setName(newString);
+                        //POST UPDATE
+                      },
+                    }
+                  : false
+              }
+            >
+              {value.text}
+            </Paragraph>
                 <div className="resume-sub-text">{value.subText}</div>
               </div>
             </li>

@@ -10,7 +10,9 @@ exports[`Testing ResumeEntry renders without crashing 1`] = `
     </strong>
   </h2>
   <ul>
-    <li>
+    <li
+      key="0"
+    >
       <div
         className="resume-entry-date"
       >
@@ -25,7 +27,9 @@ exports[`Testing ResumeEntry renders without crashing 1`] = `
         </div>
       </div>
     </li>
-    <li>
+    <li
+      key="1"
+    >
       <div
         className="resume-entry-date"
       >
@@ -40,7 +44,9 @@ exports[`Testing ResumeEntry renders without crashing 1`] = `
         </div>
       </div>
     </li>
-    <li>
+    <li
+      key="2"
+    >
       <div
         className="resume-entry-date"
       >

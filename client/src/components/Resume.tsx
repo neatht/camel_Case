@@ -18,7 +18,7 @@ type ResumeProps = {
 };
 
 function Resume(props: ResumeProps) {
-  const isMyProfile = false;
+  const isMyProfile = true;
 
   const [name, setName] = useState(props.name);
   const [profile, setProfile] = useState(props.profile);
