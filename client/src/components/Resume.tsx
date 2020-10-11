@@ -80,7 +80,10 @@ function Resume(props: ResumeProps) {
       <div className="resume-name">
         <h1>
           <strong>
-          <TextInput text={props.name}/>
+          <TextInput editable={isMyProfile} onChange={(newString: string) => {
+            setName(newString);
+            //POST UPDATE
+          }} text={props.name}/>
             {/* <Paragraph
               editable={
                 isMyProfile

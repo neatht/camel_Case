@@ -24,16 +24,51 @@ function ResumeEntry(props: ResumeEntryProps) {
       </h2>
       <ul>
         {props.entries.map((value, index, array) => {
-          return (
-            <li key={index}>
-              <div className="resume-entry-date">{value.date}</div>
-              <div>
-                <TextInput text={value.text}/>
-                
-                <div className="resume-sub-text">{value.subText}</div>
-              </div>
-            </li>
-          );
+          if (props.display === 'inline') {
+            return (
+              <li key={index}>
+                <div>
+                  <TextInput
+                    editable={props.isMyProfile}
+                    onChange={() => {}}
+                    padding="5px"
+                    radius="50px"
+                    text={value.text}
+                  />
+                </div>
+              </li>
+            );
+          } else {
+            return (
+              <li key={index}>
+                <div className="resume-entry-date">
+                  <TextInput
+                    editable={props.isMyProfile}
+                    onChange={() => {}}
+                    padding="2px"
+                    text={value.date}
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    editable={props.isMyProfile}
+                    onChange={() => {}}
+                    padding="2px"
+                    text={value.text}
+                  />
+
+                  <div className="resume-sub-text">
+                    <TextInput
+                      editable={props.isMyProfile}
+                      onChange={() => {}}
+                      padding="2px"
+                      text={value.subText}
+                    />
+                  </div>
+                </div>
+              </li>
+            );
+          }
         })}
       </ul>
     </div>

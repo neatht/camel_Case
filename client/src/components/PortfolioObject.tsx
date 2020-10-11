@@ -9,6 +9,7 @@ import Emoji from './Emoji';
 import AuthorBadge from './AuthorBadge';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import { useAuth0 } from '@auth0/auth0-react';
+import TextInput from './TextInput';
 
 type PortfolioObjectProps = {
   id: string;
@@ -50,8 +51,12 @@ function PortfolioObject(props: PortfolioObjectProps) {
       <div onClick={handleClick} className="exit-button"></div>
 
       <div className="portfolio-title">
-        <h2>
-          <Paragraph
+        <h2 style={{marginRight: "35px"}}>
+        <TextInput padding="2px 0 2px 35px" editable={isMyProfile} onChange={(newString: string) => {
+            setTitle(newString);
+            //POST UPDATE
+          }} text={props.title}/>
+          {/* <Paragraph
             editable={
               isMyProfile
                 ? {
@@ -64,7 +69,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
             }
           >
             {title}
-          </Paragraph>
+          </Paragraph> */}
         </h2>
       </div>
 

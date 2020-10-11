@@ -8,7 +8,7 @@
 
 .text-input {
     /* background-color: blueviolet; */
-    cursor: text;
+    cursor: default;
     /* margin: -5px; */
     width: 100%;
     /* height: fit-content; */
@@ -18,8 +18,9 @@
 }
 
 
-.text-input:hover {
+.text-input-editable:hover {
     box-shadow: inset var(--drop-shadow);
+    cursor: text;
     
 }
 
