@@ -13,20 +13,15 @@
     width: 100%;
     /* height: fit-content; */
     border-radius: var(--border-radius-secondary);
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.5s, background-color 0.3s;
     /* background-color: rosybrown; */
 }
 
 
-.text-input-editable:hover {
+.text-input-editable:hover, .text-input-focus {
     box-shadow: inset var(--drop-shadow);
     cursor: text;
-    
-}
-
-.text-input-focus {
-    box-shadow: inset var(--drop-shadow);
-    
+    background-color: rgba(0, 0, 0, 0.02);
 }
 
 .text-input input, .text-input textarea {
