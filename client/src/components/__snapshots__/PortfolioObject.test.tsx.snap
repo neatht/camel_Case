@@ -11,16 +11,19 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
   <div
     className="portfolio-title"
   >
-    <h2>
-      <Paragraph
-        editable={
-          Object {
-            "onChange": [Function],
-          }
+    <h2
+      style={
+        Object {
+          "marginRight": "35px",
         }
-      >
-        Project 1
-      </Paragraph>
+      }
+    >
+      <TextInput
+        editable={true}
+        onChange={[Function]}
+        padding="2px 0 2px 35px"
+        text="Project 1"
+      />
     </h2>
   </div>
   <PortfolioHero
@@ -80,15 +83,22 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
         tagline="Author Tagline"
       />
       <br />
-      <Paragraph
-        editable={
+      <div
+        style={
           Object {
-            "onChange": [Function],
+            "marginLeft": "-10px",
+            "marginTop": "-10px",
           }
         }
       >
-        This is a short description about the project
-      </Paragraph>
+        <TextInput
+          editable={true}
+          multiline={true}
+          onChange={[Function]}
+          padding="10px"
+          text="This is a short description about the project"
+        />
+      </div>
     </div>
     <div
       className="container-secondary portfolio-side-bar"

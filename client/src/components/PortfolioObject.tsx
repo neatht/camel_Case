@@ -80,7 +80,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
         <div>
           <AuthorBadge author={props.author} tagline="Author Tagline" />
           <br />
-          <div style={{marginLeft: "-10px", marginTop: "-10px"}}>
+          <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             <TextInput
               padding="10px"
               multiline={true}

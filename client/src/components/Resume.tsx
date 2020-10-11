@@ -80,10 +80,14 @@ function Resume(props: ResumeProps) {
       <div className="resume-name">
         <h1>
           <strong>
-          <TextInput editable={isMyProfile} onChange={(newString: string) => {
-            setName(newString);
-            //POST UPDATE
-          }} text={name}/>
+            <TextInput
+              editable={isMyProfile}
+              onChange={(newString: string) => {
+                setName(newString);
+                //POST UPDATE
+              }}
+              text={name}
+            />
           </strong>
         </h1>
 
@@ -96,10 +100,16 @@ function Resume(props: ResumeProps) {
         </div>
       </div>
       <div className="resume-profile">
-      <TextInput padding="10px" multiline={true} editable={isMyProfile} onChange={(newString: string) => {
+        <TextInput
+          padding="10px"
+          multiline={true}
+          editable={isMyProfile}
+          onChange={(newString: string) => {
             setProfile(newString);
             //POST UPDATE
-          }} text={profile}/>
+          }}
+          text={profile}
+        />
       </div>
       <ResumeEntry
         title="Skills"
