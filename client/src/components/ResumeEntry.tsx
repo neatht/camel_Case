@@ -5,6 +5,7 @@ import './ResumeEntry.css';
 type ResumeEntryProps = {
   title: string;
   display: string;
+  isMyProfile: boolean;
   entries: { date?: string; text: string; subText?: string }[];
 };
 
