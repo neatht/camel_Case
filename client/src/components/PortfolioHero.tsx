@@ -93,7 +93,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                       style={{ height: '100%', display: 'flex' }}
                       ref={dropProvided.innerRef}
                     >
-                      {media.map((value, index, array) => {
+                      {media.map((value, index) => {
                         if (value.type === 'image') {
                           return (
                             <Draggable
@@ -206,7 +206,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
           </DragDropContext>
         ) : (
           <div style={{ height: '100%', display: 'flex' }}>
-            {media.map((value, index, array) => {
+            {media.map((value, index) => {
               if (value.type === 'image') {
                 return (
                   <div

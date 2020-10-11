@@ -6,8 +6,6 @@ exports[`Testing PortfolioGrid renders without crashing 1`] = `
 >
   <div
     className="grid"
-  >
-     
-  </div>
+  />
 </div>
 `;
