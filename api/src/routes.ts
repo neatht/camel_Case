@@ -26,12 +26,32 @@ export const register = (app: express.Application) => {
 
   // Register routes
   app.use('/api/profile', profileRouter);
-  app.get('/api/getList', jwtCheck, (req: any, res) => {
-    const list = ['item1', 'item2'];
+
+  // Unauthenticated test route
+  app.get('/api/test', (req, res) => {
+    res.status(200);
+    res.json({
+      status: "success",
+      data: "Test successful"
+    })
+  });
+
+  app.get('/api/getEmail', jwtCheck, (req: any, res) => {
     res.json({
       email: req.user["https://example.com/email"]
     });
   })
+
+  // Handle unfound API routes
+  app.get("/api/*", (req, res) => {
+    res.status(404);
+    res.json({
+      status: 'error',
+      message: 'Route not found. Please check the route is a valid endpoint.'
+    })
+  })
+
+  // Redirect to React app if not in API path
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
   });
