@@ -29,12 +29,19 @@ function PortfolioHero(props: PortfolioHeroProps) {
       >
         {props.isMyProfile ? (
           <div
-            onMouseDown={() => {
-              setEditingState(!editingState);
+            onClick={() => {
+              // if (editing){
+              //   setEditing(!editing);
+              //   setTimeout(() => setEditingState(!editingState), 1);
+              // } else {
+                setEditingState(!editingState);
+                setTimeout(() => setEditing(!editing), 1);
+              // }
+              
             }}
-            onMouseUp={() => {
-              setEditing(!editing);
-            }}
+            // onMouseUp={() => {
+            //   setEditing(!editing);
+            // }}
             className="display-top-right container-secondary"
           >
             <EditOutlined />
