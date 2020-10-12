@@ -7,7 +7,7 @@ import PortfolioHero from './PortfolioHero';
 import './PortfolioObject.css';
 import Emoji from './Emoji';
 import AuthorBadge from './AuthorBadge';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
 
 type PortfolioObjectProps = {
@@ -20,12 +20,11 @@ type PortfolioObjectProps = {
   shortDescription: string;
   views: string;
   location: string;
-  // picture: string,
   portfolioObjectOpen: any;
 };
 
 function PortfolioObject(props: PortfolioObjectProps) {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  // const { user, isAuthenticated, isLoading } = useAuth0();
 
   const isMyProfile = true;
 

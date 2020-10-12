@@ -7,7 +7,6 @@ import Emoji from './Emoji';
 
 import './Resume.css';
 import ResumeEntry from './ResumeEntry';
-import Paragraph from 'antd/lib/typography/Paragraph';
 import TextInput from './TextInput';
 
 type ResumeProps = {

@@ -23,7 +23,7 @@ function ResumeEntry(props: ResumeEntryProps) {
         <strong>{props.title}</strong>
       </h2>
       <ul>
-        {props.entries.map((value, index, array) => {
+        {props.entries.map((value, index) => {
           if (props.display === 'inline') {
             return (
               <li key={index}>

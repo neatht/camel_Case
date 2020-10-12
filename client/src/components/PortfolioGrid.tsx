@@ -4,7 +4,7 @@ import PortfolioObject from './PortfolioObject';
 
 import './PortfolioGrid.css';
 
-type PortfolioGridProps = {};
+// type PortfolioGridProps = {};
 
 type PortfolioObjectMetaType = {
   key: string;
@@ -18,7 +18,8 @@ type PortfolioObjectMetaType = {
   location: string;
 };
 
-function PortfolioGrid(props: PortfolioGridProps) {
+// function PortfolioGrid(props: PortfolioGridProps) {
+function PortfolioGrid() {
   const [portfolioObjects, setPortfolioObjects] = useState<
     Array<PortfolioObjectMetaType>
   >([]);
@@ -288,16 +289,9 @@ function PortfolioGrid(props: PortfolioGridProps) {
 
   return (
     <div className={`${portfolioObjectOpen ? 'portfolio-object-open' : ''}`}>
-      {/* <PortfolioGridHeader
-              title={<><Emoji symbol="👀" /> Browse</>}
-            /> */}
-
       <div className="grid">
-        {' '}
-        {/* 180px (portfolio object height) + 30px padding*/}
-        {portfolioObjects.map((value, index, array) => {
+        {portfolioObjects.map((value) => {
           return (
-            // return  <Col flex="0px"> {/* 240px (portfolio object) + 30px (padding) */}
             <PortfolioObject
               id={value.key}
               title={value.title}
@@ -309,10 +303,8 @@ function PortfolioGrid(props: PortfolioGridProps) {
               views={value.views}
               location={value.location}
               portfolioObjectOpen={openPortfolioObject}
-              // picture={value.media}
             />
           );
-          // </Col>
         })}
       </div>
     </div>
