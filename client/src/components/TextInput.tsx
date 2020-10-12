@@ -46,8 +46,9 @@ function TextInput(props: TextInputProps) {
         if (props.editable) {
           setEditing(true);
           if (inputRef.current !== null && displayTextRef.current !== null) {
-            inputRef.current.focus();
 
+            setTimeout(() => inputRef.current.focus(), 1);
+            
             let width = displayTextRef.current.offsetWidth;
             if (width > 0) {
               inputRef.current.style.width = width + 'px';
