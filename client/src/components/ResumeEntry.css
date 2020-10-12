@@ -7,7 +7,7 @@
   list-style-type: none;
 }
 .resume-entry-inline li {
-  padding: 10px;
+  padding: 5px;
   margin: 5px;
   background-color: var(--background-color-secondary);
   box-shadow: var(--drop-shadow);

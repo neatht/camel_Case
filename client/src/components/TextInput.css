@@ -1,0 +1,40 @@
+.text-input-display-none {
+    /* display: none; */
+    width: 0;
+    height: 0;
+    overflow: scroll;
+    
+}
+
+.text-input {
+    /* background-color: blueviolet; */
+    cursor: default;
+    /* margin: -5px; */
+    width: 100%;
+    /* height: fit-content; */
+    border-radius: var(--border-radius-secondary);
+    transition: box-shadow 0.5s, background-color 0.3s;
+    /* background-color: rosybrown; */
+}
+
+
+.text-input-editable:hover, .text-input-focus {
+    box-shadow: inset var(--drop-shadow);
+    cursor: text;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.text-input input, .text-input textarea {
+    text-align: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+}
+
