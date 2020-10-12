@@ -7,6 +7,14 @@
     right: 50px;
 }
 
+.rocket {
+    padding-right: 5px;
+    background:#fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--drop-shadow);
+}
+
 .toggle-home-hero .anticon {
     display: flex;
     align-content: center;

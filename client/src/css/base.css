@@ -29,6 +29,14 @@ body {
   
 }
 
+.gradient {
+  background: rgb(0,214,170);
+  background: linear-gradient(-45deg, rgba(0,214,170,1) 0%, rgba(45,113,253,1) 50%, rgba(141,45,253,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--drop-shadow);
+}
+
 .exit-button {
   text-align: center;
   width: 24px;

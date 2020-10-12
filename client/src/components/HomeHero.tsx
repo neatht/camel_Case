@@ -32,10 +32,11 @@ function HomeHero() {
               alignItems: 'center',
               justifyContent: 'center',
               minHeight: 250,
+              padding: "30px"
             }}
           >
-            <h1>
-              <Emoji symbol="📝" /> <strong>Glowbal</strong>
+            <h1 style={{fontSize: "3em"}} className="gradient">
+              <Emoji symbol="🛰️" /><br /><strong>Glowbal</strong>
             </h1>
 
             <p> Showcase your best work by creating a profile and...</p>
@@ -43,10 +44,10 @@ function HomeHero() {
             {!isAuthenticated ? (
               <Button type="primary" onClick={() => loginWithRedirect()}>
                 {' '}
-                <span style={{ paddingRight: 5 }}>
+                <span className="rocket">
                   <Emoji symbol="🚀" />
                 </span>{' '}
-                <strong>Get Discovered</strong>
+                <strong className="rocket">Get Discovered</strong>
               </Button>
             ) : null}
           </div>
