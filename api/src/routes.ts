@@ -8,6 +8,7 @@ import path from 'path';
 
 // Route imports
 import profileRouter from './components/profile/routes';
+import uploadRouter from './components/upload/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -25,11 +26,12 @@ export const register = (app: express.Application) => {
 
   // Register routes
   app.use('/api/profile', profileRouter);
-  app.get('/api/getList', jwtCheck, (req, res) => {
+  app.use('/api/upload', uploadRouter);
+  app.get('/api/getList', (req, res) => {
     const list = ['item1', 'item2'];
     res.json(list);
-  })
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
   });
+  // app.get("*", (req, res) => {
+  //   res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
+  // });
 }
