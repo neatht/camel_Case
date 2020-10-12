@@ -23,3 +23,14 @@ export const isStrArr = (arr: string[], len: number = null) => {
     throw new Error('Invalid array.')
   }
 }
+
+/**
+ * isEnum() Checks if a string is in an array of strings.
+ *
+ * @param arr - an Array of strings
+ * @param val - the string to look for in arr
+ * @returns true if val is in arr
+ */
+export const isEnum = (arr: string[], val: string) => {
+  return arr.includes(val);
+}
