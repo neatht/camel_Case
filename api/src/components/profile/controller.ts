@@ -9,7 +9,9 @@
 
 import express from 'express';
 import { validationResult } from 'express-validator';
-import { getProfileService, checkProfileService, addProfileService } from './service';
+import { getProfileService, checkProfileService, addProfileService, updateProfileService } from './service';
+import dotenv from 'dotenv';
+dotenv.config();
 
 /**
  * getUser() gets a user by its ID in the database
@@ -66,6 +68,9 @@ export const getUser = async (req: any, res: express.Response,
  * addUser() checks the validation result for profile data and then adds
  * the user to the database by calling addUserService().
  *
+ * First checks whether profile exists. If a profile does not exist, then one
+ * is created.
+ *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
@@ -74,30 +79,77 @@ export const addUser = async (req: any, res: express.Response,
   next: express.NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json({
+    res.status(422);
+    res.json({
       status: 'fail',
       data: errors.array()
     });
-  }
-
-  try {
-    const profileExists: boolean = await checkProfileService(req, res, next);
-    if (profileExists) {
-      res.status(403);
-      res.json({
-        status: 'error',
-        message: 'Profile already exists.'
-      });
-    } else {
-      const userID: number = await addProfileService(req, res, next);
-      console.log(`Profile created for email: ${req.user.email}`);
-      res.status(200);
-      res.json({
-        status: 'success',
-        userID
-      });
+  } else {
+    try {
+      const profileExists: boolean = await checkProfileService(req, res, next);
+      if (profileExists) {
+        res.status(403);
+        res.json({
+          status: 'error',
+          message: 'Profile already exists.'
+        });
+      } else {
+        const userID: number = await addProfileService(req, res, next);
+        const email: string = req.user[process.env.EMAIL_KEY]
+        console.log(`Profile created for email: ${email}`);
+        res.status(200);
+        res.json({
+          status: 'success',
+          userID
+        });
+      }
+    } catch (err) {
+      next(err);
     }
-  } catch (err) {
-    next(err);
+  }
+}
+
+/**
+ * updateUser() checks the validation result for profile data and then adds
+ * the user to the database by calling updateUserService().
+ *
+ * First checks whether profile exists. If a profile does exist, then the
+ * information is updated.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const updateUser = async (req: any, res: express.Response,
+  next: express.NextFunction) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(422);
+    res.json({
+      status: 'fail',
+      data: errors.array()
+    });
+  } else {
+    try {
+      const profileExists: boolean = await checkProfileService(req, res, next);
+      if (!profileExists) {
+        res.status(403);
+        res.json({
+          status: 'error',
+          message: 'Profile does not exist.'
+        });
+      } else {
+        const userID: string = await updateProfileService(req, res, next);
+        const email: string = req.user[process.env.EMAIL_KEY];
+        console.log(`Profile updated for email: ${email}`);
+        res.status(200);
+        res.json({
+          status: 'success',
+          userID
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
   }
 }
