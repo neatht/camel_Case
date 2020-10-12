@@ -20,13 +20,13 @@ function TextInput(props: TextInputProps) {
   const inputRef = useRef<any>(null);
   const displayTextRef = useRef<any>(null);
 
-  useEffect(() => {
-    const input = inputRef.current;
-    input?.classList.add('something');
+  // useEffect(() => {
+  //   const input = inputRef.current;
+  //   input?.classList.add('something');
 
-    const displayText = displayTextRef.current;
-    displayText?.classList.add('something');
-  });
+  //   const displayText = displayTextRef.current;
+  //   displayText?.classList.add('something');
+  // });
 
   const finish = () => {
     setEditing(false);

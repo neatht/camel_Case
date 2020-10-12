@@ -30,10 +30,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
   const containerPrimaryRef = useRef<any>(null);
 
-  useEffect(() => {
-    const containerPrimary = containerPrimaryRef.current;
-    containerPrimary?.classList.add('something');
-  });
+  // useEffect(() => {
+  //   // const containerPrimary = containerPrimaryRef.current;
+  //   // containerPrimary?.classList.add('something');
+  // });
 
   const isMyProfile = true;
 

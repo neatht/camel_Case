@@ -53,7 +53,7 @@ export function Header({ pageKey }: HeaderProps) {
           <Menu.Item
             key="home"
             icon={
-              <span className="gradient" role="img" aria-hidden="true">
+              <span role="img" aria-hidden="true">
                 🏠{' '}
               </span>
             }
@@ -66,7 +66,7 @@ export function Header({ pageKey }: HeaderProps) {
           <Menu.Item
             key="profile"
             icon={
-              <span className="gradient" role="img" aria-hidden="true">
+              <span role="img" aria-hidden="true">
                 👨‍💼{' '}
               </span>
             }
