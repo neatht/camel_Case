@@ -133,7 +133,7 @@ export const updateUser = async (req: any, res: express.Response,
     try {
       const profileExists: boolean = await checkProfileService(req, res, next);
       if (!profileExists) {
-        res.status(403);
+        res.status(404);
         return res.json({
           status: 'error',
           message: 'Profile does not exist.'
@@ -169,7 +169,7 @@ export const deleteUser = async (req: any, res: express.Response,
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists) {
-      res.status(403);
+      res.status(404);
       return res.json({
         status: 'error',
         message: 'Profile does not exist.'
@@ -198,7 +198,7 @@ export const getUserID = async (req: any, res: express.Response,
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists) {
-      res.status(403);
+      res.status(404);
       return res.json({
         status: 'error',
         message: 'Profile does not exist.'
