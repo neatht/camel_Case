@@ -9,7 +9,7 @@
 
 import express from 'express';
 import { validationResult } from 'express-validator';
-import { getProfileService, checkProfileService, addProfileService, updateProfileService, deleteProfileService } from './service';
+import { getProfileService, checkProfileService, addProfileService, updateProfileService, deleteProfileService, getUserIDService } from './service';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -179,6 +179,36 @@ export const deleteUser = async (req: any, res: express.Response,
       res.status(200);
       return res.json({
         status: 'success'
+      })
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * getUserID() gets the user ID of the authenticated user.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const getUserID = async (req: any, res: express.Response,
+  next: express.NextFunction) => {
+  try {
+    const profileExists: boolean = await checkProfileService(req, res, next);
+    if (!profileExists) {
+      res.status(403);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    } else {
+      const userID: number = await getUserIDService(req, res, next);
+      res.status(200);
+      return res.json({
+        status: 'success',
+        userID
       })
     }
   } catch (err) {

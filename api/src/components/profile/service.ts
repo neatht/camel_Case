@@ -154,3 +154,28 @@ export const deleteProfileService = async (req: any,
     next(err);
   }
 }
+
+/**
+ * getUserIDService() retrieves a user's ID from the database corresponding to
+ * the authenticated user's email address.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ * @returns the user ID
+ */
+export const getUserIDService = async (req: any,
+  res: express.Response,
+  next: express.NextFunction) => {
+  const query: string = 'SELECT user_id FROM profile WHERE email = $1';
+  const queryParams = [
+    req.user[process.env.EMAIL_KEY],
+  ];
+  try {
+    const result: any = await req.poolClient.query(query, queryParams);
+    const userID: number = result.rows[0].user_id;
+    return userID;
+  } catch(err) {
+    next(err);
+  }
+}
