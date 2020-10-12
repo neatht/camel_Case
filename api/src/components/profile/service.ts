@@ -75,7 +75,8 @@ export const addProfileService = async (req: any,
                                           next: express.NextFunction) => {
   const query: string = 'INSERT INTO profile(email, first_name, \
     last_name, bio, date_of_birth, location, looking_for_work, public, \
-    gender, join_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);';
+    gender, join_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) \
+    RETURNING *;';
   const queryParams = [
     req.user[process.env.EMAIL_KEY],
     req.body.data.firstName,
@@ -127,6 +128,28 @@ export const updateProfileService = async (req: any,
   try {
     const result: any = await req.poolClient.query(query, queryParams);
     return result.rows[0].user_id;
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * deleteProfileService() deletes a user's profile from the database.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const deleteProfileService = async (req: any,
+  res: express.Response,
+  next: express.NextFunction) => {
+  const query: string = 'DELETE FROM profile WHERE email = $1'
+  const queryParams = [
+    req.user[process.env.EMAIL_KEY],
+  ];
+  try {
+    await req.poolClient.query(query, queryParams);
+    return;
   } catch (err) {
     next(err);
   }

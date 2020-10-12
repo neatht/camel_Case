@@ -9,7 +9,7 @@
 
 import express from 'express';
 import { validationResult } from 'express-validator';
-import { getProfileService, checkProfileService, addProfileService, updateProfileService } from './service';
+import { getProfileService, checkProfileService, addProfileService, updateProfileService, deleteProfileService } from './service';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -26,7 +26,7 @@ export const getUser = async (req: any, res: express.Response,
     const queryResult = await getProfileService(req, res, next);
     if (queryResult.rowCount === 0) {
       res.status(404);
-      res.json({
+      return res.json({
         status: 'error',
         message: 'Could not find a profile by that ID.'
       });
@@ -34,7 +34,7 @@ export const getUser = async (req: any, res: express.Response,
       const profileData = queryResult.rows[0];
       if (profileData.public) {
         res.status(200);
-        res.json({
+        return res.json({
           status: 'success',
           data: {
             firstName: profileData.first_name,
@@ -49,7 +49,7 @@ export const getUser = async (req: any, res: express.Response,
         });
       } else {
         res.status(401);
-        res.json({
+        return res.json({
           status: 'success',
           data: {
             firstName: profileData.first_name,
@@ -80,7 +80,7 @@ export const addUser = async (req: any, res: express.Response,
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     res.status(422);
-    res.json({
+    return res.json({
       status: 'fail',
       data: errors.array()
     });
@@ -89,7 +89,7 @@ export const addUser = async (req: any, res: express.Response,
       const profileExists: boolean = await checkProfileService(req, res, next);
       if (profileExists) {
         res.status(403);
-        res.json({
+        return res.json({
           status: 'error',
           message: 'Profile already exists.'
         });
@@ -98,7 +98,7 @@ export const addUser = async (req: any, res: express.Response,
         const email: string = req.user[process.env.EMAIL_KEY]
         console.log(`Profile created for email: ${email}`);
         res.status(200);
-        res.json({
+        return res.json({
           status: 'success',
           userID
         });
@@ -125,7 +125,7 @@ export const updateUser = async (req: any, res: express.Response,
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     res.status(422);
-    res.json({
+    return res.json({
       status: 'fail',
       data: errors.array()
     });
@@ -134,7 +134,7 @@ export const updateUser = async (req: any, res: express.Response,
       const profileExists: boolean = await checkProfileService(req, res, next);
       if (!profileExists) {
         res.status(403);
-        res.json({
+        return res.json({
           status: 'error',
           message: 'Profile does not exist.'
         });
@@ -143,7 +143,7 @@ export const updateUser = async (req: any, res: express.Response,
         const email: string = req.user[process.env.EMAIL_KEY];
         console.log(`Profile updated for email: ${email}`);
         res.status(200);
-        res.json({
+        return res.json({
           status: 'success',
           userID
         });
@@ -151,5 +151,37 @@ export const updateUser = async (req: any, res: express.Response,
     } catch (err) {
       next(err);
     }
+  }
+}
+
+/**
+ * deleteUser() deletes a user's profile from the database.
+ *
+ * First checks whether profile exists. If a profile does exist, then the
+ * profile is deleted.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const deleteUser = async (req: any, res: express.Response,
+  next: express.NextFunction) => {
+  try {
+    const profileExists: boolean = await checkProfileService(req, res, next);
+    if (!profileExists) {
+      res.status(403);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    } else {
+      await deleteProfileService(req, res, next);
+      res.status(200);
+      return res.json({
+        status: 'success'
+      })
+    }
+  } catch (err) {
+    next(err);
   }
 }
