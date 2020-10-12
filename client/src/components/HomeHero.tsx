@@ -32,11 +32,13 @@ function HomeHero() {
               alignItems: 'center',
               justifyContent: 'center',
               minHeight: 250,
-              padding: "30px"
+              padding: '30px',
             }}
           >
-            <h1 style={{fontSize: "3em"}} className="gradient">
-              <Emoji symbol="🛰️" /><br /><strong>Glowbal</strong>
+            <h1 style={{ fontSize: '3em' }} className="gradient">
+              <Emoji symbol="🛰️" />
+              <br />
+              <strong>Glowbal</strong>
             </h1>
 
             <p> Showcase your best work by creating a profile and...</p>
