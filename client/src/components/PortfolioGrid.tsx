@@ -15,6 +15,7 @@ type PortfolioObjectMetaType = {
   author: string;
   shortDescription: string;
   views: string;
+  link: string;
   location: string;
 };
 
@@ -60,6 +61,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"
       },
       {
         key: '2',
@@ -86,6 +88,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"
       },
       {
         key: '3',
@@ -112,6 +115,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "https://www.w3.org/"
       },
       {
         key: '4',
@@ -138,6 +142,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "https://www.w3.org/"
       },
       {
         key: '5',
@@ -165,6 +170,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "https://www.w3.org/"
       },
       {
         key: '6',
@@ -192,6 +198,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "https://www.w3.org/"
       },
       {
         key: '7',
@@ -219,6 +226,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "https://www.w3.org/"
       },
       {
         key: '8',
@@ -246,6 +254,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "https://www.w3.org/"
       },
       {
         key: '9',
@@ -273,6 +282,7 @@ function PortfolioGrid() {
         shortDescription: 'This is a short description about the project',
         views: '10',
         location: 'Melbourne, Australia',
+        link: "https://www.w3.org/"
       },
     ]);
   }
@@ -301,6 +311,7 @@ function PortfolioGrid() {
               author={value.author}
               shortDescription={value.shortDescription}
               views={value.views}
+              link={value.link}
               location={value.location}
               portfolioObjectOpen={openPortfolioObject}
             />

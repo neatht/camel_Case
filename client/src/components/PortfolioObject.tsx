@@ -22,6 +22,7 @@ type PortfolioObjectProps = {
   shortDescription: string;
   views: string;
   location: string;
+  link: string;
   portfolioObjectOpen: any;
 };
 
@@ -52,6 +53,13 @@ function PortfolioObject(props: PortfolioObjectProps) {
     }
 
   };
+
+  const formatLink = (link: string) => {
+    const l = link.replace(/https?:\/\/(www.)?/, '').replace(/\/$/, '');
+    console.log(l);
+  return <div style={{marginBottom: '-5px', display: 'inline-block',width: "140px", overflow: 'hidden',
+    textOverflow: 'ellipsis'}}>{l}</div>;
+  }
 
   return (
     <div
@@ -119,7 +127,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
             </li>
             <li>
               <Emoji symbol="🔗" label="Link:" />{' '}
-              <a href="{props.media}">props.media</a>
+              <a target="_blank" href={props.link}>
+                {formatLink(props.link)}
+                </a>
             </li>
             <li>
               <Emoji symbol="👁️" label="Views:" /> {props.views}
