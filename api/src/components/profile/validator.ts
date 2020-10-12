@@ -4,7 +4,7 @@
  */
 
 import { body } from 'express-validator';
-import { isStrArr } from '../../middleware/validator';
+import { isEnum } from '../../middleware/validator';
 
 /**
  * A list of middleware that validate data sent to add or update a profile.
@@ -33,4 +33,7 @@ export const profileValidator = [
   body('data.location').optional().isString().isLength({ max: 100 }),
   body('data.lookingForWork').exists().isBoolean(),
   body('data.public').exists().isBoolean(),
+  body('data.gender').exists().custom((val) => {
+    return isEnum(['male', 'female', 'other'], val);
+  })
 ]
