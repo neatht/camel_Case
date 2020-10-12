@@ -30,7 +30,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
         {props.isMyProfile ? (
           <div
             onClick={() => {
-              if (editing && editingState){
+              if (editing && editingState) {
                 setEditing(!editing);
                 setTimeout(() => setEditingState(!editingState), 1000);
               } else if (!editing && !editingState) {
@@ -40,7 +40,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 setEditingState(false);
                 setEditing(false);
               }
-              
             }}
             // onMouseUp={() => {
             //   setEditing(!editing);
@@ -95,12 +94,12 @@ function PortfolioHero(props: PortfolioHeroProps) {
               >
                 {(dropProvided) => (
                   <div
-                    style={{ height: '100%'}}
+                    style={{ height: '100%' }}
                     {...dropProvided.droppableProps}
                   >
                     <div
-                      className={editing ? "container-scroll-x" : ""}
-                      style={{ height: '100%', display: 'flex'}}
+                      className={editing ? 'container-scroll-x' : ''}
+                      style={{ height: '100%', display: 'flex' }}
                       ref={dropProvided.innerRef}
                     >
                       {media.map((value, index) => {

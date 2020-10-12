@@ -48,7 +48,6 @@ exports[`Testing Header renders home without crashing 1`] = `
         icon={
           <span
             aria-hidden="true"
-            className="gradient"
             role="img"
           >
             🏠
@@ -68,7 +67,6 @@ exports[`Testing Header renders home without crashing 1`] = `
         icon={
           <span
             aria-hidden="true"
-            className="gradient"
             role="img"
           >
             👨‍💼
@@ -156,7 +154,6 @@ exports[`Testing Header renders profile without crashing 1`] = `
         icon={
           <span
             aria-hidden="true"
-            className="gradient"
             role="img"
           >
             🏠
@@ -176,7 +173,6 @@ exports[`Testing Header renders profile without crashing 1`] = `
         icon={
           <span
             aria-hidden="true"
-            className="gradient"
             role="img"
           >
             👨‍💼

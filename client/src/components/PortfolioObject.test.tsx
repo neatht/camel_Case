@@ -34,6 +34,7 @@ describe('Testing PortfolioObject', () => {
         views="10"
         location="Melbourne, Australia"
         media={m}
+        link="http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"
         portfolioObjectOpen={false}
       />
     );
