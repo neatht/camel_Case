@@ -26,9 +26,11 @@ export const register = (app: express.Application) => {
 
   // Register routes
   app.use('/api/profile', profileRouter);
-  app.get('/api/getList', jwtCheck, (req, res) => {
+  app.get('/api/getList', jwtCheck, (req: any, res) => {
     const list = ['item1', 'item2'];
-    res.json(list);
+    res.json({
+      email: req.user["https://example.com/email"]
+    });
   })
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
