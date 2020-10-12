@@ -8,6 +8,7 @@ import './css/layout.css';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import ProfileSetup from './pages/ProfileSetup';
+import APITest from './pages/APITest';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/profile-setup" exact component={ProfileSetup} />
+        <Route path="/api-test" exact component={APITest} />
       </Switch>
     </Router>
   );
