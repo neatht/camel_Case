@@ -9,6 +9,8 @@ import Emoji from './Emoji';
 import AuthorBadge from './AuthorBadge';
 // import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 type PortfolioObjectProps = {
   id: string;
@@ -26,6 +28,13 @@ type PortfolioObjectProps = {
 function PortfolioObject(props: PortfolioObjectProps) {
   // const { user, isAuthenticated, isLoading } = useAuth0();
 
+  const containerPrimaryRef = useRef<any>(null);
+
+  useEffect(() => {
+    const containerPrimary = containerPrimaryRef.current;
+    containerPrimary?.classList.add('something');
+  });
+
   const isMyProfile = true;
 
   const [shortDescription, setShortDescription] = useState(
@@ -38,10 +47,15 @@ function PortfolioObject(props: PortfolioObjectProps) {
   const handleClick = () => {
     setThumbnail(!thumbnail);
     props.portfolioObjectOpen(thumbnail);
+    if(containerPrimaryRef.current !== null) {
+      containerPrimaryRef.current.scrollTop = 0;
+    }
+
   };
 
   return (
     <div
+    ref={containerPrimaryRef}
       className={`container-primary portfolio-object ${
         thumbnail ? 'thumbnail' : 'container-scroll'
       }`}
