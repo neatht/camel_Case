@@ -6,8 +6,7 @@
  */
 
 import express from 'express';
-import { validationResult } from 'express-validator';
-import { getProfileService, checkProfileService, addProfileService, updateProfileService, deleteProfileService } from './service';
+import { getProfileService, checkProfileService, addProfileService, updateProfileService, deleteProfileService, getOwnProfileService } from './service';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -98,11 +97,10 @@ export const addUser = async (req: any, res: express.Response, next: express.Nex
 }
 
 /**
- * updateUser() checks the validation result for profile data and then adds
- * the user to the database by calling updateUserService().
+ * updateUser() irst checks whether profile exists. If a profile does exist,
+ * then the information is updated. Sends a JSON response to the client.
  *
- * First checks whether profile exists. If a profile does exist, then the
- * information is updated.
+ * Requires that the user is authenticated.
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -133,10 +131,10 @@ export const updateUser = async (req: any, res: express.Response, next: express.
 }
 
 /**
- * deleteUser() deletes a user's profile from the database.
+ * deleteUser() First checks whether profile exists. If a profile does exist,
+ * then the profile is deleted. Sends a JSON response to the client.
  *
- * First checks whether profile exists. If a profile does exist, then the
- * profile is deleted.
+ * Requires that the user is authenticated.
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -161,6 +159,48 @@ export const deleteUser = async (req: any, res: express.Response,
       return res.json({
         status: 'success'
       })
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * getOwnUser() gets an authenticated user's profile from the profile table
+ * in the database. Sends a JSON response to the client.
+ *
+ * Requires that the user is authenticated and that the checkIsOwner()
+ * middleware is passed.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const getOwnUser = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const result = await getOwnProfileService(req, res, next);
+    req.poolClient.end();
+    if (result === null) {
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Could not find a profile by that ID'
+      });
+    } else {
+      res.status(200);
+      return res.json({
+        status: 'success',
+        data: {
+          firstName: result.first_name,
+          lastName: result.last_name,
+          bio: result.bio,
+          location: result.location,
+          lookingForWork: result.looking_for_work,
+          public: result.public,
+          gender: result.gender,
+          DOB: result.date_of_birth
+        }
+      });
     }
   } catch (err) {
     next(err);

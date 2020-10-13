@@ -30,7 +30,6 @@ export const getProfileService = async (req: any,
   const queryParams: any[] = [req.params.userID];
   const queryResult: any = await service(req, next, query, queryParams);
   if (queryResult.rowCount !== 0) {
-    console.log(queryResult.rows[0]);
     return queryResult.rows[0];
   } else{
     return null;
@@ -123,4 +122,28 @@ export const deleteProfileService = async (req: any, res: express.Response, next
   const query: string = 'DELETE FROM profile WHERE user_id = $1'
   const queryParams = [req.user.sub.split('|')[1]];
   await service(req, next, query, queryParams);
+}
+
+/**
+ * getOwnProfileService() retrieves profile information from the profile table
+ * in the database for an authenticated user. Returns full profile information
+ * since the profile
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns the query result if profile found, or null if profile not found.
+ */
+export const getOwnProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT first_name, last_name, bio, location, \
+    public, looking_for_work, gender, date_of_birth FROM profile WHERE \
+    user_id=$1';
+  const queryParams: any[] = [req.user.sub.split('|')[1]];
+  const queryResult: any = await service(req, next, query, queryParams);
+  if (queryResult.rowCount !== 0) {
+    return queryResult.rows[0];
+  } else {
+    return null;
+  }
 }
