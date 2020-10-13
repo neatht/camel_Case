@@ -150,6 +150,7 @@ export const deleteUser = async (req: any, res: express.Response,
       });
     } else {
       await deleteProfileService(req, res, next);
+      console.log(`Profile deleted for userID: ${req.user.sub.split('|')[1]}`);
       res.status(200);
       return res.json({
         status: 'success'

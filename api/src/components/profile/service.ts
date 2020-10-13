@@ -119,17 +119,8 @@ export const updateProfileService = async (req: any, res: express.Response, next
  * @param res - the express Response object
  * @param next - the express NextFunction object
  */
-export const deleteProfileService = async (req: any,
-  res: express.Response,
-  next: express.NextFunction) => {
-  const query: string = 'DELETE FROM profile WHERE email = $1'
-  const queryParams = [
-    req.user[process.env.EMAIL_KEY],
-  ];
-  try {
-    await req.poolClient.query(query, queryParams);
-    return;
-  } catch (err) {
-    next(err);
-  }
+export const deleteProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'DELETE FROM profile WHERE user_id = $1'
+  const queryParams = [req.user.sub.split('|')[1]];
+  await service(req, next, query, queryParams);
 }
