@@ -38,7 +38,7 @@ export const jwtCheck = jwt({
  * checkIsOwner() checks whether the user ID attached to req.user.sub after
  * calling jwtCheck() is the same as the user ID sent in the request body
  * (req.body.userID).
- * 
+ *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object

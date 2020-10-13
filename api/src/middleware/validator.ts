@@ -41,7 +41,7 @@ export const isEnum = (arr: string[], val: string) => {
 /**
  * checkValidation() checks the result of the validation. If the validation
  * fails, it sends a JSON response with information about the failed valdiation.
- * 
+ *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object

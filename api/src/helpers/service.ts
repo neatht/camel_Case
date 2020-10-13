@@ -6,7 +6,9 @@
 import express from 'express';
 
 /**
- * 
+ * service() sends the provided query with queryParams and returns the result
+ * of the query.
+ *
  * @param req - express Request
  * @param next - express NextFunction
  * @param query - a string representing the query
