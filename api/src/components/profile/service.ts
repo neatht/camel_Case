@@ -92,16 +92,12 @@ export const addProfileService = async (req: any, res: express.Response, next: e
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
- *
- * @returns the user_id of the updated profile
  */
-export const updateProfileService = async (req: any,
-  res: express.Response,
-  next: express.NextFunction) => {
+export const updateProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'UPDATE profile \
   SET first_name = $1, last_name = $2, bio = $3, date_of_birth = $4, \
   location = $5, looking_for_work = $6, public = $7, gender = $8 \
-  WHERE email = $9 RETURNING *;'
+  WHERE user_id = $9;'
   const queryParams = [
     req.body.data.firstName,
     req.body.data.lastName,
@@ -111,14 +107,9 @@ export const updateProfileService = async (req: any,
     req.body.data.lookingForWork.toString(),
     req.body.data.public.toString(),
     req.body.data.gender,
-    req.user[process.env.EMAIL_KEY],
+    req.user.sub.split('|')[1]
   ];
-  try {
-    const result: any = await req.poolClient.query(query, queryParams);
-    return result.rows[0].user_id;
-  } catch (err) {
-    next(err);
-  }
+  await service(req, next, query, queryParams);
 }
 
 /**

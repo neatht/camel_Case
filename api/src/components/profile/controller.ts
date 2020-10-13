@@ -106,37 +106,25 @@ export const addUser = async (req: any, res: express.Response, next: express.Nex
  * @param res - the express Response object
  * @param next - the express NextFunction object
  */
-export const updateUser = async (req: any, res: express.Response,
-  next: express.NextFunction) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    res.status(422);
-    return res.json({
-      status: 'fail',
-      data: errors.array()
-    });
-  } else {
-    try {
-      const profileExists: boolean = await checkProfileService(req, res, next);
-      if (!profileExists) {
-        res.status(404);
-        return res.json({
-          status: 'error',
-          message: 'Profile does not exist.'
-        });
-      } else {
-        const userID: string = await updateProfileService(req, res, next);
-        const email: string = req.user[process.env.EMAIL_KEY];
-        console.log(`Profile updated for email: ${email}`);
-        res.status(200);
-        return res.json({
-          status: 'success',
-          userID
-        });
-      }
-    } catch (err) {
-      next(err);
+export const updateUser = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const profileExists: boolean = await checkProfileService(req, res, next);
+    if (!profileExists) {
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    } else {
+      await updateProfileService(req, res, next);
+      console.log(`Profile updated for userID: ${req.user.sub.split('|')[1]}`);
+      res.status(200);
+      return res.json({
+        status: 'success',
+      });
     }
+  } catch (err) {
+    next(err);
   }
 }
 
