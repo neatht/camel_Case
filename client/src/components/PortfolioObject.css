@@ -179,6 +179,7 @@
 
 .portfolio-object-open .thumbnail {
   opacity: 0;
+  border: 0 solid white;
   width: 0;
   height: 0;
   padding: 0;

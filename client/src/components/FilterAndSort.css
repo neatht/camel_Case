@@ -49,5 +49,5 @@
 }
 
 .ant-tooltip-inner {
-  border-radius: 10px !important;
+  border-radius: var(--border-radius-secondary) !important;
 }

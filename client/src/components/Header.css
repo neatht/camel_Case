@@ -15,11 +15,20 @@ a.navTitle {
 
 .ant-input-group > .ant-input:first-child,
 .ant-input-group-addon:first-child {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: var(--border-radius-secondary);
+  border-bottom-left-radius: var(--border-radius-secondary);
+  border: var(--border);
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1), var(--drop-shadow);
+  background-color: rgba(0, 0, 0, 0.03);
+  /* box-shadow: var(--drop-shadow); */
 }
 
 button.ant-btn.ant-btn-primary.ant-input-search-button {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: var(--border-radius-secondary);
+  border-bottom-right-radius: var(--border-radius-secondary);
+  background: var(--btn-gradient) !important;
+  border: 0px;
+  /* border: var(--border); */
+  /* box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1), var(--drop-shadow); */
+  background-color: #ffffff !important;
 }

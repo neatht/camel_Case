@@ -35,7 +35,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 setTimeout(() => setEditingState(!editingState), 1000);
               } else if (!editing && !editingState) {
                 setEditingState(!editingState);
-                setTimeout(() => setEditing(!editing), 1);
+                setTimeout(() => setEditing(!editing), 50);
               } else {
                 setEditingState(false);
                 setEditing(false);

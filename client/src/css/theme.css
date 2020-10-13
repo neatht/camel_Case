@@ -1,19 +1,22 @@
 :root {
   --color-app: #000000;
 
-  --color-primary: #40a9ff;
+  --color-primary:rgba(45,113,253,1);
 
-  --color-gradient: #ffffff;
+  --color-gradient: #f7f7f7;
+  --gradient: linear-gradient(-45deg, rgba(0,214,170,1) 0%, rgba(45,113,253,1) 50%, rgba(141,45,253,1) 100%);
+  --btn-gradient: linear-gradient(-45deg, rgba(0,214,170,1) 0%, rgba(45,113,253,1) 50%, rgba(141,45,253,1) 100%);
 
   --background-color-app: #ffffff;
-  --background-color-primary: #fafafa;
-  --background-color-secondary: rgba(255, 255, 255, 0.7);
+  --background-color-primary: #f7f7f7;
+  --background-color-secondary: rgba(255, 255, 255, 0.6);
   --background-color-tertiary: rgba(0, 0, 0, 0.2);
 
-  --border-radius-primary: 10px;
-  --border-radius-secondary: 8px;
+  --border: 3px solid #ffffff;
+  --border-radius-primary: 15px;
+  --border-radius-secondary: 12px;
 
-  --drop-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  --drop-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
   
   --unit: 240px;
   --unit-col-num: 1;
