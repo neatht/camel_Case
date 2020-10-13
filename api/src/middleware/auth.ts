@@ -45,9 +45,10 @@ export const jwtCheck = jwt({
  */
 export const checkIsOwner = (req: any, res: express.Response, next: express.NextFunction) => {
   // sub attribute in the format of "<social platform>|<user id>"
-  const ID = req.user.sub.split('|')[1];
+  const accessTokenID = req.user.sub.split('|')[1];
+  const bodyID = req.body.userID;
 
-  if (parseInt(ID, 0) === parseInt(req.body.userID, 0)) {
+  if (parseInt(accessTokenID, 0) === parseInt(bodyID, 0)) {
     next();
   } else {
     res.sendStatus(401);
