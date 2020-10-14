@@ -8,6 +8,7 @@ import path from 'path';
 
 // Route imports
 import profileRouter from './components/profile/routes';
+import experienceRouter from './components/experience/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -26,6 +27,7 @@ export const register = (app: express.Application) => {
 
   // Register routes
   app.use('/api/profile', profileRouter);
+  app.use('/api/experience', experienceRouter);
 
   // Unauthenticated test route
   app.get('/api/test', (req, res) => {
