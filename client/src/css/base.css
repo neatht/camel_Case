@@ -39,6 +39,7 @@ body {
 }
 
 .exit-button {
+  color: #fff;
   text-align: center;
   width: 24px;
   height: 24px;
@@ -48,9 +49,11 @@ body {
   position: relative;
   right: 24px;
   margin-right: -24px;
+  border: var(--border);
+  box-shadow: var(--inner-shadow), var(--drop-shadow);
+  box-sizing: content-box;
 
-  background-color: var(--background-color-secondary);
-  box-shadow: var(--drop-shadow);
+  background: var(--btn-gradient);
   border-radius: 24px;
   position: relative;
   z-index: 1;
