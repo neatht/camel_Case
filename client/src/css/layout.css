@@ -3,7 +3,7 @@
   border-radius: var(--border-radius-primary);
   /* filter: var(--drop-shadow); */
   border: var(--border);
-  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.05), var(--drop-shadow);;
+  box-shadow: var(--inner-shadow), var(--drop-shadow);
   padding: calc(2*var(--unit-margin));
 }
 

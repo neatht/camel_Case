@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 import { PageHeader, Menu, Input, Space } from 'antd';
-//import { UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
 import LoginButton from './LoginButton';
@@ -54,7 +54,7 @@ export function Header({ pageKey }: HeaderProps) {
             key="home"
             icon={
               <span role="img" aria-hidden="true">
-                🏠{' '}
+                <HomeOutlined />
               </span>
             }
           >
@@ -67,7 +67,7 @@ export function Header({ pageKey }: HeaderProps) {
             key="profile"
             icon={
               <span role="img" aria-hidden="true">
-                👨‍💼{' '}
+                <UserOutlined />
               </span>
             }
           >

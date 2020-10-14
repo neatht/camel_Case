@@ -51,3 +51,31 @@
 .ant-tooltip-inner {
   border-radius: var(--border-radius-secondary) !important;
 }
+
+.ant-select-selector, .ant-input {
+  border-radius: var(--border-radius-secondary) !important;
+
+  border: var(--border) !important;
+  border-color: #ffffffe0 ;
+    box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
+    cursor: text;
+    /* background-color: rgba(0, 0, 0, 0.02); */
+    background-color: rgba(0, 0, 0, 0.01) !important;
+}
+
+.ant-select-focused {
+  border-radius: var(--border-radius-secondary) !important;
+  outline: 0;
+  border: 0 !important;
+  box-shadow: inset 0px 5px 7px rgba(0, 0, 0, 0.2);
+  background-color: #00000000 !important;
+}
+
+.ant-input:focus, .ant-input-focused {
+  outline: 0;
+  border: var(--border) !important;
+  border-color: #ffffffe0 ;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.01) !important;
+}
+

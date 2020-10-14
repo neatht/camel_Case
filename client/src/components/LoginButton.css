@@ -3,10 +3,11 @@
   background: var(--btn-gradient) !important;
   border-radius: 100px !important;
   border: var(--border);
-  height: 50px; 
+  height: 40px; 
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1), var(--drop-shadow);
 }
 
 .ant-btn:hover {
-  border-color: var(--color-primary);
+  border: var(--border);
+  box-shadow: 0px 0px 0px 1px var(--color-primary), inset 0px 3px 5px rgba(0, 0, 0, 0.1), var(--drop-shadow);
 }

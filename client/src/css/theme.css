@@ -17,8 +17,10 @@
   --border-radius-secondary: 12px;
 
   --drop-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  --inner-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.05);
   
   --unit: 240px;
+  --unit: 260px;
   --unit-col-num: 1;
   --unit-ratio: 0.75;
   --unit-margin: 15px;
