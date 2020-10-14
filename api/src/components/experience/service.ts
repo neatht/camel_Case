@@ -32,3 +32,22 @@ export const addExperienceService = async (req: any, res: express.Response, next
   const queryResult: any = await service(req, next, query, queryParams);
   return queryResult.rows[0].experienceID;
 }
+
+/**
+ * getExperiencesService() retrieves the experiences of a user from the
+ * database.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns a list of the experiences
+ */
+export const getExperienceService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT organisation, job_title AS "jobTitle", \
+  description, start_date AS "startDate", end_date AS "endDate", experience_id \
+  AS "experienceID" FROM experience WHERE user_id=$1;';
+  const queryParams: any[] = [req.params.userID];
+  const queryResult: any = await service(req, next, query, queryParams);
+  return queryResult.rows;
+}
