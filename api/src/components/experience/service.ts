@@ -34,6 +34,33 @@ export const addExperienceService = async (req: any, res: express.Response, next
 }
 
 /**
+ * updateExperienceService() updates an experience in the database based on the
+ * data provided in the body.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns the experience_id field of the added experience
+ */
+export const updateExperienceService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'UPDATE experience \
+  SET location = $1, organisation = $2, job_title = $3, description = $4, \
+  start_date = $5, end_date = $6, user_id = $7 WHERE experience_id = $8;'
+  const queryParams = [
+    req.body.data.location,
+    req.body.data.organisation,
+    req.body.data.jobTitle,
+    req.body.data.description,
+    req.body.data.startDate,
+    req.body.data.endDate,
+    req.user.sub.split('|')[1],
+    req.body.data.experienceID
+  ];
+  await service(req, next, query, queryParams);
+}
+
+/**
  * getExperiencesService() retrieves the experiences of a user from the
  * database.
  *

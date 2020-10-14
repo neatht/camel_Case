@@ -6,7 +6,7 @@
  */
 
 import express from 'express';
-import { addExperienceService, getExperienceService } from './service';
+import { addExperienceService, updateExperienceService, getExperienceService } from './service';
 import { checkProfileService, checkPublicService } from '../../helpers/service';
 import { profile } from 'console';
 
@@ -38,6 +38,30 @@ export const addExperience = async (req: any, res: express.Response, next: expre
 }
 
 /**
+ * updateExperience() updates an experience in the experience table of the
+ * database and sends a JSON response to the client.
+ *
+ * User must authenticated.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const updateExperience = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    await updateExperienceService(req, res, next);
+    console.log(`Experience updated for userID: ${req.user.sub.split('|')[1]}`);
+    req.poolClient.end();
+    res.status(200);
+    return res.json({
+      status: 'success'
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
  * getExperiences() gets the experiences of a user with user ID provided in
  * route parameter and sends a JSON response to the client.
  *
@@ -53,6 +77,7 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
     const userID = req.params.userID;
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
+      req.poolClient.end();
       res.status(404);
       return res.json({
         status: 'error',
@@ -61,6 +86,7 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
     }
     const profileIsPublic = await checkPublicService(req, next, userID);
     if (!profileIsPublic) {
+      req.poolClient.end();
       res.status(401);
       return res.json({
         status: 'error',
@@ -68,6 +94,7 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
       });
     }
     const experiences = await getExperienceService(req, res, next);
+    req.poolClient.end();
     res.status(200);
     return res.json({
       status: 'success',
