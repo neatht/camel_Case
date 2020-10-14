@@ -6,7 +6,7 @@
  */
 
 import express from 'express';
-import { addExperienceService, updateExperienceService, getExperienceService } from './service';
+import { addExperienceService, updateExperienceService, checkExperience, getExperienceService, deleteExperienceService } from './service';
 import { checkProfileService, checkPublicService } from '../../helpers/service';
 import { profile } from 'console';
 
@@ -49,8 +49,17 @@ export const addExperience = async (req: any, res: express.Response, next: expre
  */
 export const updateExperience = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const experienceExists = await checkExperience(req, res, next);
+    if (!experienceExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'The experience you tried to update does not exist.'
+      });
+    }
     await updateExperienceService(req, res, next);
-    console.log(`Experience updated for userID: ${req.user.sub.split('|')[1]}`);
+    console.log(`Experience with experience_id: ${req.body.data.experienceID} updated for user_id: ${req.user.sub.split('|')[1]}`);
     req.poolClient.end();
     res.status(200);
     return res.json({
@@ -102,6 +111,40 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
         experiences
       }
     });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * deleteExperience() deletes an experience from the experience table in the
+ * database.
+ *
+ * User must authenticated.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const deleteExperience = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const experienceExists = await checkExperience(req, res, next);
+    if (!experienceExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'The experience you tried to delete does not exist.'
+      });
+    } else {
+      await deleteExperienceService(req, res, next);
+      console.log(`Experience with experience_id: ${req.body.data.experienceID} deleted for user_id: ${req.user.sub.split('|')[1]}`);
+      req.poolClient.end();
+      res.status(200);
+      return res.json({
+        status: 'success'
+      });
+    }
   } catch (err) {
     next(err);
   }

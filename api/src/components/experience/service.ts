@@ -61,6 +61,26 @@ export const updateExperienceService = async (req: any, res: express.Response, n
 }
 
 /**
+ * checkExperience() checks if an experience with a given experience ID
+ * exists.
+ *
+ * Expects experience ID in req.body.data.experienceID
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns true if experience exists, false if it does not exist
+ */
+export const checkExperience = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT EXISTS(SELECT 1 FROM experience WHERE \
+    experience_id=$1)';
+  const queryParams = [req.body.data.experienceID];
+  const queryResult = await service(req, next, query, queryParams);
+  return queryResult.rows[0].exists;
+}
+
+/**
  * getExperiencesService() retrieves the experiences of a user from the
  * database.
  *
@@ -77,4 +97,19 @@ export const getExperienceService = async (req: any, res: express.Response, next
   const queryParams: any[] = [req.params.userID];
   const queryResult: any = await service(req, next, query, queryParams);
   return queryResult.rows;
+}
+
+/**
+ * checkExperience() deletes an experience with a provided experience_id
+ *
+ * Expects experience ID in req.body.data.experienceID
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const deleteExperienceService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'DELETE FROM experience WHERE experience_id = $1'
+  const queryParams = [req.body.data.experienceID];
+  await service(req, next, query, queryParams);
 }
