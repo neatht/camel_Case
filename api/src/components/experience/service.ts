@@ -100,7 +100,7 @@ export const getExperienceService = async (req: any, res: express.Response, next
 }
 
 /**
- * checkExperience() deletes an experience with a provided experience_id
+ * deleteExperienceService() deletes an experience with a provided experience_id
  *
  * Expects experience ID in req.body.data.experienceID
  *
