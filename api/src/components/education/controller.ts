@@ -6,7 +6,7 @@
  */
 
 import express from 'express';
-import { getOwnEducationService, getEducationService } from './service';
+import { getOwnEducationService, getEducationService, addEducationService } from './service';
 import { checkProfileService, checkPublicService } from '../../helpers/service';
 
 /**
@@ -87,6 +87,33 @@ export const getEducation = async (req: any, res: express.Response, next: expres
         education
       }
     });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * addEducation() adds education to the education table in the database and
+ * sends a JSON response to the client.
+ *
+ * User must be authenticated.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const addEducation = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const educationID = await addEducationService(req, res, next);
+    console.log(`Education created for userID: ${req.user.sub.split('|')[1]}`);
+    req.poolClient.end();
+    res.status(200);
+    return res.json({
+      status: 'success',
+      data: {
+        educationID
+      }
+    })
   } catch (err) {
     next(err);
   }

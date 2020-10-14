@@ -43,3 +43,30 @@ export const getEducationService = async (req: any, res: express.Response, next:
   const queryResult: any = await service(req, next, query, queryParams);
   return queryResult.rows;
 }
+
+/**
+ * addEducationService() adds a new education to the database based on the
+ * data provided in the body.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns the education_id field of the added education
+ */
+export const addEducationService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'INSERT INTO education(institution, qualification, \
+    description, location, start_date, end_date, user_id) VALUES($1, $2, $3, \
+    $4, $5, $6, $7) RETURNING education_id AS "educationID";';
+  const queryParams: any[] = [
+    req.body.data.institution,
+    req.body.data.qualification,
+    req.body.data.description,
+    req.body.data.location,
+    req.body.data.startDate,
+    req.body.data.endDate,
+    req.user.sub.split('|')[1],
+  ];
+  const queryResult: any = await service(req, next, query, queryParams);
+  return queryResult.rows[0].educationID;
+}
