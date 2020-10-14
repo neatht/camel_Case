@@ -6,7 +6,7 @@
  */
 
 import express from 'express';
-import { getOwnEducationService, getEducationService, addEducationService, checkEducationService, updateEducationService } from './service';
+import { getOwnEducationService, getEducationService, addEducationService, checkEducationService, updateEducationService, deleteEducationService } from './service';
 import { checkProfileService, checkPublicService } from '../../helpers/service';
 
 /**
@@ -147,6 +147,40 @@ export const updateEducation = async (req: any, res: express.Response, next: exp
     return res.json({
       status: 'success'
     });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * deleteEducation() deletes an education from the education table in the
+ * database.
+ *
+ * User must authenticated.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const deleteEducation = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const educationExists = await checkEducationService(req, res, next);
+    if (!educationExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'The education you tried to delete does not exist.'
+      });
+    } else {
+      await deleteEducationService(req, res, next);
+      console.log(`Experience with education_id: ${req.body.data.educationID} deleted for user_id: ${req.user.sub.split('|')[1]}`);
+      req.poolClient.end();
+      res.status(200);
+      return res.json({
+        status: 'success'
+      });
+    }
   } catch (err) {
     next(err);
   }

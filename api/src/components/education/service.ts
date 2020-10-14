@@ -75,7 +75,7 @@ export const addEducationService = async (req: any, res: express.Response, next:
  * checkEducationService() checks if an education with a given experience ID
  * exists.
  *
- * Expects education ID in req.body.data.experienceID
+ * Expects education ID in req.body.data.educationID
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -95,7 +95,7 @@ export const checkEducationService = async (req: any, res: express.Response, nex
  * updateEducationService() updates an education in the database based on the
  * data provided in the body.
  *
- * Expects education ID in req.body.data.experienceID
+ * Expects education ID in req.body.data.educationID
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -117,5 +117,21 @@ export const updateEducationService = async (req: any, res: express.Response, ne
     req.user.sub.split('|')[1],
     req.body.data.educationID
   ];
+  await service(req, next, query, queryParams);
+}
+
+
+/**
+ * deleteEducationService() deletes an education with a provided education_id
+ *
+ * Expects education ID in req.body.data.educationID
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const deleteEducationService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'DELETE FROM education WHERE education_id = $1'
+  const queryParams = [req.body.data.educationID];
   await service(req, next, query, queryParams);
 }
