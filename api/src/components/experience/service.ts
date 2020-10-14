@@ -113,3 +113,22 @@ export const deleteExperienceService = async (req: any, res: express.Response, n
   const queryParams = [req.body.data.experienceID];
   await service(req, next, query, queryParams);
 }
+
+/**
+ * getOwnExperiencesService() retrieves the experiences of an authenticated
+ * user.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns a list of the experiences
+ */
+export const getOwnExperiencesService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT organisation, job_title AS "jobTitle", \
+  description, start_date AS "startDate", end_date AS "endDate", experience_id \
+  AS "experienceID" FROM experience WHERE user_id=$1;';
+  const queryParams: any[] = [req.user.sub.split('|')[1]];
+  const queryResult: any = await service(req, next, query, queryParams);
+  return queryResult.rows;
+}
