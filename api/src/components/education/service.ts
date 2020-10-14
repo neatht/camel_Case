@@ -70,3 +70,52 @@ export const addEducationService = async (req: any, res: express.Response, next:
   const queryResult: any = await service(req, next, query, queryParams);
   return queryResult.rows[0].educationID;
 }
+
+/**
+ * checkEducationService() checks if an education with a given experience ID
+ * exists.
+ *
+ * Expects education ID in req.body.data.experienceID
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns true if education exists, false if it does not exist
+ */
+export const checkEducationService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT EXISTS(SELECT 1 FROM education WHERE \
+    education_id=$1)';
+  const queryParams = [req.body.data.educationID];
+  const queryResult = await service(req, next, query, queryParams);
+  return queryResult.rows[0].exists;
+}
+
+/**
+ * updateEducationService() updates an education in the database based on the
+ * data provided in the body.
+ *
+ * Expects education ID in req.body.data.experienceID
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ *
+ * @returns the education_id field of the added education
+ */
+export const updateEducationService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'UPDATE education \
+  SET institution = $1, qualification = $2, description = $3, location = $4, \
+  start_date = $5, end_date = $6, user_id = $7 WHERE education_id = $8;';
+  const queryParams = [
+    req.body.data.institution,
+    req.body.data.qualification,
+    req.body.data.description,
+    req.body.data.location,
+    req.body.data.startDate,
+    req.body.data.endDate,
+    req.user.sub.split('|')[1],
+    req.body.data.educationID
+  ];
+  await service(req, next, query, queryParams);
+}

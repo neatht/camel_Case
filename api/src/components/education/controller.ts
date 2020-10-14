@@ -6,7 +6,7 @@
  */
 
 import express from 'express';
-import { getOwnEducationService, getEducationService, addEducationService } from './service';
+import { getOwnEducationService, getEducationService, addEducationService, checkEducationService, updateEducationService } from './service';
 import { checkProfileService, checkPublicService } from '../../helpers/service';
 
 /**
@@ -114,6 +114,39 @@ export const addEducation = async (req: any, res: express.Response, next: expres
         educationID
       }
     })
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * updateEducation() updates an education in the education table of the
+ * database and sends a JSON response to the client.
+ *
+ * User must authenticated.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const updateEducation = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const educationExists = await checkEducationService(req, res, next);
+    if (!educationExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'The education you tried to update does not exist.'
+      });
+    }
+    await updateEducationService(req, res, next);
+    console.log(`Education with education_id: ${req.body.data.educationID} updated for user_id: ${req.user.sub.split('|')[1]}`);
+    req.poolClient.end();
+    res.status(200);
+    return res.json({
+      status: 'success'
+    });
   } catch (err) {
     next(err);
   }
