@@ -45,7 +45,7 @@ export const getUser = async (req: any, res: express.Response, next: express.Nex
           }
         });
       } else {
-        res.status(401);
+        res.status(200);
         return res.json({
           status: 'success',
           data: {
