@@ -52,7 +52,7 @@ export const updateExperienceService = async (req: any, res: express.Response, n
   start_date = COALESCE($5, start_date), \
   end_date = COALESCE($6, end_date), \
   user_id = $7 \
-  WHERE experience_id = $8';
+  WHERE experience_id = $8;';
   const queryParams = [
     req.body.data.location,
     req.body.data.organisation,
