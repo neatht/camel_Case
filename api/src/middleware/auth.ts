@@ -33,24 +33,3 @@ export const jwtCheck = jwt({
   issuer: process.env.AUTH0_ISSUER,
   algorithms: ['RS256']
 });
-
-/**
- * checkIsOwner() checks whether the user ID attached to req.user.sub after
- * calling jwtCheck() is the same as the user ID sent in the request body
- * (req.body.userID).
- *
- * @param req - the express Request object
- * @param res - the express Response object
- * @param next - the express NextFunction object
- */
-export const checkIsOwner = (req: any, res: express.Response, next: express.NextFunction) => {
-  // sub attribute in the format of "<social platform>|<user id>"
-  const accessTokenID = req.user.sub.split('|')[1];
-  const bodyID = req.body.userID;
-
-  if (parseInt(accessTokenID, 0) === parseInt(bodyID, 0)) {
-    next();
-  } else {
-    res.sendStatus(401);
-  }
-}
