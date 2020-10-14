@@ -44,9 +44,15 @@ export const addExperienceService = async (req: any, res: express.Response, next
  * @returns the experience_id field of the added experience
  */
 export const updateExperienceService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'UPDATE experience \
-  SET location = $1, organisation = $2, job_title = $3, description = $4, \
-  start_date = $5, end_date = $6, user_id = $7 WHERE experience_id = $8;'
+  const query: string = 'UPDATE experience SET \
+  location = COALESCE($1, location), \
+  organisation = COALESCE($2, organisation), \
+  job_title = COALESCE($3, job_title), \
+  description = COALESCE($4, description), \
+  start_date = COALESCE($5, start_date), \
+  end_date = COALESCE($6, end_date), \
+  user_id = $7 \
+  WHERE experience_id = $8';
   const queryParams = [
     req.body.data.location,
     req.body.data.organisation,
