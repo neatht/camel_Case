@@ -1,9 +1,5 @@
 .text-input-display-none {
-    /* display: none; */
-    width: 0;
-    height: 0;
-    overflow: scroll;
-    
+    display: none;    
 }
 
 .text-input {

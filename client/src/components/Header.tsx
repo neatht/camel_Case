@@ -6,6 +6,7 @@ import { PageHeader, Menu, Input, Space } from 'antd';
 
 import './Header.css';
 import LoginButton from './LoginButton';
+import Emoji from './Emoji';
 
 const { Search } = Input;
 
@@ -36,10 +37,9 @@ export function Header({ pageKey }: HeaderProps) {
           title={
             <Link to="/" className="navTitle">
               {' '}
-              <span role="img" aria-hidden="true">
-                📝
-              </span>{' '}
-              Glowbal{' '}
+              <div style={{ fontSize: '1.2em' }} className="gradient">
+                <Emoji symbol="🛰️" /> <strong>Glowbal</strong>
+              </div>
             </Link>
           }
         />

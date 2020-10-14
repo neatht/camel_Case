@@ -1,4 +1,4 @@
-<h1 align="center">🌏 Glowbal</h1>
+<h1 align="center">🛰️<br>Glowbal</h1>
 
 <div align="center">
     <strong>An ePortfolio web app built on React and Express</strong>

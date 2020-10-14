@@ -11,15 +11,22 @@ exports[`Testing Header renders home without crashing 1`] = `
           to="/"
         >
            
-          <span
-            aria-hidden="true"
-            role="img"
+          <div
+            className="gradient"
+            style={
+              Object {
+                "fontSize": "1.2em",
+              }
+            }
           >
-            📝
-          </span>
-           
-          Glowbal
-           
+            <Emoji
+              symbol="🛰️"
+            />
+             
+            <strong>
+              Glowbal
+            </strong>
+          </div>
         </ForwardRef>
       }
     />
@@ -110,15 +117,22 @@ exports[`Testing Header renders profile without crashing 1`] = `
           to="/"
         >
            
-          <span
-            aria-hidden="true"
-            role="img"
+          <div
+            className="gradient"
+            style={
+              Object {
+                "fontSize": "1.2em",
+              }
+            }
           >
-            📝
-          </span>
-           
-          Glowbal
-           
+            <Emoji
+              symbol="🛰️"
+            />
+             
+            <strong>
+              Glowbal
+            </strong>
+          </div>
         </ForwardRef>
       }
     />

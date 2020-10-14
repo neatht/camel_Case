@@ -29,12 +29,21 @@ function PortfolioHero(props: PortfolioHeroProps) {
       >
         {props.isMyProfile ? (
           <div
-            onMouseDown={() => {
-              setEditingState(!editingState);
+            onClick={() => {
+              if (editing && editingState) {
+                setEditing(!editing);
+                setTimeout(() => setEditingState(!editingState), 1000);
+              } else if (!editing && !editingState) {
+                setEditingState(!editingState);
+                setTimeout(() => setEditing(!editing), 1);
+              } else {
+                setEditingState(false);
+                setEditing(false);
+              }
             }}
-            onMouseUp={() => {
-              setEditing(!editing);
-            }}
+            // onMouseUp={() => {
+            //   setEditing(!editing);
+            // }}
             className="display-top-right container-secondary"
           >
             <EditOutlined />
@@ -89,7 +98,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                     {...dropProvided.droppableProps}
                   >
                     <div
-                      className="container-scroll-x"
+                      className={editing ? 'container-scroll-x' : ''}
                       style={{ height: '100%', display: 'flex' }}
                       ref={dropProvided.innerRef}
                     >

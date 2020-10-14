@@ -135,9 +135,22 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
           />
            
           <a
-            href="{props.media}"
+            href="http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"
+            target="_blank"
           >
-            props.media
+            <div
+              style={
+                Object {
+                  "display": "inline-block",
+                  "marginBottom": "-5px",
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "width": "140px",
+                }
+              }
+            >
+              distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4
+            </div>
           </a>
         </li>
         <li>

@@ -9,6 +9,7 @@ import Emoji from './Emoji';
 import AuthorBadge from './AuthorBadge';
 // import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
+import { useRef } from 'react';
 
 type PortfolioObjectProps = {
   id: string;
@@ -20,11 +21,19 @@ type PortfolioObjectProps = {
   shortDescription: string;
   views: string;
   location: string;
+  link: string;
   portfolioObjectOpen: any;
 };
 
 function PortfolioObject(props: PortfolioObjectProps) {
   // const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const containerPrimaryRef = useRef<any>(null);
+
+  // useEffect(() => {
+  //   // const containerPrimary = containerPrimaryRef.current;
+  //   // containerPrimary?.classList.add('something');
+  // });
 
   const isMyProfile = true;
 
@@ -38,10 +47,32 @@ function PortfolioObject(props: PortfolioObjectProps) {
   const handleClick = () => {
     setThumbnail(!thumbnail);
     props.portfolioObjectOpen(thumbnail);
+    if (containerPrimaryRef.current !== null) {
+      containerPrimaryRef.current.scrollTop = 0;
+    }
+  };
+
+  const formatLink = (link: string) => {
+    const l = link.replace(/https?:\/\/(www.)?/, '').replace(/\/$/, '');
+    console.log(l);
+    return (
+      <div
+        style={{
+          marginBottom: '-5px',
+          display: 'inline-block',
+          width: '140px',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        {l}
+      </div>
+    );
   };
 
   return (
     <div
+      ref={containerPrimaryRef}
       className={`container-primary portfolio-object ${
         thumbnail ? 'thumbnail' : 'container-scroll'
       }`}
@@ -105,7 +136,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
             </li>
             <li>
               <Emoji symbol="🔗" label="Link:" />{' '}
-              <a href="{props.media}">props.media</a>
+              <a target="_blank" href={props.link}>
+                {formatLink(props.link)}
+              </a>
             </li>
             <li>
               <Emoji symbol="👁️" label="Views:" /> {props.views}
