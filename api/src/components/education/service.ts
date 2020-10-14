@@ -104,9 +104,15 @@ export const checkEducationService = async (req: any, res: express.Response, nex
  * @returns the education_id field of the added education
  */
 export const updateEducationService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'UPDATE education \
-  SET institution = $1, qualification = $2, description = $3, location = $4, \
-  start_date = $5, end_date = $6, user_id = $7 WHERE education_id = $8;';
+  const query: string = 'UPDATE education SET \
+    institution = COALESCE($1, institution), \
+    qualification = COALESCE($2, qualification), \
+    description = COALESCE($3, description), \
+    location = COALESCE($4, location), \
+    start_date = COALESCE($5, start_date), \
+    end_date = COALESCE($6, end_date), \
+    user_id = $7 \
+    WHERE education_id = $8';
   const queryParams = [
     req.body.data.institution,
     req.body.data.qualification,
