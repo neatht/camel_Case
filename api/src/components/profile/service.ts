@@ -93,18 +93,28 @@ export const addProfileService = async (req: any, res: express.Response, next: e
  * @param next - the express NextFunction object
  */
 export const updateProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'UPDATE profile \
+  const query2: string = 'UPDATE profile \
   SET first_name = $1, last_name = $2, bio = $3, date_of_birth = $4, \
   location = $5, looking_for_work = $6, public = $7, gender = $8 \
   WHERE user_id = $9;'
+  const query: string = 'UPDATE profile SET \
+  first_name = COALESCE($1, first_name), \
+  last_name = COALESCE($2, last_name), \
+  bio = COALESCE($3, bio), \
+  date_of_birth = COALESCE($4, date_of_birth), \
+  location = COALESCE($5, location), \
+  looking_for_work = COALESCE($6, looking_for_work), \
+  public = COALESCE($7, public), \
+  gender = COALESCE($8, gender) \
+  WHERE user_id = $9;';
   const queryParams = [
     req.body.data.firstName,
     req.body.data.lastName,
     req.body.data.bio,
     req.body.data.DOB,
     req.body.data.location,
-    req.body.data.lookingForWork.toString(),
-    req.body.data.public.toString(),
+    req.body.data.lookingForWork ? req.body.data.lookingForWork.toString() : null,
+    req.body.data.public ? req.body.data.public.toString() : null,
     req.body.data.gender,
     req.user.sub.split('|')[1]
   ];
