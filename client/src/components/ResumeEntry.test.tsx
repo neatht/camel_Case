@@ -8,6 +8,7 @@ describe('Testing ResumeEntry', () => {
       <ResumeEntry
         title="Experience"
         display="block"
+        isMyProfile={true}
         entries={[
           {
             date: '2020',

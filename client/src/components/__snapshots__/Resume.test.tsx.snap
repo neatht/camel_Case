@@ -24,7 +24,11 @@ exports[`Testing Resume renders without crashing 1`] = `
   >
     <h1>
       <strong>
-        Jane Doe
+        <TextInput
+          editable={true}
+          onChange={[Function]}
+          text="Jane Doe"
+        />
       </strong>
     </h1>
     <div
@@ -85,7 +89,13 @@ exports[`Testing Resume renders without crashing 1`] = `
   <div
     className="resume-profile"
   >
-    I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design. 
+    <TextInput
+      editable={true}
+      multiline={true}
+      onChange={[Function]}
+      padding="10px"
+      text="I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design. "
+    />
   </div>
   <ResumeEntry
     display="inline"
@@ -123,6 +133,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
+    isMyProfile={true}
     title="Skills"
   />
   <ResumeEntry
@@ -145,6 +156,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
+    isMyProfile={true}
     title="Experience"
   />
   <ResumeEntry
@@ -161,6 +173,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
+    isMyProfile={true}
     title="Achievements"
   />
   <ResumeEntry
@@ -179,6 +192,7 @@ exports[`Testing Resume renders without crashing 1`] = `
         },
       ]
     }
+    isMyProfile={true}
     title="Education"
   />
 </div>
