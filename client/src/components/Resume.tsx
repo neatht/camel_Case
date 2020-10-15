@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Tooltip } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -7,7 +7,6 @@ import Emoji from './Emoji';
 
 import './Resume.css';
 import ResumeEntry from './ResumeEntry';
-import TextInput from './TextInput';
 
 type ResumeProps = {
   name: string;
@@ -18,11 +17,6 @@ type ResumeProps = {
 };
 
 function Resume(props: ResumeProps) {
-  const isMyProfile = true;
-
-  const [name, setName] = useState(props.name);
-  const [profile, setProfile] = useState(props.profile);
-
   const studentbadges = () => {
     if (props.student !== '') {
       return (
@@ -78,16 +72,7 @@ function Resume(props: ResumeProps) {
       </div>
       <div className="resume-name">
         <h1>
-          <strong>
-            <TextInput
-              editable={isMyProfile}
-              onChange={(newString: string) => {
-                setName(newString);
-                //POST UPDATE
-              }}
-              text={name}
-            />
-          </strong>
+          <strong>{props.name}</strong>
         </h1>
 
         <div className="resume-badges">
@@ -98,22 +83,10 @@ function Resume(props: ResumeProps) {
           </ul>
         </div>
       </div>
-      <div className="resume-profile">
-        <TextInput
-          padding="10px"
-          multiline={true}
-          editable={isMyProfile}
-          onChange={(newString: string) => {
-            setProfile(newString);
-            //POST UPDATE
-          }}
-          text={profile}
-        />
-      </div>
+      <div className="resume-profile">{props.profile}</div>
       <ResumeEntry
         title="Skills"
         display="inline"
-        isMyProfile={isMyProfile}
         entries={[
           { text: 'HTML' },
           { text: 'CSS' },
@@ -130,7 +103,6 @@ function Resume(props: ResumeProps) {
       <ResumeEntry
         title="Experience"
         display="block"
-        isMyProfile={isMyProfile}
         entries={[
           {
             date: '2020',
@@ -149,7 +121,6 @@ function Resume(props: ResumeProps) {
       <ResumeEntry
         title="Achievements"
         display="inline"
-        isMyProfile={isMyProfile}
         entries={[
           { date: '2020', text: 'First Cass Honours' },
           { date: '2020', text: 'First in Hackathon' },
@@ -159,7 +130,6 @@ function Resume(props: ResumeProps) {
       <ResumeEntry
         title="Education"
         display="block"
-        isMyProfile={isMyProfile}
         entries={[
           {
             date: '2018-20',

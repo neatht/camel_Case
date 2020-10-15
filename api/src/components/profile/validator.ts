@@ -4,7 +4,7 @@
  */
 
 import { body } from 'express-validator';
-import { isEnum } from '../../middleware/validator';
+import { isStrArr } from '../../middleware/validator';
 
 /**
  * A list of middleware that validate data sent to add or update a profile.
@@ -26,6 +26,7 @@ import { isEnum } from '../../middleware/validator';
  *                  of 50 chars
  */
 export const profileValidator = [
+  body('data.email', 'Invalid email').exists().isEmail().isLength({ max: 320 }),
   body('data.firstName').exists().isString().isLength({ min: 1, max: 50 }),
   body('data.lastName').exists().isString().isLength({ min: 1, max: 50 }),
   body('data.bio').optional().isString().isLength({ max: 1000 }),
@@ -33,7 +34,14 @@ export const profileValidator = [
   body('data.location').optional().isString().isLength({ max: 100 }),
   body('data.lookingForWork').exists().isBoolean(),
   body('data.public').exists().isBoolean(),
-  body('data.gender').exists().custom((val) => {
-    return isEnum(['male', 'female', 'other'], val);
+  body('data.mobile').optional().isString().isLength({ max: 20 }),
+  body('skills').optional().custom(value => {
+    isStrArr(value, 50);
+  }),
+  body('socialLinks').optional().custom(value => {
+    isStrArr(value, 300);
+  }),
+  body('skills').optional().custom(value => {
+    isStrArr(value, 50);
   })
 ]
