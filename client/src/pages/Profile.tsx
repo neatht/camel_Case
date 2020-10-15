@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import Header from '../components/Header';
@@ -6,11 +6,11 @@ import SocialLinks from '../components/SocialLinks';
 import PortfolioGrid from '../components/PortfolioGrid';
 import Resume from '../components/Resume';
 
-// import useCheckAccessToken from '../hooks/checkAccessToken';
+import useCheckAccessToken from '../hooks/checkAccessToken';
 
 function Profile() {
   const { user, isAuthenticated } = useAuth0();
-  //const checkAccessToken = useCheckAccessToken();
+  const checkAccessToken = useCheckAccessToken();
 
   return (
     <div className="App">

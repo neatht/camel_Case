@@ -10,99 +10,47 @@ exports[`Testing ResumeEntry renders without crashing 1`] = `
     </strong>
   </h2>
   <ul>
-    <li
-      key="0"
-    >
+    <li>
       <div
         className="resume-entry-date"
       >
-        <TextInput
-          editable={true}
-          onChange={[Function]}
-          padding="2px"
-          text="2020"
-        />
+        2020
       </div>
       <div>
-        <TextInput
-          editable={true}
-          onChange={[Function]}
-          padding="2px"
-          text="Internship at a Company"
-        />
+        Internship at a Company
         <div
           className="resume-sub-text"
         >
-          <TextInput
-            editable={true}
-            onChange={[Function]}
-            padding="2px"
-            text="as a Full Stack Developer"
-          />
+          as a Full Stack Developer
         </div>
       </div>
     </li>
-    <li
-      key="1"
-    >
+    <li>
       <div
         className="resume-entry-date"
       >
-        <TextInput
-          editable={true}
-          onChange={[Function]}
-          padding="2px"
-          text="2019"
-        />
+        2019
       </div>
       <div>
-        <TextInput
-          editable={true}
-          onChange={[Function]}
-          padding="2px"
-          text="Internship at a different Company"
-        />
+        Internship at a different Company
         <div
           className="resume-sub-text"
         >
-          <TextInput
-            editable={true}
-            onChange={[Function]}
-            padding="2px"
-            text="as a Front end Developer"
-          />
+          as a Front end Developer
         </div>
       </div>
     </li>
-    <li
-      key="2"
-    >
+    <li>
       <div
         className="resume-entry-date"
       >
-        <TextInput
-          editable={true}
-          onChange={[Function]}
-          padding="2px"
-          text="2018-Current"
-        />
+        2018-Current
       </div>
       <div>
-        <TextInput
-          editable={true}
-          onChange={[Function]}
-          padding="2px"
-          text="Part time job"
-        />
+        Part time job
         <div
           className="resume-sub-text"
-        >
-          <TextInput
-            editable={true}
-            onChange={[Function]}
-            padding="2px"
-          />
-        </div>
+        />
       </div>
     </li>
   </ul>

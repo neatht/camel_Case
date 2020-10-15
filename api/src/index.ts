@@ -22,8 +22,6 @@ https.createServer({
 	console.log(`Server started at localhost:${port}`);
 });
 
-register(app);
-
 const httpApp = express();
 
 httpApp.get("*", (req, res) => {
@@ -33,3 +31,5 @@ httpApp.get("*", (req, res) => {
 http.createServer(httpApp).listen(80, '0.0.0.0', () => {
 	console.log(`redirect Server started at localhost:80`);
 })
+
+register(app);
