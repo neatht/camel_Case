@@ -8,7 +8,7 @@ import path from 'path';
 
 // Route imports
 import profileRouter from './components/profile/routes';
-import uploadRouter from './components/upload/routes';
+import uploadRouter from './components/project/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -27,7 +27,8 @@ export const register = (app: express.Application) => {
   // Register routes
   app.use('/api/profile', profileRouter);
   app.use('/api/upload', uploadRouter);
-  app.get('/api/getList', (req, res) => {
+  app.get('/api/getList', jwtCheck, (req: any, res) => {
+    console.log(JSON.stringify(req.user));
     const list = ['item1', 'item2'];
     res.json(list);
   });
