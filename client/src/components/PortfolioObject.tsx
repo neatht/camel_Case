@@ -30,11 +30,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
   const containerPrimaryRef = useRef<any>(null);
 
-  // useEffect(() => {
-  //   // const containerPrimary = containerPrimaryRef.current;
-  //   // containerPrimary?.classList.add('something');
-  // });
-
   const isMyProfile = true;
 
   const [shortDescription, setShortDescription] = useState(
@@ -54,7 +49,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
   const formatLink = (link: string) => {
     const l = link.replace(/https?:\/\/(www.)?/, '').replace(/\/$/, '');
-    console.log(l);
     return (
       <div
         style={{

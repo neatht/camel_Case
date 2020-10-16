@@ -24,6 +24,7 @@
   width: 100%;
   height: 100%;
   box-shadow: var(--inner-shadow);
+  border-radius: var(--border-radius-secondary);
 }
 .portfolio-hero-edit {
   /* text-align: left; */

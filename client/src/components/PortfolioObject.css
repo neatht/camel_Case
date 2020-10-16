@@ -2,8 +2,9 @@
   display: inline-block;
   width:  var(--unit-width);
   height: calc(100vh - 116px);
+  /* box-shadow: var(--drop-shadow), 0px 0px 0px 1px #00000000; */
   
-  transition:  box-shadow 0.3s, filter 0.3s, border-color 0.5s, width 1s, height 1s 0s,
+  transition:  box-shadow 0.2s, filter 0.3s, border-color 0.5s, width 1s, height 1s 0s,
     padding 0.3s, margin 0.3s, opacity 0.2s;
 }
 
@@ -50,6 +51,7 @@
   border-radius: 0;
   background: rgba(0, 0, 0, 0);
   border: 0;
+  box-shadow: none;
   /* background-color: aqua; */
 }
 
@@ -91,7 +93,7 @@
 
 .thumbnail:hover {
   /* border-color: var(--color-primary); */
-  box-shadow: 0px 0px 0px 1px var(--color-primary), var(--drop-shadow);
+  box-shadow: var(--inner-shadow), var(--drop-shadow-dark), 0px 0px 0px 1px var(--color-primary);
 }
 
 .portfolio-object-overlay .portfolio-meta {
