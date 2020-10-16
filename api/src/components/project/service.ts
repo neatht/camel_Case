@@ -4,54 +4,84 @@ import { service } from '../../helpers/service';
 
 dotenv.config();
 
-export const addMediaService = async (poolClient: any, link: string, mediaID: string, mediaName: string,
-                                      projectID: number, userID: number, mediaType: string, next: express.NextFunction) => {
+export const addMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = 'INSERT INTO media(date_posted, link, media_id, media_name, \
     project_id, media_type, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;'
 
   const queryParams = [
     new Date(),
-    link,
-    mediaID,
-    mediaName,
-    projectID,
-    mediaType,
-    userID
+    req.body.s3ObjUrl,
+    req.body.s3ObjID,
+    req.body.mediaName,
+    req.body.projectID,
+    req.body.mediaType,
+    req.body.userID
   ]
 
-  await service(poolClient, next, query, queryParams);
+  await service(req.poolClient, next, query, queryParams);
 }
 
-export const getMediaService = async (poolClient: any, projectID: number, userID: number, next: express.NextFunction) => {
+export const getMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = 'SELECT * FROM media WHERE project_id = $1 AND user_id = $2;'
 
   const queryParams = [
-    projectID,
-    userID
+    req.body.projectID,
+    req.body.userID
   ]
 
-  const queryResults = await service(poolClient, next, query, queryParams);
+  const queryResults = await service(req.poolClient, next, query, queryParams);
   return queryResults.rows[0];
 }
 
-export const checkProfilePublicService = async (poolClient: any, userID: number, next: express.NextFunction) => {
+export const checkProfilePublicService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = 'SELECT public FROM profile WHERE user_id = $1;'
-  const queryParams = [userID]
-  const queryResults = await service(poolClient, next, query, queryParams);
+  const queryParams = [req.body.userID]
+  const queryResults = await service(req.poolClient, next, query, queryParams);
   return queryResults.rows[0].public;
 }
 
-export const getProjectService = async (poolClient: any, userID: string, projectID: number, next: express.NextFunction) => {
+export const getProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'SELECT * FROM project WHERE project_id = $1 AND user_id = $2;';
-  const queryParams: any[] = [projectID, userID]
-  const queryResults: any = await service(poolClient, next, query, queryParams);
+  const queryParams: any[] = [req.body.projectID, req.body.userID]
+  const queryResults: any = await service(req.poolClient, next, query, queryParams);
 
   return queryResults.rows[0];
 }
 
-export const addProjectService = async (poolClient: any, userID: string,  projectName: string, tags: string[], location: string, link: string, next: express.NextFunction) => {
+export const addProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'INSERT INTO project(tags, location, project_name, link, user_id) VALUES \
     ($1, $2, $3, $4, $5);'
-  const queryParams: any[] = [tags, location, projectName, link, userID]
-  await service(poolClient, next, query, queryParams);
+  const queryParams: any[] = [req.body.tags, req.body.location, req.body.projectName, req.body.link, req.body.userID]
+  await service(req.poolClient, next, query, queryParams);
+}
+
+export const updateProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query = ['UPDATE project SET'];
+  const queryParams = [];
+  let varCount = 1;
+
+  if (req.body.projectName) {
+    query.push(`project_name = $${varCount++}`);
+    queryParams.push(req.body.projectName);
+  }
+
+  if (req.body.tags) {
+    query.push(`tags = $${varCount++}`);
+    queryParams.push(req.body.tags);
+  }
+
+  if (req.body.location) {
+    query.push(`location = $${varCount++}`);
+    queryParams.push(req.body.location);
+  }
+
+  if (req.body.link) {
+    query.push(`link = $${varCount++}`);
+    queryParams.push(req.body.link);
+  }
+
+  query.push(`WHERE user_id = ${varCount++} AND project_id = ${varCount};`);
+  queryParams.push(req.body.userID, req.body.projectID);
+
+  await service(req.poolClient, next, query.join(' '), queryParams);
 }

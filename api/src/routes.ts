@@ -32,6 +32,9 @@ export const register = (app: express.Application) => {
     const list = ['item1', 'item2'];
     res.json(list);
   });
+  app.post('/api/test', (req: any, res: any) => {
+    console.log(JSON.stringify(req.body));
+  });
   // app.get("*", (req, res) => {
   //   res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
   // });

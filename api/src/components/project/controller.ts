@@ -143,12 +143,26 @@ export const getOwnProject = async (req: any, res: express.Response, next: expre
 
 export const addProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const userID = req.user.sub.split('|')[1];
-    await addProjectService(req.poolClient, userID, req.body.projectName, req.body.tags, req.body.location, req.body.link, next);
+    req.body.userID = req.user.sub.split('|')[1];
+    await addProjectService(req, res, next);
 
     res.status(200);
     return res.json({
       status: 'success',
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const updateProject = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    req.body.userID = req.user.sub.split('|')[1];
+    await updateProjectService(req, res, next);
+
+    res.status(200);
+    return res.json({
+      status: 'success'
     });
   } catch (e) {
     next(e);
