@@ -76,6 +76,19 @@ export function Header({ pageKey }: HeaderProps) {
             </NavLink>{' '}
             {/* TODO: Protected route once authentication is set up */}
           </Menu.Item>
+
+          <Menu.Item
+            key="tests"
+            icon={
+              <span role="img" aria-hidden="true">
+                🧪
+              </span>
+            }
+          >
+            <NavLink exact to="/tests">
+              Tests
+            </NavLink>{' '}
+          </Menu.Item>
         </Menu>
 
         <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
