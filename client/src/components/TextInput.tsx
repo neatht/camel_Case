@@ -20,14 +20,6 @@ function TextInput(props: TextInputProps) {
   const inputRef = useRef<any>(null);
   const displayTextRef = useRef<any>(null);
 
-  // useEffect(() => {
-  //   const input = inputRef.current;
-  //   input?.classList.add('something');
-
-  //   const displayText = displayTextRef.current;
-  //   displayText?.classList.add('something');
-  // });
-
   const finish = () => {
     setEditing(false);
     props.onChange(text);
@@ -46,7 +38,7 @@ function TextInput(props: TextInputProps) {
         if (props.editable) {
           setEditing(true);
           if (inputRef.current !== null && displayTextRef.current !== null) {
-            setTimeout(() => inputRef.current.focus(), 1);
+            setTimeout(() => inputRef.current.focus(), 50);
 
             let width = displayTextRef.current.offsetWidth;
             if (width > 0) {

@@ -35,7 +35,7 @@ function HomeHero() {
               padding: '30px',
             }}
           >
-            <h1 style={{ fontSize: '3em' }} className="gradient">
+            <h1 style={{ fontSize: '3.5em' }} className="gradient">
               <Emoji symbol="🛰️" />
               <br />
               <strong>Glowbal</strong>

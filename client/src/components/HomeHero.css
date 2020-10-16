@@ -1,5 +1,6 @@
 .home-hero {
     background-color: var(--background-color-primary);
+    box-shadow: var(--inner-shadow);
 }
 .toggle-home-hero {
     position: relative;

@@ -27,7 +27,7 @@ function Profile() {
         <PortfolioGrid />
       </div>
 
-      {isAuthenticated ? (
+      {/* {isAuthenticated ? (
         <div>
           <h2> User: {user.name} </h2>
           <p> Email: {user.email} </p>
@@ -38,7 +38,7 @@ function Profile() {
         </div>
       )}
 
-      <SocialLinks />
+      <SocialLinks /> */}
     </div>
   );
 }

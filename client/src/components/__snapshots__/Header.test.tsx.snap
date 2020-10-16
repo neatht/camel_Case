@@ -50,8 +50,7 @@ exports[`Testing Header renders home without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            🏠
-             
+            <ForwardRef(HomeOutlined) />
           </span>
         }
         key="home"
@@ -69,8 +68,7 @@ exports[`Testing Header renders home without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            👨‍💼
-             
+            <ForwardRef(UserOutlined) />
           </span>
         }
         key="profile"
@@ -156,8 +154,7 @@ exports[`Testing Header renders profile without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            🏠
-             
+            <ForwardRef(HomeOutlined) />
           </span>
         }
         key="home"
@@ -175,8 +172,7 @@ exports[`Testing Header renders profile without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            👨‍💼
-             
+            <ForwardRef(UserOutlined) />
           </span>
         }
         key="profile"

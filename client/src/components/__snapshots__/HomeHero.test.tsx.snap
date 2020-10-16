@@ -38,7 +38,7 @@ exports[`Testing HomeHero renders without crashing 1`] = `
         className="gradient"
         style={
           Object {
-            "fontSize": "3em",
+            "fontSize": "3.5em",
           }
         }
       >
