@@ -50,7 +50,11 @@ function ResumeEntry(props: ResumeEntryProps) {
             text: 'Internship at a different Company',
             subText: 'as a Front end Developer',
           },
-          { date: '2018-Current', text: 'Part time job' },
+          {
+            date: '2018-Current',
+            text: 'Part time job',
+            subText: 'doing something',
+          },
         ],
       });
     } else if (props.type === 'Achievements') {

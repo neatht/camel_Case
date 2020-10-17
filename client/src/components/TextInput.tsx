@@ -36,6 +36,7 @@ function TextInput(props: TextInputProps) {
       }
       onClick={() => {
         if (props.editable) {
+          setText(props.text);
           setEditing(true);
           if (inputRef.current !== null && displayTextRef.current !== null) {
             setTimeout(() => inputRef.current.focus(), 50);
