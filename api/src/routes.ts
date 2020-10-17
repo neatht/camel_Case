@@ -10,6 +10,8 @@ import path from 'path';
 import profileRouter from './components/profile/routes';
 import searchRouter from './components/search/routes';
 import skillsRouter from './components/skills/routes';
+import achievementsRouter from './components/achievements/routes';
+import linksRouter from './components/socialLinks/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -30,7 +32,9 @@ export const register = (app: express.Application) => {
   app.use('/api/profile', profileRouter);
   app.use('/api/search', searchRouter);
   app.use('/api/skills', skillsRouter);
-
+  app.use('/api/achievements', achievementsRouter);
+  app.use('/api/links', linksRouter);
+  
   // Unauthenticated test route
   app.get('/api/test', (req, res) => {
     res.status(200);
