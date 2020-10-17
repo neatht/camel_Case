@@ -30,14 +30,22 @@ exports[`Testing HomeHero renders without crashing 1`] = `
           "flexDirection": "column",
           "justifyContent": "center",
           "minHeight": 250,
+          "padding": "30px",
         }
       }
     >
-      <h1>
+      <h1
+        className="gradient"
+        style={
+          Object {
+            "fontSize": "3.5em",
+          }
+        }
+      >
         <Emoji
-          symbol="📝"
+          symbol="🛰️"
         />
-         
+        <br />
         <strong>
           Glowbal
         </strong>
@@ -55,18 +63,16 @@ exports[`Testing HomeHero renders without crashing 1`] = `
       >
          
         <span
-          style={
-            Object {
-              "paddingRight": 5,
-            }
-          }
+          className="rocket"
         >
           <Emoji
             symbol="🚀"
           />
         </span>
          
-        <strong>
+        <strong
+          className="rocket"
+        >
           Get Discovered
         </strong>
       </Button>

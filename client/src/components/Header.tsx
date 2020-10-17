@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 import { PageHeader, Menu, Input, Space } from 'antd';
-//import { UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
 import LoginButton from './LoginButton';
+import Emoji from './Emoji';
 
 const { Search } = Input;
 
@@ -36,10 +37,9 @@ export function Header({ pageKey }: HeaderProps) {
           title={
             <Link to="/" className="navTitle">
               {' '}
-              <span role="img" aria-hidden="true">
-                📝
-              </span>{' '}
-              Glowbal{' '}
+              <div style={{ fontSize: '1.2em' }} className="gradient">
+                <Emoji symbol="🛰️" /> <strong>Glowbal</strong>
+              </div>
             </Link>
           }
         />
@@ -54,7 +54,7 @@ export function Header({ pageKey }: HeaderProps) {
             key="home"
             icon={
               <span role="img" aria-hidden="true">
-                🏠{' '}
+                <HomeOutlined />
               </span>
             }
           >
@@ -67,7 +67,7 @@ export function Header({ pageKey }: HeaderProps) {
             key="profile"
             icon={
               <span role="img" aria-hidden="true">
-                👨‍💼{' '}
+                <UserOutlined />
               </span>
             }
           >
@@ -75,6 +75,19 @@ export function Header({ pageKey }: HeaderProps) {
               Profile
             </NavLink>{' '}
             {/* TODO: Protected route once authentication is set up */}
+          </Menu.Item>
+
+          <Menu.Item
+            key="tests"
+            icon={
+              <span role="img" aria-hidden="true">
+                🧪
+              </span>
+            }
+          >
+            <NavLink exact to="/tests">
+              Tests
+            </NavLink>{' '}
           </Menu.Item>
         </Menu>
 

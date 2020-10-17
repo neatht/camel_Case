@@ -43,7 +43,7 @@
   margin: auto;
   margin-top: 0;
   margin-bottom: 0;
-  background-color: var(--color-primary);
+  background: var(--gradient);
   width: 96px;
   height: 96px;
   border-radius: 96px;

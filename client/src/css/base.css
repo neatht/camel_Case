@@ -1,23 +1,30 @@
-@import '~antd/dist/antd.css';
+@import '~antd/dist/antd.css' (prefers-color-scheme: light);
+@import '~antd/dist/antd.dark.css' (prefers-color-scheme: dark);
 
 @import url('https://fonts.googleapis.com/css?family=Livvic:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Rubik:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Livvic";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Livvic';
   color: var(--color-app);
 }
 
 .navTitle {
-  font-family: "Livvic";
+  font-family: 'Livvic';
 }
 
 .ant-page-header-heading-title {
-  font-family: "Livvic";
+  font-family: 'Livvic';
 }
 
-html, body {
-  font-family: "Rubik";
+html,
+body {
+  font-family: 'Rubik';
 }
 
 body {
@@ -26,10 +33,19 @@ body {
 
   color: var(--color-app);
   background-color: var(--background-color-app);
-  
+}
+
+.gradient {
+  /* background: rgb(0,214,170); */
+  background: var(--color-app);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--drop-shadow);
 }
 
 .exit-button {
+  color: #fff;
   text-align: center;
   width: 24px;
   height: 24px;
@@ -39,16 +55,18 @@ body {
   position: relative;
   right: 24px;
   margin-right: -24px;
+  border: var(--border);
+  box-shadow: var(--inner-shadow), var(--drop-shadow);
+  box-sizing: content-box;
 
-  background-color: var(--background-color-secondary);
-  box-shadow: var(--drop-shadow);
+  background: var(--btn-gradient);
   border-radius: 24px;
   position: relative;
   z-index: 1;
   float: right;
 }
 .exit-button::before {
-  content: "✕";
+  content: '✕';
   font-size: 1.15em;
   /* margin-top: 100px; */
 }

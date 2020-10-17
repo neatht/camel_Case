@@ -1,39 +1,43 @@
 /**
- * This file acts as a wrapper to the database. Here, data is read and written
- * to the database for the profile component.
+ * This file acts as a wrapper to the database. Here, data is read from and
+ * written to the database for the profile component.
  */
 
 import express from 'express';
+import { service } from '../../helpers/service';
+
 import dotenv from 'dotenv';
+import { Result } from 'express-validator';
 dotenv.config();
 
 /**
  * getProfileService() retrieves profile information from the profile table in
- * the database. Adds the query result to the request object.
+ * the database. Will return limited data if the profile is private, and full
+ * data if the profile is public.
  *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
  *
- * @returns the query result rows if found, or an empty list if not.
+ * @returns the query result if profile found, or null if profile not found.
  */
 export const getProfileService = async (req: any,
                                         res: express.Response,
                                         next: express.NextFunction) => {
   const query: string = 'SELECT first_name, last_name, bio, location, \
-  public, looking_for_work, gender, date_of_birth FROM profile WHERE \
-  user_id=$1';
-  const userID = req.params.id;
-  try {
-    const result: any = await req.poolClient.query(query, [userID]);
-    return result;
-  } catch (err) {
-    next(err);
+    public, looking_for_work, gender, date_of_birth FROM profile WHERE \
+    user_id=$1';
+  const queryParams: any[] = [req.params.userID];
+  const queryResult: any = await service(req, next, query, queryParams);
+  if (queryResult.rowCount !== 0) {
+    return queryResult.rows[0];
+  } else{
+    return null;
   }
 }
 
 /**
- * checkProfileService() checks whether a profile with the provided email
+ * checkProfileService() checks whether the profile of the authenticated user
  * exists.
  *
  * @param req - the express Request object
@@ -42,21 +46,14 @@ export const getProfileService = async (req: any,
  *
  * @returns true if it exists, false otherwise
  */
-export const checkProfileService = async (req: any,
-                                          res: express.Response,
-                                          next: express.NextFunction) => {
-  const query: string = 'SELECT 1 FROM profile WHERE email=$1';
-  const email: string = req.user[process.env.EMAIL_KEY];
-  try {
-    const result: any = await req.poolClient.query(query, [email]);
-    if (result.rowCount === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-  catch (err) {
-    next(err);
+export const checkProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT 1 FROM profile WHERE user_id=$1';
+  const queryParams: any[] = [req.user.sub.split('|')[1]];
+  const queryResult: any = await service(req, next, query, queryParams);
+  if (queryResult.rowCount === 0) {
+    return false;
+  } else {
+    return true;
   }
 }
 
@@ -67,18 +64,13 @@ export const checkProfileService = async (req: any,
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
- *
- * @returns the user_id of the added profile
  */
-export const addProfileService = async (req: any,
-                                          res: express.Response,
-                                          next: express.NextFunction) => {
-  const query: string = 'INSERT INTO profile(email, first_name, \
+export const addProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'INSERT INTO profile(user_id, first_name, \
     last_name, bio, date_of_birth, location, looking_for_work, public, \
-    gender, join_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) \
-    RETURNING *;';
+    gender, join_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
   const queryParams = [
-    req.user[process.env.EMAIL_KEY],
+    req.user.sub.split('|')[1],
     req.body.data.firstName,
     req.body.data.lastName,
     req.body.data.bio,
@@ -89,12 +81,7 @@ export const addProfileService = async (req: any,
     req.body.data.gender,
     new Date()
   ];
-  try {
-    const result: any = await req.poolClient.query(query, queryParams);
-    return result.rows[0].user_id;
-  } catch (err) {
-    next(err);
-  }
+  await service(req, next, query, queryParams);
 }
 
 /**
@@ -104,16 +91,12 @@ export const addProfileService = async (req: any,
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
- *
- * @returns the user_id of the updated profile
  */
-export const updateProfileService = async (req: any,
-  res: express.Response,
-  next: express.NextFunction) => {
+export const updateProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'UPDATE profile \
   SET first_name = $1, last_name = $2, bio = $3, date_of_birth = $4, \
   location = $5, looking_for_work = $6, public = $7, gender = $8 \
-  WHERE email = $9 RETURNING *;'
+  WHERE user_id = $9;'
   const queryParams = [
     req.body.data.firstName,
     req.body.data.lastName,
@@ -123,14 +106,9 @@ export const updateProfileService = async (req: any,
     req.body.data.lookingForWork.toString(),
     req.body.data.public.toString(),
     req.body.data.gender,
-    req.user[process.env.EMAIL_KEY],
+    req.user.sub.split('|')[1]
   ];
-  try {
-    const result: any = await req.poolClient.query(query, queryParams);
-    return result.rows[0].user_id;
-  } catch (err) {
-    next(err);
-  }
+  await service(req, next, query, queryParams);
 }
 
 /**
@@ -140,42 +118,32 @@ export const updateProfileService = async (req: any,
  * @param res - the express Response object
  * @param next - the express NextFunction object
  */
-export const deleteProfileService = async (req: any,
-  res: express.Response,
-  next: express.NextFunction) => {
-  const query: string = 'DELETE FROM profile WHERE email = $1'
-  const queryParams = [
-    req.user[process.env.EMAIL_KEY],
-  ];
-  try {
-    await req.poolClient.query(query, queryParams);
-    return;
-  } catch (err) {
-    next(err);
-  }
+export const deleteProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'DELETE FROM profile WHERE user_id = $1'
+  const queryParams = [req.user.sub.split('|')[1]];
+  await service(req, next, query, queryParams);
 }
 
 /**
- * getUserIDService() retrieves a user's ID from the database corresponding to
- * the authenticated user's email address.
+ * getOwnProfileService() retrieves profile information from the profile table
+ * in the database for an authenticated user. Returns full profile information
+ * since the profile
  *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
- * @returns the user ID
+ *
+ * @returns the query result if profile found, or null if profile not found.
  */
-export const getUserIDService = async (req: any,
-  res: express.Response,
-  next: express.NextFunction) => {
-  const query: string = 'SELECT user_id FROM profile WHERE email = $1';
-  const queryParams = [
-    req.user[process.env.EMAIL_KEY],
-  ];
-  try {
-    const result: any = await req.poolClient.query(query, queryParams);
-    const userID: number = result.rows[0].user_id;
-    return userID;
-  } catch(err) {
-    next(err);
+export const getOwnProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT first_name, last_name, bio, location, \
+    public, looking_for_work, gender, date_of_birth FROM profile WHERE \
+    user_id=$1';
+  const queryParams: any[] = [req.user.sub.split('|')[1]];
+  const queryResult: any = await service(req, next, query, queryParams);
+  if (queryResult.rowCount !== 0) {
+    return queryResult.rows[0];
+  } else {
+    return null;
   }
 }

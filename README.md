@@ -1,4 +1,4 @@
-<h1 align="center">🌏 Glowbal</h1>
+<h1 align="center">🛰️<br>Glowbal</h1>
 
 <div align="center">
     <strong>An ePortfolio web app built on React and Express</strong>
@@ -34,7 +34,7 @@ These instructions will help you get a copy of the project up and running for de
 Before building either servers, you will need an SSL certificate. 
 In the root directory, start by creating a certificate:
 ```
-openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.cert -days 365
+openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.cert -days 365 -nodes
 ```
 To specify the certificates, in both `client` and `api`, add the following lines to the `.env`:
 ```
