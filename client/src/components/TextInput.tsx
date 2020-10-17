@@ -57,7 +57,7 @@ function TextInput(props: TextInputProps) {
         ref={displayTextRef}
         className={editing ? 'text-input-display-none' : ''}
       >
-        {text}
+        {props.text}
       </div>
       {props.multiline ? (
         <div className={editing ? '' : 'text-input-display-none'}>

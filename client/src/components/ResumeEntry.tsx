@@ -1,4 +1,4 @@
-import { Spin } from 'antd';
+import { Spin, Tooltip } from 'antd';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -110,13 +110,22 @@ function ResumeEntry(props: ResumeEntryProps) {
             if (props.display === 'inline') {
               return (
                 <li key={index}>
+                  <div
+                    className="exit-button exit-button-resume-entry"
+                    onClick={() => {
+                      const newData = { ...data };
+                      newData.entries.splice(index, 1);
+                      setData(newData);
+                      saveData();
+                    }}
+                  ></div>
                   <div>
                     <TextInput
                       editable={props.isMyProfile}
                       onChange={(newString: string) => {
-                        if (data) {
-                          data.entries[index].text = newString;
-                        }
+                        const newData = { ...data };
+                        newData.entries[index].text = newString;
+                        setData(newData);
                         saveData();
                       }}
                       padding="5px"
@@ -129,44 +138,56 @@ function ResumeEntry(props: ResumeEntryProps) {
             } else {
               return (
                 <li key={index}>
-                  <div className="resume-entry-date">
-                    <TextInput
-                      editable={props.isMyProfile}
-                      onChange={(newString: string) => {
-                        if (data) {
-                          data.entries[index].date = newString;
-                        }
-                        saveData();
-                      }}
-                      padding="2px"
-                      text={value.date}
-                    />
-                  </div>
-                  <div>
-                    <TextInput
-                      editable={props.isMyProfile}
-                      onChange={(newString: string) => {
-                        if (data) {
-                          data.entries[index].text = newString;
-                        }
-                        saveData();
-                      }}
-                      padding="2px"
-                      text={value.text}
-                    />
-
-                    <div className="resume-sub-text">
+                  <div
+                    className="exit-button exit-button-resume-entry"
+                    onClick={() => {
+                      const newData = { ...data };
+                      newData.entries.splice(index, 1);
+                      setData(newData);
+                      saveData();
+                    }}
+                  ></div>
+                  <div className="resume-entry-grid">
+                    <div className="resume-entry-date">
                       <TextInput
                         editable={props.isMyProfile}
                         onChange={(newString: string) => {
-                          if (data) {
-                            data.entries[index].subText = newString;
-                          }
+                          const newData = { ...data };
+                          newData.entries[index].date = newString;
+                          setData(newData);
                           saveData();
                         }}
                         padding="2px"
-                        text={value.subText}
+                        text={value.date}
                       />
+                    </div>
+
+                    <div>
+                      <TextInput
+                        editable={props.isMyProfile}
+                        onChange={(newString: string) => {
+                          const newData = { ...data };
+                          newData.entries[index].text = newString;
+                          setData(newData);
+                          saveData();
+                        }}
+                        padding="2px"
+                        text={value.text}
+                      />
+
+                      <div className="resume-sub-text">
+                        <TextInput
+                          editable={props.isMyProfile}
+                          onChange={(newString: string) => {
+                            const newData = { ...data };
+                            newData.entries[index].subText = newString;
+                            setData(newData);
+                            saveData();
+                          }}
+                          padding="2px"
+                          text={value.subText}
+                        />
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -174,6 +195,28 @@ function ResumeEntry(props: ResumeEntryProps) {
             }
           })}
         </ul>
+        <Tooltip
+          title={'Add ' + props.type.replace(/[sS]$/, '')}
+          placement="bottom"
+        >
+          <div
+            className="resume-entry-add "
+            onClick={() => {
+              if (data) {
+                const newData = { ...data };
+                newData.entries.push({
+                  date: 'date',
+                  text: props.type.replace(/[sS]$/, ''),
+                  subText: 'More Info',
+                });
+                setData(newData);
+                saveData();
+              }
+            }}
+          >
+            +
+          </div>
+        </Tooltip>
       </div>
     );
   }
