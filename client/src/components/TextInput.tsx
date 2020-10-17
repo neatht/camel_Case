@@ -8,12 +8,21 @@ type TextInputProps = {
   radius?: string;
   editable?: boolean;
   multiline?: boolean;
+  maxLen?: number;
   onChange: Function;
 };
 
 function TextInput(props: TextInputProps) {
   function handleChange(event: { target: { value: string } }) {
-    setText(event.target.value);
+    if (props.maxLen) {
+      if (event.target.value.length < props.maxLen) {
+        setText(event.target.value);
+      } else {
+        setText(event.target.value.substr(0, props.maxLen));
+      }
+    } else {
+      setText(event.target.value);
+    }
   }
   const [text, setText] = useState(props.text);
   const [editing, setEditing] = useState(false);
