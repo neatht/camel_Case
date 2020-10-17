@@ -16,16 +16,15 @@ type ResumeProps = {
 };
 
 type ResumeData = {
-  email: string;
   name: string;
-  gender: string;
-  userRole: string;
-  workStatus: string;
-  headline: string;
   bio: string;
   location: string;
-  profilePicture?: string;
-  heroPicture?: string;
+  lookingForWork: boolean;
+  public: boolean;
+  gender: string;
+  DOB: string;
+  // profilePicture?: string;
+  // heroPicture?: string;
 };
 
 function Resume(props: ResumeProps) {
@@ -37,17 +36,14 @@ function Resume(props: ResumeProps) {
 
   async function fetchData(): Promise<void> {
     setData({
-      email: 'string',
       name: 'Jane Doe',
       gender: 'string',
-      userRole: 'string',
-      workStatus: 'string',
-      headline: 'string',
+      lookingForWork: true,
       bio:
         'I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design.',
       location: 'string',
-      profilePicture: 'string',
-      heroPicture: 'string',
+      public: true,
+      DOB: '',
     });
     setIsLoading(false);
   }
@@ -64,20 +60,6 @@ function Resume(props: ResumeProps) {
   //       <Tooltip title={props.student} placement="bottom">
   //         <li>
   //           <Emoji symbol="🧑‍🎓" label="Student" />
-  //         </li>
-  //       </Tooltip>
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // };
-
-  // const workbadges = () => {
-  //   if (props.work) {
-  //     return (
-  //       <Tooltip title="Open to work opportunities" placement="bottom">
-  //         <li>
-  //           <Emoji symbol="✅" label="Open to work opportunities" />
   //         </li>
   //       </Tooltip>
   //     );
@@ -130,9 +112,46 @@ function Resume(props: ResumeProps) {
 
           <div className="resume-badges">
             <ul>
-              {/* {studentbadges()}
-            {workbadges()}
-            {locationbadges()} */}
+              {/* {studentbadges()} */}
+              {data?.lookingForWork === true ? (
+                <Tooltip title="Open for work opportunities" placement="bottom">
+                  <li
+                    onClick={() => {
+                      if (data && isMyProfile) {
+                        const newData = { ...data };
+                        newData.lookingForWork = false;
+                        setData(newData);
+                        saveData();
+                      }
+                    }}
+                  >
+                    <Emoji symbol="✅" label="Open to work opportunities" />
+                  </li>
+                </Tooltip>
+              ) : (
+                <Tooltip
+                  title="Not looking for work opportunities"
+                  placement="bottom"
+                >
+                  <li
+                    onClick={() => {
+                      if (data && isMyProfile) {
+                        const newData = { ...data };
+                        newData.lookingForWork = true;
+                        setData(newData);
+                        saveData();
+                      }
+                    }}
+                  >
+                    <Emoji
+                      symbol="⭕"
+                      label="Not looking to work opportunities"
+                    />
+                  </li>
+                </Tooltip>
+              )}
+
+              {/* {locationbadges()} */}
             </ul>
           </div>
         </div>
