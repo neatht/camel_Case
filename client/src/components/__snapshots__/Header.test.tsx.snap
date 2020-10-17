@@ -81,6 +81,25 @@ exports[`Testing Header renders home without crashing 1`] = `
         </NavLink>
          
       </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            🧪
+          </span>
+        }
+        key="tests"
+      >
+        <NavLink
+          exact={true}
+          to="/tests"
+        >
+          Tests
+        </NavLink>
+         
+      </MenuItem>
     </Menu>
     <Space
       style={
@@ -182,6 +201,25 @@ exports[`Testing Header renders profile without crashing 1`] = `
           to="/profile"
         >
           Profile
+        </NavLink>
+         
+      </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            🧪
+          </span>
+        }
+        key="tests"
+      >
+        <NavLink
+          exact={true}
+          to="/tests"
+        >
+          Tests
         </NavLink>
          
       </MenuItem>
