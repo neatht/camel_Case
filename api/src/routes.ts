@@ -9,6 +9,7 @@ import path from 'path';
 // Route imports
 import profileRouter from './components/profile/routes';
 import searchRouter from './components/search/routes';
+import skillsRouter from './components/skills/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -28,6 +29,7 @@ export const register = (app: express.Application) => {
   // Register routes
   app.use('/api/profile', profileRouter);
   app.use('/api/search', searchRouter);
+  app.use('/api/skills', skillsRouter);
 
   // Unauthenticated test route
   app.get('/api/test', (req, res) => {

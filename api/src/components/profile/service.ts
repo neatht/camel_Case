@@ -31,7 +31,7 @@ export const getProfileService = async (req: any,
   const queryResult: any = await service(req, next, query, queryParams);
   if (queryResult.rowCount !== 0) {
     return queryResult.rows[0];
-  } else{
+  } else {
     return null;
   }
 }
