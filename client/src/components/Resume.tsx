@@ -11,8 +11,14 @@ import TextInput from './TextInput';
 import { useEffect } from 'react';
 import { Large } from '../stories/Button.stories';
 
+// needs to have all props bar userID removed.
 type ResumeProps = {
-  userID: string;
+  userID?: string;
+  name?: string;
+  profile?: string;
+  student?: string;
+  location?: string;
+  work?: boolean;
 };
 
 type ResumeData = {
