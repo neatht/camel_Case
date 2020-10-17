@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Spin, Tooltip } from 'antd';
+import { Popover, Spin, Switch, Tooltip } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import Emoji from './Emoji';
@@ -19,7 +19,10 @@ type ResumeData = {
   name: string;
   bio: string;
   location: string;
+  showLocation: boolean;
   lookingForWork: boolean;
+  student: boolean;
+  institution: string;
   public: boolean;
   gender: string;
   DOB: string;
@@ -35,52 +38,31 @@ function Resume(props: ResumeProps) {
   const [data, setData] = useState<ResumeData>();
 
   async function fetchData(): Promise<void> {
+    // GET data
     setData({
       name: 'Jane Doe',
       gender: 'string',
       lookingForWork: true,
       bio:
         'I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design.',
-      location: 'string',
+      location: 'Melbourne, Australia ',
+      showLocation: false,
+      student: true,
+      institution: 'The University of Melbourne',
       public: true,
       DOB: '',
     });
     setIsLoading(false);
   }
 
-  async function saveData(): Promise<void> {}
+  async function saveData(): Promise<void> {
+    // PUT data
+  }
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  // const studentbadges = () => {
-  //   if (props.student !== '') {
-  //     return (
-  //       <Tooltip title={props.student} placement="bottom">
-  //         <li>
-  //           <Emoji symbol="🧑‍🎓" label="Student" />
-  //         </li>
-  //       </Tooltip>
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // };
-
-  // const locationbadges = () => {
-  //   if (props.location !== '') {
-  //     return (
-  //       <Tooltip title={props.location} placement="bottom">
-  //         <li>
-  //           <Emoji symbol="🌏" label="Location" />
-  //         </li>
-  //       </Tooltip>
-  //     );
-  //   } else {
-  //     return;
-  //   }
-  // };
   if (isLoading) {
     return (
       <div className="container-primary resume container-scroll">
@@ -112,46 +94,148 @@ function Resume(props: ResumeProps) {
 
           <div className="resume-badges">
             <ul>
-              {/* {studentbadges()} */}
-              {data?.lookingForWork === true ? (
-                <Tooltip title="Open for work opportunities" placement="bottom">
-                  <li
-                    onClick={() => {
-                      if (data && isMyProfile) {
-                        const newData = { ...data };
-                        newData.lookingForWork = false;
-                        setData(newData);
-                        saveData();
-                      }
-                    }}
-                  >
+              {isMyProfile ? (
+                <Popover
+                  content={
+                    <div>
+                      I am open to work opportunities
+                      <div style={{ paddingLeft: '10px', float: 'right' }}>
+                        <Switch
+                          defaultChecked={data?.lookingForWork}
+                          onChange={() => {
+                            if (data) {
+                              const newData = { ...data };
+                              newData.lookingForWork = !data?.lookingForWork;
+                              setData(newData);
+                              saveData();
+                            }
+                          }}
+                        />
+                      </div>
+                    </div>
+                  }
+                  trigger="click"
+                >
+                  <li style={data?.lookingForWork ? {} : { opacity: '0.5' }}>
+                    <Emoji symbol="✅" label="Open to work opportunities" />
+                  </li>
+                </Popover>
+              ) : data?.lookingForWork ? (
+                <Tooltip title="Open to work opportunities" placement="bottom">
+                  <li>
                     <Emoji symbol="✅" label="Open to work opportunities" />
                   </li>
                 </Tooltip>
               ) : (
-                <Tooltip
-                  title="Not looking for work opportunities"
-                  placement="bottom"
-                >
-                  <li
-                    onClick={() => {
-                      if (data && isMyProfile) {
-                        const newData = { ...data };
-                        newData.lookingForWork = true;
-                        setData(newData);
-                        saveData();
-                      }
-                    }}
-                  >
-                    <Emoji
-                      symbol="⭕"
-                      label="Not looking to work opportunities"
-                    />
-                  </li>
-                </Tooltip>
+                <></>
               )}
 
-              {/* {locationbadges()} */}
+              {isMyProfile ? (
+                <Popover
+                  content={
+                    <div>
+                      <h3>
+                        <strong>
+                          <TextInput
+                            editable={isMyProfile}
+                            onChange={(newString: string) => {
+                              if (data) {
+                                const newData = { ...data };
+                                newData.location = newString;
+                                setData(newData);
+                                saveData();
+                              }
+                            }}
+                            text={data?.location}
+                          />
+                        </strong>
+                      </h3>
+                      Show my location
+                      <div style={{ paddingLeft: '10px', float: 'right' }}>
+                        {' '}
+                        <Switch
+                          defaultChecked={data?.showLocation}
+                          onChange={() => {
+                            if (data) {
+                              const newData = { ...data };
+                              newData.showLocation = !data?.showLocation;
+                              setData(newData);
+                              saveData();
+                            }
+                          }}
+                        />
+                      </div>
+                    </div>
+                  }
+                  title="Where are you located?"
+                  trigger="click"
+                >
+                  <li style={data?.showLocation ? {} : { opacity: '0.5' }}>
+                    <Emoji symbol="🌏" label="Location" />
+                  </li>
+                </Popover>
+              ) : data?.showLocation ? (
+                <Tooltip title={data?.location} placement="bottom">
+                  <li>
+                    <Emoji symbol="🌏" label="Location" />
+                  </li>
+                </Tooltip>
+              ) : (
+                <></>
+              )}
+              {isMyProfile ? (
+                <Popover
+                  content={
+                    <div>
+                      <h3>
+                        <strong>
+                          <TextInput
+                            editable={isMyProfile}
+                            onChange={(newString: string) => {
+                              if (data) {
+                                const newData = { ...data };
+                                newData.institution = newString;
+                                setData(newData);
+                                saveData();
+                              }
+                            }}
+                            text={data?.institution}
+                          />
+                        </strong>
+                      </h3>
+                      I am a student
+                      <div style={{ paddingLeft: '10px', float: 'right' }}>
+                        {' '}
+                        <Switch
+                          defaultChecked={data?.student}
+                          onChange={() => {
+                            if (data) {
+                              const newData = { ...data };
+                              newData.student = !data?.student;
+                              setData(newData);
+                              saveData();
+                            }
+                          }}
+                        />
+                      </div>
+                    </div>
+                  }
+                  title="Where are you studying?"
+                  trigger="click"
+                >
+                  <li style={data?.student ? {} : { opacity: '0.5' }}>
+                    <Emoji symbol="🧑‍🎓" label="Location" />
+                  </li>
+                </Popover>
+              ) : data?.student ? (
+                <Tooltip title={data?.institution} placement="bottom">
+                  <li>
+                    <Emoji symbol="🧑‍🎓" label="Location" />
+                  </li>
+                </Tooltip>
+              ) : (
+                <></>
+              )}
             </ul>
           </div>
         </div>
