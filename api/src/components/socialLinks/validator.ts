@@ -1,6 +1,6 @@
 /**
  * This file contains middleware that validate the data for endpoints in the
- * skills component.
+ * links component.
  */
 
 import { body } from 'express-validator';
@@ -8,18 +8,18 @@ import { isStrArr } from '../../middleware/validator'
 // import { isEnum } from '../../middleware/validator';
 
 /**
- * A list of middleware that validate data sent to add or update the list of skills.
+ * A list of middleware that validate data sent to add or update the list of links.
  * These are the validation steps performed on each field:
  *
  *    TODO add these
  */
 
-/*export const skillsValidator = [
-  body('data.skills').exists().custom((val) => {
+/*export const linksValidator = [
+  body('data.links').exists().custom((val) => {
     return isStrArr(val);
   }),
 ]*/
 
-export const skillValidator = [
-  body('data.skill').exists().isString().isLength({min: 1, max: 50}),
+export const linkValidator = [
+  body('data.link').exists().isString().isLength({min: 1, max: 300}),
 ]

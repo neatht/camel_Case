@@ -11,8 +11,8 @@ import { Result } from 'express-validator';
 dotenv.config();
 
 /**
- * getSkillsService() retrieves the list of skills of a user, returning an object
- * representing the skills.
+ * getAchievementsService() retrieves the list of achievements of a user, returning an object
+ * representing the achievements.
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -20,8 +20,8 @@ dotenv.config();
  *
  * @returns the query result if profile found, or null if profile not found.
  */
-export const getSkillsService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'SELECT skills, public \
+export const getAchievementsService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT achievements, public \
                          FROM profile \
                          WHERE user_id=$1';
   const queryParams: any[] = [req.params.userID];
@@ -37,17 +37,17 @@ export const getSkillsService = async (req: any, res: express.Response, next: ex
 
 
 /**
- * addSkillService() adds a new skill to the list of skills in a users profile.
+ * addAchievementService() adds a new Achievement to the list of achievements in a users profile.
  *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
  */
-export const updateSkillService = async (req: any, res: express.Response, next: express.NextFunction, skills: object[]) => {
+export const updateAchievementService = async (req: any, res: express.Response, next: express.NextFunction, achievements: object[]) => {
   const query: string = 'UPDATE profile \
-                         SET skills = $1 \
+                         SET achievements = $1 \
                          WHERE user_id=$2';
-  const queryParams: any[] = [skills, req.user.sub.split('|')[1]];
+  const queryParams: any[] = [achievements, req.user.sub.split('|')[1]];
   await service(req, next, query, queryParams);
 }
 
@@ -75,8 +75,8 @@ export const checkOthersProfileService = async (req: any, res: express.Response,
 }
 
 /**
- * getOwnSkillsService() retrieves the list of skills of a user, returning an object
- * representing the skills.
+ * getOwnAchievementsService() retrieves the list of achievements of a user, returning an object
+ * representing the achievements.
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -84,8 +84,8 @@ export const checkOthersProfileService = async (req: any, res: express.Response,
  *
  * @returns the query result if profile found, or null if profile not found.
  */
-export const getOwnSkillsService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'SELECT skills \
+export const getOwnAchievementsService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT achievements \
                          FROM profile \
                          WHERE user_id=$1';
   const queryParams: any[] = [req.user.sub.split('|')[1]];

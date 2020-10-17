@@ -6,7 +6,7 @@
  */
 
 import express from 'express';
-import { getAchievementsService, updateAchievementservice, getOwnAchievementsService } from './service';
+import { getAchievementsService, updateAchievementService, getOwnAchievementsService } from './service';
 import { checkProfileService } from '../profile/service'
 import { checkOthersProfileService } from '../Achievements/service'
 import dotenv from 'dotenv';
@@ -38,14 +38,14 @@ export const getAchievements = async (req: any, res: express.Response, next: exp
         res.status(404);
         return res.json({
           status: 'error',
-          message: 'Could not find that users Achievements.'
+          message: 'Could not find that users achievements.'
         });
       } else {
         res.status(200);
         return res.json({
           status: 'success',
           data: {
-            Achievements: result.Achievements
+            achievements: result.achievements
           }
         });
       }
@@ -57,7 +57,7 @@ export const getAchievements = async (req: any, res: express.Response, next: exp
 
 
 /**
- * addAchievement() adds a new Achievement to the current user.
+ * addAchievement() adds a new achievement to the current user.
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -83,7 +83,7 @@ export const addAchievement = async (req: any, res: express.Response, next: expr
         Array.prototype.push.apply(achievements, result.achievements);
         achievements.push(req.body.data.achievement);
       }
-      await updateAchievementservice(req, res, next, achievements);
+      await updateAchievementService(req, res, next, achievements);
       console.log(`Achievement added for userID: ${req.user.sub.split('|')[1]}`);
       req.poolClient.end();
       res.status(200);
@@ -116,8 +116,8 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
       });
     } else {
       const result = await getOwnAchievementsService(req, res, next);
-      const Achievements : object[] = result.Achievements;
-      if (Achievements === null){
+      const achievements : object[] = result.achievements;
+      if (achievements === null){
         req.poolClient.end();
         res.status(404);
         return res.json({
@@ -125,7 +125,7 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
           message: 'Achievement does not exist.'
         });
       } else {
-        const index : number = Achievements.indexOf(req.body.data.Achievement);
+        const index : number = achievements.indexOf(req.body.data.achievement);
         if (index === -1){
           req.poolClient.end();
           res.status(404);
@@ -134,8 +134,8 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
             message: 'Achievement does not exist.'
           });
         } else {
-          Achievements.splice(index, 1);
-          await updateAchievementservice(req, res, next, Achievements);
+          achievements.splice(index, 1);
+          await updateAchievementService(req, res, next, achievements);
           console.log(`Achievement deleted for userID: ${req.user.sub.split('|')[1]}`);
           req.poolClient.end();
           res.status(200);
@@ -166,14 +166,14 @@ export const getOwnAchievements = async (req: any, res: express.Response, next: 
         res.status(404);
         return res.json({
           status: 'error',
-          message: 'Could not find that users Achievements.'
+          message: 'Could not find that users achievements.'
         });
       } else {
         res.status(200);
         return res.json({
           status: 'success',
           data: {
-            Achievements: result.Achievements
+            achievements: result.achievements
           }
         });
       }

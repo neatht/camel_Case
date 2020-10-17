@@ -11,8 +11,8 @@ import { Result } from 'express-validator';
 dotenv.config();
 
 /**
- * getSkillsService() retrieves the list of skills of a user, returning an object
- * representing the skills.
+ * getLinksService() retrieves the list of social links of a user, returning an object
+ * representing the links.
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -20,8 +20,8 @@ dotenv.config();
  *
  * @returns the query result if profile found, or null if profile not found.
  */
-export const getSkillsService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'SELECT skills, public \
+export const getLinksService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT social_links, public \
                          FROM profile \
                          WHERE user_id=$1';
   const queryParams: any[] = [req.params.userID];
@@ -37,17 +37,17 @@ export const getSkillsService = async (req: any, res: express.Response, next: ex
 
 
 /**
- * addSkillService() adds a new skill to the list of skills in a users profile.
+ * addLinkService() adds a new social link to the list of links in a users profile.
  *
  * @param req - the express Request object
  * @param res - the express Response object
  * @param next - the express NextFunction object
  */
-export const updateSkillService = async (req: any, res: express.Response, next: express.NextFunction, skills: object[]) => {
+export const updateLinkService = async (req: any, res: express.Response, next: express.NextFunction, links: object[]) => {
   const query: string = 'UPDATE profile \
-                         SET skills = $1 \
+                         SET social_links = $1 \
                          WHERE user_id=$2';
-  const queryParams: any[] = [skills, req.user.sub.split('|')[1]];
+  const queryParams: any[] = [links, req.user.sub.split('|')[1]];
   await service(req, next, query, queryParams);
 }
 
@@ -75,8 +75,8 @@ export const checkOthersProfileService = async (req: any, res: express.Response,
 }
 
 /**
- * getOwnSkillsService() retrieves the list of skills of a user, returning an object
- * representing the skills.
+ * getOwnLinksService() retrieves the list of social links of a user, returning an object
+ * representing the links.
  *
  * @param req - the express Request object
  * @param res - the express Response object
@@ -84,8 +84,8 @@ export const checkOthersProfileService = async (req: any, res: express.Response,
  *
  * @returns the query result if profile found, or null if profile not found.
  */
-export const getOwnSkillsService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'SELECT skills \
+export const getOwnLinksService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT social_links \
                          FROM profile \
                          WHERE user_id=$1';
   const queryParams: any[] = [req.user.sub.split('|')[1]];
