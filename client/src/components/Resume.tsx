@@ -26,17 +26,20 @@ type ResumeData = {
   public: boolean;
   gender: string;
   DOB: string;
-  // profilePicture?: string;
-  // heroPicture?: string;
+  profilePicture?: string;
+  heroPicture?: string;
 };
 
 function Resume(props: ResumeProps) {
+
+  // EDIT ME
   const isMyProfile = true;
 
   const [isLoading, setIsLoading] = useState(true);
 
   const [data, setData] = useState<ResumeData>();
 
+  // EDIT ME
   async function fetchData(): Promise<void> {
     // GET data
     setData({
@@ -51,10 +54,13 @@ function Resume(props: ResumeProps) {
       institution: 'The University of Melbourne',
       public: true,
       DOB: '',
+      // heroPicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
+      // profilePicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
     });
     setIsLoading(false);
   }
 
+  // EDIT ME
   async function saveData(): Promise<void> {
     // PUT data
   }
@@ -72,9 +78,25 @@ function Resume(props: ResumeProps) {
   } else {
     return (
       <div className="container-primary resume container-scroll">
-        <div className="container-secondary resume-hero"></div>
-        <div className="container-secondary resume-picture">
-          <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
+        <div style={
+            data?.heroPicture
+              ? { backgroundImage: `url(${data?.heroPicture})` }
+              : {}
+          }
+          className="container-secondary resume-hero"></div>
+        <div
+          style={
+            data?.profilePicture
+              ? { backgroundImage: `url(${data?.profilePicture})` }
+              : {}
+          }
+          className="container-secondary resume-picture"
+        >
+          {data?.profilePicture ? (
+            <></>
+          ) : (
+            <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
+          )}
         </div>
         <div className="resume-name">
           <h1>
@@ -83,9 +105,11 @@ function Resume(props: ResumeProps) {
                 editable={isMyProfile}
                 onChange={(newString: string) => {
                   if (data) {
-                    data.name = newString;
+                    const newData = { ...data };
+                    newData.name = newString;
+                    setData(newData);
+                    saveData();
                   }
-                  saveData();
                 }}
                 text={data?.name}
               />
@@ -246,9 +270,11 @@ function Resume(props: ResumeProps) {
             editable={isMyProfile}
             onChange={(newString: string) => {
               if (data) {
-                data.bio = newString;
+                const newData = { ...data };
+                newData.bio = newString;
+                setData(newData);
+                saveData();
               }
-              saveData();
             }}
             text={data?.bio}
           />

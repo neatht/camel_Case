@@ -21,6 +21,7 @@ function ResumeEntry(props: ResumeEntryProps) {
 
   const [data, setData] = useState<ResumeEntryData>();
 
+  // EDIT ME
   async function fetchData(): Promise<void> {
     if (props.type === 'Skills') {
       setData({
@@ -86,6 +87,7 @@ function ResumeEntry(props: ResumeEntryProps) {
     setIsLoading(false);
   }
 
+  // EDIT ME
   async function saveData(): Promise<void> {}
 
   useEffect(() => {
