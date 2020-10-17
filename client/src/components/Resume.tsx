@@ -31,7 +31,6 @@ type ResumeData = {
 };
 
 function Resume(props: ResumeProps) {
-
   // EDIT ME
   const isMyProfile = true;
 
@@ -78,12 +77,14 @@ function Resume(props: ResumeProps) {
   } else {
     return (
       <div className="container-primary resume container-scroll">
-        <div style={
+        <div
+          style={
             data?.heroPicture
               ? { backgroundImage: `url(${data?.heroPicture})` }
               : {}
           }
-          className="container-secondary resume-hero"></div>
+          className="container-secondary resume-hero"
+        ></div>
         <div
           style={
             data?.profilePicture
