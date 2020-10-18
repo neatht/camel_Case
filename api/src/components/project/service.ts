@@ -119,3 +119,15 @@ export const upsertProjectService = async (req: any, res: express.Response, next
     return await updateProjectService(req, res, next);
   }
 }
+
+export const deleteProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'DELETE FROM project WHERE user_id = $1 AND project_id = $2;'
+  const queryParams: any[] = [req.body.userID, req.body.projectID];
+  await service(req.poolClient, next, query, queryParams);
+}
+
+export const deleteMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'DELETE FROM media WHERE user_id = $1 AND project_id = $2 AND media_id = $3;'
+  const queryParams: any[] = [req.body.userID, req.body.projectID, req.body.mediaID];
+  await service(req.poolClient, next, query, queryParams);
+}

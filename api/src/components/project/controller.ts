@@ -4,7 +4,18 @@ import aws from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
 import { validationResult } from 'express-validator';
 
-import { addMediaService, addProjectService, checkProfilePublicService, getMediaService, getProjectService } from './service';
+import {
+  addMediaService,
+  addProjectService,
+  checkProfilePublicService,
+  getMediaService,
+  getProjectService,
+  updateProjectService,
+  upsertProjectService,
+  updateMediaService,
+  deleteProjectService,
+  deleteMediaService
+} from './service';
 
 dotenv.config();
 
@@ -49,13 +60,15 @@ const signS3 = (fileType: string) => {
 export const addMediaToProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   // check if profile belongs to user
   try {
-    const userID = req.user.sub.split('|')[1];
+    req.body.userID = req.user.sub.split('|')[1];
 
     // get signed url
     const s3obj: any = await signS3(req.body.fileType);
+    req.body.s3ObjUrl = s3obj.url;
+    req.body.s3ObjID = s3obj.id;
 
     // get object url and add to db
-    await addMediaService(req.poolClient, s3obj.url, s3obj.id, req.body.fileName, req.body.projectID, userID, req.body.fileType,next);
+    await addMediaService(req, res, next);
 
     res.status(200);
     return res.json({
@@ -71,8 +84,22 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
 
 export const getMediaFromOwnProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const userID = req.user.sub.split('|')[1];
-    const results = await getMediaService(req.poolClient, req.body.projectID, userID, next);
+    req.body.userID = req.user.sub.split('|')[1];
+    const results = await getMediaService(req, res, next);
+
+    return res.json({
+      status: 'success',
+      data: results
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const updateMediaFromOwnProject = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    req.body.userID = req.user.sub.split('|')[1];
+    const results = await updateMediaService(req, res, next);
 
     return res.json({
       status: 'success',
@@ -85,16 +112,14 @@ export const getMediaFromOwnProject = async (req: any, res: express.Response, ne
 
 export const getMediaFromProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const isPublic = await checkProfilePublicService(req.poolClient, req.body.userID, next);
-
-    // if profile public or the user is the owner of the profile
+    const isPublic = await checkProfilePublicService(req, res, next);
     if (isPublic) {
-      const results = await getMediaService(req.poolClient, req.body.projectID, req.body.userID, next);
+      const results = await getMediaService(req, res, next);
 
       return res.json({
         status: 'success',
         data: results
-      })
+      });
     } else {
       return res.json({
         status: 'fail',
@@ -106,11 +131,11 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
   }
 }
 
-export const getProjectById = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const getProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const isPublic = await checkProfilePublicService(req.poolClient, req.body.userID, next);
+    const isPublic = await checkProfilePublicService(req, res, next);
     if (isPublic) {
-      const results = await getProjectService(req.poolClient, req.body.userID, req.body.projectID, next);
+      const results = await getProjectService(req, res, next);
 
       return res.json({
         status: 'success',
@@ -129,8 +154,8 @@ export const getProjectById = async (req: any, res: express.Response, next: expr
 
 export const getOwnProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const userID = req.user.sub.split('|')[1];
-    const results = await getProjectService(req.poolClient, userID, req.body.projectID, next);
+    req.body.userID = req.user.sub.split('|')[1];
+    const results = await getProjectService(req, res, next);
 
     return res.json({
       status: 'success',
@@ -160,6 +185,45 @@ export const updateProject = async (req: any, res: express.Response, next: expre
     req.body.userID = req.user.sub.split('|')[1];
     await updateProjectService(req, res, next);
 
+    res.status(200);
+    return res.json({
+      status: 'success'
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const upsertProject = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    req.body.userID = req.user.sub.split('|')[1];
+    await upsertProjectService(req, res, next);
+    res.status(200);
+    return res.json({
+      status: 'success'
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const deleteProject = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    req.body.userID = req.user.sub.split('|')[1];
+    await deleteProjectService(req, res, next);
+    res.status(200);
+    return res.json({
+      status: 'success'
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const deleteMedia = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    req.body.userID = req.user.sub.split('|')[1];
+    await deleteMediaService(req, res, next);
     res.status(200);
     return res.json({
       status: 'success'
