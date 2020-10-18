@@ -21,12 +21,34 @@ export const addMediaService = async (req: any, res: express.Response, next: exp
   await service(req.poolClient, next, query, queryParams);
 }
 
+export const updateMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query = ['UPDATE media SET'];
+  const queryParams = [];
+  let varCount = 1;
+
+  if (req.body.mediaName) {
+    query.push(`media_name = $${varCount++}`);
+    queryParams.push(req.body.mediaName);
+  }
+
+  if (req.body.datePosted) {
+    query.push(`date_posted = $${varCount++}`);
+    queryParams.push(req.body.datePosted);
+  }
+
+  query.push(`WHERE user_id = $${varCount++} AND project_id = $${varCount++} AND media_id = $${varCount};`);
+  queryParams.push(req.body.userID, req.body.projectID, req.body.mediaID);
+
+  await service(req.poolClient, next, query.join(' '), queryParams);
+}
+
 export const getMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query = 'SELECT * FROM media WHERE project_id = $1 AND user_id = $2;'
+  const query = 'SELECT * FROM media WHERE project_id = $1 AND user_id = $2 AND media_id = $3;'
 
   const queryParams = [
     req.body.projectID,
-    req.body.userID
+    req.body.userID,
+    req.body.mediaID
   ]
 
   const queryResults = await service(req.poolClient, next, query, queryParams);
@@ -88,9 +110,7 @@ export const updateProjectService = async (req: any, res: express.Response, next
 
 export const upsertProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   // check if project and user id exists in table
-  const checkQuery: string = 'SELECT * FROM project WHERE user_id = $1 and project_id = $2;'
-  const checkQueryParams = [req.body.userID, req.body.projectID];
-  const checkQueryResults = await service(req.poolClient, next, checkQuery, checkQueryParams);
+  const checkQueryResults = await getProjectService(req, res, next);
 
   // does not exist yet, so insert
   if (Object.keys(checkQueryResults.rows[0]).length === 0 && Object.constructor === Object) {
