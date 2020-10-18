@@ -44,7 +44,7 @@ export const getLinks = async (req: any, res: express.Response, next: express.Ne
         return res.json({
           status: 'success',
           data: {
-            links: result.links
+            links: result.social_links
           }
         });
       }
@@ -79,7 +79,7 @@ export const addLink = async (req: any, res: express.Response, next: express.Nex
       if (result === null){
         links.push(req.body.data.link);
       } else {
-        Array.prototype.push.apply(links, result.links);
+        Array.prototype.push.apply(links, result.social_links);
         links.push(req.body.data.link);
       }
       await updateLinkService(req, res, next, links);
@@ -115,7 +115,7 @@ export const deleteLink = async (req: any, res: express.Response, next: express.
       });
     } else {
       const result = await getOwnLinksService(req, res, next);
-      const links : object[] = result.links;
+      const links : object[] = result.social_links;
       if (links === null){
         req.poolClient.end();
         res.status(404);
@@ -124,7 +124,7 @@ export const deleteLink = async (req: any, res: express.Response, next: express.
           message: 'Link does not exist.'
         });
       } else {
-        const index : number = links.indexOf(req.body.data.Link);
+        const index : number = links.indexOf(req.body.data.link);
         if (index === -1){
           req.poolClient.end();
           res.status(404);
@@ -172,7 +172,7 @@ export const getOwnLinks = async (req: any, res: express.Response, next: express
         return res.json({
           status: 'success',
           data: {
-            links: result.links
+            links: result.social_links
           }
         });
       }

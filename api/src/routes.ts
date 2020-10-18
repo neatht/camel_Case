@@ -34,7 +34,7 @@ export const register = (app: express.Application) => {
   app.use('/api/skills', skillsRouter);
   app.use('/api/achievements', achievementsRouter);
   app.use('/api/links', linksRouter);
-  
+
   // Unauthenticated test route
   app.get('/api/test', (req, res) => {
     res.status(200);
