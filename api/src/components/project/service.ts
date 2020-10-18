@@ -85,3 +85,17 @@ export const updateProjectService = async (req: any, res: express.Response, next
 
   await service(req.poolClient, next, query.join(' '), queryParams);
 }
+
+export const upsertProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  // check if project and user id exists in table
+  const checkQuery: string = 'SELECT * FROM project WHERE user_id = $1 and project_id = $2;'
+  const checkQueryParams = [req.body.userID, req.body.projectID];
+  const checkQueryResults = await service(req.poolClient, next, checkQuery, checkQueryParams);
+
+  // does not exist yet, so insert
+  if (Object.keys(checkQueryResults.rows[0]).length === 0 && Object.constructor === Object) {
+    return await addProjectService(req, res, next);
+  } else {
+    return await updateProjectService(req, res, next);
+  }
+}
