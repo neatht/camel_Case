@@ -106,7 +106,8 @@ export const updateProfileService = async (req: any, res: express.Response, next
   looking_for_work = COALESCE($6, looking_for_work), \
   public = COALESCE($7, public), \
   gender = COALESCE($8, gender) \
-  WHERE user_id = $9;';
+  public_location = COALESCE($9, public_location) \
+  WHERE user_id = $10;';
   const queryParams = [
     req.body.data.firstName,
     req.body.data.lastName,
@@ -116,6 +117,7 @@ export const updateProfileService = async (req: any, res: express.Response, next
     req.body.data.lookingForWork ? req.body.data.lookingForWork.toString() : null,
     req.body.data.public ? req.body.data.public.toString() : null,
     req.body.data.gender,
+    req.body.data.publicLocation,
     req.user.sub.split('|')[1]
   ];
   await service(req, next, query, queryParams);
