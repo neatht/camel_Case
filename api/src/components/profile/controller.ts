@@ -215,7 +215,8 @@ export const getOwnUser = async (req: any, res: express.Response, next: express.
           lookingForWork: result.looking_for_work,
           public: result.public,
           gender: result.gender,
-          DOB: result.date_of_birth
+          DOB: result.date_of_birth,
+          publicLocation: result.public_location
         }
       });
     }
