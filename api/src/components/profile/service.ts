@@ -25,7 +25,7 @@ export const getProfileService = async (req: any,
                                         res: express.Response,
                                         next: express.NextFunction) => {
   const query: string = 'SELECT first_name, last_name, bio, location, \
-    public, looking_for_work, gender, date_of_birth FROM profile WHERE \
+    public, looking_for_work, gender, date_of_birth, public_location FROM profile WHERE \
     user_id=$1';
   const queryParams: any[] = [req.params.userID];
   const queryResult: any = await service(req, next, query, queryParams);
