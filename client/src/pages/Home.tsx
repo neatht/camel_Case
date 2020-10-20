@@ -38,8 +38,6 @@ function Home() {
           <h2> Not logged in </h2>
         </div>
       )}
-
-      <SocialLinks />
     </div>
   );
 }
