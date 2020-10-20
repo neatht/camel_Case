@@ -114,7 +114,7 @@ export const addEducation = async (req: any, res: express.Response, next: expres
         message: 'Profile does not exist.'
       });
     }
-    
+
     const educationID = await addEducationService(req, res, next);
     console.log(`Education created for userID: ${req.user.sub.split('|')[1]}`);
     req.poolClient.end();
@@ -152,7 +152,7 @@ export const updateEducation = async (req: any, res: express.Response, next: exp
         message: 'Profile does not exist.'
       });
     }
-    
+
     const educationExists = await checkEducationService(req, res, next);
     if (!educationExists) {
       req.poolClient.end();
@@ -196,7 +196,7 @@ export const deleteEducation = async (req: any, res: express.Response, next: exp
         message: 'Profile does not exist.'
       });
     }
-    
+
     const educationExists = await checkEducationService(req, res, next);
     if (!educationExists) {
       req.poolClient.end();

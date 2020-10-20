@@ -70,7 +70,7 @@ export const updateExperience = async (req: any, res: express.Response, next: ex
         message: 'Profile does not exist.'
       });
     }
-    
+
     const experienceExists = await checkExperience(req, res, next);
     if (!experienceExists) {
       req.poolClient.end();
@@ -160,7 +160,7 @@ export const deleteExperience = async (req: any, res: express.Response, next: ex
         message: 'Profile does not exist.'
       });
     }
-    
+
     const experienceExists = await checkExperience(req, res, next);
     if (!experienceExists) {
       req.poolClient.end();

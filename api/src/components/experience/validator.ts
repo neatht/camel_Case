@@ -22,5 +22,5 @@ export const updateExperienceValidator = [
   body('data.description').optional().isString().isLength({ max: 400 }),
   body('data.startDate').optional().isDate(),
   body('data.endDate').optional().isDate(),
-  body('data.experienceID').exists().isString()
+  body('data.experienceID').exists().isInt()
 ];

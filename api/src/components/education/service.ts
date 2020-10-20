@@ -22,7 +22,7 @@ export const getOwnEducationService = async (req: any, res: express.Response, ne
   education_id as "educationID" FROM education WHERE user_id=$1;';
   const queryParams: any[] = [req.user.sub.split('|')[1]];
   const queryResult: any = await service(req, next, query, queryParams);
-  queryResult.educationID = queryResult.educationID.toString();
+
   return queryResult.rows;
 }
 
@@ -42,7 +42,7 @@ export const getEducationService = async (req: any, res: express.Response, next:
   education_id as "educationID" FROM education WHERE user_id=$1;';
   const queryParams: any[] = [req.params.userID];
   const queryResult: any = await service(req, next, query, queryParams);
-  queryResult.educationID = queryResult.educationID.toString();
+
   return queryResult.rows;
 }
 

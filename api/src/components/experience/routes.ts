@@ -7,7 +7,7 @@ import { connectPool } from '../../middleware/db';
 
 const router = express.Router();
 
-router.get('/GetOwnExperiences', jwtCheck, connectPool, getOwnExperiences);
+router.get('/getOwnExperiences', jwtCheck, connectPool, getOwnExperiences);
 router.get('/:userID', connectPool, getExperiences);
 router.post('/', jwtCheck, addExperienceValidator, checkValidation, connectPool, addExperience);
 router.put('/', jwtCheck, updateExperienceValidator, checkValidation, connectPool, updateExperience);
