@@ -113,8 +113,8 @@ export const updateProfileService = async (req: any, res: express.Response, next
     req.body.data.bio,
     req.body.data.DOB,
     req.body.data.location,
-    req.body.data.lookingForWork !== null ? req.body.data.lookingForWork.toString() : null,
-    req.body.data.public !== null ? req.body.data.public.toString() : null,
+    req.body.data.lookingForWork in [undefined, null] ? req.body.data.lookingForWork.toString() : null,
+    req.body.data.public in [undefined, null] ? req.body.data.public.toString() : null,
     req.body.data.gender,
     req.user.sub.split('|')[1]
   ];
