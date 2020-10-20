@@ -43,6 +43,7 @@ export const getUser = async (req: any, res: express.Response, next: express.Nex
               public: result.public,
               gender: result.gender,
               DOB: result.date_of_birth,
+              publicLocation: result.public_location
             }
           });
         } else {
@@ -57,6 +58,7 @@ export const getUser = async (req: any, res: express.Response, next: express.Nex
               public: result.public,
               gender: result.gender,
               DOB: result.date_of_birth,
+              publicLocation: result.public_location
             }
           });
         }
