@@ -7,7 +7,7 @@ import { connectPool } from '../../middleware/db';
 
 const router = express.Router();
 
-router.get('/GetOwnEducation', jwtCheck, connectPool, getOwnEducation);
+router.get('/getOwnEducation', jwtCheck, connectPool, getOwnEducation);
 router.get('/:userID', connectPool, getEducation);
 router.post('/', jwtCheck, addEducationValidator, checkValidation, connectPool, addEducation);
 router.put('/', jwtCheck, updateEducationValidator, checkValidation, connectPool, updateEducation);
