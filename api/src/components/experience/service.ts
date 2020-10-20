@@ -98,8 +98,8 @@ export const checkExperience = async (req: any, res: express.Response, next: exp
  */
 export const getExperienceService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'SELECT organisation, job_title AS "jobTitle", \
-  description, start_date AS "startDate", end_date AS "endDate", experience_id \
-  AS "experienceID" FROM experience WHERE user_id=$1;';
+  description, start_date AS "startDate", end_date AS "endDate", location, \
+  experience_id AS "experienceID", location FROM experience WHERE user_id=$1;';
   const queryParams: any[] = [req.params.userID];
   const queryResult: any = await service(req, next, query, queryParams);
   return queryResult.rows;
@@ -132,8 +132,8 @@ export const deleteExperienceService = async (req: any, res: express.Response, n
  */
 export const getOwnExperiencesService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'SELECT organisation, job_title AS "jobTitle", \
-  description, start_date AS "startDate", end_date AS "endDate", experience_id \
-  AS "experienceID" FROM experience WHERE user_id=$1;';
+  description, start_date AS "startDate", end_date AS "endDate", location, \
+  experience_id AS "experienceID" FROM experience WHERE user_id=$1;';
   const queryParams: any[] = [req.user.sub.split('|')[1]];
   const queryResult: any = await service(req, next, query, queryParams);
   return queryResult.rows;
