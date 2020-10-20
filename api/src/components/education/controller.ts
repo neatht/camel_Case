@@ -104,6 +104,17 @@ export const getEducation = async (req: any, res: express.Response, next: expres
  */
 export const addEducation = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+    
     const educationID = await addEducationService(req, res, next);
     console.log(`Education created for userID: ${req.user.sub.split('|')[1]}`);
     req.poolClient.end();
@@ -131,6 +142,17 @@ export const addEducation = async (req: any, res: express.Response, next: expres
  */
 export const updateEducation = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+    
     const educationExists = await checkEducationService(req, res, next);
     if (!educationExists) {
       req.poolClient.end();
@@ -164,6 +186,17 @@ export const updateEducation = async (req: any, res: express.Response, next: exp
  */
 export const deleteEducation = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+    
     const educationExists = await checkEducationService(req, res, next);
     if (!educationExists) {
       req.poolClient.end();
