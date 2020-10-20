@@ -22,6 +22,17 @@ import { profile } from 'console';
  */
 export const addExperience = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+
     const experienceID = await addExperienceService(req, res, next);
     console.log(`Experience created for userID: ${req.user.sub.split('|')[1]}`);
     req.poolClient.end();
@@ -49,6 +60,17 @@ export const addExperience = async (req: any, res: express.Response, next: expre
  */
 export const updateExperience = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+    
     const experienceExists = await checkExperience(req, res, next);
     if (!experienceExists) {
       req.poolClient.end();
@@ -128,6 +150,17 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
  */
 export const deleteExperience = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+    
     const experienceExists = await checkExperience(req, res, next);
     if (!experienceExists) {
       req.poolClient.end();
