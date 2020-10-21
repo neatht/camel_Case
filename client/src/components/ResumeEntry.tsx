@@ -116,15 +116,17 @@ function ResumeEntry(props: ResumeEntryProps) {
             if (props.display === 'inline') {
               return (
                 <li key={index}>
-                  <div
-                    className="exit-button exit-button-resume-entry"
-                    onClick={() => {
-                      const newData = { ...data };
-                      newData.entries.splice(index, 1);
-                      setData(newData);
-                      saveData();
-                    }}
-                  ></div>
+                  <Tooltip title="Remove" placement="top">
+                    <div
+                      className="exit-button exit-button-resume-entry"
+                      onClick={() => {
+                        const newData = { ...data };
+                        newData.entries.splice(index, 1);
+                        setData(newData);
+                        saveData();
+                      }}
+                    ></div>
+                  </Tooltip>
                   <div>
                     <TextInput
                       editable={props.isMyProfile}
@@ -144,15 +146,17 @@ function ResumeEntry(props: ResumeEntryProps) {
             } else {
               return (
                 <li key={index}>
-                  <div
-                    className="exit-button exit-button-resume-entry"
-                    onClick={() => {
-                      const newData = { ...data };
-                      newData.entries.splice(index, 1);
-                      setData(newData);
-                      saveData();
-                    }}
-                  ></div>
+                  <Tooltip title="Remove" placement="top">
+                    <div
+                      className="exit-button exit-button-resume-entry"
+                      onClick={() => {
+                        const newData = { ...data };
+                        newData.entries.splice(index, 1);
+                        setData(newData);
+                        saveData();
+                      }}
+                    ></div>
+                  </Tooltip>
                   <div className="resume-entry-grid">
                     <div className="resume-entry-date">
                       <TextInput

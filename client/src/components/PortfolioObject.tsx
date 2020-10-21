@@ -10,6 +10,7 @@ import AuthorBadge from './AuthorBadge';
 // import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
 import { useRef } from 'react';
+import { Tooltip } from 'antd';
 
 type PortfolioObjectProps = {
   id: string;
@@ -71,12 +72,20 @@ function PortfolioObject(props: PortfolioObjectProps) {
         thumbnail ? 'thumbnail' : 'container-scroll'
       }`}
     >
+      {isMyProfile ? (
+        <Tooltip title="Delete This Portfolio Entry" placement="right">
+          <div onClick={() => {}} className="del-button"></div>
+        </Tooltip>
+      ) : (
+        <></>
+      )}
+
       <div onClick={handleClick} className="exit-button"></div>
 
       <div className="portfolio-title">
-        <h2 style={{ marginRight: '35px' }}>
+        <h2 style={{ marginRight: '35px', marginLeft: '85px' }}>
           <TextInput
-            padding="2px 0 2px 35px"
+            padding="2px 85px 2px 35px"
             editable={isMyProfile}
             onChange={(newString: string) => {
               setTitle(newString);

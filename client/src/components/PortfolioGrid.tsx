@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PortfolioObject from './PortfolioObject';
 
 import './PortfolioGrid.css';
+import { Tooltip } from 'antd';
 
 // type PortfolioGridProps = {};
 
@@ -301,6 +302,11 @@ function PortfolioGrid() {
 
   return (
     <div className={`${portfolioObjectOpen ? 'portfolio-object-open' : ''}`}>
+      <Tooltip title="Add New Portfolio Entry" placement="left">
+        <div className="portfolio-grid-add" onClick={() => {}}>
+          +
+        </div>
+      </Tooltip>
       <div className="grid">
         {portfolioObjects.map((value) => {
           return (

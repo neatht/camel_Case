@@ -65,6 +65,10 @@
     margin 0.5s, opacity 0.5s;
 }
 
+.portfolio-hero .exit-button {
+  background: var(--del-gradient);
+}
+
 .portfolio-hero-media-max {
   width: calc(var(--unit-width) - 60px);
   opacity: 1;

@@ -22,6 +22,7 @@
   transition: opacity 0.3s;
   top: -15px;
   right: 5px;
+  background: var(--del-gradient);
 }
 
 .resume-entry li:hover .exit-button-resume-entry{

@@ -96,6 +96,7 @@ function SocialLinks(props: SocialLinksProps) {
               <Popover
                 content={
                   <div>
+                    <Tooltip title="Remove" placement="left">
                     <div
                       className="exit-button exit-button-social-links"
                       onClick={() => {
@@ -104,7 +105,7 @@ function SocialLinks(props: SocialLinksProps) {
                         setData(newData);
                         saveData();
                       }}
-                    ></div>
+                    ></div></Tooltip>
                     <TextInput
                       editable={props.isMyProfile}
                       onChange={(newString: string) => {
