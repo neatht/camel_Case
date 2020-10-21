@@ -15,6 +15,7 @@
   list-style-type: none;
 }
 .resume-badges li {
+  cursor: pointer;
   padding: auto;
   text-align: center;
   margin: 5px;
@@ -44,6 +45,9 @@
   margin-top: 0;
   margin-bottom: 0;
   background: var(--gradient);
+  background-position: center;
+  background-size: cover;
+
   width: 96px;
   height: 96px;
   border-radius: 96px;

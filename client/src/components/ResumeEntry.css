@@ -17,6 +17,33 @@
   display: inline-block;
 }
 
+.exit-button-resume-entry{
+  opacity: 0;
+  transition: opacity 0.3s;
+  top: -15px;
+  right: 5px;
+}
+
+.resume-entry li:hover .exit-button-resume-entry{
+  opacity: 1;
+}
+
+.resume-entry-add {
+  color: var(--color-app);
+  text-align: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin: auto;
+  border-radius: 100px;
+  border: var(--border);
+  box-sizing: content-box;
+  background-color: var(--background-color-primary);
+  box-shadow: var(--inner-shadow), var(--drop-shadow);
+
+
+}
+
 .resume-entry-inline .resume-entry-date{
   display: none;
 }
@@ -37,11 +64,12 @@
   background-color: var(--background-color-secondary);
   box-shadow: var(--drop-shadow);
   border-radius: var(--border-radius-secondary);
+}
+
+.resume-entry-grid {
   display: grid;
-  grid-template-columns: 85px auto;
-  /* border: 1px solid; */
-  /* min-width: 50px; */
-  /* display: inline-block; */
+  grid-template-columns: 100px auto;
+
 }
 
 .resume-entry-block .resume-entry-date{
@@ -60,3 +88,5 @@
 .resume-entry-block .resume-sub-text{
   opacity: 0.6;
 }
+
+

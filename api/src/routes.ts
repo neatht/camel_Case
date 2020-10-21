@@ -12,6 +12,8 @@ import searchRouter from './components/search/routes';
 import skillsRouter from './components/skills/routes';
 import achievementsRouter from './components/achievements/routes';
 import linksRouter from './components/socialLinks/routes';
+import experienceRouter from './components/experience/routes';
+import educationRouter from './components/education/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -34,6 +36,8 @@ export const register = (app: express.Application) => {
   app.use('/api/skills', skillsRouter);
   app.use('/api/achievements', achievementsRouter);
   app.use('/api/links', linksRouter);
+  app.use('/api/experience', experienceRouter);
+  app.use('/api/education', educationRouter);
 
   // Unauthenticated test route
   app.get('/api/test', (req, res) => {
