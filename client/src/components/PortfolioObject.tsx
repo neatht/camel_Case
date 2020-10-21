@@ -138,9 +138,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
               <Emoji symbol="👁️" label="Views:" /> {props.views}
             </li>
           </ul>
-          <div style={{ textAlign: 'center' }}>
-            <SocialLinks />
-          </div>
+          <div style={{ textAlign: 'center' }}></div>
         </div>
       </div>
     </div>

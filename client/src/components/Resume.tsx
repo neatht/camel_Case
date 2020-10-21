@@ -10,6 +10,7 @@ import ResumeEntry from './ResumeEntry';
 import TextInput from './TextInput';
 import { useEffect } from 'react';
 import { Large } from '../stories/Button.stories';
+import SocialLinks from './SocialLinks';
 
 // needs to have all props bar userID removed.
 type ResumeProps = {
@@ -268,8 +269,10 @@ function Resume(props: ResumeProps) {
                 <></>
               )}
             </ul>
+            <SocialLinks isMyProfile={isMyProfile} userID={props.userID} />
           </div>
         </div>
+
         <div className="resume-profile">
           <TextInput
             padding="10px"

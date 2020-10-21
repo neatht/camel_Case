@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Space } from 'antd';
+import { Popover, Space, Spin, Tooltip } from 'antd';
 import {
   BehanceCircleFilled,
   TwitterCircleFilled,
@@ -9,72 +9,171 @@ import {
   LinkedinFilled,
   FacebookFilled,
   InstagramFilled,
+  GlobalOutlined,
+  LineOutlined,
+  EditOutlined,
   //MessageFilled,
 } from '@ant-design/icons';
 
 import './SocialLinks.css';
+import { string } from 'prop-types';
+import TextInput from './TextInput';
 
 const SOCIAL_LINK_ICON: { [socialType: string]: JSX.Element } = {
   //phoneNumber: <Space />,
-  //emailAddress: <MessageFilled />,
-  github: <GithubFilled />,
-  twitter: <TwitterCircleFilled />,
-  behance: <BehanceCircleFilled />,
-  dribbble: <DribbbleCircleFilled />,
-  linkedin: <LinkedinFilled />,
-  facebook: <FacebookFilled />,
-  instagram: <InstagramFilled />,
+  // emailAddress: <MessageFilled />,
+  'github.com': <GithubFilled />,
+  'twitter.com': <TwitterCircleFilled />,
+  'behance.com': <BehanceCircleFilled />,
+  'dribbble.com': <DribbbleCircleFilled />,
+  'linkedin.com': <LinkedinFilled />,
+  'facebook.com': <FacebookFilled />,
+  'instagram.com': <InstagramFilled />,
 };
 
-function SocialLinks() {
-  const [socialLinks, setSocialLinks] = useState({});
-  //const [fetchError, setFetchError] = useState(false);
+type SocialLinksData = {
+  entries: string[];
+};
 
-  async function fetchSocialLinks(): Promise<void> {
-    //TODO: update with route once implemented on backend
-    //const res = await fetch ('/api/v/1/...')
-    //res
-    //  .json()
-    //  .then(res => setSocialLinks(res.data))
-    //  .catch(err => setFetchError(err));
+type SocialLinksProps = {
+  userID?: string;
+  isMyProfile: boolean;
+};
 
-    // Dummy for now
-    setSocialLinks({
-      //"phoneNumber": '0492837116',
-      //"emailAddress": 'mailto:email@example.com',
-      github: 'https://www.github.com',
-      twitter: 'https://www.twitter.com',
-      behance: 'https://www.behance.com',
-      dribbble: 'https://www.dribbble.com',
-      linkedin: 'https://www.linkedin.com',
-      facebook: 'https://www.facebook.com',
-      instagram: 'https://www.instagram.com',
+function SocialLinks(props: SocialLinksProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [data, setData] = useState<SocialLinksData>();
+
+  // EDIT ME
+  async function fetchData(): Promise<void> {
+    setData({
+      entries: [
+        //"phoneNumber": '0492837116',
+        // "emailAddress": 'mailto:email@example.com',
+        'https://www.github.com',
+        // 'https://www.twitter.com',
+        'https://www.behance.com',
+        'https://www.dribbble.com',
+        'https://www.linkedin.com',
+        // 'https://www.facebook.com',
+        // 'https://www.instagram.com',
+        // 'https://www.google.com',
+      ],
     });
+    setIsLoading(false);
   }
 
+  // EDIT ME
+  async function saveData(): Promise<void> {}
+
+  const sanitisedLink = (link: string) => {
+    return link
+      .toLowerCase()
+      .replace(/https?:\/\/(www\.)?/, '')
+      .replace(/\/.*/, '');
+  };
+
   useEffect(() => {
-    fetchSocialLinks();
+    fetchData();
   }, []);
 
-  //if (fetchError) {
-  //    return null;
-  //}
-
-  return (
-    <div className="socialLinks">
-      {Object.entries(socialLinks).map(
-        ([socialType, socialLink]: [string, any]) => {
-          return (
-            <>
-              <a target="_blank" rel="noopener noreferrer" href={socialLink}>
-                {SOCIAL_LINK_ICON[socialType]} <Space />
-              </a>
-            </>
-          );
-        }
-      )}
-    </div>
-  );
+  if (isLoading) {
+    return (
+      <div className="socialLinks">
+        <Spin />
+      </div>
+    );
+  } else if (data?.entries.length === 0 && !props.isMyProfile) {
+    return <></>;
+  } else {
+    return (
+      // <div className="socialLinks">
+      <ul className="socialLinks">
+        {data?.entries.map((value, index) => {
+          if (props.isMyProfile) {
+            return (
+              <Popover
+                content={
+                  <div>
+                    <div
+                      className="exit-button exit-button-social-links"
+                      onClick={() => {
+                        const newData = { ...data };
+                        newData.entries.splice(index, 1);
+                        setData(newData);
+                        saveData();
+                      }}
+                    ></div>
+                    <TextInput
+                      editable={props.isMyProfile}
+                      onChange={(newString: string) => {
+                        if (data) {
+                          const newData = { ...data };
+                          newData.entries[index] = newString;
+                          setData(newData);
+                          saveData();
+                        }
+                      }}
+                      text={value}
+                    />
+                  </div>
+                }
+                trigger="click"
+              >
+                {sanitisedLink(value) in SOCIAL_LINK_ICON ? (
+                  <li>{SOCIAL_LINK_ICON[sanitisedLink(value)]}</li>
+                ) : value === 'Enter URL' ? (
+                  <li>
+                    <EditOutlined />
+                  </li>
+                ) : (
+                  <li>
+                    <GlobalOutlined />
+                  </li>
+                )}
+              </Popover>
+            );
+          } else {
+            return (
+              <Tooltip title={sanitisedLink(value)} placement="bottom">
+                <a target="_blank" rel="noopener noreferrer" href={value}>
+                  {sanitisedLink(value) in SOCIAL_LINK_ICON ? (
+                    <li>{SOCIAL_LINK_ICON[sanitisedLink(value)]}</li>
+                  ) : value === 'Enter URL' ? (
+                    <></>
+                  ) : (
+                    <li>
+                      <GlobalOutlined />
+                    </li>
+                  )}
+                </a>
+              </Tooltip>
+            );
+          }
+        })}
+        {props.isMyProfile ? (
+          <Tooltip title={'Add Link'} placement="bottom">
+            <li
+              className="skills-add"
+              onClick={() => {
+                if (data) {
+                  const newData = { ...data };
+                  newData.entries.push('Enter URL');
+                  setData(newData);
+                  saveData();
+                }
+              }}
+            >
+              +
+            </li>
+          </Tooltip>
+        ) : (
+          <></>
+        )}
+      </ul>
+    );
+  }
 }
 
 export default SocialLinks;
