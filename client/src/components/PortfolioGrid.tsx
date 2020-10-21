@@ -7,14 +7,15 @@ import { Tooltip } from 'antd';
 
 // type PortfolioGridProps = {};
 
-type PortfolioObjectMetaType = {
-  key: string;
+type PortfolioObjectData = {
+  id: string;
   title: string;
   type: string;
   media: { type: string; url: string }[];
   date: string;
   author: string;
   shortDescription: string;
+  tags?: string[];
   views: string;
   link: string;
   location: string;
@@ -22,12 +23,10 @@ type PortfolioObjectMetaType = {
 
 // function PortfolioGrid(props: PortfolioGridProps) {
 function PortfolioGrid() {
-  const [portfolioObjects, setPortfolioObjects] = useState<
-    Array<PortfolioObjectMetaType>
-  >([]);
+  const [data, setData] = useState<Array<PortfolioObjectData>>([]);
   //const [fetchError, setFetchError] = useState(false);
 
-  async function fetchPortfolioObjects(): Promise<void> {
+  async function fetchData(): Promise<void> {
     //TODO: update with route once implemented on backend
     //const res = await fetch ('/api/v/1/...')
     //res
@@ -36,11 +35,12 @@ function PortfolioGrid() {
     //  .catch(err => setFetchError(err));
 
     // Dummy for now
-    setPortfolioObjects([
+    setData([
       {
-        key: '1',
+        id: '1',
         title: 'Project 1',
         type: 'website',
+        tags: ['one', 'two', 'three', 'four', 'five'],
         media: [
           { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
           { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
@@ -66,7 +66,7 @@ function PortfolioGrid() {
           'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
       },
       {
-        key: '2',
+        id: '2',
         title: 'Project 2',
         type: 'website',
         media: [
@@ -94,7 +94,7 @@ function PortfolioGrid() {
           'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
       },
       {
-        key: '3',
+        id: '3',
         title: 'Project 3',
         type: 'website',
         media: [
@@ -121,7 +121,7 @@ function PortfolioGrid() {
         link: 'https://www.w3.org/',
       },
       {
-        key: '4',
+        id: '4',
         title: 'Project 4',
         type: 'website',
         media: [
@@ -148,7 +148,7 @@ function PortfolioGrid() {
         link: 'https://www.w3.org/',
       },
       {
-        key: '5',
+        id: '5',
         title: 'Project 5',
         type: 'website',
         media: [
@@ -176,7 +176,7 @@ function PortfolioGrid() {
         link: 'https://www.w3.org/',
       },
       {
-        key: '6',
+        id: '6',
         title: 'Project 6',
         type: 'website',
         media: [
@@ -204,7 +204,7 @@ function PortfolioGrid() {
         link: 'https://www.w3.org/',
       },
       {
-        key: '7',
+        id: '7',
         title: 'Project 7',
         type: 'website',
         media: [
@@ -232,7 +232,7 @@ function PortfolioGrid() {
         link: 'https://www.w3.org/',
       },
       {
-        key: '8',
+        id: '8',
         title: 'Project 8',
         type: 'website',
         media: [
@@ -260,7 +260,7 @@ function PortfolioGrid() {
         link: 'https://www.w3.org/',
       },
       {
-        key: '9',
+        id: '9',
         title: 'Project 9',
         type: 'website',
         media: [
@@ -291,7 +291,7 @@ function PortfolioGrid() {
   }
 
   useEffect(() => {
-    fetchPortfolioObjects();
+    fetchData();
   }, []);
 
   const [portfolioObjectOpen, setPortfolioObjectOpen] = useState(false);
@@ -308,19 +308,31 @@ function PortfolioGrid() {
         </div>
       </Tooltip>
       <div className="grid">
-        {portfolioObjects.map((value) => {
+        {data.map((value, index) => {
           return (
             <PortfolioObject
-              id={value.key}
-              title={value.title}
-              type={value.type}
-              media={value.media}
-              date={value.date}
-              author={value.author}
-              shortDescription={value.shortDescription}
-              views={value.views}
-              link={value.link}
-              location={value.location}
+              data={value}
+              // EDIT ME
+              setData={(d: PortfolioObjectData) => {
+                if (data.length >= index && data[index].id === d.id) {
+                  const newData = [...data];
+                  newData[index] = d;
+                  setData(newData);
+                  //POST
+                } else {
+                  console.error('PortfolioObject ID Mismatch');
+                }
+              }}
+              delData={(id: string) => {
+                if (data.length >= index && data[index].id === id) {
+                  const newData = [...data];
+                  newData.splice(index, 1);
+                  setData(newData);
+                  //POST
+                } else {
+                  console.error('PortfolioObject ID Mismatch');
+                }
+              }}
               portfolioObjectOpen={openPortfolioObject}
             />
           );

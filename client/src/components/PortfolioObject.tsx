@@ -21,7 +21,7 @@ import {
 
 const { Option } = Select;
 
-type PortfolioObjectProps = {
+type PortfolioObjectData = {
   id: string;
   title: string;
   type: string;
@@ -29,10 +29,17 @@ type PortfolioObjectProps = {
   date: string;
   author: string;
   shortDescription: string;
+  tags?: string[];
   views: string;
-  location: string;
   link: string;
+  location: string;
+};
+
+type PortfolioObjectProps = {
+  data: PortfolioObjectData;
   portfolioObjectOpen: any;
+  setData: (d: PortfolioObjectData) => void;
+  delData: (id: string) => void;
 };
 
 function PortfolioObject(props: PortfolioObjectProps) {
@@ -41,11 +48,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
   const containerPrimaryRef = useRef<any>(null);
 
   const isMyProfile = true;
-
-  const [shortDescription, setShortDescription] = useState(
-    props.shortDescription
-  );
-  const [title, setTitle] = useState(props.title);
 
   const [thumbnail, setThumbnail] = useState(true);
 
@@ -89,7 +91,12 @@ function PortfolioObject(props: PortfolioObjectProps) {
     >
       {isMyProfile ? (
         <Tooltip title="Delete This Portfolio Entry" placement="right">
-          <div onClick={() => {}} className="del-button"></div>
+          <div
+            onClick={() => {
+              props.delData(props.data.id);
+            }}
+            className="del-button"
+          ></div>
         </Tooltip>
       ) : (
         <></>
@@ -103,10 +110,11 @@ function PortfolioObject(props: PortfolioObjectProps) {
             padding="2px 85px 2px 35px"
             editable={isMyProfile}
             onChange={(newString: string) => {
-              setTitle(newString);
-              //POST UPDATE
+              const newData = { ...props.data };
+              newData.title = newString;
+              props.setData(newData);
             }}
-            text={props.title}
+            text={props.data.title}
           />
         </h2>
       </div>
@@ -114,19 +122,19 @@ function PortfolioObject(props: PortfolioObjectProps) {
       <PortfolioHero
         isOpen={!thumbnail}
         isMyProfile={isMyProfile}
-        media={props.media}
+        media={props.data.media}
       />
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
           <h4>
-            <strong>{title}</strong>
+            <strong>{props.data.title}</strong>
           </h4>
-          <h5>{props.author}</h5>
+          <h5>{props.data.author}</h5>
         </div>
       </div>
       <div className="portfolio-object-body">
         <div>
-          <AuthorBadge author={props.author} tagline="Author Tagline" />
+          <AuthorBadge author={props.data.author} tagline="Author Tagline" />
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             <TextInput
@@ -134,10 +142,11 @@ function PortfolioObject(props: PortfolioObjectProps) {
               multiline={true}
               editable={isMyProfile}
               onChange={(newString: string) => {
-                setShortDescription(newString);
-                //POST UPDATE
+                const newData = { ...props.data };
+                newData.shortDescription = newString;
+                props.setData(newData);
               }}
-              text={shortDescription}
+              text={props.data.shortDescription}
             />
           </div>
         </div>
@@ -150,8 +159,12 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   style={{ width: '100%' }}
                   placeholder="Select a person"
                   optionFilterProp="children"
-                  onChange={() => {}}
-                  value={'website'}
+                  onChange={(value) => {
+                    const newData = { ...props.data };
+                    newData.type = value;
+                    props.setData(newData);
+                  }}
+                  value={props.data.type}
                   filterOption={true}
                 >
                   <Option value="App">App</Option>
@@ -162,7 +175,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   style={{ width: '100%', textAlign: 'center' }}
                   className="portfolio-tag"
                 >
-                  {props.type}
+                  {props.data.type}
                 </div>
               )}
             </li>
@@ -173,16 +186,21 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   style={{ display: 'inline-block', width: '100%' }}
                   placeholder="Tags"
                   onChange={(value) => {
-                    console.log(value);
+                    // console.log(value);
+                    const newData = { ...props.data };
+                    newData.tags = value;
+                    props.setData(newData);
                   }}
-                  value={['one', 'two', 'three', 'four']}
+                  value={props.data.tags}
                 ></Select>
-              ) : (
+              ) : props.data.tags ? (
                 <div style={{ display: 'inline-block', width: '100%' }}>
-                  {['one', 'two', 'three', 'four'].map((value, index) => {
+                  {props.data.tags.map((value, index) => {
                     return <div className="portfolio-tag">{value}</div>;
                   })}
                 </div>
+              ) : (
+                <></>
               )}
             </li>
             <li style={{ textAlign: 'center' }}>
@@ -192,17 +210,19 @@ function PortfolioObject(props: PortfolioObjectProps) {
               <CalendarOutlined />{' '}
               {isMyProfile ? (
                 <DatePicker
-                  value={moment(props.date, 'YYYY-MM')}
+                  value={moment(props.data.date, 'YYYY-MM')}
                   placeholder={'Select Date'}
                   bordered={false}
                   picker="month"
                   suffixIcon={<></>}
                   onChange={(date, dateString) => {
-                    console.log(dateString);
+                    const newData = { ...props.data };
+                    newData.date = dateString;
+                    props.setData(newData);
                   }}
                 />
               ) : (
-                props.date
+                props.data.date
               )}
             </li>
             {/* <li>
@@ -214,18 +234,22 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 <div style={{ display: 'inline-block', width: '145px' }}>
                   <TextInput
                     editable={isMyProfile}
-                    text={props.link}
-                    onChange={() => {}}
+                    text={props.data.link}
+                    onChange={(newString: string) => {
+                      const newData = { ...props.data };
+                      newData.link = newString;
+                      props.setData(newData);
+                    }}
                   />
                 </div>
               ) : (
-                <a target="_blank" href={props.link}>
-                  {formatLink(props.link)}
+                <a target="_blank" href={props.data.link}>
+                  {formatLink(props.data.link)}
                 </a>
               )}
             </li>
             <li>
-              <EyeOutlined /> {props.views}
+              <EyeOutlined /> {props.data.views}
             </li>
           </ul>
           <div style={{ textAlign: 'center' }}></div>
