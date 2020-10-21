@@ -56,8 +56,10 @@ export const checkValidation = (req: any, res: express.Response, next: express.N
     if(!map.has(item.param)){
         map.set(item.param, true);    // set any value to Map
         result.push({
-            id: item.param,
-            name: item.param
+            value: item.value,
+            msg: item.msg,
+            param: item.param,
+            location: item.location
         });
     }
   }
