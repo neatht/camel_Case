@@ -14,7 +14,7 @@ import SocialLinks from './SocialLinks';
 
 // needs to have all props bar userID removed.
 type ResumeProps = {
-  userID: string;
+  userID?: string;
   name?: string;
   profile?: string;
   student?: string;

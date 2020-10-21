@@ -36,7 +36,7 @@ type SocialLinksData = {
 };
 
 type SocialLinksProps = {
-  userID: string;
+  userID?: string;
   isMyProfile: boolean;
 };
 
