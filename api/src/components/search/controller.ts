@@ -79,10 +79,9 @@ export const search = async (req: any, res: express.Response, next: express.Next
 
     projectQueryResult.rows.forEach((row : any) => {
       const builtRow : object = {
-        project_id: row.project_id,
-        project_name: row.project_name,
-        author_first_name: row.first_name,
-        author_last_name: row.last_name
+        type: "Project",
+        id: row.project_id,
+        name: row.project_name
       };
       projectRows.push(builtRow);
     });
@@ -92,10 +91,9 @@ export const search = async (req: any, res: express.Response, next: express.Next
 
     userQueryResult.rows.forEach((row : any) => {
       const builtRow : object = {
-        profile_id: row.project_id,
-        first_name: row.first_name,
-        last_name: row.last_name,
-        profile_picture: 'PLACEHOLDER'
+        type: "Profile",
+        id: row.project_id,
+        name: row.first_name.concat(" ").concat(row.last_name)
       };
       userRows.push(builtRow);
     });
