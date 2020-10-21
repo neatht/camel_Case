@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import SocialLinks from './SocialLinks';
@@ -10,7 +10,16 @@ import AuthorBadge from './AuthorBadge';
 // import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
 import { useRef } from 'react';
-import { Tooltip } from 'antd';
+import { DatePicker, Dropdown, Select, Tooltip } from 'antd';
+import moment from 'moment';
+import {
+  CalendarOutlined,
+  EyeOutlined,
+  LineOutlined,
+  LinkOutlined,
+} from '@ant-design/icons';
+
+const { Option } = Select;
 
 type PortfolioObjectProps = {
   id: string;
@@ -47,6 +56,12 @@ function PortfolioObject(props: PortfolioObjectProps) {
       containerPrimaryRef.current.scrollTop = 0;
     }
   };
+
+  useEffect(() => {
+    if (containerPrimaryRef.current !== null) {
+      containerPrimaryRef.current.scrollTop = 0;
+    }
+  }, []);
 
   const formatLink = (link: string) => {
     const l = link.replace(/https?:\/\/(www.)?/, '').replace(/\/$/, '');
@@ -129,22 +144,88 @@ function PortfolioObject(props: PortfolioObjectProps) {
         <div className="container-secondary portfolio-side-bar">
           <ul>
             <li>
-              <Emoji symbol="💻" label="Type:" /> {props.type}
+              {isMyProfile ? (
+                <Select
+                  showSearch
+                  style={{ width: '100%' }}
+                  placeholder="Select a person"
+                  optionFilterProp="children"
+                  onChange={() => {}}
+                  value={'website'}
+                  filterOption={true}
+                >
+                  <Option value="App">App</Option>
+                  <Option value="Website">Website</Option>
+                </Select>
+              ) : (
+                <div
+                  style={{ width: '100%', textAlign: 'center' }}
+                  className="portfolio-tag"
+                >
+                  {props.type}
+                </div>
+              )}
             </li>
             <li>
-              <Emoji symbol="📅" label="Date:" /> {props.date}
+              {isMyProfile ? (
+                <Select
+                  mode="tags"
+                  style={{ display: 'inline-block', width: '100%' }}
+                  placeholder="Tags"
+                  onChange={(value) => {
+                    console.log(value);
+                  }}
+                  value={['one', 'two', 'three', 'four']}
+                ></Select>
+              ) : (
+                <div style={{ display: 'inline-block', width: '100%' }}>
+                  {['one', 'two', 'three', 'four'].map((value, index) => {
+                    return <div className="portfolio-tag">{value}</div>;
+                  })}
+                </div>
+              )}
+            </li>
+            <li style={{ textAlign: 'center' }}>
+              <LineOutlined />
             </li>
             <li>
+              <CalendarOutlined />{' '}
+              {isMyProfile ? (
+                <DatePicker
+                  value={moment(props.date, 'YYYY-MM')}
+                  placeholder={'Select Date'}
+                  bordered={false}
+                  picker="month"
+                  suffixIcon={<></>}
+                  onChange={(date, dateString) => {
+                    console.log(dateString);
+                  }}
+                />
+              ) : (
+                props.date
+              )}
+            </li>
+            {/* <li>
               <Emoji symbol="🌏" label="Location:" /> {props.location}
+            </li> */}
+            <li>
+              <LinkOutlined />{' '}
+              {isMyProfile ? (
+                <div style={{ display: 'inline-block', width: '145px' }}>
+                  <TextInput
+                    editable={isMyProfile}
+                    text={props.link}
+                    onChange={() => {}}
+                  />
+                </div>
+              ) : (
+                <a target="_blank" href={props.link}>
+                  {formatLink(props.link)}
+                </a>
+              )}
             </li>
             <li>
-              <Emoji symbol="🔗" label="Link:" />{' '}
-              <a target="_blank" href={props.link}>
-                {formatLink(props.link)}
-              </a>
-            </li>
-            <li>
-              <Emoji symbol="👁️" label="Views:" /> {props.views}
+              <EyeOutlined /> {props.views}
             </li>
           </ul>
           <div style={{ textAlign: 'center' }}></div>

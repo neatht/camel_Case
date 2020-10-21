@@ -175,8 +175,18 @@
   list-style-type: none;
 }
 .portfolio-side-bar li {
-  padding-top: 10px;
+  /* padding-top: 10px; */
   padding-bottom: 10px;
+}
+
+.portfolio-tag {
+  display: inline-block;
+  background-color: var(--background-color-app);
+  box-shadow: var(--drop-shadow);
+  padding: 3px 10px;
+  margin-right: 3px;
+  margin-top: 3px;
+  border-radius: 100px;
 }
 
 
