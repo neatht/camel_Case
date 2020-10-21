@@ -1,7 +1,10 @@
 /**
  * This file contains custom validators to work with the express-validator
- * library.
+ * library and a middleware for dealing with the errors of validation.
  */
+
+import express from 'express';
+import { validationResult } from 'express-validator';
 
 /**
  * isStrArr() checks whether the array argument is an array and is populated
@@ -21,5 +24,51 @@ export const isStrArr = (arr: string[], len: number = null) => {
   }
   catch {
     throw new Error('Invalid array.')
+  }
+}
+
+/**
+ * isEnum() Checks if a string is in an array of strings.
+ *
+ * @param arr - an Array of strings
+ * @param val - the string to look for in arr
+ * @returns true if val is in arr
+ */
+export const isEnum = (arr: string[], val: string) => {
+  return arr.includes(val);
+}
+
+/**
+ * checkValidation() checks the result of the validation. If the validation
+ * fails, it sends a JSON response with information about the failed valdiation.
+ *
+ * @param req - the express Request object
+ * @param res - the express Response object
+ * @param next - the express NextFunction object
+ */
+export const checkValidation = (req: any, res: express.Response, next: express.NextFunction) => {
+  const errors = validationResult(req);
+
+  // Ensure only distinct error objects (by param key)
+  const result = [];
+  const map = new Map();
+  for (const item of errors.array()) {
+    if(!map.has(item.param)){
+        map.set(item.param, true);    // set any value to Map
+        result.push({
+            id: item.param,
+            name: item.param
+        });
+    }
+  }
+
+  if (!errors.isEmpty()) {
+    res.status(422);
+    return res.json({
+      status: 'fail',
+      data: result
+    });
+  } else {
+    next();
   }
 }

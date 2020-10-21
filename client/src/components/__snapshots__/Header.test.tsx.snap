@@ -1,0 +1,247 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Header renders home without crashing 1`] = `
+<div>
+  <header>
+    <PageHeader
+      className="site-page-header"
+      title={
+        <ForwardRef
+          className="navTitle"
+          to="/"
+        >
+           
+          <div
+            className="gradient"
+            style={
+              Object {
+                "fontSize": "1.2em",
+              }
+            }
+          >
+            <Emoji
+              symbol="🛰️"
+            />
+             
+            <strong>
+              Glowbal
+            </strong>
+          </div>
+        </ForwardRef>
+      }
+    />
+    <Menu
+      mode="horizontal"
+      onClick={[Function]}
+      selectedKeys={
+        Array [
+          "home",
+        ]
+      }
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            <ForwardRef(HomeOutlined) />
+          </span>
+        }
+        key="home"
+      >
+        <NavLink
+          exact={true}
+          to="/"
+        >
+          Home
+        </NavLink>
+      </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            <ForwardRef(UserOutlined) />
+          </span>
+        }
+        key="profile"
+      >
+        <NavLink
+          exact={true}
+          to="/profile"
+        >
+          Profile
+        </NavLink>
+         
+      </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            🧪
+          </span>
+        }
+        key="tests"
+      >
+        <NavLink
+          exact={true}
+          to="/tests"
+        >
+          Tests
+        </NavLink>
+         
+      </MenuItem>
+    </Menu>
+    <Space
+      style={
+        Object {
+          "marginLeft": "auto",
+          "marginRight": "20px",
+        }
+      }
+    >
+      <Search
+        enterButton={true}
+        style={
+          Object {
+            "width": 300,
+          }
+        }
+      />
+      <LoginButton />
+    </Space>
+  </header>
+</div>
+`;
+
+exports[`Testing Header renders profile without crashing 1`] = `
+<div>
+  <header>
+    <PageHeader
+      className="site-page-header"
+      title={
+        <ForwardRef
+          className="navTitle"
+          to="/"
+        >
+           
+          <div
+            className="gradient"
+            style={
+              Object {
+                "fontSize": "1.2em",
+              }
+            }
+          >
+            <Emoji
+              symbol="🛰️"
+            />
+             
+            <strong>
+              Glowbal
+            </strong>
+          </div>
+        </ForwardRef>
+      }
+    />
+    <Menu
+      mode="horizontal"
+      onClick={[Function]}
+      selectedKeys={
+        Array [
+          "profile",
+        ]
+      }
+      style={
+        Object {
+          "textAlign": "center",
+        }
+      }
+    >
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            <ForwardRef(HomeOutlined) />
+          </span>
+        }
+        key="home"
+      >
+        <NavLink
+          exact={true}
+          to="/"
+        >
+          Home
+        </NavLink>
+      </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            <ForwardRef(UserOutlined) />
+          </span>
+        }
+        key="profile"
+      >
+        <NavLink
+          exact={true}
+          to="/profile"
+        >
+          Profile
+        </NavLink>
+         
+      </MenuItem>
+      <MenuItem
+        icon={
+          <span
+            aria-hidden="true"
+            role="img"
+          >
+            🧪
+          </span>
+        }
+        key="tests"
+      >
+        <NavLink
+          exact={true}
+          to="/tests"
+        >
+          Tests
+        </NavLink>
+         
+      </MenuItem>
+    </Menu>
+    <Space
+      style={
+        Object {
+          "marginLeft": "auto",
+          "marginRight": "20px",
+        }
+      }
+    >
+      <Search
+        enterButton={true}
+        style={
+          Object {
+            "width": 300,
+          }
+        }
+      />
+      <LoginButton />
+    </Space>
+  </header>
+</div>
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing ResumeEntry renders without crashing 1`] = `
+<div
+  className="resume-entry"
+>
+  <Spin
+    size="large"
+    spinning={true}
+    wrapperClassName=""
+  />
+</div>
+`;

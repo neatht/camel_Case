@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing PortfolioObject renders without crashing 1`] = `
+<div
+  className="container-primary portfolio-object thumbnail"
+>
+  <div
+    className="exit-button"
+    onClick={[Function]}
+  />
+  <div
+    className="portfolio-title"
+  >
+    <h2
+      style={
+        Object {
+          "marginRight": "35px",
+        }
+      }
+    >
+      <TextInput
+        editable={true}
+        onChange={[Function]}
+        padding="2px 0 2px 35px"
+        text="Project 1"
+      />
+    </h2>
+  </div>
+  <PortfolioHero
+    isMyProfile={true}
+    isOpen={false}
+    media={
+      Array [
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/BNZxQ2z/example0.jpg",
+        },
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/TYYyXDH/example1.png",
+        },
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/pZmXQb5/example2.png",
+        },
+        Object {
+          "type": "image",
+          "url": "https://i.ibb.co/SwzRr9S/example3.png",
+        },
+        Object {
+          "type": "pdf",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        },
+        Object {
+          "type": "video",
+          "url": "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
+        },
+      ]
+    }
+  />
+  <div
+    className="portfolio-object-overlay"
+  >
+    <div
+      className="portfolio-meta"
+    >
+      <h4>
+        <strong>
+          Project 1
+        </strong>
+      </h4>
+      <h5>
+        Author 1
+      </h5>
+    </div>
+  </div>
+  <div
+    className="portfolio-object-body"
+  >
+    <div>
+      <AuthorBadge
+        author="Author 1"
+        tagline="Author Tagline"
+      />
+      <br />
+      <div
+        style={
+          Object {
+            "marginLeft": "-10px",
+            "marginTop": "-10px",
+          }
+        }
+      >
+        <TextInput
+          editable={true}
+          multiline={true}
+          onChange={[Function]}
+          padding="10px"
+          text="This is a short description about the project"
+        />
+      </div>
+    </div>
+    <div
+      className="container-secondary portfolio-side-bar"
+    >
+      <ul>
+        <li>
+          <Emoji
+            label="Type:"
+            symbol="💻"
+          />
+           
+          website
+        </li>
+        <li>
+          <Emoji
+            label="Date:"
+            symbol="📅"
+          />
+           
+          2020-01
+        </li>
+        <li>
+          <Emoji
+            label="Location:"
+            symbol="🌏"
+          />
+           
+          Melbourne, Australia
+        </li>
+        <li>
+          <Emoji
+            label="Link:"
+            symbol="🔗"
+          />
+           
+          <a
+            href="http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"
+            target="_blank"
+          >
+            <div
+              style={
+                Object {
+                  "display": "inline-block",
+                  "marginBottom": "-5px",
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "width": "140px",
+                }
+              }
+            >
+              distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4
+            </div>
+          </a>
+        </li>
+        <li>
+          <Emoji
+            label="Views:"
+            symbol="👁️"
+          />
+           
+          10
+        </li>
+      </ul>
+      <div
+        style={
+          Object {
+            "textAlign": "center",
+          }
+        }
+      >
+        <SocialLinks />
+      </div>
+    </div>
+  </div>
+</div>
+`;

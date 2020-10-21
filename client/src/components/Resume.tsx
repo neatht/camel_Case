@@ -1,137 +1,314 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Tooltip } from 'antd';
+import { Popover, Spin, Switch, Tooltip } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 import Emoji from './Emoji';
 
 import './Resume.css';
 import ResumeEntry from './ResumeEntry';
+import TextInput from './TextInput';
+import { useEffect } from 'react';
+import { Large } from '../stories/Button.stories';
 
+// needs to have all props bar userID removed.
 type ResumeProps = {
-    name: string,
-    profile: string,
-    student: string,
-    location: string,
-    work: boolean,
-}
+  userID?: string;
+  name?: string;
+  profile?: string;
+  student?: string;
+  location?: string;
+  work?: boolean;
+};
+
+type ResumeData = {
+  name: string;
+  bio: string;
+  location: string;
+  showLocation: boolean;
+  lookingForWork: boolean;
+  student: boolean;
+  institution: string;
+  public: boolean;
+  gender: string;
+  DOB: string;
+  profilePicture?: string;
+  heroPicture?: string;
+};
 
 function Resume(props: ResumeProps) {
+  // EDIT ME
+  const isMyProfile = true;
 
-    const studentbadges = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
-        if (props.student !== "") {
-            return (
-                <Tooltip title={props.student} placement="bottom"><li><Emoji symbol="🧑‍🎓" label="Student"/></li></Tooltip>
-            )
-        } else {
-            return;
-        }
-    }
-    
-    const workbadges = () => {
+  const [data, setData] = useState<ResumeData>();
 
-        if (props.work) {
-            return (
-                <Tooltip title="Open to work opportunities" placement="bottom"><li><Emoji symbol="✅" label="Open to work opportunities"/></li></Tooltip>
-            )
-        } else {
-            return;
-        }
-        
-    }
-    
-    const locationbadges = () => {
+  // EDIT ME
+  async function fetchData(): Promise<void> {
+    // GET data
+    setData({
+      name: 'Jane Doe',
+      gender: 'string',
+      lookingForWork: true,
+      bio:
+        'I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design.',
+      location: 'Melbourne, Australia ',
+      showLocation: false,
+      student: true,
+      institution: 'The University of Melbourne',
+      public: true,
+      DOB: '',
+      // heroPicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
+      // profilePicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
+    });
+    setIsLoading(false);
+  }
 
-        if (props.location !== "") {
-            return (
-                <Tooltip title={props.location} placement="bottom"><li><Emoji symbol="🌏" label="Location"/></li></Tooltip>
-            )
-        } else {
-            return;
-        }
-        
-    }
+  // EDIT ME
+  async function saveData(): Promise<void> {
+    // PUT data
+  }
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (isLoading) {
     return (
-        <div className="container-primary resume container-scroll">
-            
-                {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}
-                {/* <Tooltip title="Hide" placement="bottom">
-                    <div className="exit-button" onClick={() => setIsOpen(!isOpen)}></div>
-                </Tooltip> */}
-
-                    <div className="container-secondary resume-hero"></div>
-                    <div className="container-secondary resume-picture">
-                    <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
-                    </div>
-                    <div className="resume-name">
-                    <h1><strong>{props.name}</strong></h1>
-
-                    <div className="resume-badges">
-                        <ul>
-                            {studentbadges()}
-                            {workbadges()}
-                            {locationbadges()}
-                        </ul>
-                    </div>
-                    
-                    </div>
-                    <div className="resume-profile">
-                        {props.profile} 
-                    </div>
-                    <ResumeEntry title="Skills" display="inline" 
-                        entries={[
-                            {text: "HTML"},
-                            {text: "CSS"},
-                            {text: "JavaScript"},
-                            {text: "React.js"},
-                            {text: "Python"},
-                            {text: "C"},
-                            {text: "Java"},
-                            {text: "Graphic Design"},
-                            {text: "Photoshop"},
-                            {text: "Illustrator"}
-                        ]}
-                    />
-                    <ResumeEntry title="Experience" display="block"
-                        entries={[
-                            {date: "2020", text: "Internship at a Company", subText: "as a Full Stack Developer"},
-                            {date: "2019", text: "Internship at a different Company", subText: "as a Front end Developer"},
-                            {date: "2018-Current", text: "Part time job"}
-                        ]}
-                    />
-
-                    <ResumeEntry title="Achievements" display="inline"
-                        entries={[
-                            {date: "2020", text: "First Cass Honours"},
-                            {date: "2020", text: "First in Hackathon"}
-                        ]}
-                    />
-
-                    <ResumeEntry title="Education" display="block"
-                        entries={[
-                            {date: "2018-20", text: "The University of Melbourne", subText: "Bachelor of Science - Major in computing and software systems"},
-                            {date: "2017", text: "School College", subText: "Completed International Baccalaureate Diploma"}
-                        ]}
-                    />
-
-                    
-                    
-            
-                    
-                    
-
-                {/* </div> */}
-
-                
-
-              
-
-                
-
+      <div className="container-primary resume container-scroll">
+        <Spin size={'large'} />
+      </div>
+    );
+  } else {
+    return (
+      <div className="container-primary resume container-scroll">
+        <div
+          style={
+            data?.heroPicture
+              ? { backgroundImage: `url(${data?.heroPicture})` }
+              : {}
+          }
+          className="container-secondary resume-hero"
+        ></div>
+        <div
+          style={
+            data?.profilePicture
+              ? { backgroundImage: `url(${data?.profilePicture})` }
+              : {}
+          }
+          className="container-secondary resume-picture"
+        >
+          {data?.profilePicture ? (
+            <></>
+          ) : (
+            <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
+          )}
         </div>
-    )
+        <div className="resume-name">
+          <h1>
+            <strong>
+              <TextInput
+                editable={isMyProfile}
+                onChange={(newString: string) => {
+                  if (data) {
+                    const newData = { ...data };
+                    newData.name = newString;
+                    setData(newData);
+                    saveData();
+                  }
+                }}
+                text={data?.name}
+              />
+            </strong>
+          </h1>
+
+          <div className="resume-badges">
+            <ul>
+              {isMyProfile ? (
+                <Popover
+                  content={
+                    <div>
+                      I am open to work opportunities
+                      <div style={{ paddingLeft: '10px', float: 'right' }}>
+                        <Switch
+                          defaultChecked={data?.lookingForWork}
+                          onChange={() => {
+                            if (data) {
+                              const newData = { ...data };
+                              newData.lookingForWork = !data?.lookingForWork;
+                              setData(newData);
+                              saveData();
+                            }
+                          }}
+                        />
+                      </div>
+                    </div>
+                  }
+                  trigger="click"
+                >
+                  <li style={data?.lookingForWork ? {} : { opacity: '0.5' }}>
+                    <Emoji symbol="✅" label="Open to work opportunities" />
+                  </li>
+                </Popover>
+              ) : data?.lookingForWork ? (
+                <Tooltip title="Open to work opportunities" placement="bottom">
+                  <li>
+                    <Emoji symbol="✅" label="Open to work opportunities" />
+                  </li>
+                </Tooltip>
+              ) : (
+                <></>
+              )}
+
+              {isMyProfile ? (
+                <Popover
+                  content={
+                    <div>
+                      <h3>
+                        <strong>
+                          <TextInput
+                            editable={isMyProfile}
+                            onChange={(newString: string) => {
+                              if (data) {
+                                const newData = { ...data };
+                                newData.location = newString;
+                                setData(newData);
+                                saveData();
+                              }
+                            }}
+                            text={data?.location}
+                          />
+                        </strong>
+                      </h3>
+                      Show my location
+                      <div style={{ paddingLeft: '10px', float: 'right' }}>
+                        {' '}
+                        <Switch
+                          defaultChecked={data?.showLocation}
+                          onChange={() => {
+                            if (data) {
+                              const newData = { ...data };
+                              newData.showLocation = !data?.showLocation;
+                              setData(newData);
+                              saveData();
+                            }
+                          }}
+                        />
+                      </div>
+                    </div>
+                  }
+                  title="Where are you located?"
+                  trigger="click"
+                >
+                  <li style={data?.showLocation ? {} : { opacity: '0.5' }}>
+                    <Emoji symbol="🌏" label="Location" />
+                  </li>
+                </Popover>
+              ) : data?.showLocation ? (
+                <Tooltip title={data?.location} placement="bottom">
+                  <li>
+                    <Emoji symbol="🌏" label="Location" />
+                  </li>
+                </Tooltip>
+              ) : (
+                <></>
+              )}
+              {isMyProfile ? (
+                <Popover
+                  content={
+                    <div>
+                      <h3>
+                        <strong>
+                          <TextInput
+                            editable={isMyProfile}
+                            onChange={(newString: string) => {
+                              if (data) {
+                                const newData = { ...data };
+                                newData.institution = newString;
+                                setData(newData);
+                                saveData();
+                              }
+                            }}
+                            text={data?.institution}
+                          />
+                        </strong>
+                      </h3>
+                      I am a student
+                      <div style={{ paddingLeft: '10px', float: 'right' }}>
+                        {' '}
+                        <Switch
+                          defaultChecked={data?.student}
+                          onChange={() => {
+                            if (data) {
+                              const newData = { ...data };
+                              newData.student = !data?.student;
+                              setData(newData);
+                              saveData();
+                            }
+                          }}
+                        />
+                      </div>
+                    </div>
+                  }
+                  title="Where are you studying?"
+                  trigger="click"
+                >
+                  <li style={data?.student ? {} : { opacity: '0.5' }}>
+                    <Emoji symbol="🧑‍🎓" label="Location" />
+                  </li>
+                </Popover>
+              ) : data?.student ? (
+                <Tooltip title={data?.institution} placement="bottom">
+                  <li>
+                    <Emoji symbol="🧑‍🎓" label="Location" />
+                  </li>
+                </Tooltip>
+              ) : (
+                <></>
+              )}
+            </ul>
+          </div>
+        </div>
+        <div className="resume-profile">
+          <TextInput
+            padding="10px"
+            multiline={true}
+            editable={isMyProfile}
+            onChange={(newString: string) => {
+              if (data) {
+                const newData = { ...data };
+                newData.bio = newString;
+                setData(newData);
+                saveData();
+              }
+            }}
+            text={data?.bio}
+          />
+        </div>
+        <ResumeEntry type="Skills" display="inline" isMyProfile={isMyProfile} />
+        <ResumeEntry
+          type="Experience"
+          display="block"
+          isMyProfile={isMyProfile}
+        />
+
+        <ResumeEntry
+          type="Achievements"
+          display="inline"
+          isMyProfile={isMyProfile}
+        />
+
+        <ResumeEntry
+          type="Education"
+          display="block"
+          isMyProfile={isMyProfile}
+        />
+
+        {/* </div> */}
+      </div>
+    );
+  }
 }
 
 export default Resume;

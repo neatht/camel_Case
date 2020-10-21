@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Resume renders without crashing 1`] = `
+<div
+  className="container-primary resume container-scroll"
+>
+  <Spin
+    size="large"
+    spinning={true}
+    wrapperClassName=""
+  />
+</div>
+`;

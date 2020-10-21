@@ -8,10 +8,12 @@ import path from 'path';
 
 // Route imports
 import profileRouter from './components/profile/routes';
-import uploadRouter from './components/project/routes';
+import projectRouter from './components/project/routes';
+import experienceRouter from './components/experience/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
+import { errorHandler } from './middleware/error';
 
 /**
  * register() registers the routes and middleware. To add a route or middleware
@@ -26,16 +28,38 @@ export const register = (app: express.Application) => {
 
   // Register routes
   app.use('/api/profile', profileRouter);
-  app.use('/api/upload', uploadRouter);
-  app.get('/api/getList', jwtCheck, (req: any, res) => {
-    console.log(JSON.stringify(req.user));
-    const list = ['item1', 'item2'];
-    res.json(list);
+  app.use('/api/project', projectRouter);
+  app.use('/api/experience', experienceRouter);
+
+  // Unauthenticated test route
+  app.get('/api/test', (req, res) => {
+    res.status(200);
+    res.json({
+      status: "success",
+      data: "Test successful"
+    })
   });
-  app.post('/api/test', (req: any, res: any) => {
-    console.log(JSON.stringify(req.body));
+
+  app.get('/api/getEmail', jwtCheck, (req: any, res) => {
+    res.json({
+      email: req.user["https://example.com/email"]
+    });
+  })
+
+  // Handle unfound API routes
+  app.get("/api/*", (req, res) => {
+    res.status(404);
+    res.json({
+      status: 'error',
+      message: 'Route not found. Please check the route is a valid endpoint.'
+    })
+  })
+
+  // Redirect to React app if not in API path
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
   });
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.join(__dirname+'../../../client/build/index.html'));
-  // });
+
+  // Error handling
+  app.use(errorHandler);
 }

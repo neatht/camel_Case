@@ -16,6 +16,14 @@ jobs:
       - name: Install modules
         working-directory: ./client
         run: yarn
+
+      - name: Run lint
+        working-directory: ./client
+        run: yarn lint
+
+      - name: Run format check
+        working-directory: ./client
+        run: yarn format-check
         
       - name: Run tests
         working-directory: ./client

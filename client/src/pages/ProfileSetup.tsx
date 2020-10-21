@@ -1,119 +1,202 @@
-import React, { useState } from 'react';
-import { Button, DatePicker, Form, Input, Space, Steps } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Modal } from 'antd';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import './ProfileSetup.css';
-import 'emoji-mart/css/emoji-mart.css'
 
 import Header from '../components/Header';
-import CompanyAutoComplete from '../components/CompanyAutoComplete';
 
 import Emoji from '../components/Emoji';
-
-const { Step } = Steps;
-  
+import ProfileSetupForm from '../components/ProfileSetupForm';
+import Loading from '../components/Loading';
+import Resume from '../components/Resume';
+import PortfolioGrid from '../components/PortfolioGrid';
 
 function ProfileSetup() {
+  const [profileInfo, setProfileInfo] = useState({});
+  const [isPostingProfile, setIsPostingProfile] = useState(false);
+  const [hasFetchedOnce, setHasFetchedOnce] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
 
-    const [ step, setStep ] = useState(0);
-
-    const NUM_STEPS = 3;
-
-    function incrementStep() {
-        if (step < NUM_STEPS) {
-            setStep(step+1);
-        }
+  /**
+   * Used to create a profile through the API
+   *
+   * @param profileData The profile data to be posted
+   * @param callback Callback function with the profile data as argument when successful, and {} when unsuccessful. Can be used to setState
+   * @param setIsLoading Callback function to toggle when awaiting response
+   * @param route Specified route to call API at in form '/api/{route}'
+   *
+   * @returns res The response of the call
+   */
+  async function postProfile(
+    profileData: Object,
+    callback: (data: Object) => void,
+    setIsLoading?: (isLoading: boolean) => void,
+    route?: string
+  ) {
+    if (setIsLoading) {
+      setIsLoading(true);
     }
 
-    function decrementStep() {
-        if (step > 0) {
-            setStep(step-1);
-        }
+    if (!route) {
+      route = 'profile';
     }
 
-    const onFinish = (result: any) => {
-        console.log('finished form', result)
+    try {
+      const token = await getAccessTokenSilently();
+      await fetch('/api/' + route, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: profileData }),
+      })
+        .then((response) => response.json())
+        .then((res: Object) => {
+          if ('status' in res && res['status'] === 'success') {
+            callback(profileData);
+          } else {
+            callback({});
+          }
+          if (setIsLoading) {
+            setIsLoading(false);
+          }
+          return res;
+        });
+    } catch (e) {
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      callback({});
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      console.error(e);
+      return res;
+    }
+  }
+
+  /**
+   * Used to get a profile from the API
+   *
+   * @param {data: Object => void} callback Callback function with the profile data as argument when successful, and {} when unsuccessful. Can be used to setState
+   * @param {isLoading: boolean => void} setIsLoading Callback function to toggle when awaiting response
+   * @param {string} route Specified route to call API at in form '/api/{route}' Default is 'profile/getOwnProfile'
+   *
+   * @returns res The response of the call
+   */
+  async function getProfile(
+    callback: (data: Object) => void,
+    setIsLoading?: (isLoading: boolean) => void,
+    route?: string
+  ) {
+    if (setIsLoading) {
+      setIsLoading(true);
     }
 
-    return(
-        <div className="App">
-            <Header pageKey="profile" />
+    if (!route) {
+      route = 'profile/getOwnProfile';
+    }
 
-            <div className="content-area">
+    try {
+      const token = await getAccessTokenSilently();
+      await fetch('/api/' + route, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((res: Object) => {
+          if (setIsLoading) {
+            setIsLoading(false);
+          }
+          if ('data' in res) {
+            callback(res['data']);
+          } else {
+            callback({});
+          }
+          return res;
+        });
+    } catch (e) {
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      callback({});
+      console.error(e);
+      return res;
+    }
+  }
 
-                <h1><Emoji symbol="👋" /><strong> Welcome</strong></h1>
+  useEffect(() => {
+    const setFirstProfileInfo = (profileInfo: Object) => {
+      setProfileInfo(profileInfo);
+      setHasFetchedOnce(true);
+    };
 
-                <div className="steps" style={{ padding: 30 }}>
-                    <Steps size="small" current={step}>
-                        <Step title="Personal Information" />
-                        <Step title="Education and Experience" />
-                        <Step title="Projects" />
-                    </Steps>
-                </div>
+    getProfile(setFirstProfileInfo);
+    // eslint-disable-next-line
+  }, []);
 
-                <div className="profile-form">
+  return (
+    <div className="App">
+      <Header pageKey="profile" />
 
-                    <Form
-                        //{...layout}
-                        name="basic"
-                        initialValues={{ remember: true }}
-                        onFinish={onFinish}
-                        //onFinishFailed={onFinishFailed}
-                    >
-                        <Form.Item
-                            label="First Name"
-                            name="firstname"
-                            rules={[{ required: true, message: 'Please enter your first name!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+      <div className="grid-main-layout-primary">
+        {!hasFetchedOnce ? (
+          <Loading messages={['Loading Profile']} />
+        ) : (
+          <>
+            {/* ***** Actual Content Here ****** */}
 
-                        <Form.Item
-                            label="Last Name"
-                            name="lastname"
-                            rules={[{ required: true, message: 'Please enter your last name!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
+            {'firstName' in profileInfo && 'lastName' in profileInfo ? (
+              <>
+                <Resume
+                  name={`${profileInfo['firstName']} ${profileInfo['lastName']}`}
+                  profile="Sample bio"
+                  student="UniMelb"
+                  location="Melbourne"
+                  work={true}
+                />
+                <PortfolioGrid />
+              </>
+            ) : null}
 
-                        <Form.Item
-                            label="Company"
-                            name="company"
-                            rules={[]}
-                        >
-                            <CompanyAutoComplete />
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Date"
-                            name="date"
-                            rules={[]}
-                        >
-                            <DatePicker picker="month" format="MMM YYYY" />
-                        </Form.Item>
-
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Submit
-                            </Button>
-                        </Form.Item>
-                        
-                    </Form>
-
-                </div>
-            
-                <div className="step-buttons">
-                    <Space>
-                        { step > 0 && <Button onClick={decrementStep}> Back </Button>}
-                        <Button type="primary" onClick={incrementStep}> Next </Button>
-                    </Space>
-                </div>
-            
-            </div>
-
-            
-
-        </div>
-    );
+            <Modal
+              title={
+                <>
+                  <Emoji symbol="👋" />
+                  <strong> Profile Setup </strong>
+                </>
+              }
+              closable={false}
+              visible={hasFetchedOnce && Object.keys(profileInfo).length === 0}
+              footer={null}
+            >
+              <ProfileSetupForm
+                onFinish={(result) => {
+                  postProfile(result, setProfileInfo, setIsPostingProfile);
+                }}
+                submitLabel="Save"
+                isLoading={isPostingProfile}
+              />
+            </Modal>
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default ProfileSetup;

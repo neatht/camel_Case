@@ -4,6 +4,7 @@
  */
 
 import dotenv from 'dotenv';
+import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
 import express from 'express';
@@ -11,7 +12,8 @@ import express from 'express';
 dotenv.config();
 
 /**
- * jwtCheck() checks for a token in the Authorization header.
+ * jwtCheck() checks for a token in the Authorization header. Also puts email
+ * into body of req.user
  *
  * Token must be in the form of:    Bearer <TOKEN>
  * An error is returned if the token is invalid or not present.

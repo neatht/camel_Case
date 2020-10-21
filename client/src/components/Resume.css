@@ -15,11 +15,12 @@
   list-style-type: none;
 }
 .resume-badges li {
+  cursor: pointer;
   padding: auto;
   text-align: center;
   margin: 5px;
   background-color: var(--background-color-secondary);
-  filter: var(--drop-shadow);
+  box-shadow: var(--drop-shadow);
   border-radius: 100px;
   /* border: 1px solid; */
   width: 30px;
@@ -43,7 +44,10 @@
   margin: auto;
   margin-top: 0;
   margin-bottom: 0;
-  background-color: var(--color-primary);
+  background: var(--gradient);
+  background-position: center;
+  background-size: cover;
+
   width: 96px;
   height: 96px;
   border-radius: 96px;
@@ -53,7 +57,7 @@
  
 }
 .resume-name {
-  /* padding: 16px; */
+  padding-top: 8px;
   /* position: relative; */
   /* top: -50px; */
   margin: 0;

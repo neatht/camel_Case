@@ -18,6 +18,16 @@ exports[`Testing App renders without crashing 1`] = `
       exact={true}
       path="/profile-setup"
     />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/api-test"
+    />
+    <PrivateRoute
+      component={[Function]}
+      exact={true}
+      path="/tests"
+    />
   </Switch>
 </BrowserRouter>
 `;
