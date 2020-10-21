@@ -1,6 +1,9 @@
 .socialLinks {
-  border-top: #fff 3px solid;
-  padding-top: 5px;
+  border-left: #000 1px solid;
+  padding-left: 5px !important;
+  margin-left: 5px;
+  /* margin-top: -3px; */
+  text-align: left;
 }
 
 .socialLinks a {
@@ -12,19 +15,7 @@
   list-style-type: none;
 }
 .socialLinks li {
-  cursor: pointer;
-  padding: auto;
-  text-align: center;
-  margin: 5px;
-  background-color: var(--background-color-secondary);
   box-shadow: var(--drop-shadow), 0px 0px 0px 1px #00000000;
-  border-radius: 100px;
-  /* border: 1px solid; */
-  width: 30px;
-  /* height: 30px; */
-  line-height: 30px;
-  display: inline-block;
-  color: var(--color-app);
   transition: color 0.3s, box-shadow 0.3s;
 }
 
@@ -39,8 +30,7 @@
 }
 
 .skills-add {
-  border: var(--border) !important;
-  box-sizing: content-box !important;
+
   background-color: var(--background-color-primary) !important;
-  box-shadow: var(--inner-shadow), var(--drop-shadow) !important;
+  box-shadow: var(--inner-shadow), 0px 0px 0px 3px #fff, var(--drop-shadow) !important;
 }

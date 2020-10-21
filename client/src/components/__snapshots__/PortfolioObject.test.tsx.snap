@@ -168,9 +168,7 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
             "textAlign": "center",
           }
         }
-      >
-        <SocialLinks />
-      </div>
+      />
     </div>
   </div>
 </div>

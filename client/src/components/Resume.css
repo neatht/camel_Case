@@ -10,7 +10,8 @@
 
 }
 .resume-badges {
-  display: inline;
+  display: inline-grid;
+  grid-template-columns: auto auto;
 }
 .resume-badges ul {
   padding: 0;

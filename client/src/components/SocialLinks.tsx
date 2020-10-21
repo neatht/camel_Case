@@ -11,7 +11,7 @@ import {
   InstagramFilled,
   GlobalOutlined,
   LineOutlined,
-  EditOutlined
+  EditOutlined,
   //MessageFilled,
 } from '@ant-design/icons';
 
@@ -52,13 +52,13 @@ function SocialLinks(props: SocialLinksProps) {
         //"phoneNumber": '0492837116',
         // "emailAddress": 'mailto:email@example.com',
         'https://www.github.com',
-        'https://www.twitter.com',
+        // 'https://www.twitter.com',
         'https://www.behance.com',
         'https://www.dribbble.com',
         'https://www.linkedin.com',
-        'https://www.facebook.com',
-        'https://www.instagram.com',
-        'https://www.google.com',
+        // 'https://www.facebook.com',
+        // 'https://www.instagram.com',
+        // 'https://www.google.com',
       ],
     });
     setIsLoading(false);
@@ -84,93 +84,94 @@ function SocialLinks(props: SocialLinksProps) {
         <Spin />
       </div>
     );
+  } else if (data?.entries.length === 0 && !props.isMyProfile) {
+    return <></>;
   } else {
     return (
-      <div className="socialLinks">
-        <ul>
-          {data?.entries.map((value, index) => {
-            if (props.isMyProfile) {
-              return (
-                <Popover
-                  content={
-                    <div>
-                      <div
-                        className="exit-button exit-button-social-links"
-                        onClick={() => {
+      // <div className="socialLinks">
+      <ul className="socialLinks">
+        {data?.entries.map((value, index) => {
+          if (props.isMyProfile) {
+            return (
+              <Popover
+                content={
+                  <div>
+                    <div
+                      className="exit-button exit-button-social-links"
+                      onClick={() => {
+                        const newData = { ...data };
+                        newData.entries.splice(index, 1);
+                        setData(newData);
+                        saveData();
+                      }}
+                    ></div>
+                    <TextInput
+                      editable={props.isMyProfile}
+                      onChange={(newString: string) => {
+                        if (data) {
                           const newData = { ...data };
-                          newData.entries.splice(index, 1);
+                          newData.entries[index] = newString;
                           setData(newData);
                           saveData();
-                        }}
-                      ></div>
-                      <TextInput
-                        editable={props.isMyProfile}
-                        onChange={(newString: string) => {
-                          if (data) {
-                            const newData = { ...data };
-                            newData.entries[index] = newString;
-                            setData(newData);
-                            saveData();
-                          }
-                        }}
-                        text={value}
-                      />
-                    </div>
-                  }
-                  trigger="click"
-                >
+                        }
+                      }}
+                      text={value}
+                    />
+                  </div>
+                }
+                trigger="click"
+              >
+                {sanitisedLink(value) in SOCIAL_LINK_ICON ? (
+                  <li>{SOCIAL_LINK_ICON[sanitisedLink(value)]}</li>
+                ) : value === 'Enter URL' ? (
+                  <li>
+                    <EditOutlined />
+                  </li>
+                ) : (
+                  <li>
+                    <GlobalOutlined />
+                  </li>
+                )}
+              </Popover>
+            );
+          } else {
+            return (
+              <Tooltip title={sanitisedLink(value)} placement="bottom">
+                <a target="_blank" rel="noopener noreferrer" href={value}>
                   {sanitisedLink(value) in SOCIAL_LINK_ICON ? (
                     <li>{SOCIAL_LINK_ICON[sanitisedLink(value)]}</li>
                   ) : value === 'Enter URL' ? (
-                    <li>
-                      <EditOutlined />
-                    </li>
+                    <></>
                   ) : (
                     <li>
                       <GlobalOutlined />
                     </li>
                   )}
-                </Popover>
-              );
-            } else {
-              return (
-                <Tooltip title={sanitisedLink(value)} placement="bottom">
-                  <a target="_blank" rel="noopener noreferrer" href={value}>
-                    {sanitisedLink(value) in SOCIAL_LINK_ICON ? (
-                      <li>{SOCIAL_LINK_ICON[sanitisedLink(value)]}</li>
-                    ) : value === 'Enter URL' ? (
-                      <></>
-                    ) : (
-                      <li>
-                        <GlobalOutlined />
-                      </li>
-                    )}
-                  </a>
-                </Tooltip>
-              );
-            }
-          })}
-          {props.isMyProfile ? (
-            <Tooltip title={'Add Link'} placement="bottom">
-              <li
-                className="skills-add"
-                onClick={() => {
-                  if (data) {
-                    const newData = { ...data };
-                    newData.entries.push('Enter URL');
-                    setData(newData);
-                    saveData();
-                  }
-                }}
-              >
-                +
-              </li>
-            </Tooltip>
-          ) : (
-            <></>
-          )}
-        </ul>
-      </div>
+                </a>
+              </Tooltip>
+            );
+          }
+        })}
+        {props.isMyProfile ? (
+          <Tooltip title={'Add Link'} placement="bottom">
+            <li
+              className="skills-add"
+              onClick={() => {
+                if (data) {
+                  const newData = { ...data };
+                  newData.entries.push('Enter URL');
+                  setData(newData);
+                  saveData();
+                }
+              }}
+            >
+              +
+            </li>
+          </Tooltip>
+        ) : (
+          <></>
+        )}
+      </ul>
     );
   }
 }

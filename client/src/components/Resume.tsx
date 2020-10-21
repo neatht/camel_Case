@@ -272,7 +272,7 @@ function Resume(props: ResumeProps) {
             <SocialLinks isMyProfile={isMyProfile} userID={props.userID} />
           </div>
         </div>
-        
+
         <div className="resume-profile">
           <TextInput
             padding="10px"
