@@ -3,26 +3,26 @@
  */
 
 import { useEffect } from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
 export default function useCheckAccessToken() {
   const { getAccessTokenSilently } = useAuth0();
-  
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const accessToken = await getAccessTokenSilently();
         const response = await axios('/api/auth/check', {
-            headers: {
-              'Authorization': `Bearer ${accessToken}`
-            }
-          });
-          console.log(response);
-          return 'Success';
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log(response);
+        return 'Success';
       } catch (e) {
-          console.log(e.message);
-          return 'Fail';
+        console.log(e.message);
+        return 'Fail';
       }
     };
 
