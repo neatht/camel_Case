@@ -16,12 +16,12 @@ import express from 'express';
  * @param queryParams - an array of query parameters
  */
 
-export const service = async (poolClient: any,
+export const service = async (req: any,
                               next: express.NextFunction,
                               query: string,
                               queryParams: any[]) => {
   try {
-    return await poolClient.query(query, queryParams);
+    return await req.poolClient.query(query, queryParams);
   } catch(err) {
     next(err);
   }

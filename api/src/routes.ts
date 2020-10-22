@@ -31,8 +31,9 @@ export const register = (app: express.Application) => {
   app.use('/api/project', projectRouter);
   app.use('/api/experience', experienceRouter);
 
-  // Unauthenticated test route
-  app.get('/api/test', (req, res) => {
+  // authenticated test route
+  app.get('/api/test', jwtCheck, (req:any, res) => {
+    console.log(req.user);
     res.status(200);
     res.json({
       status: "success",

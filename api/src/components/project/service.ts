@@ -14,11 +14,11 @@ export const addMediaService = async (req: any, res: express.Response, next: exp
     req.body.s3ObjID,
     req.body.mediaName,
     req.body.projectID,
-    req.body.mediaType,
+    req.body.fileType,
     req.body.userID
   ]
 
-  await service(req.poolClient, next, query, queryParams);
+  await service(req, next, query, queryParams);
 }
 
 export const updateMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
@@ -39,42 +39,47 @@ export const updateMediaService = async (req: any, res: express.Response, next: 
   query.push(`WHERE user_id = $${varCount++} AND project_id = $${varCount++} AND media_id = $${varCount};`);
   queryParams.push(req.body.userID, req.body.projectID, req.body.mediaID);
 
-  await service(req.poolClient, next, query.join(' '), queryParams);
+  await service(req, next, query.join(' '), queryParams);
 }
 
 export const getMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query = 'SELECT * FROM media WHERE project_id = $1 AND user_id = $2 AND media_id = $3;'
+  const query = 'SELECT * FROM media WHERE project_id = $1 AND user_id = $2;'
 
   const queryParams = [
-    req.body.projectID,
-    req.body.userID,
-    req.body.mediaID
+    req.params.projectID,
+    req.params.userID
   ]
 
-  const queryResults = await service(req.poolClient, next, query, queryParams);
-  return queryResults.rows[0];
+  const queryResults = await service(req, next, query, queryParams);
+  return queryResults.rows;
 }
 
 export const checkProfilePublicService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = 'SELECT public FROM profile WHERE user_id = $1;'
   const queryParams = [req.body.userID]
-  const queryResults = await service(req.poolClient, next, query, queryParams);
+  const queryResults = await service(req, next, query, queryParams);
   return queryResults.rows[0].public;
 }
 
 export const getProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'SELECT * FROM project WHERE project_id = $1 AND user_id = $2;';
-  const queryParams: any[] = [req.body.projectID, req.body.userID]
-  const queryResults: any = await service(req.poolClient, next, query, queryParams);
+  const queryParams: any[] = [req.params.projectID, req.params.userID]
+  const queryResults: any = await service(req, next, query, queryParams);
 
   return queryResults.rows[0];
 }
 
 export const addProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'INSERT INTO project(tags, location, project_name, link, user_id) VALUES \
-    ($1, $2, $3, $4, $5);'
-  const queryParams: any[] = [req.body.tags, req.body.location, req.body.projectName, req.body.link, req.body.userID]
-  await service(req.poolClient, next, query, queryParams);
+  const query: string = 'INSERT INTO project(date_posted, tags, location, project_name, link, user_id) VALUES \
+    ($1, $2, $3, $4, $5, $6);'
+  const queryParams: any[] = [
+    new Date(),
+    req.body.tags ? req.body.tags && req.body.tags.length > 0 : [],
+    req.body.location,
+    req.body.projectName,
+    req.body.link,
+    req.body.userID]
+  await service(req, next, query, queryParams);
 }
 
 export const updateProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
@@ -83,29 +88,32 @@ export const updateProjectService = async (req: any, res: express.Response, next
   let varCount = 1;
 
   if (req.body.projectName) {
-    query.push(`project_name = $${varCount++}`);
+    query.push(`project_name = $${varCount++},`);
     queryParams.push(req.body.projectName);
   }
 
   if (req.body.tags) {
-    query.push(`tags = $${varCount++}`);
+    query.push(`tags = $${varCount++},`);
     queryParams.push(req.body.tags);
   }
 
   if (req.body.location) {
-    query.push(`location = $${varCount++}`);
+    query.push(`location = $${varCount++},`);
     queryParams.push(req.body.location);
   }
 
   if (req.body.link) {
-    query.push(`link = $${varCount++}`);
+    query.push(`link = $${varCount++},`);
     queryParams.push(req.body.link);
   }
 
-  query.push(`WHERE user_id = ${varCount++} AND project_id = ${varCount};`);
+  const lastIndex = query.length - 1;
+  query[lastIndex] = query[lastIndex].substring(0, query[lastIndex].length - 1);
+
+  query.push(`WHERE user_id = $${varCount++} AND project_id = $${varCount};`);
   queryParams.push(req.body.userID, req.body.projectID);
 
-  await service(req.poolClient, next, query.join(' '), queryParams);
+  await service(req, next, query.join(' '), queryParams);
 }
 
 export const upsertProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
@@ -123,11 +131,11 @@ export const upsertProjectService = async (req: any, res: express.Response, next
 export const deleteProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'DELETE FROM project WHERE user_id = $1 AND project_id = $2;'
   const queryParams: any[] = [req.body.userID, req.body.projectID];
-  await service(req.poolClient, next, query, queryParams);
+  await service(req, next, query, queryParams);
 }
 
 export const deleteMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'DELETE FROM media WHERE user_id = $1 AND project_id = $2 AND media_id = $3;'
   const queryParams: any[] = [req.body.userID, req.body.projectID, req.body.mediaID];
-  await service(req.poolClient, next, query, queryParams);
+  await service(req, next, query, queryParams);
 }

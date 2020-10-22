@@ -14,13 +14,13 @@ import { connectPool } from '../../middleware/db';
 
 const router = express.Router();
 
-router.post('/own/project/media', jwtCheck, connectPool, addMediaToProject);
-router.put('/own/project/media', jwtCheck, connectPool, updateMediaFromOwnProject);
-router.get('/own/project/media', jwtCheck, connectPool, getMediaFromOwnProject);
-router.get('/project/media', connectPool, getMediaFromProject);
-router.get('/project', connectPool, getProject);
-router.put('/own/project', jwtCheck, connectPool, getOwnProject);
-router.post('/own/project', jwtCheck, connectPool, addProject);
-router.put('/own/project', jwtCheck, connectPool, updateProject);
+router.post('/own/media', jwtCheck, connectPool, addMediaToProject);
+router.put('/own/media', jwtCheck, connectPool, updateMediaFromOwnProject);
+router.get('/own/media/:projectID', jwtCheck, connectPool, getMediaFromOwnProject);
+router.get('/media/:userID/:projectID', connectPool, getMediaFromProject);
+router.get('/own/:projectID', jwtCheck, connectPool, getOwnProject);
+router.get('/:userID/:projectID', connectPool, getProject);
+router.post('/own', jwtCheck, connectPool, addProject);
+router.put('/own', jwtCheck, connectPool, updateProject);
 
 export default router;

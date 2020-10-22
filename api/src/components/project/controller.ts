@@ -7,7 +7,6 @@ import { validationResult } from 'express-validator';
 import {
   addMediaService,
   addProjectService,
-  checkProfilePublicService,
   getMediaService,
   getProjectService,
   updateProjectService,
@@ -16,6 +15,8 @@ import {
   deleteProjectService,
   deleteMediaService
 } from './service';
+
+import { checkProfileService, checkPublicService } from '../../helpers/service';
 
 dotenv.config();
 
@@ -60,8 +61,17 @@ const signS3 = (fileType: string) => {
 export const addMediaToProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   // check if profile belongs to user
   try {
-    req.body.userID = req.user.sub.split('|')[1];
-
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+    req.body.userID = userID;
     // get signed url
     const s3obj: any = await signS3(req.body.fileType);
     req.body.s3ObjUrl = s3obj.url;
@@ -70,6 +80,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
     // get object url and add to db
     await addMediaService(req, res, next);
 
+    req.poolClient.end();
     res.status(200);
     return res.json({
       status: 'success',
@@ -84,12 +95,25 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
 
 export const getMediaFromOwnProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    req.body.userID = req.user.sub.split('|')[1];
-    const results = await getMediaService(req, res, next);
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
 
+    req.params.userID = userID;
+    const media = await getMediaService(req, res, next);
+
+    req.poolClient.end();
+    res.status(200);
     return res.json({
       status: 'success',
-      data: results
+      data: media
     });
   } catch (e) {
     next(e);
@@ -98,9 +122,22 @@ export const getMediaFromOwnProject = async (req: any, res: express.Response, ne
 
 export const updateMediaFromOwnProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    req.body.userID = req.user.sub.split('|')[1];
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+
+    req.body.userID = userID;
     const results = await updateMediaService(req, res, next);
 
+    req.poolClient.end();
+    res.status(200);
     return res.json({
       status: 'success',
       data: results
@@ -112,15 +149,30 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
 
 export const getMediaFromProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const isPublic = await checkProfilePublicService(req, res, next);
+    const userID = req.params.userID;
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+
+    const isPublic = await checkPublicService(req, next, userID);
     if (isPublic) {
       const results = await getMediaService(req, res, next);
 
+      req.poolClient.end();
+      res.status(200);
       return res.json({
         status: 'success',
         data: results
       });
     } else {
+      req.poolClient.end();
+      res.status(401);
       return res.json({
         status: 'fail',
         error: 'profile is private'
@@ -133,17 +185,35 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
 
 export const getProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const isPublic = await checkProfilePublicService(req, res, next);
+    const userID = req.params.userID;
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    const isPublic = await checkPublicService(req, next, userID);
+
     if (isPublic) {
       const results = await getProjectService(req, res, next);
 
+      req.poolClient.end();
+      res.status(200);
       return res.json({
         status: 'success',
         data: results
       });
     } else {
+
+      req.poolClient.end();
+      res.status(401);
       return res.json({
-        status: 'fail',
+        status: 'error',
         error: 'profile is private'
       });
     }
@@ -154,9 +224,23 @@ export const getProject = async (req: any, res: express.Response, next: express.
 
 export const getOwnProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    req.body.userID = req.user.sub.split('|')[1];
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    req.params.userID = userID;
     const results = await getProjectService(req, res, next);
 
+    req.poolClient.end();
+    res.status(200);
     return res.json({
       status: 'success',
       data: results
@@ -168,9 +252,22 @@ export const getOwnProject = async (req: any, res: express.Response, next: expre
 
 export const addProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    req.body.userID = req.user.sub.split('|')[1];
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    req.body.userID = userID;
     await addProjectService(req, res, next);
 
+    req.poolClient.end();
     res.status(200);
     return res.json({
       status: 'success',
@@ -182,9 +279,22 @@ export const addProject = async (req: any, res: express.Response, next: express.
 
 export const updateProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    req.body.userID = req.user.sub.split('|')[1];
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    req.body.userID = userID;
     await updateProjectService(req, res, next);
 
+    req.poolClient.end();
     res.status(200);
     return res.json({
       status: 'success'
@@ -194,23 +304,37 @@ export const updateProject = async (req: any, res: express.Response, next: expre
   }
 }
 
-export const upsertProject = async (req: any, res: express.Response, next: express.NextFunction) => {
-  try {
-    req.body.userID = req.user.sub.split('|')[1];
-    await upsertProjectService(req, res, next);
-    res.status(200);
-    return res.json({
-      status: 'success'
-    });
-  } catch (e) {
-    next(e);
-  }
-}
+// export const upsertProject = async (req: any, res: express.Response, next: express.NextFunction) => {
+//   try {
+//     req.body.userID = req.user.sub.split('|')[1];
+//     await upsertProjectService(req, res, next);
+//     res.status(200);
+//     return res.json({
+//       status: 'success'
+//     });
+//   } catch (e) {
+//     next(e);
+//   }
+// }
 
 export const deleteProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    req.body.userID = req.user.sub.split('|')[1];
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    req.body.userID = userID;
     await deleteProjectService(req, res, next);
+
+    req.poolClient.end();
     res.status(200);
     return res.json({
       status: 'success'
@@ -222,8 +346,22 @@ export const deleteProject = async (req: any, res: express.Response, next: expre
 
 export const deleteMedia = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    req.body.userID = req.user.sub.split('|')[1];
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    req.body.userID = userID;
     await deleteMediaService(req, res, next);
+
+    req.poolClient.end();
     res.status(200);
     return res.json({
       status: 'success'

@@ -7,7 +7,6 @@ import dotenv from 'dotenv';
 import express from 'express';
 import jwt from 'express-jwt';
 import jwks from 'jwks-rsa';
-import express from 'express';
 
 dotenv.config();
 
