@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import './PortfolioHero.css';
@@ -10,14 +10,107 @@ import { Tooltip } from 'antd';
 type PortfolioHeroProps = {
   isOpen: boolean;
   isMyProfile: boolean;
-  media: { type: string; url: string }[];
+  id: string;
+};
+
+type PortfolioHeroData = {
+  type: string;
+  url: string;
 };
 
 function PortfolioHero(props: PortfolioHeroProps) {
   const [editing, setEditing] = useState(false);
   const [editingState, setEditingState] = useState(false);
   const [slide, setSlide] = useState(0);
-  const [media, setMedia] = useState(props.media);
+  const [media, setMedia] = useState<PortfolioHeroData[]>();
+  // const [isLoading, setIsLoading] = useState(true);
+
+  async function fetchData(): Promise<void> {
+    // GET data
+    let d: PortfolioHeroData[];
+    if (props.id === '1') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '2') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '3') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '4') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else {
+      d = [
+      ];
+    }
+    setMedia(d);
+  }
+
+  // EDIT ME
+  async function saveData(): Promise<void> {
+    // PUT data
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [props.id]);
 
   // props.isOpen ?
   if (props.isOpen) {
@@ -53,17 +146,21 @@ function PortfolioHero(props: PortfolioHeroProps) {
         )}
         <div
           className="portfolio-hero-button display-left container-secondary"
-          onClick={() =>
-            slide > 0 ? setSlide(slide - 1) : setSlide(media.length - 1)
-          }
+          onClick={() => {
+            if (media) {
+              slide > 0 ? setSlide(slide - 1) : setSlide(media.length - 1);
+            }
+          }}
         >
           &#8249;
         </div>
         <div
           className="portfolio-hero-button display-right container-secondary"
-          onClick={() =>
-            slide < media.length - 1 ? setSlide(slide + 1) : setSlide(0)
-          }
+          onClick={() => {
+            if (media) {
+              slide < media.length - 1 ? setSlide(slide + 1) : setSlide(0);
+            }
+          }}
         >
           &#8250;
         </div>
@@ -77,12 +174,14 @@ function PortfolioHero(props: PortfolioHeroProps) {
               )
                 return;
 
-              const newMedia = [...media];
-              const movedMedia = newMedia[source.index];
-              newMedia.splice(source.index, 1);
-              newMedia.splice(destination.index, 0, movedMedia);
-              setMedia(newMedia);
-              //POST UPDATE
+              if (media) {
+                const newMedia = [...media];
+                const movedMedia = newMedia[source.index];
+                newMedia.splice(source.index, 1);
+                newMedia.splice(destination.index, 0, movedMedia);
+                setMedia(newMedia);
+                saveData();
+              }
             }}
           >
             <div style={{ height: '100%' }}>
@@ -102,22 +201,23 @@ function PortfolioHero(props: PortfolioHeroProps) {
                       style={{ height: '100%', display: 'flex' }}
                       ref={dropProvided.innerRef}
                     >
-                      {media.map((value, index) => {
-                        if (value.type === 'image') {
-                          return (
-                            <Draggable
-                              key={value.url}
-                              draggableId={value.url}
-                              index={index}
-                            >
-                              {(dragProvided) => (
-                                <div
-                                  {...dragProvided.dragHandleProps}
-                                  {...dragProvided.draggableProps}
-                                  ref={dragProvided.innerRef}
-                                >
+                      {media ? (
+                        media.map((value, index) => {
+                          if (value.type === 'image') {
+                            return (
+                              <Draggable
+                                key={value.url}
+                                draggableId={value.url}
+                                index={index}
+                              >
+                                {(dragProvided) => (
                                   <div
-                                    className={`
+                                    {...dragProvided.dragHandleProps}
+                                    {...dragProvided.draggableProps}
+                                    ref={dragProvided.innerRef}
+                                  >
+                                    <div
+                                      className={`
                                         portfolio-hero-media container-secondary
                                         ${
                                           slide === index
@@ -125,86 +225,98 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                             : ''
                                         }
                                     `}
-                                    style={{
-                                      backgroundImage: `url(${value.url})`,
-                                    }}
-                                  >
-                                    <Tooltip title="Remove" placement="bottom">
-                                      <div
-                                        className="exit-button"
-                                        onClick={() => {
-                                          const newMedia = [...media];
-                                          newMedia.splice(index, 1);
-                                          setMedia(newMedia);
-                                        }}
-                                      ></div>
-                                    </Tooltip>
+                                      style={{
+                                        backgroundImage: `url(${value.url})`,
+                                      }}
+                                    >
+                                      <Tooltip
+                                        title="Remove"
+                                        placement="bottom"
+                                      >
+                                        <div
+                                          className="exit-button"
+                                          onClick={() => {
+                                            const newMedia = [...media];
+                                            newMedia.splice(index, 1);
+                                            setMedia(newMedia);
+                                            saveData();
+                                            // Remove
+                                          }}
+                                        ></div>
+                                      </Tooltip>
+                                    </div>
                                   </div>
-                                </div>
-                              )}
-                            </Draggable>
-                          );
-                        } else {
-                          return (
-                            <Draggable
-                              key={value.url}
-                              draggableId={value.url}
-                              index={index}
-                            >
-                              {(dragProvided) => (
-                                <div
-                                  {...dragProvided.dragHandleProps}
-                                  {...dragProvided.draggableProps}
-                                  ref={dragProvided.innerRef}
-                                >
+                                )}
+                              </Draggable>
+                            );
+                          } else {
+                            return (
+                              <Draggable
+                                key={value.url}
+                                draggableId={value.url}
+                                index={index}
+                              >
+                                {(dragProvided) => (
                                   <div
-                                    className={`portfolio-hero-media container-secondary
+                                    {...dragProvided.dragHandleProps}
+                                    {...dragProvided.draggableProps}
+                                    ref={dragProvided.innerRef}
+                                  >
+                                    <div
+                                      className={`portfolio-hero-media container-secondary
                                       ${
                                         slide === index
                                           ? 'portfolio-hero-media-max'
                                           : ''
                                       }
                                       `}
-                                  >
-                                    <Tooltip title="Remove" placement="bottom">
-                                      <div
-                                        className="exit-button"
-                                        onClick={() => {
-                                          const newMedia = [...media];
-                                          newMedia.splice(index, 1);
-                                          setMedia(newMedia);
-                                          //POST UPDATE
-                                        }}
-                                      ></div>
-                                    </Tooltip>
-                                    {index === 0 ? (
-                                      <div>
-                                        <br />
-                                        <br />
-                                        <br />
-                                        Warning,
-                                        <br />
-                                        <strong>{value.type}</strong>
-                                        &nbsp;can not be
-                                        <br />a thumbnail.
-                                      </div>
-                                    ) : (
-                                      <div>
-                                        <br />
-                                        <br />
-                                        <br />
-                                        Embedded
-                                        <br />
-                                        <strong>{value.type}</strong>
-                                      </div>
-                                    )}
+                                    >
+                                      <Tooltip
+                                        title="Remove"
+                                        placement="bottom"
+                                      >
+                                        <div
+                                          className="exit-button"
+                                          onClick={() => {
+                                            const newMedia = [...media];
+                                            newMedia.splice(index, 1);
+                                            setMedia(newMedia);
+                                            saveData();
+                                            // Remove
+                                          }}
+                                        ></div>
+                                      </Tooltip>
+                                      {index === 0 ? (
+                                        <div>
+                                          <br />
+                                          <br />
+                                          <br />
+                                          Warning,
+                                          <br />
+                                          <strong>{value.type}</strong>
+                                          &nbsp;can not be
+                                          <br />a thumbnail.
+                                        </div>
+                                      ) : (
+                                        <div>
+                                          <br />
+                                          <br />
+                                          <br />
+                                          Embedded
+                                          <br />
+                                          <strong>{value.type}</strong>
+                                        </div>
+                                      )}
+                                    </div>
                                   </div>
-                                </div>
-                              )}
-                            </Draggable>
-                          );
-                        }
-                      })}
+                                )}
+                              </Draggable>
+                            );
+                          }
+                        })
+                      ) : (
+                        <></>
+                      )}
                       {dropProvided.placeholder}
                       {/* <div className="portfolio-hero-media container-secondary">add</div> */}
                     </div>
@@ -215,40 +327,44 @@ function PortfolioHero(props: PortfolioHeroProps) {
           </DragDropContext>
         ) : (
           <div style={{ height: '100%', display: 'flex' }}>
-            {media.map((value, index) => {
-              if (value.type === 'image') {
-                return (
-                  <div
-                    className={`portfolio-hero-media container-secondary ${
-                      slide === index ? 'portfolio-hero-media-max' : ''
-                    }`}
-                    style={{ backgroundImage: `url(${value.url})` }}
-                  ></div>
-                );
-              } else if (value.type === 'video') {
-                return (
-                  <div
-                    className={`portfolio-hero-media container-secondary ${
-                      slide === index ? 'portfolio-hero-media-max' : ''
-                    }`}
-                  >
-                    <video width="100%" height="100%" controls>
-                      <source src={`${value.url}`} />
-                    </video>
-                  </div>
-                );
-              } else {
-                return (
-                  <div
-                    className={`portfolio-hero-media container-secondary ${
-                      slide === index ? 'portfolio-hero-media-max' : ''
-                    }`}
-                  >
-                    <embed src={`${value.url}`} width="100%" height="100%" />
-                  </div>
-                );
-              }
-            })}
+            {media ? (
+              media.map((value, index) => {
+                if (value.type === 'image') {
+                  return (
+                    <div
+                      className={`portfolio-hero-media container-secondary ${
+                        slide === index ? 'portfolio-hero-media-max' : ''
+                      }`}
+                      style={{ backgroundImage: `url(${value.url})` }}
+                    ></div>
+                  );
+                } else if (value.type === 'video') {
+                  return (
+                    <div
+                      className={`portfolio-hero-media container-secondary ${
+                        slide === index ? 'portfolio-hero-media-max' : ''
+                      }`}
+                    >
+                      <video width="100%" height="100%" controls>
+                        <source src={`${value.url}`} />
+                      </video>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      className={`portfolio-hero-media container-secondary ${
+                        slide === index ? 'portfolio-hero-media-max' : ''
+                      }`}
+                    >
+                      <embed src={`${value.url}`} width="100%" height="100%" />
+                    </div>
+                  );
+                }
+              })
+            ) : (
+              <></>
+            )}
           </div>
         )}
       </div>
@@ -259,7 +375,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
         className={`portfolio-hero`}
         style={{
           backgroundImage: `url(${
-            media.length > 0 && media[0].type === 'image'
+            media && media.length > 0 && media[0].type === 'image'
               ? media[0].url
               : placeholderFolioImage
           })`,

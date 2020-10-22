@@ -5,13 +5,15 @@ import PortfolioObject from './PortfolioObject';
 import './PortfolioGrid.css';
 import { Tooltip } from 'antd';
 
-// type PortfolioGridProps = {};
+type PortfolioGridProps = {
+  isMyProfile?: boolean;
+};
 
 type PortfolioObjectData = {
   id: string;
   title: string;
   type: string;
-  media: { type: string; url: string }[];
+  // media: { type: string; url: string }[];
   date: string;
   author: string;
   shortDescription: string;
@@ -19,13 +21,15 @@ type PortfolioObjectData = {
   views: string;
   link: string;
   location: string;
+  new?: boolean;
 };
 
-// function PortfolioGrid(props: PortfolioGridProps) {
-function PortfolioGrid() {
+function PortfolioGrid(props: PortfolioGridProps) {
   const [data, setData] = useState<Array<PortfolioObjectData>>([]);
   //const [fetchError, setFetchError] = useState(false);
+  const isMyProfile = props.isMyProfile || false;
 
+  // EDIT ME
   async function fetchData(): Promise<void> {
     //TODO: update with route once implemented on backend
     //const res = await fetch ('/api/v/1/...')
@@ -41,22 +45,22 @@ function PortfolioGrid() {
         title: 'Project 1',
         type: 'website',
         tags: ['one', 'two', 'three', 'four', 'five'],
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 1',
         shortDescription: 'This is a short description about the project',
@@ -69,22 +73,22 @@ function PortfolioGrid() {
         id: '2',
         title: 'Project 2',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 2',
         shortDescription: 'This is a short description about the project',
@@ -97,22 +101,22 @@ function PortfolioGrid() {
         id: '3',
         title: 'Project 3',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 3',
         shortDescription: 'This is a short description about the project',
@@ -124,22 +128,22 @@ function PortfolioGrid() {
         id: '4',
         title: 'Project 4',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 4',
         shortDescription: 'This is a short description about the project',
@@ -151,23 +155,23 @@ function PortfolioGrid() {
         id: '5',
         title: 'Project 5',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/CsNzYxy/example5.png' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/CsNzYxy/example5.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 5',
         shortDescription: 'This is a short description about the project',
@@ -179,23 +183,23 @@ function PortfolioGrid() {
         id: '6',
         title: 'Project 6',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/gWDkgdh/example6.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/gWDkgdh/example6.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 6',
         shortDescription: 'This is a short description about the project',
@@ -207,23 +211,23 @@ function PortfolioGrid() {
         id: '7',
         title: 'Project 7',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/8j5MMLw/example7.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/8j5MMLw/example7.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 7',
         shortDescription: 'This is a short description about the project',
@@ -235,23 +239,23 @@ function PortfolioGrid() {
         id: '8',
         title: 'Project 8',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/rybJT5c/example4.png' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/rybJT5c/example4.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 8',
         shortDescription: 'This is a short description about the project',
@@ -263,23 +267,23 @@ function PortfolioGrid() {
         id: '9',
         title: 'Project 9',
         type: 'website',
-        media: [
-          { type: 'image', url: 'https://i.ibb.co/SBWrhmP/example30.png' },
-          { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
-          { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
-          { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
-          { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
-          {
-            type: 'pdf',
-            url:
-              'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          },
-          {
-            type: 'video',
-            url:
-              'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
-          },
-        ],
+        // media: [
+        //   { type: 'image', url: 'https://i.ibb.co/SBWrhmP/example30.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        //   { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        //   { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        //   {
+        //     type: 'pdf',
+        //     url:
+        //       'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        //   },
+        //   {
+        //     type: 'video',
+        //     url:
+        //       'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        //   },
+        // ],
         date: '2020-01',
         author: 'Author 9',
         shortDescription: 'This is a short description about the project',
@@ -288,6 +292,11 @@ function PortfolioGrid() {
         link: 'https://www.w3.org/',
       },
     ]);
+  }
+
+  // EDIT ME
+  async function saveData(): Promise<void> {
+    // PUT data
   }
 
   useEffect(() => {
@@ -302,23 +311,49 @@ function PortfolioGrid() {
 
   return (
     <div className={`${portfolioObjectOpen ? 'portfolio-object-open' : ''}`}>
-      <Tooltip title="Add New Portfolio Entry" placement="left">
-        <div className="portfolio-grid-add" onClick={() => {}}>
-          +
-        </div>
-      </Tooltip>
+      {isMyProfile ? (
+        <Tooltip title="Add New Portfolio Entry" placement="left">
+          <div
+            className="portfolio-grid-add"
+            onClick={() => {
+              const newData = [...data];
+              const d = {
+                id: 'string',
+                title: 'string',
+                type: 'string',
+                // media: { type: string; url: string }[];
+                date: 'string',
+                author: 'string',
+                shortDescription: 'string',
+                views: '0',
+                link: 'string',
+                location: 'string',
+                new: true,
+              };
+              newData.push(d);
+              setData(newData);
+              saveData();
+            }}
+          >
+            +
+          </div>
+        </Tooltip>
+      ) : (
+        <></>
+      )}
       <div className="grid">
         {data.map((value, index) => {
           return (
             <PortfolioObject
               data={value}
+              isMyProfile={isMyProfile}
               // EDIT ME
               setData={(d: PortfolioObjectData) => {
                 if (data.length >= index && data[index].id === d.id) {
                   const newData = [...data];
                   newData[index] = d;
                   setData(newData);
-                  //POST
+                  saveData();
                 } else {
                   console.error('PortfolioObject ID Mismatch');
                 }

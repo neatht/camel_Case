@@ -1,5 +1,5 @@
 .grid {
-  display: inline-grid;
+  display: grid;
   grid-template-columns: repeat(var(--unit-col-num), auto);
   grid-gap:  var(--unit-margin);
   transition: grid-gap 0.3s;
@@ -27,7 +27,7 @@
 
   background: var(--btn-gradient);
   border-radius: 100px;
-  z-index: 1;
+  z-index: 100;
   float: right;
   position: fixed;
   top: calc(100% - 88px);

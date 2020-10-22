@@ -25,7 +25,6 @@ type PortfolioObjectData = {
   id: string;
   title: string;
   type: string;
-  media: { type: string; url: string }[];
   date: string;
   author: string;
   shortDescription: string;
@@ -33,11 +32,13 @@ type PortfolioObjectData = {
   views: string;
   link: string;
   location: string;
+  new?: boolean;
 };
 
 type PortfolioObjectProps = {
   data: PortfolioObjectData;
   portfolioObjectOpen: any;
+  isMyProfile: boolean;
   setData: (d: PortfolioObjectData) => void;
   delData: (id: string) => void;
 };
@@ -47,11 +48,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
   const containerPrimaryRef = useRef<any>(null);
 
-  const isMyProfile = true;
-
   const [thumbnail, setThumbnail] = useState(true);
 
-  const handleClick = () => {
+  const transition = () => {
     setThumbnail(!thumbnail);
     props.portfolioObjectOpen(thumbnail);
     if (containerPrimaryRef.current !== null) {
@@ -60,6 +59,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
   };
 
   useEffect(() => {
+    if (props.data.new) {
+      transition();
+    }
     if (containerPrimaryRef.current !== null) {
       containerPrimaryRef.current.scrollTop = 0;
     }
@@ -89,26 +91,35 @@ function PortfolioObject(props: PortfolioObjectProps) {
         thumbnail ? 'thumbnail' : 'container-scroll'
       }`}
     >
-      {isMyProfile ? (
-        <Tooltip title="Delete This Portfolio Entry" placement="right">
-          <div
-            onClick={() => {
-              props.delData(props.data.id);
-            }}
-            className="del-button"
-          ></div>
-        </Tooltip>
+      {props.isMyProfile ? (
+        <div
+          onClick={() => {
+            transition();
+            props.delData(props.data.id);
+          }}
+          className="del-button"
+        ></div>
       ) : (
         <></>
       )}
 
-      <div onClick={handleClick} className="exit-button"></div>
+      <div
+        onClick={() => {
+          if (props.data.new) {
+            const newData = { ...props.data };
+            newData.new = false;
+            props.setData(newData);
+          }
+          transition();
+        }}
+        className={`${props.data.new ? 'save-button' : 'exit-button'}`}
+      ></div>
 
       <div className="portfolio-title">
-        <h2 style={{ marginRight: '35px', marginLeft: '85px' }}>
+        <h2 style={{ marginRight: '85px', marginLeft: '85px' }}>
           <TextInput
-            padding="2px 85px 2px 35px"
-            editable={isMyProfile}
+            padding="2px 85px 2px 85px"
+            editable={props.isMyProfile}
             onChange={(newString: string) => {
               const newData = { ...props.data };
               newData.title = newString;
@@ -120,9 +131,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
       </div>
 
       <PortfolioHero
+        id={props.data.id}
         isOpen={!thumbnail}
-        isMyProfile={isMyProfile}
-        media={props.data.media}
+        isMyProfile={props.isMyProfile}
       />
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
@@ -140,7 +151,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
             <TextInput
               padding="10px"
               multiline={true}
-              editable={isMyProfile}
+              editable={props.isMyProfile}
               onChange={(newString: string) => {
                 const newData = { ...props.data };
                 newData.shortDescription = newString;
@@ -153,7 +164,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
         <div className="container-secondary portfolio-side-bar">
           <ul>
             <li>
-              {isMyProfile ? (
+              {props.isMyProfile ? (
                 <Select
                   showSearch
                   style={{ width: '100%' }}
@@ -180,7 +191,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
               )}
             </li>
             <li>
-              {isMyProfile ? (
+              {props.isMyProfile ? (
                 <Select
                   mode="tags"
                   style={{ display: 'inline-block', width: '100%' }}
@@ -208,7 +219,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
             </li>
             <li>
               <CalendarOutlined />{' '}
-              {isMyProfile ? (
+              {props.isMyProfile ? (
                 <DatePicker
                   value={moment(props.data.date, 'YYYY-MM')}
                   placeholder={'Select Date'}
@@ -230,10 +241,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
             </li> */}
             <li>
               <LinkOutlined />{' '}
-              {isMyProfile ? (
+              {props.isMyProfile ? (
                 <div style={{ display: 'inline-block', width: '145px' }}>
                   <TextInput
-                    editable={isMyProfile}
+                    editable={props.isMyProfile}
                     text={props.data.link}
                     onChange={(newString: string) => {
                       const newData = { ...props.data };
