@@ -69,6 +69,14 @@ export const getProjectService = async (req: any, res: express.Response, next: e
   return queryResults.rows[0];
 }
 
+export const getAllProjectsByUserService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string = 'SELECT * FROM project WHERE user_id = $1;';
+  const queryParams: any[] = [req.params.userID]
+  const queryResults: any = await service(req, next, query, queryParams);
+
+  return queryResults.rows;
+}
+
 export const addProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'INSERT INTO project(date_posted, tags, location, project_name, link, user_id) VALUES \
     ($1, $2, $3, $4, $5, $6);'

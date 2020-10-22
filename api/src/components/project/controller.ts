@@ -10,7 +10,7 @@ import {
   getMediaService,
   getProjectService,
   updateProjectService,
-  upsertProjectService,
+  getAllProjectsByUserService,
   updateMediaService,
   deleteProjectService,
   deleteMediaService
@@ -183,7 +183,7 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
   }
 }
 
-export const getProject = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const getProjectById = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const userID = req.params.userID;
     const profileExists = await checkProfileService(req, next, userID);
@@ -215,6 +215,45 @@ export const getProject = async (req: any, res: express.Response, next: express.
       return res.json({
         status: 'error',
         error: 'profile is private'
+      });
+    }
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const getAllProjectsByUser = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const userID = req.params.userID;
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    const isPublic = await checkPublicService(req, next, userID);
+
+    if (isPublic) {
+      const results = await getAllProjectsByUserService(req, res, next);
+
+      req.poolClient.end();
+      res.status(200);
+      return res.json({
+        status: 'success',
+        data: results
+      });
+    } else {
+
+      req.poolClient.end();
+      res.status(401);
+      return res.json({
+        status: 'error',
+        error: 'Profile is private'
       });
     }
   } catch (e) {

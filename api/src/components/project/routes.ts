@@ -5,10 +5,12 @@ import {
     getMediaFromOwnProject,
     addMediaToProject,
     updateMediaFromOwnProject,
-    getProject,
+    getProjectById,
     getOwnProject,
     addProject,
-    updateProject
+    updateProject,
+    deleteProject,
+    getAllProjectsByUser
 } from './controller';
 import { connectPool } from '../../middleware/db';
 
@@ -19,8 +21,10 @@ router.put('/own/media', jwtCheck, connectPool, updateMediaFromOwnProject);
 router.get('/own/media/:projectID', jwtCheck, connectPool, getMediaFromOwnProject);
 router.get('/media/:userID/:projectID', connectPool, getMediaFromProject);
 router.get('/own/:projectID', jwtCheck, connectPool, getOwnProject);
-router.get('/:userID/:projectID', connectPool, getProject);
+router.get('/:userID/:projectID', connectPool, getProjectById);
+router.get('/:userID', connectPool, getAllProjectsByUser);
 router.post('/own', jwtCheck, connectPool, addProject);
 router.put('/own', jwtCheck, connectPool, updateProject);
+router.delete('/own', jwtCheck, connectPool, deleteProject);
 
 export default router;
