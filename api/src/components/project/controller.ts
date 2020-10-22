@@ -71,11 +71,11 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
         message: 'Profile does not exist.'
       });
     }
-    req.body.userID = userID;
+    req.body.data.userID = userID;
     // get signed url
-    const s3obj: any = await signS3(req.body.fileType);
-    req.body.s3ObjUrl = s3obj.url;
-    req.body.s3ObjID = s3obj.id;
+    const s3obj: any = await signS3(req.body.data.fileType);
+    req.body.data.s3ObjUrl = s3obj.url;
+    req.body.data.s3ObjID = s3obj.id;
 
     // get object url and add to db
     await addMediaService(req, res, next);
@@ -107,13 +107,13 @@ export const getMediaFromOwnProject = async (req: any, res: express.Response, ne
     }
 
     req.params.userID = userID;
-    const media = await getMediaService(req, res, next);
+    const result = await getMediaService(req, res, next);
 
     req.poolClient.end();
     res.status(200);
     return res.json({
       status: 'success',
-      data: media
+      data: result
     });
   } catch (e) {
     next(e);
@@ -133,7 +133,7 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
       });
     }
 
-    req.body.userID = userID;
+    req.body.data.userID = userID;
     const results = await updateMediaService(req, res, next);
 
     req.poolClient.end();
@@ -261,7 +261,35 @@ export const getAllProjectsByUser = async (req: any, res: express.Response, next
   }
 }
 
-export const getOwnProject = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const getAllOwnProjects = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const userID = req.user.sub.split('|')[1];
+    const profileExists = await checkProfileService(req, next, userID);
+
+    if (!profileExists) {
+      req.poolClient.end();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist'
+      })
+    }
+
+    req.params.userID = userID;
+    const results = await getAllProjectsByUserService(req, res, next);
+
+    req.poolClient.end();
+    res.status(200);
+    return res.json({
+      status: 'success',
+      data: results
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const getOwnProjectById = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
@@ -303,7 +331,7 @@ export const addProject = async (req: any, res: express.Response, next: express.
       })
     }
 
-    req.body.userID = userID;
+    req.body.data.userID = userID;
     await addProjectService(req, res, next);
 
     req.poolClient.end();
@@ -330,7 +358,7 @@ export const updateProject = async (req: any, res: express.Response, next: expre
       })
     }
 
-    req.body.userID = userID;
+    req.body.data.userID = userID;
     await updateProjectService(req, res, next);
 
     req.poolClient.end();
@@ -345,7 +373,7 @@ export const updateProject = async (req: any, res: express.Response, next: expre
 
 // export const upsertProject = async (req: any, res: express.Response, next: express.NextFunction) => {
 //   try {
-//     req.body.userID = req.user.sub.split('|')[1];
+//     req.body.data.userID = req.user.sub.split('|')[1];
 //     await upsertProjectService(req, res, next);
 //     res.status(200);
 //     return res.json({
@@ -370,7 +398,7 @@ export const deleteProject = async (req: any, res: express.Response, next: expre
       })
     }
 
-    req.body.userID = userID;
+    req.body.data.userID = userID;
     await deleteProjectService(req, res, next);
 
     req.poolClient.end();
@@ -397,7 +425,7 @@ export const deleteMedia = async (req: any, res: express.Response, next: express
       })
     }
 
-    req.body.userID = userID;
+    req.body.data.userID = userID;
     await deleteMediaService(req, res, next);
 
     req.poolClient.end();

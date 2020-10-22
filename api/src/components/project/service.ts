@@ -10,12 +10,12 @@ export const addMediaService = async (req: any, res: express.Response, next: exp
 
   const queryParams = [
     new Date(),
-    req.body.s3ObjUrl,
-    req.body.s3ObjID,
-    req.body.mediaName,
-    req.body.projectID,
-    req.body.fileType,
-    req.body.userID
+    req.body.data.s3ObjUrl,
+    req.body.data.s3ObjID,
+    req.body.data.mediaName,
+    req.body.data.projectID,
+    req.body.data.fileType,
+    req.body.data.userID
   ]
 
   await service(req, next, query, queryParams);
@@ -26,24 +26,26 @@ export const updateMediaService = async (req: any, res: express.Response, next: 
   const queryParams = [];
   let varCount = 1;
 
-  if (req.body.mediaName) {
+  if (req.body.data.mediaName) {
     query.push(`media_name = $${varCount++}`);
-    queryParams.push(req.body.mediaName);
+    queryParams.push(req.body.data.mediaName);
   }
 
-  if (req.body.datePosted) {
+  if (req.body.data.datePosted) {
     query.push(`date_posted = $${varCount++}`);
-    queryParams.push(req.body.datePosted);
+    queryParams.push(req.body.data.datePosted);
   }
 
   query.push(`WHERE user_id = $${varCount++} AND project_id = $${varCount++} AND media_id = $${varCount};`);
-  queryParams.push(req.body.userID, req.body.projectID, req.body.mediaID);
+  queryParams.push(req.body.data.userID, req.body.data.projectID, req.body.data.mediaID);
 
   await service(req, next, query.join(' '), queryParams);
 }
 
 export const getMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query = 'SELECT * FROM media WHERE project_id = $1 AND user_id = $2;'
+  const query = 'SELECT date_posted AS "datePosted", link, media_name AS "mediaName", \
+    project_id AS "projectID", media_type AS "mediaType", media_id AS "mediaID", \
+    user_id AS "userID"FROM media WHERE project_id = $1 AND user_id = $2;'
 
   const queryParams = [
     req.params.projectID,
@@ -54,15 +56,10 @@ export const getMediaService = async (req: any, res: express.Response, next: exp
   return queryResults.rows;
 }
 
-export const checkProfilePublicService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query = 'SELECT public FROM profile WHERE user_id = $1;'
-  const queryParams = [req.body.userID]
-  const queryResults = await service(req, next, query, queryParams);
-  return queryResults.rows[0].public;
-}
-
 export const getProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'SELECT * FROM project WHERE project_id = $1 AND user_id = $2;';
+  const query: string = 'SELECT project_id AS "projectID", tags, views, date_posted AS "datePosted", \
+    location, project_name AS "projectName", link, user_id AS "userID", project_type AS "projectType" FROM project \
+    WHERE project_id = $1 AND user_id = $2;';
   const queryParams: any[] = [req.params.projectID, req.params.userID]
   const queryResults: any = await service(req, next, query, queryParams);
 
@@ -70,7 +67,10 @@ export const getProjectService = async (req: any, res: express.Response, next: e
 }
 
 export const getAllProjectsByUserService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'SELECT * FROM project WHERE user_id = $1;';
+  const query: string = 'SELECT project_id AS "projectID", tags, views, date_posted AS "datePosted", \
+    location, project_name AS "projectName", link, user_id AS "userID", project_type AS "projectType" FROM project \
+    WHERE user_id = $1;';
+
   const queryParams: any[] = [req.params.userID]
   const queryResults: any = await service(req, next, query, queryParams);
 
@@ -78,15 +78,24 @@ export const getAllProjectsByUserService = async (req: any, res: express.Respons
 }
 
 export const addProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'INSERT INTO project(date_posted, tags, location, project_name, link, user_id) VALUES \
-    ($1, $2, $3, $4, $5, $6);'
+  const query: string = 'INSERT INTO project(date_posted, tags, location, project_name, link, user_id, project_type) VALUES \
+    ($1, $2, $3, $4, $5, $6, $7);'
+
+  let tags = [];
+
+  if (req.body.data.tags != null) {
+    tags = req.body.data.tags;
+  }
+
   const queryParams: any[] = [
     new Date(),
-    req.body.tags ? req.body.tags && req.body.tags.length > 0 : [],
-    req.body.location,
-    req.body.projectName,
-    req.body.link,
-    req.body.userID]
+    tags,
+    req.body.data.location,
+    req.body.data.projectName,
+    req.body.data.link,
+    req.body.data.userID,
+    req.body.data.projectType
+  ]
   await service(req, next, query, queryParams);
 }
 
@@ -95,32 +104,41 @@ export const updateProjectService = async (req: any, res: express.Response, next
   const queryParams = [];
   let varCount = 1;
 
-  if (req.body.projectName) {
+  console.log('updateProjectService');
+
+  if (req.body.data.projectName) {
     query.push(`project_name = $${varCount++},`);
-    queryParams.push(req.body.projectName);
+    queryParams.push(req.body.data.projectName);
   }
 
-  if (req.body.tags) {
+  if (req.body.data.tags) {
     query.push(`tags = $${varCount++},`);
-    queryParams.push(req.body.tags);
+    queryParams.push(req.body.data.tags);
   }
 
-  if (req.body.location) {
+  if (req.body.data.location) {
     query.push(`location = $${varCount++},`);
-    queryParams.push(req.body.location);
+    queryParams.push(req.body.data.location);
   }
 
-  if (req.body.link) {
+  if (req.body.data.link) {
     query.push(`link = $${varCount++},`);
-    queryParams.push(req.body.link);
+    queryParams.push(req.body.data.link);
+  }
+
+  if (req.body.data.projectType) {
+    query.push(`project_type = $${varCount++},`);
+    queryParams.push(req.body.data.projectType);
   }
 
   const lastIndex = query.length - 1;
   query[lastIndex] = query[lastIndex].substring(0, query[lastIndex].length - 1);
 
   query.push(`WHERE user_id = $${varCount++} AND project_id = $${varCount};`);
-  queryParams.push(req.body.userID, req.body.projectID);
+  queryParams.push(req.body.data.userID, req.body.data.projectID);
 
+  console.log(query.join(' '));
+  console.log(queryParams);
   await service(req, next, query.join(' '), queryParams);
 }
 
@@ -138,12 +156,12 @@ export const upsertProjectService = async (req: any, res: express.Response, next
 
 export const deleteProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'DELETE FROM project WHERE user_id = $1 AND project_id = $2;'
-  const queryParams: any[] = [req.body.userID, req.body.projectID];
+  const queryParams: any[] = [req.body.data.userID, req.body.data.projectID];
   await service(req, next, query, queryParams);
 }
 
 export const deleteMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'DELETE FROM media WHERE user_id = $1 AND project_id = $2 AND media_id = $3;'
-  const queryParams: any[] = [req.body.userID, req.body.projectID, req.body.mediaID];
+  const queryParams: any[] = [req.body.data.userID, req.body.data.projectID, req.body.data.mediaID];
   await service(req, next, query, queryParams);
 }
