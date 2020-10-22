@@ -17,6 +17,8 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
     "antd": "^4.6.4",
+    "aws-sdk": "^2.766.0",
+    "axios": "^0.20.0",
     "emoji-mart": "^3.0.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",

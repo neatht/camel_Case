@@ -8,6 +8,7 @@ import path from 'path';
 
 // Route imports
 import profileRouter from './components/profile/routes';
+import projectRouter from './components/project/routes';
 import experienceRouter from './components/experience/routes';
 import educationRouter from './components/education/routes';
 
@@ -28,11 +29,13 @@ export const register = (app: express.Application) => {
 
   // Register routes
   app.use('/api/profile', profileRouter);
+  app.use('/api/project', projectRouter);
   app.use('/api/experience', experienceRouter);
   app.use('/api/education', educationRouter);
 
-  // Unauthenticated test route
-  app.get('/api/test', (req, res) => {
+  // authenticated test route
+  app.get('/api/test', jwtCheck, (req:any, res) => {
+    console.log(req.user);
     res.status(200);
     res.json({
       status: "success",
