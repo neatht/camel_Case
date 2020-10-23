@@ -29,6 +29,14 @@ function Tests() {
         <Link to="/profile-setup">
           <Button>Profile Setup </Button>
         </Link>
+
+        <Link to="/profile/30588745">
+          <Button> Kevin (public profile) </Button>
+        </Link>
+
+        <Link to="/profile/40321212">
+          <Button>Sean (private profile) </Button>
+        </Link>
       </Space>
     </div>
   );
