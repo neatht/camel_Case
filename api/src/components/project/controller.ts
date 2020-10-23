@@ -134,13 +134,12 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
     }
 
     req.body.data.userID = userID;
-    const results = await updateMediaService(req, res, next);
+    await updateMediaService(req, res, next);
 
     req.poolClient.end();
     res.status(200);
     return res.json({
-      status: 'success',
-      data: results
+      status: 'success'
     });
   } catch (e) {
     next(e);
@@ -174,8 +173,8 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
       req.poolClient.end();
       res.status(401);
       return res.json({
-        status: 'fail',
-        error: 'profile is private'
+        status: 'error',
+        message: 'profile is private'
       });
     }
   } catch (e) {
@@ -214,7 +213,7 @@ export const getProjectById = async (req: any, res: express.Response, next: expr
       res.status(401);
       return res.json({
         status: 'error',
-        error: 'profile is private'
+        message: 'profile is private'
       });
     }
   } catch (e) {

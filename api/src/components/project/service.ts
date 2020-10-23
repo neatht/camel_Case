@@ -27,14 +27,17 @@ export const updateMediaService = async (req: any, res: express.Response, next: 
   let varCount = 1;
 
   if (req.body.data.mediaName) {
-    query.push(`media_name = $${varCount++}`);
+    query.push(`media_name = $${varCount++},`);
     queryParams.push(req.body.data.mediaName);
   }
 
   if (req.body.data.datePosted) {
-    query.push(`date_posted = $${varCount++}`);
+    query.push(`date_posted = $${varCount++},`);
     queryParams.push(req.body.data.datePosted);
   }
+
+  const lastIndex = query.length - 1;
+  query[lastIndex] = query[lastIndex].substring(0, query[lastIndex].length - 1);
 
   query.push(`WHERE user_id = $${varCount++} AND project_id = $${varCount++} AND media_id = $${varCount};`);
   queryParams.push(req.body.data.userID, req.body.data.projectID, req.body.data.mediaID);
@@ -45,7 +48,7 @@ export const updateMediaService = async (req: any, res: express.Response, next: 
 export const getMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = 'SELECT date_posted AS "datePosted", link, media_name AS "mediaName", \
     project_id AS "projectID", media_type AS "mediaType", media_id AS "mediaID", \
-    user_id AS "userID"FROM media WHERE project_id = $1 AND user_id = $2;'
+    user_id AS "userID" FROM media WHERE project_id = $1 AND user_id = $2;'
 
   const queryParams = [
     req.params.projectID,
