@@ -10,10 +10,7 @@
     "start": "node .",
     "predeploy": "npm install -g pm2",
     "deploy": "npm run prestart && pm2 start .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server_start": "node dist/index.js",
-    "dev": "NODE_ENV=development npm-run-all build server_start",
-    "watch:dev": "nodemon"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
