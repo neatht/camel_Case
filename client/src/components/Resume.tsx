@@ -268,10 +268,7 @@ function Resume(props: ResumeProps) {
                 <></>
               )}
             </ul>
-            <SocialLinks
-              isMyProfile={isMyProfile}
-              userID={props.userID}
-            />
+            <SocialLinks isMyProfile={isMyProfile} userID={props.userID} />
           </div>
         </div>
 
@@ -291,11 +288,7 @@ function Resume(props: ResumeProps) {
             text={data?.bio}
           />
         </div>
-        <ResumeEntry
-          type="Skills"
-          display="inline"
-          isMyProfile={isMyProfile}
-        />
+        <ResumeEntry type="Skills" display="inline" isMyProfile={isMyProfile} />
         <ResumeEntry
           type="Experience"
           display="block"
