@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useParams } from 'react-router-dom';
 
 import './ProfileSetup.css';
 
@@ -12,11 +13,19 @@ import Loading from '../components/Loading';
 import Resume from '../components/Resume';
 import PortfolioGrid from '../components/PortfolioGrid';
 
+type ParamType = {
+  userID: string;
+};
+
 function ProfileSetup() {
   const [profileInfo, setProfileInfo] = useState({});
   const [isPostingProfile, setIsPostingProfile] = useState(false);
   const [hasFetchedOnce, setHasFetchedOnce] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
+
+  const { userID } = useParams<ParamType>();
+
+  console.log({ userID });
 
   /**
    * Used to create a profile through the API
@@ -162,13 +171,7 @@ function ProfileSetup() {
 
             {'firstName' in profileInfo && 'lastName' in profileInfo ? (
               <>
-                <Resume
-                  name={`${profileInfo['firstName']} ${profileInfo['lastName']}`}
-                  profile="Sample bio"
-                  student="UniMelb"
-                  location="Melbourne"
-                  work={true}
-                />
+                <Resume userID={userID} />
                 <PortfolioGrid />
               </>
             ) : null}
@@ -181,7 +184,11 @@ function ProfileSetup() {
                 </>
               }
               closable={false}
-              visible={hasFetchedOnce && Object.keys(profileInfo).length === 0}
+              visible={
+                hasFetchedOnce &&
+                Object.keys(profileInfo).length === 0 &&
+                !userID
+              }
               footer={null}
             >
               <ProfileSetupForm

@@ -1,0 +1,20 @@
+.content-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+}
+
+.steps {
+  width: 900px;
+}
+
+.ant-modal-content {
+  border-radius: var(--border-radius-primary);
+}
+
+.ant-modal-header {
+  border-radius: var(--border-radius-primary) var(--border-radius-primary) 0 0;
+}
