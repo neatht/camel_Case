@@ -285,7 +285,7 @@ function Resume(props: ResumeProps) {
                               }
                             }}
                             text={profileData?.location}
-                            placeholder={'Location'}
+                            placeholder={isMyProfile ? 'Location' : undefined}
                           />
                         </strong>
                       </h3>
@@ -404,7 +404,7 @@ function Resume(props: ResumeProps) {
               }
             }}
             text={profileData?.bio}
-            placeholder={'Enter a bio'}
+            placeholder={isMyProfile ? 'Enter a bio' : undefined}
           />
         </div>
         <ResumeEntry type="Skills" display="inline" isMyProfile={isMyProfile} />
