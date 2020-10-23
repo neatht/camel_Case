@@ -87,6 +87,10 @@ body {
   border-radius: var(--border-radius-secondary) !important;
 }
 
+.ant-btn {
+  color: var(--button-font-color);
+}
+
 .App {
   text-align: center;
 }
