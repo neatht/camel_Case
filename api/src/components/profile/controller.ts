@@ -30,20 +30,39 @@ export const getUser = async (req: any, res: express.Response, next: express.Nex
       });
     } else {
       if (result.public) {
-        res.status(200);
-        return res.json({
-          status: 'success',
-          data: {
-            firstName: result.first_name,
-            lastName: result.last_name,
-            bio: result.bio,
-            location: result.location,
-            lookingForWork: result.looking_for_work,
-            public: result.public,
-            gender: result.gender,
-            DOB: result.date_of_birth
-          }
-        });
+        if (result.public_location) {
+          res.status(200);
+          return res.json({
+            status: 'success',
+            data: {
+              firstName: result.first_name,
+              lastName: result.last_name,
+              bio: result.bio,
+              location: result.location,
+              lookingForWork: result.looking_for_work,
+              public: result.public,
+              gender: result.gender,
+              DOB: result.date_of_birth,
+              publicLocation: result.public_location
+            }
+          });
+        } else {
+          res.status(200);
+          return res.json({
+            status: 'success',
+            data: {
+              firstName: result.first_name,
+              lastName: result.last_name,
+              bio: result.bio,
+              lookingForWork: result.looking_for_work,
+              public: result.public,
+              gender: result.gender,
+              DOB: result.date_of_birth,
+              publicLocation: result.public_location
+            }
+          });
+        }
+
       } else {
         res.status(200);
         return res.json({
@@ -198,7 +217,8 @@ export const getOwnUser = async (req: any, res: express.Response, next: express.
           lookingForWork: result.looking_for_work,
           public: result.public,
           gender: result.gender,
-          DOB: result.date_of_birth
+          DOB: result.date_of_birth,
+          publicLocation: result.public_location
         }
       });
     }

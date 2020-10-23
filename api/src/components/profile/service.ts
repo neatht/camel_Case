@@ -25,7 +25,7 @@ export const getProfileService = async (req: any,
                                         res: express.Response,
                                         next: express.NextFunction) => {
   const query: string = 'SELECT first_name, last_name, bio, location, \
-    public, looking_for_work, gender, date_of_birth FROM profile WHERE \
+    public, looking_for_work, gender, date_of_birth, public_location FROM profile WHERE \
     user_id=$1';
   const queryParams: any[] = [req.params.userID];
   const queryResult: any = await service(req, next, query, queryParams);
@@ -93,19 +93,27 @@ export const addProfileService = async (req: any, res: express.Response, next: e
  * @param next - the express NextFunction object
  */
 export const updateProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'UPDATE profile \
-  SET first_name = $1, last_name = $2, bio = $3, date_of_birth = $4, \
-  location = $5, looking_for_work = $6, public = $7, gender = $8 \
-  WHERE user_id = $9;'
+  const query: string = 'UPDATE profile SET \
+  first_name = COALESCE($1, first_name), \
+  last_name = COALESCE($2, last_name), \
+  bio = COALESCE($3, bio), \
+  date_of_birth = COALESCE($4, date_of_birth), \
+  location = COALESCE($5, location), \
+  looking_for_work = COALESCE($6, looking_for_work), \
+  public = COALESCE($7, public), \
+  gender = COALESCE($8, gender), \
+  public_location = COALESCE($9, public_location) \
+  WHERE user_id = $10;';
   const queryParams = [
     req.body.data.firstName,
     req.body.data.lastName,
     req.body.data.bio,
     req.body.data.DOB,
     req.body.data.location,
-    req.body.data.lookingForWork.toString(),
-    req.body.data.public.toString(),
+    req.body.data.lookingForWork,
+    req.body.data.public,
     req.body.data.gender,
+    req.body.data.publicLocation ? req.body.data.publicLocation.toString() : null,
     req.user.sub.split('|')[1]
   ];
   await service(req, next, query, queryParams);
@@ -137,7 +145,7 @@ export const deleteProfileService = async (req: any, res: express.Response, next
  */
 export const getOwnProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'SELECT first_name, last_name, bio, location, \
-    public, looking_for_work, gender, date_of_birth FROM profile WHERE \
+    public, looking_for_work, gender, date_of_birth, public_location FROM profile WHERE \
     user_id=$1';
   const queryParams: any[] = [req.user.sub.split('|')[1]];
   const queryResult: any = await service(req, next, query, queryParams);

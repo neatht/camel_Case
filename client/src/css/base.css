@@ -1,23 +1,30 @@
-@import '~antd/dist/antd.css';
+@import '~antd/dist/antd.css' (prefers-color-scheme: light);
+@import '~antd/dist/antd.dark.css' (prefers-color-scheme: dark);
 
 @import url('https://fonts.googleapis.com/css?family=Livvic:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Rubik:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Livvic";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Livvic';
   color: var(--color-app);
 }
 
 .navTitle {
-  font-family: "Livvic";
+  font-family: 'Livvic';
 }
 
 .ant-page-header-heading-title {
-  font-family: "Livvic";
+  font-family: 'Livvic';
 }
 
-html, body {
-  font-family: "Rubik";
+html,
+body {
+  font-family: 'Rubik';
 }
 
 body {
@@ -26,7 +33,6 @@ body {
 
   color: var(--color-app);
   background-color: var(--background-color-app);
-  
 }
 
 .gradient {
@@ -60,7 +66,7 @@ body {
   float: right;
 }
 .exit-button::before {
-  content: "✕";
+  content: '✕';
   font-size: 1.15em;
   /* margin-top: 100px; */
 }
@@ -118,7 +124,6 @@ body {
   font-size: 1.15em;
   /* margin-top: 100px; */
 }
-
 
 
 .ant-select-selector {
