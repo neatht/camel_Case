@@ -12,7 +12,6 @@ function Profile() {
   const { user, isAuthenticated } = useAuth0();
   //const checkAccessToken = useCheckAccessToken();
 
-
   // EDIT ME
   const isMyProfile = true;
 
@@ -21,15 +20,7 @@ function Profile() {
       <Header pageKey="profile" />
 
       <div className="grid-main-layout-primary">
-        <Resume
-          isMyProfile={isMyProfile}
-          userID="s"
-          // name="Jane Doe"
-          // profile="I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design. "
-          // student="The University of Melbourne"
-          // location="Melbourne, Australia"
-          // work={true}
-        />
+        <Resume isMyProfile={isMyProfile} userID="s" />
         <PortfolioGrid isMyProfile={isMyProfile} />
       </div>
 

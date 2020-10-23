@@ -97,15 +97,16 @@ function SocialLinks(props: SocialLinksProps) {
                 content={
                   <div>
                     <Tooltip title="Remove" placement="left">
-                    <div
-                      className="exit-button exit-button-social-links"
-                      onClick={() => {
-                        const newData = { ...data };
-                        newData.entries.splice(index, 1);
-                        setData(newData);
-                        saveData();
-                      }}
-                    ></div></Tooltip>
+                      <div
+                        className="exit-button exit-button-social-links"
+                        onClick={() => {
+                          const newData = { ...data };
+                          newData.entries.splice(index, 1);
+                          setData(newData);
+                          saveData();
+                        }}
+                      ></div>
+                    </Tooltip>
                     <TextInput
                       editable={props.isMyProfile}
                       onChange={(newString: string) => {

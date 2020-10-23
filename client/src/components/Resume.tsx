@@ -39,7 +39,6 @@ type ResumeData = {
 };
 
 function Resume(props: ResumeProps) {
-
   const [isLoading, setIsLoading] = useState(true);
 
   const [data, setData] = useState<ResumeData>();
@@ -268,7 +267,10 @@ function Resume(props: ResumeProps) {
                 <></>
               )}
             </ul>
-            <SocialLinks isMyProfile={props.isMyProfile} userID={props.userID} />
+            <SocialLinks
+              isMyProfile={props.isMyProfile}
+              userID={props.userID}
+            />
           </div>
         </div>
 
@@ -288,7 +290,11 @@ function Resume(props: ResumeProps) {
             text={data?.bio}
           />
         </div>
-        <ResumeEntry type="Skills" display="inline" isMyProfile={props.isMyProfile} />
+        <ResumeEntry
+          type="Skills"
+          display="inline"
+          isMyProfile={props.isMyProfile}
+        />
         <ResumeEntry
           type="Experience"
           display="block"
