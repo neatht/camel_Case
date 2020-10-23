@@ -20,7 +20,7 @@ type ResumeProps = {
   student?: string;
   location?: string;
   work?: boolean;
-  isMyProfile: boolean;
+  isMyProfile?: boolean;
 };
 
 type ResumeData = {
@@ -41,6 +41,7 @@ type ResumeData = {
 function Resume(props: ResumeProps) {
   const [isLoading, setIsLoading] = useState(true);
 
+  const isMyProfile = props.isMyProfile || false;
   const [data, setData] = useState<ResumeData>();
 
   // EDIT ME
@@ -108,7 +109,7 @@ function Resume(props: ResumeProps) {
           <h1>
             <strong>
               <TextInput
-                editable={props.isMyProfile}
+                editable={isMyProfile}
                 onChange={(newString: string) => {
                   if (data) {
                     const newData = { ...data };
@@ -124,7 +125,7 @@ function Resume(props: ResumeProps) {
 
           <div className="resume-badges">
             <ul>
-              {props.isMyProfile ? (
+              {isMyProfile ? (
                 <Popover
                   content={
                     <div>
@@ -160,14 +161,14 @@ function Resume(props: ResumeProps) {
                 <></>
               )}
 
-              {props.isMyProfile ? (
+              {isMyProfile ? (
                 <Popover
                   content={
                     <div>
                       <h3>
                         <strong>
                           <TextInput
-                            editable={props.isMyProfile}
+                            editable={isMyProfile}
                             onChange={(newString: string) => {
                               if (data) {
                                 const newData = { ...data };
@@ -213,14 +214,14 @@ function Resume(props: ResumeProps) {
               ) : (
                 <></>
               )}
-              {props.isMyProfile ? (
+              {isMyProfile ? (
                 <Popover
                   content={
                     <div>
                       <h3>
                         <strong>
                           <TextInput
-                            editable={props.isMyProfile}
+                            editable={isMyProfile}
                             onChange={(newString: string) => {
                               if (data) {
                                 const newData = { ...data };
@@ -268,7 +269,7 @@ function Resume(props: ResumeProps) {
               )}
             </ul>
             <SocialLinks
-              isMyProfile={props.isMyProfile}
+              isMyProfile={isMyProfile}
               userID={props.userID}
             />
           </div>
@@ -278,7 +279,7 @@ function Resume(props: ResumeProps) {
           <TextInput
             padding="10px"
             multiline={true}
-            editable={props.isMyProfile}
+            editable={isMyProfile}
             onChange={(newString: string) => {
               if (data) {
                 const newData = { ...data };
@@ -293,24 +294,24 @@ function Resume(props: ResumeProps) {
         <ResumeEntry
           type="Skills"
           display="inline"
-          isMyProfile={props.isMyProfile}
+          isMyProfile={isMyProfile}
         />
         <ResumeEntry
           type="Experience"
           display="block"
-          isMyProfile={props.isMyProfile}
+          isMyProfile={isMyProfile}
         />
 
         <ResumeEntry
           type="Achievements"
           display="inline"
-          isMyProfile={props.isMyProfile}
+          isMyProfile={isMyProfile}
         />
 
         <ResumeEntry
           type="Education"
           display="block"
-          isMyProfile={props.isMyProfile}
+          isMyProfile={isMyProfile}
         />
 
         {/* </div> */}
