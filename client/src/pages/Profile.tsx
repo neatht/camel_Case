@@ -12,6 +12,7 @@ import ProfileSetupForm from '../components/ProfileSetupForm';
 import Loading from '../components/Loading';
 import Resume from '../components/Resume';
 import PortfolioGrid from '../components/PortfolioGrid';
+import PrivateProfileWarning from '../components/PrivateProfileWarning';
 
 type ParamType = {
   userID: string;
@@ -95,22 +96,20 @@ function Profile() {
    *
    * @param {data: Object => void} callback Callback function with the profile data as argument when successful, and {} when unsuccessful. Can be used to setState
    * @param {isLoading: boolean => void} setIsLoading Callback function to toggle when awaiting response
-   * @param {string} route Specified route to call API at in form '/api/{route}' Default is 'profile/getOwnProfile'
+   * @param {string} userID userID of the profile to get. If not specified, will go with own
    *
    * @returns res The response of the call
    */
   async function getProfile(
     callback: (data: Object) => void,
     setIsLoading?: (isLoading: boolean) => void,
-    route?: string
+    userID?: string
   ) {
     if (setIsLoading) {
       setIsLoading(true);
     }
 
-    if (!route) {
-      route = 'profile/getOwnProfile';
-    }
+    const route = userID ? `profile/${userID}` : 'profile/getOwnProfile';
 
     try {
       const token = await getAccessTokenSilently();
@@ -154,7 +153,7 @@ function Profile() {
       setHasFetchedOnce(true);
     };
 
-    getProfile(setFirstProfileInfo);
+    getProfile(setFirstProfileInfo, undefined, userID);
     // eslint-disable-next-line
   }, []);
 
@@ -162,44 +161,48 @@ function Profile() {
     <div className="App">
       <Header pageKey="profile" />
 
-      <div className="grid-main-layout-primary">
-        {!hasFetchedOnce ? (
-          <Loading messages={['Loading Profile']} />
-        ) : (
-          <>
-            {'firstName' in profileInfo ? (
-              <>
-                <Resume userID={userID} />
-                <PortfolioGrid />
-              </>
-            ) : null}
-
-            <Modal
-              title={
+      {userID && 'public' in profileInfo && !profileInfo['public'] ? (
+        <PrivateProfileWarning />
+      ) : (
+        <div className="grid-main-layout-primary">
+          {!hasFetchedOnce ? (
+            <Loading messages={['Loading Profile']} />
+          ) : (
+            <>
+              {'firstName' in profileInfo ? (
                 <>
-                  <Emoji symbol="👋" />
-                  <strong> Profile Setup </strong>
+                  <Resume userID={userID} />
+                  <PortfolioGrid />
                 </>
-              }
-              closable={false}
-              visible={
-                hasFetchedOnce &&
-                Object.keys(profileInfo).length === 0 &&
-                !userID
-              }
-              footer={null}
-            >
-              <ProfileSetupForm
-                onFinish={(result) => {
-                  postProfile(result, setProfileInfo, setIsPostingProfile);
-                }}
-                submitLabel="Save"
-                isLoading={isPostingProfile}
-              />
-            </Modal>
-          </>
-        )}
-      </div>
+              ) : null}
+
+              <Modal
+                title={
+                  <>
+                    <Emoji symbol="👋" />
+                    <strong> Profile Setup </strong>
+                  </>
+                }
+                closable={false}
+                visible={
+                  hasFetchedOnce &&
+                  Object.keys(profileInfo).length === 0 &&
+                  !userID
+                }
+                footer={null}
+              >
+                <ProfileSetupForm
+                  onFinish={(result) => {
+                    postProfile(result, setProfileInfo, setIsPostingProfile);
+                  }}
+                  submitLabel="Save"
+                  isLoading={isPostingProfile}
+                />
+              </Modal>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }
