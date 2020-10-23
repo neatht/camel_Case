@@ -4,10 +4,12 @@ exports[`Testing Resume renders without crashing 1`] = `
 <div
   className="container-primary resume container-scroll"
 >
-  <Spin
-    size="large"
-    spinning={true}
-    wrapperClassName=""
+  <Loading
+    messages={
+      Array [
+        "Getting profile information",
+      ]
+    }
   />
 </div>
 `;
