@@ -317,16 +317,18 @@ function PortfolioGrid(props: PortfolioGridProps) {
             className="portfolio-grid-add"
             onClick={() => {
               const newData = [...data];
+
+              // Place Holder
               const d = {
-                id: 'string',
-                title: 'string',
-                type: 'string',
+                id: 'id',
+                title: 'Project Title',
+                type: 'Website',
                 // media: { type: string; url: string }[];
-                date: 'string',
+                date: '',
                 author: 'string',
-                shortDescription: 'string',
+                shortDescription: 'Short Description.',
                 views: '0',
-                link: 'string',
+                link: 'Link to project',
                 location: 'string',
                 new: true,
               };

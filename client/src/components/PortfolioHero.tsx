@@ -97,8 +97,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
         },
       ];
     } else {
-      d = [
-      ];
+      d = [];
     }
     setMedia(d);
   }
@@ -144,26 +143,33 @@ function PortfolioHero(props: PortfolioHeroProps) {
         ) : (
           ''
         )}
-        <div
-          className="portfolio-hero-button display-left container-secondary"
-          onClick={() => {
-            if (media) {
-              slide > 0 ? setSlide(slide - 1) : setSlide(media.length - 1);
-            }
-          }}
-        >
-          &#8249;
-        </div>
-        <div
-          className="portfolio-hero-button display-right container-secondary"
-          onClick={() => {
-            if (media) {
-              slide < media.length - 1 ? setSlide(slide + 1) : setSlide(0);
-            }
-          }}
-        >
-          &#8250;
-        </div>
+        {media && media.length > 1 ? (
+          <>
+            <div
+              className="portfolio-hero-button display-left container-secondary"
+              onClick={() => {
+                if (media) {
+                  slide > 0 ? setSlide(slide - 1) : setSlide(media.length - 1);
+                }
+              }}
+            >
+              &#8249;
+            </div>
+            <div
+              className="portfolio-hero-button display-right container-secondary"
+              onClick={() => {
+                if (media) {
+                  slide < media.length - 1 ? setSlide(slide + 1) : setSlide(0);
+                }
+              }}
+            >
+              &#8250;
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+
         {editingState ? (
           <DragDropContext
             onDragEnd={({ destination, source }) => {
@@ -327,7 +333,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
           </DragDropContext>
         ) : (
           <div style={{ height: '100%', display: 'flex' }}>
-            {media ? (
+            {media && media.length > 0 ? (
               media.map((value, index) => {
                 if (value.type === 'image') {
                   return (
@@ -363,7 +369,12 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 }
               })
             ) : (
-              <></>
+              <div
+                className={`portfolio-hero-media container-secondary ${
+                  slide === 0 ? 'portfolio-hero-media-max' : ''
+                }`}
+                style={{ backgroundImage: `url(${placeholderFolioImage})` }}
+              ></div>
             )}
           </div>
         )}
