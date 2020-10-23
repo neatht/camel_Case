@@ -1,0 +1,16 @@
+.profile-form {
+  width: 500px;
+  padding: 20px 60px 60px 60px;
+}
+
+.ant-form-item .ant-input {
+  border-radius: var(--border-radius-primary) !important;
+}
+
+.ant-picker {
+  border-radius: var(--border-radius-primary) !important;
+}
+
+.ant-picker-panel-container {
+  border-radius: var(--border-radius-primary) !important;
+}

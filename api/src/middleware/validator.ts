@@ -48,12 +48,28 @@ export const isEnum = (arr: string[], val: string) => {
  */
 export const checkValidation = (req: any, res: express.Response, next: express.NextFunction) => {
   const errors = validationResult(req);
+
+  // Ensure only distinct error objects (by param key)
+  const result = [];
+  const map = new Map();
+  for (const item of errors.array()) {
+    if(!map.has(item.param)){
+        map.set(item.param, true);    // set any value to Map
+        result.push({
+            value: item.value,
+            msg: item.msg,
+            param: item.param,
+            location: item.location
+        });
+    }
+  }
+
   if (!errors.isEmpty()) {
     res.status(422);
     return res.json({
       status: 'fail',
-      data: errors.array()
-    })
+      data: result
+    });
   } else {
     next();
   }

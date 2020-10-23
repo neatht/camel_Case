@@ -7,6 +7,7 @@ import Emoji from '../components/Emoji';
 
 import useAccessToken from '../hooks/checkAccessToken';
 import LoginButton from '../components/LoginButton';
+import Loading from '../components/Loading';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -90,7 +91,7 @@ function APITest() {
   }
 
   if (isLoading) {
-    return <Spin size="large" />;
+    return <Loading />;
   }
 
   return (
