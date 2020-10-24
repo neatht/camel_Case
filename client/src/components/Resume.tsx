@@ -36,7 +36,6 @@ type ResumeData = {
 };
 
 function Resume(props: ResumeProps) {
-
   const { getAccessTokenSilently } = useAuth0();
   const isMyProfile = !props.userID ? true : false;
 
@@ -44,7 +43,7 @@ function Resume(props: ResumeProps) {
 
   const [profileData, setProfileData] = useState<ResumeData>();
   const [updateProfileData, setUpdateProfileData] = useState<ResumeData>();
-    
+
   /**
    * Fetches profile data and sets appropriately
    *
