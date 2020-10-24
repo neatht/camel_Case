@@ -20,6 +20,7 @@ type ResumeProps = {
   student?: string;
   location?: string;
   work?: boolean;
+  isMyProfile?: boolean;
 };
 
 type ResumeData = {
@@ -38,11 +39,9 @@ type ResumeData = {
 };
 
 function Resume(props: ResumeProps) {
-  // EDIT ME
-  const isMyProfile = true;
-
   const [isLoading, setIsLoading] = useState(true);
 
+  const isMyProfile = props.isMyProfile || false;
   const [data, setData] = useState<ResumeData>();
 
   // EDIT ME

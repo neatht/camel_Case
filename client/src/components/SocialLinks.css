@@ -27,6 +27,7 @@
 .exit-button-social-links {
   margin-top: -25px;
   margin-right: -50px;
+  background: var(--del-gradient);
 }
 
 .skills-add {

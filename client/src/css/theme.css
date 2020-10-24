@@ -4,6 +4,7 @@
   --color-primary: rgba(45, 113, 253, 1);
 
   --color-gradient: #f7f7f7;
+
   --gradient: linear-gradient(
     -45deg,
     rgba(0, 214, 170, 1) 0%,
@@ -16,6 +17,14 @@
     rgba(45, 113, 253, 1) 50%,
     rgba(141, 45, 253, 1) 100%
   );
+  
+   --del-gradient: linear-gradient(
+     -45deg,
+     rgba(252,176,69,1) 0%,
+     rgba(253,29,29,1) 50%,
+     rgba(141,45,253,1) 100%
+   );
+
 
   --background-color-app: #ffffff;
   --background-color-primary: #f7f7f7;

@@ -116,15 +116,21 @@ function ResumeEntry(props: ResumeEntryProps) {
             if (props.display === 'inline') {
               return (
                 <li key={index}>
-                  <div
-                    className="exit-button exit-button-resume-entry"
-                    onClick={() => {
-                      const newData = { ...data };
-                      newData.entries.splice(index, 1);
-                      setData(newData);
-                      saveData();
-                    }}
-                  ></div>
+                  {props.isMyProfile ? (
+                    <Tooltip title="Remove" placement="top">
+                      <div
+                        className="exit-button exit-button-resume-entry"
+                        onClick={() => {
+                          const newData = { ...data };
+                          newData.entries.splice(index, 1);
+                          setData(newData);
+                          saveData();
+                        }}
+                      ></div>
+                    </Tooltip>
+                  ) : (
+                    <></>
+                  )}
                   <div>
                     <TextInput
                       editable={props.isMyProfile}
@@ -144,15 +150,21 @@ function ResumeEntry(props: ResumeEntryProps) {
             } else {
               return (
                 <li key={index}>
-                  <div
-                    className="exit-button exit-button-resume-entry"
-                    onClick={() => {
-                      const newData = { ...data };
-                      newData.entries.splice(index, 1);
-                      setData(newData);
-                      saveData();
-                    }}
-                  ></div>
+                  {props.isMyProfile ? (
+                    <Tooltip title="Remove" placement="top">
+                      <div
+                        className="exit-button exit-button-resume-entry"
+                        onClick={() => {
+                          const newData = { ...data };
+                          newData.entries.splice(index, 1);
+                          setData(newData);
+                          saveData();
+                        }}
+                      ></div>
+                    </Tooltip>
+                  ) : (
+                    <></>
+                  )}
                   <div className="resume-entry-grid">
                     <div className="resume-entry-date">
                       <TextInput
@@ -201,28 +213,32 @@ function ResumeEntry(props: ResumeEntryProps) {
             }
           })}
         </ul>
-        <Tooltip
-          title={'Add ' + props.type.replace(/[sS]$/, '')}
-          placement="bottom"
-        >
-          <div
-            className="resume-entry-add "
-            onClick={() => {
-              if (data) {
-                const newData = { ...data };
-                newData.entries.push({
-                  date: 'date',
-                  text: props.type.replace(/[sS]$/, ''),
-                  subText: 'More Info',
-                });
-                setData(newData);
-                saveData();
-              }
-            }}
+        {props.isMyProfile ? (
+          <Tooltip
+            title={'Add ' + props.type.replace(/[sS]$/, '')}
+            placement="bottom"
           >
-            +
-          </div>
-        </Tooltip>
+            <div
+              className="resume-entry-add "
+              onClick={() => {
+                if (data) {
+                  const newData = { ...data };
+                  newData.entries.push({
+                    date: 'date',
+                    text: props.type.replace(/[sS]$/, ''),
+                    subText: 'More Info',
+                  });
+                  setData(newData);
+                  saveData();
+                }
+              }}
+            >
+              +
+            </div>
+          </Tooltip>
+        ) : (
+          <></>
+        )}
       </div>
     );
   }
