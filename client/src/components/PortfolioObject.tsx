@@ -38,7 +38,7 @@ type PortfolioObjectProps = {
   portfolioObjectOpen: any;
   isMyProfile: boolean;
   setData: (d: PortfolioObjectData) => void;
-  delData: (id: string) => void;
+  delData: (d: PortfolioObjectData) => void;
 };
 
 function PortfolioObject(props: PortfolioObjectProps) {
@@ -91,10 +91,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
     >
       {props.isMyProfile ? (
         <div
-          // onClick={() => {
-          //   transition();
-          //   props.delData(props.data.id);
-          // }}
+          onClick={() => {
+            transition();
+            props.delData(props.data);
+          }}
           className="del-button"
         ></div>
       ) : (

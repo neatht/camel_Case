@@ -25,20 +25,14 @@ type PortfolioObjectData = {
 
 function PortfolioGrid(props: PortfolioGridProps) {
   const { getAccessTokenSilently } = useAuth0();
-  const [data, setData] = useState<Array<PortfolioObjectData>>([]);
-  //const [fetchError, setFetchError] = useState(false);
   const [portfolioGridData, setPortfolioGridData] = useState<
     Array<PortfolioObjectData>
   >([]);
-  const [updatePortfolioGridData, setUpdatePortfolioGridData] = useState<
-    PortfolioObjectData
-  >();
 
   const isMyProfile = !props.userID ? true : false;
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // EDIT ME
   async function fetchData(): Promise<void> {
     // setIsLoading(true);
 
@@ -94,57 +88,52 @@ function PortfolioGrid(props: PortfolioGridProps) {
     }
   }
 
-  // Update API when profile data change
-  useEffect(() => {
-    console.log('checking to update profile...');
-    async function saveData(): Promise<void> {
-      //setIsLoading(true);
+  async function saveData(
+    action: string,
+    updatePortfolioGridData: PortfolioObjectData
+  ): Promise<void> {
+    //setIsLoading(true);
 
-      // If there is no userID, fetch own profile
-      const route = 'project';
+    // If there is no userID, fetch own profile
+    const route = 'project';
 
-      console.log(updatePortfolioGridData);
+    console.log(updatePortfolioGridData);
 
-      // Call API
-      try {
-        const token = await getAccessTokenSilently();
-        const res = await fetch('/api/' + route, {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ data: updatePortfolioGridData }),
-        });
+    // Call API
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await fetch('/api/' + route, {
+        method: action,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: updatePortfolioGridData }),
+      });
 
-        // Check response is okay
-        if (!res.ok) {
-          console.error('Invalid response code', res.status, res.statusText);
-          return;
-        }
-        console.log('updated successfully?', res.ok, res.statusText);
-        // fetchData();
-        // setIsLoading(false);
-      } catch (e) {
-        if (setIsLoading) {
-          setIsLoading(false);
-        }
-        const res = {
-          status: 'error',
-          message: [
-            'Exception from fetch on client side (not API) - check if the API stopped running',
-            e,
-          ],
-        };
-        console.error(res, e);
-        //return res;
+      // Check response is okay
+      if (!res.ok) {
+        console.error('Invalid response code', res.status, res.statusText);
+        return;
       }
+      console.log('updated successfully?', res.ok, res.statusText);
+      // fetchData();
+      // setIsLoading(false);
+    } catch (e) {
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      console.error(res, e);
+      //return res;
     }
-    if (updatePortfolioGridData !== portfolioGridData) {
-      console.log('updating PortfolioGrid');
-      saveData();
-    }
-  }, [updatePortfolioGridData]);
+  }
 
   useEffect(() => {
     fetchData();
@@ -173,8 +162,10 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 newData.projectName = 'New Project';
                 newData.projectType = 'website';
                 newData.userID = ' ';
-                setUpdatePortfolioGridData(newData);
-                // console.log(newData);
+                const newPortfolioGridData = [...portfolioGridData];
+                newPortfolioGridData.push(newData);
+                saveData('POST', newData);
+                setPortfolioGridData(newPortfolioGridData);
               }}
             >
               +
@@ -189,27 +180,17 @@ function PortfolioGrid(props: PortfolioGridProps) {
               <PortfolioObject
                 data={value}
                 isMyProfile={isMyProfile}
-                // EDIT ME
                 setData={(d: PortfolioObjectData) => {
-                  // if (data.length >= index && data[index].id === d.id) {
                   const newData = [...portfolioGridData];
                   newData[index] = d;
-                  setUpdatePortfolioGridData(d);
+                  saveData('PUT', d);
                   setPortfolioGridData(newData);
-                  //   saveData();
-                  // } else {
-                  //   console.error('PortfolioObject ID Mismatch');
-                  // }
                 }}
-                delData={(id: string) => {
-                  // if (data.length >= index && data[index].id === id) {
-                  //   const newData = [...data];
-                  //   newData.splice(index, 1);
-                  //   setData(newData);
-                  //   //POST
-                  // } else {
-                  //   console.error('PortfolioObject ID Mismatch');
-                  // }
+                delData={(d: PortfolioObjectData) => {
+                  const newData = [...portfolioGridData];
+                  newData.splice(index, 1);
+                  saveData('DELETE', d);
+                  setPortfolioGridData(newData);
                 }}
                 portfolioObjectOpen={openPortfolioObject}
               />
