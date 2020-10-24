@@ -28,7 +28,12 @@ function ProfileSetupForm(props: ProfileSetupFormProps) {
     <div className="profile-form">
       <Form
         name="basic"
-        initialValues={{ remember: true, public: true, lookingForWork: true }} // public and lookingForWork are set due to inconsistent inital value of Switch
+        initialValues={{
+          remember: true,
+          public: true,
+          lookingForWork: true,
+          publicLocation: true,
+        }} // public and lookingForWork are set due to inconsistent inital value of Switch
         onFinish={onFinish}
       >
         <h3>
@@ -118,6 +123,25 @@ function ProfileSetupForm(props: ProfileSetupFormProps) {
               Private
             </Option>
           </Select>*/}
+          <Switch
+            checkedChildren={
+              <>
+                <Emoji symbol="🌏" /> Public
+              </>
+            }
+            unCheckedChildren={
+              <>
+                <Emoji symbol="⛔️" /> Private
+              </>
+            }
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Show your location"
+          name="publicLocation"
+          valuePropName="checked"
+        >
           <Switch
             checkedChildren={
               <>
