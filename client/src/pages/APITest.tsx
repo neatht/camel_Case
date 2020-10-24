@@ -64,7 +64,7 @@ function APITest() {
 
     try {
       const token = await getAccessTokenSilently();
-      await fetch('/api/' + route, {
+      await fetch(route, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,11 +125,20 @@ function APITest() {
             <Search
               addonBefore={selectBefore} //"GET https://localhost:5000/api/"
               defaultValue="test"
-              onSearch={(value) => callAPI(value, setAPIResult)}
+              onSearch={(value) => callAPI(`/api/${value}`, setAPIResult)}
             />
           </div>
 
           <br />
+
+          <div
+            style={{ width: 600, display: 'flex', justifyContent: 'center' }}
+          >
+            <Search
+              defaultValue="enter search URL"
+              onSearch={(value) => callAPI(value, setAPIResult)}
+            />
+          </div>
 
           <h3> Result: </h3>
 
