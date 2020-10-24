@@ -40,7 +40,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
 
   // EDIT ME
   async function fetchData(): Promise<void> {
-    setIsLoading(true);
+    // setIsLoading(true);
 
     // If there is no userID, fetch own profile
     const route = isMyProfile
@@ -68,6 +68,14 @@ function PortfolioGrid(props: PortfolioGridProps) {
       // Set profile data (empty object if invalid)
       // TODO: Could add warning?
       console.log('setting PortfolioGridData...', { data });
+
+      data.sort((a: PortfolioObjectData, b: PortfolioObjectData) => {
+        if (a.projectID && b.projectID) {
+          if (a.projectID > b.projectID) return 1;
+          else return -1;
+        } else return 1;
+      });
+
       setPortfolioGridData(data);
       setIsLoading(false);
     } catch (e) {
@@ -115,8 +123,8 @@ function PortfolioGrid(props: PortfolioGridProps) {
           return;
         }
         console.log('updated successfully?', res.ok, res.statusText);
-        fetchData();
-        setIsLoading(false);
+        // fetchData();
+        // setIsLoading(false);
       } catch (e) {
         if (setIsLoading) {
           setIsLoading(false);
@@ -137,11 +145,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
       saveData();
     }
   }, [updatePortfolioGridData]);
-
-  // EDIT ME
-  async function saveData(): Promise<void> {
-    // PUT data
-  }
 
   useEffect(() => {
     fetchData();
@@ -169,7 +172,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 const newData = {} as PortfolioObjectData;
                 newData.projectName = 'New Project';
                 newData.projectType = 'website';
-                // newData.userID = 'this needs to be fixed';
+                newData.userID = ' ';
                 setUpdatePortfolioGridData(newData);
                 // console.log(newData);
               }}
@@ -189,9 +192,10 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 // EDIT ME
                 setData={(d: PortfolioObjectData) => {
                   // if (data.length >= index && data[index].id === d.id) {
-                  //   const newData = [...data];
-                  //   newData[index] = d;
-                  //   setData(newData);
+                  const newData = [...portfolioGridData];
+                  newData[index] = d;
+                  setUpdatePortfolioGridData(d);
+                  setPortfolioGridData(newData);
                   //   saveData();
                   // } else {
                   //   console.error('PortfolioObject ID Mismatch');

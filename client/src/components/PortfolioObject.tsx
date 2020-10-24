@@ -111,6 +111,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
           transition();
         }}
         // className={`${props.data.new ? 'save-button' : 'exit-button'}`}
+        className={`${'exit-button'}`}
       ></div>
 
       <div className="portfolio-title">
@@ -136,7 +137,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
           <h4>
-            <strong>{props.data.projectID}</strong>
+            <strong>{props.data.projectName}</strong>
           </h4>
           {/* <h5>{props.data.author}</h5> */}
         </div>
