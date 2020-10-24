@@ -47,6 +47,8 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
   const containerPrimaryRef = useRef<any>(null);
 
+  const [newEntry, setNewEntry] = useState(props.new);
+
   const [thumbnail, setThumbnail] = useState(true);
 
   const date = (d?: string): string | undefined => {
@@ -117,8 +119,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
           //   props.setData(newData);
           // }
           transition();
+          setNewEntry(false);
         }}
-        className={`${props.new ? 'save-button' : 'exit-button'}`}
+        className={`${newEntry ? 'save-button' : 'exit-button'}`}
         // className={`${'exit-button'}`}
       ></div>
 
