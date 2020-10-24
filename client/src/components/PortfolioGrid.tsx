@@ -33,6 +33,8 @@ function PortfolioGrid(props: PortfolioGridProps) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const [newEntry, setNewEntry] = useState(false);
+
   async function fetchData(): Promise<void> {
     // setIsLoading(true);
 
@@ -143,6 +145,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
 
   const openPortfolioObject = (open: boolean) => {
     setPortfolioObjectOpen(open);
+    setNewEntry(false);
   };
   if (isLoading) {
     return (
@@ -158,14 +161,19 @@ function PortfolioGrid(props: PortfolioGridProps) {
             <div
               className="portfolio-grid-add"
               onClick={() => {
+                var date = new Date();
                 const newData = {} as PortfolioObjectData;
                 newData.projectName = 'New Project';
                 newData.projectType = 'website';
+                newData.datePosted = `${date.getDate()}/${
+                  date.getMonth() + 1
+                }/${date.getFullYear()}`;
                 newData.userID = ' ';
                 const newPortfolioGridData = [...portfolioGridData];
                 newPortfolioGridData.push(newData);
                 saveData('POST', newData);
                 setPortfolioGridData(newPortfolioGridData);
+                setNewEntry(true);
               }}
             >
               +
@@ -179,6 +187,11 @@ function PortfolioGrid(props: PortfolioGridProps) {
             return (
               <PortfolioObject
                 data={value}
+                new={
+                  newEntry && index + 1 === portfolioGridData.length
+                    ? true
+                    : false
+                }
                 isMyProfile={isMyProfile}
                 setData={(d: PortfolioObjectData) => {
                   const newData = [...portfolioGridData];

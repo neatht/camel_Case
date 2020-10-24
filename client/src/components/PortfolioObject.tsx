@@ -37,6 +37,7 @@ type PortfolioObjectProps = {
   data: PortfolioObjectData;
   portfolioObjectOpen: any;
   isMyProfile: boolean;
+  new: boolean;
   setData: (d: PortfolioObjectData) => void;
   delData: (d: PortfolioObjectData) => void;
 };
@@ -48,6 +49,13 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
   const [thumbnail, setThumbnail] = useState(true);
 
+  const date = (d?: string): string | undefined => {
+    const newDate = d?.split('-');
+    if (d && newDate?.length === 3) {
+      return `${newDate[2].replace(/T.*/, '')}-${newDate[1]}-${newDate[0]}`;
+    } else return d;
+  };
+
   const transition = () => {
     setThumbnail(!thumbnail);
     props.portfolioObjectOpen(thumbnail);
@@ -57,9 +65,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
   };
 
   useEffect(() => {
-    // if (props.data.new) {
-    //   transition();
-    // }
+    if (props.new) {
+      transition();
+    }
     if (containerPrimaryRef.current !== null) {
       containerPrimaryRef.current.scrollTop = 0;
     }
@@ -110,8 +118,8 @@ function PortfolioObject(props: PortfolioObjectProps) {
           // }
           transition();
         }}
-        // className={`${props.data.new ? 'save-button' : 'exit-button'}`}
-        className={`${'exit-button'}`}
+        className={`${props.new ? 'save-button' : 'exit-button'}`}
+        // className={`${'exit-button'}`}
       ></div>
 
       <div className="portfolio-title">
@@ -177,8 +185,15 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   value={props.data.projectType}
                   filterOption={true}
                 >
-                  <Option value="App">App</Option>
-                  <Option value="Website">Website</Option>
+                  <Option value="website">website</Option>
+                  <Option value="app">app</Option>
+                  <Option value="code">code</Option>
+                  <Option value="academic">academic</Option>
+                  <Option value="model">model</Option>
+                  <Option value="game">game</Option>
+                  <Option value="video">video</Option>
+                  <Option value="audio">audio</Option>
+                  <Option value="presentation">presentation</Option>
                 </Select>
               ) : (
                 <div
@@ -217,23 +232,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
               <LineOutlined />
             </li>
             <li>
-              <CalendarOutlined />{' '}
-              {props.isMyProfile ? (
-                <DatePicker
-                  value={moment(props.data.datePosted, 'YYYY-MM')}
-                  placeholder={'Select Date'}
-                  bordered={false}
-                  picker="month"
-                  suffixIcon={<></>}
-                  onChange={(date, dateString) => {
-                    const newData = { ...props.data };
-                    newData.datePosted = dateString;
-                    props.setData(newData);
-                  }}
-                />
-              ) : (
-                props.data.datePosted
-              )}
+              <CalendarOutlined /> {' ' + date(props.data.datePosted)}
             </li>
             {/* <li>
               <Emoji symbol="🌏" label="Location:" /> {props.location}
@@ -244,6 +243,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 <div style={{ display: 'inline-block', width: '145px' }}>
                   <TextInput
                     editable={props.isMyProfile}
+                    placeholder={'Link to project'}
                     text={props.data.link}
                     onChange={(newString: string) => {
                       const newData = { ...props.data };
