@@ -9,7 +9,10 @@
   top: var(--unit-margin);
 
 }
-
+.resume-badges {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+}
 .resume-badges ul {
   padding: 0;
   list-style-type: none;

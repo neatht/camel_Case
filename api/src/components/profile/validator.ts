@@ -16,7 +16,8 @@ export const addProfileValidator = [
   body('data.public').exists().isBoolean(),
   body('data.gender').exists().custom((val) => {
     return isEnum(['male', 'female', 'other'], val);
-  })
+  }),
+  body('data.publicLocation').optional().isBoolean()
 ];
 
 export const updateProfileValidator = [
@@ -29,5 +30,6 @@ export const updateProfileValidator = [
   body('data.public').optional().isBoolean(),
   body('data.gender').optional().custom((val) => {
     return isEnum(['male', 'female', 'other'], val);
-  })
+  }),
+  body('data.publicLocation').optional().isBoolean()
 ];

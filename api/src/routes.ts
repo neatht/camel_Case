@@ -12,6 +12,7 @@ import searchRouter from './components/search/routes';
 import skillsRouter from './components/skills/routes';
 import achievementsRouter from './components/achievements/routes';
 import linksRouter from './components/socialLinks/routes';
+import projectRouter from './components/project/routes';
 import experienceRouter from './components/experience/routes';
 import educationRouter from './components/education/routes';
 
@@ -36,11 +37,13 @@ export const register = (app: express.Application) => {
   app.use('/api/skills', skillsRouter);
   app.use('/api/achievements', achievementsRouter);
   app.use('/api/links', linksRouter);
+  app.use('/api/project', projectRouter);
   app.use('/api/experience', experienceRouter);
   app.use('/api/education', educationRouter);
 
-  // Unauthenticated test route
-  app.get('/api/test', (req, res) => {
+  // authenticated test route
+  app.get('/api/test', jwtCheck, (req:any, res) => {
+    console.log(req.user);
     res.status(200);
     res.json({
       status: "success",

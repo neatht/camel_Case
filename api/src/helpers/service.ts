@@ -15,6 +15,7 @@ import express from 'express';
  * @param query - a string representing the query
  * @param queryParams - an array of query parameters
  */
+
 export const service = async (req: any,
                               next: express.NextFunction,
                               query: string,
@@ -61,4 +62,3 @@ export const checkPublicService = async (req: any, next: express.NextFunction, u
     return queryResult.rows[0].public;
   }
 }
-
