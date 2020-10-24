@@ -22,17 +22,15 @@ import {
 const { Option } = Select;
 
 type PortfolioObjectData = {
-  id: string;
-  title: string;
-  type: string;
-  date: string;
-  author: string;
-  shortDescription: string;
+  projectID?: string;
   tags?: string[];
-  views: string;
-  link: string;
-  location: string;
-  new?: boolean;
+  views?: number;
+  datePosted?: string;
+  location?: string;
+  projectName?: string;
+  link?: string;
+  userID?: string;
+  projectType?: string;
 };
 
 type PortfolioObjectProps = {
@@ -59,9 +57,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
   };
 
   useEffect(() => {
-    if (props.data.new) {
-      transition();
-    }
+    // if (props.data.new) {
+    //   transition();
+    // }
     if (containerPrimaryRef.current !== null) {
       containerPrimaryRef.current.scrollTop = 0;
     }
@@ -93,10 +91,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
     >
       {props.isMyProfile ? (
         <div
-          onClick={() => {
-            transition();
-            props.delData(props.data.id);
-          }}
+          // onClick={() => {
+          //   transition();
+          //   props.delData(props.data.id);
+          // }}
           className="del-button"
         ></div>
       ) : (
@@ -105,14 +103,14 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
       <div
         onClick={() => {
-          if (props.data.new) {
-            const newData = { ...props.data };
-            newData.new = false;
-            props.setData(newData);
-          }
+          // if (props.data.new) {
+          //   const newData = { ...props.data };
+          //   newData.new = false;
+          //   props.setData(newData);
+          // }
           transition();
         }}
-        className={`${props.data.new ? 'save-button' : 'exit-button'}`}
+        // className={`${props.data.new ? 'save-button' : 'exit-button'}`}
       ></div>
 
       <div className="portfolio-title">
@@ -122,33 +120,33 @@ function PortfolioObject(props: PortfolioObjectProps) {
             editable={props.isMyProfile}
             onChange={(newString: string) => {
               const newData = { ...props.data };
-              newData.title = newString;
+              newData.projectName = newString;
               props.setData(newData);
             }}
-            text={props.data.title}
+            text={props.data.projectName}
           />
         </h2>
       </div>
 
       <PortfolioHero
-        id={props.data.id}
+        id={props.data.projectID}
         isOpen={!thumbnail}
         isMyProfile={props.isMyProfile}
       />
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
           <h4>
-            <strong>{props.data.title}</strong>
+            <strong>{props.data.projectID}</strong>
           </h4>
-          <h5>{props.data.author}</h5>
+          {/* <h5>{props.data.author}</h5> */}
         </div>
       </div>
       <div className="portfolio-object-body">
         <div>
-          <AuthorBadge author={props.data.author} tagline="Author Tagline" />
+          {/* <AuthorBadge author={props.data.author} tagline="Author Tagline" /> */}
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
-            <TextInput
+            {/* <TextInput
               padding="10px"
               multiline={true}
               editable={props.isMyProfile}
@@ -158,7 +156,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 props.setData(newData);
               }}
               text={props.data.shortDescription}
-            />
+            /> */}
           </div>
         </div>
         <div className="container-secondary portfolio-side-bar">
@@ -172,10 +170,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   optionFilterProp="children"
                   onChange={(value) => {
                     const newData = { ...props.data };
-                    newData.type = value;
+                    newData.projectType = value;
                     props.setData(newData);
                   }}
-                  value={props.data.type}
+                  value={props.data.projectType}
                   filterOption={true}
                 >
                   <Option value="App">App</Option>
@@ -186,7 +184,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   style={{ width: '100%', textAlign: 'center' }}
                   className="portfolio-tag"
                 >
-                  {props.data.type}
+                  {props.data.projectType}
                 </div>
               )}
             </li>
@@ -221,19 +219,19 @@ function PortfolioObject(props: PortfolioObjectProps) {
               <CalendarOutlined />{' '}
               {props.isMyProfile ? (
                 <DatePicker
-                  value={moment(props.data.date, 'YYYY-MM')}
+                  value={moment(props.data.datePosted, 'YYYY-MM')}
                   placeholder={'Select Date'}
                   bordered={false}
                   picker="month"
                   suffixIcon={<></>}
                   onChange={(date, dateString) => {
                     const newData = { ...props.data };
-                    newData.date = dateString;
+                    newData.datePosted = dateString;
                     props.setData(newData);
                   }}
                 />
               ) : (
-                props.data.date
+                props.data.datePosted
               )}
             </li>
             {/* <li>
@@ -255,7 +253,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 </div>
               ) : (
                 <a target="_blank" href={props.data.link}>
-                  {formatLink(props.data.link)}
+                  {props.data.link ? formatLink(props.data.link) : null}
                 </a>
               )}
             </li>

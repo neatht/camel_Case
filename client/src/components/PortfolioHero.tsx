@@ -10,7 +10,7 @@ import { Tooltip } from 'antd';
 type PortfolioHeroProps = {
   isOpen: boolean;
   isMyProfile: boolean;
-  id: string;
+  id?: string;
 };
 
 type PortfolioHeroData = {
