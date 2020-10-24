@@ -157,6 +157,9 @@ function Profile() {
     // eslint-disable-next-line
   }, []);
 
+  // EDIT ME
+  const isMyProfile = true;
+
   return (
     <div className="App">
       <Header pageKey="profile" />

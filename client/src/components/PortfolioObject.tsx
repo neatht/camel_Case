@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import SocialLinks from './SocialLinks';
@@ -10,19 +10,37 @@ import AuthorBadge from './AuthorBadge';
 // import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
 import { useRef } from 'react';
+import { DatePicker, Dropdown, Select, Tooltip } from 'antd';
+import moment from 'moment';
+import {
+  CalendarOutlined,
+  EyeOutlined,
+  LineOutlined,
+  LinkOutlined,
+} from '@ant-design/icons';
 
-type PortfolioObjectProps = {
+const { Option } = Select;
+
+type PortfolioObjectData = {
   id: string;
   title: string;
   type: string;
-  media: { type: string; url: string }[];
   date: string;
   author: string;
   shortDescription: string;
+  tags?: string[];
   views: string;
-  location: string;
   link: string;
+  location: string;
+  new?: boolean;
+};
+
+type PortfolioObjectProps = {
+  data: PortfolioObjectData;
   portfolioObjectOpen: any;
+  isMyProfile: boolean;
+  setData: (d: PortfolioObjectData) => void;
+  delData: (id: string) => void;
 };
 
 function PortfolioObject(props: PortfolioObjectProps) {
@@ -30,22 +48,24 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
   const containerPrimaryRef = useRef<any>(null);
 
-  const isMyProfile = true;
-
-  const [shortDescription, setShortDescription] = useState(
-    props.shortDescription
-  );
-  const [title, setTitle] = useState(props.title);
-
   const [thumbnail, setThumbnail] = useState(true);
 
-  const handleClick = () => {
+  const transition = () => {
     setThumbnail(!thumbnail);
     props.portfolioObjectOpen(thumbnail);
     if (containerPrimaryRef.current !== null) {
       containerPrimaryRef.current.scrollTop = 0;
     }
   };
+
+  useEffect(() => {
+    if (props.data.new) {
+      transition();
+    }
+    if (containerPrimaryRef.current !== null) {
+      containerPrimaryRef.current.scrollTop = 0;
+    }
+  }, []);
 
   const formatLink = (link: string) => {
     const l = link.replace(/https?:\/\/(www.)?/, '').replace(/\/$/, '');
@@ -71,71 +91,176 @@ function PortfolioObject(props: PortfolioObjectProps) {
         thumbnail ? 'thumbnail' : 'container-scroll'
       }`}
     >
-      <div onClick={handleClick} className="exit-button"></div>
+      {props.isMyProfile ? (
+        <div
+          onClick={() => {
+            transition();
+            props.delData(props.data.id);
+          }}
+          className="del-button"
+        ></div>
+      ) : (
+        <></>
+      )}
+
+      <div
+        onClick={() => {
+          if (props.data.new) {
+            const newData = { ...props.data };
+            newData.new = false;
+            props.setData(newData);
+          }
+          transition();
+        }}
+        className={`${props.data.new ? 'save-button' : 'exit-button'}`}
+      ></div>
 
       <div className="portfolio-title">
-        <h2 style={{ marginRight: '35px' }}>
+        <h2 style={{ marginRight: '85px', marginLeft: '85px' }}>
           <TextInput
-            padding="2px 0 2px 35px"
-            editable={isMyProfile}
+            padding="2px 85px 2px 85px"
+            editable={props.isMyProfile}
             onChange={(newString: string) => {
-              setTitle(newString);
-              //POST UPDATE
+              const newData = { ...props.data };
+              newData.title = newString;
+              props.setData(newData);
             }}
-            text={props.title}
+            text={props.data.title}
           />
         </h2>
       </div>
 
       <PortfolioHero
+        id={props.data.id}
         isOpen={!thumbnail}
-        isMyProfile={isMyProfile}
-        media={props.media}
+        isMyProfile={props.isMyProfile}
       />
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
           <h4>
-            <strong>{title}</strong>
+            <strong>{props.data.title}</strong>
           </h4>
-          <h5>{props.author}</h5>
+          <h5>{props.data.author}</h5>
         </div>
       </div>
       <div className="portfolio-object-body">
         <div>
-          <AuthorBadge author={props.author} tagline="Author Tagline" />
+          <AuthorBadge author={props.data.author} tagline="Author Tagline" />
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             <TextInput
               padding="10px"
               multiline={true}
-              editable={isMyProfile}
+              editable={props.isMyProfile}
               onChange={(newString: string) => {
-                setShortDescription(newString);
-                //POST UPDATE
+                const newData = { ...props.data };
+                newData.shortDescription = newString;
+                props.setData(newData);
               }}
-              text={shortDescription}
+              text={props.data.shortDescription}
             />
           </div>
         </div>
         <div className="container-secondary portfolio-side-bar">
           <ul>
             <li>
-              <Emoji symbol="💻" label="Type:" /> {props.type}
+              {props.isMyProfile ? (
+                <Select
+                  showSearch
+                  style={{ width: '100%' }}
+                  placeholder="Select a person"
+                  optionFilterProp="children"
+                  onChange={(value) => {
+                    const newData = { ...props.data };
+                    newData.type = value;
+                    props.setData(newData);
+                  }}
+                  value={props.data.type}
+                  filterOption={true}
+                >
+                  <Option value="App">App</Option>
+                  <Option value="Website">Website</Option>
+                </Select>
+              ) : (
+                <div
+                  style={{ width: '100%', textAlign: 'center' }}
+                  className="portfolio-tag"
+                >
+                  {props.data.type}
+                </div>
+              )}
             </li>
             <li>
-              <Emoji symbol="📅" label="Date:" /> {props.date}
+              {props.isMyProfile ? (
+                <Select
+                  mode="tags"
+                  style={{ display: 'inline-block', width: '100%' }}
+                  placeholder="Tags"
+                  onChange={(value) => {
+                    // console.log(value);
+                    const newData = { ...props.data };
+                    newData.tags = value;
+                    props.setData(newData);
+                  }}
+                  value={props.data.tags}
+                ></Select>
+              ) : props.data.tags ? (
+                <div style={{ display: 'inline-block', width: '100%' }}>
+                  {props.data.tags.map((value, index) => {
+                    return <div className="portfolio-tag">{value}</div>;
+                  })}
+                </div>
+              ) : (
+                <></>
+              )}
+            </li>
+            <li style={{ textAlign: 'center' }}>
+              <LineOutlined />
             </li>
             <li>
+              <CalendarOutlined />{' '}
+              {props.isMyProfile ? (
+                <DatePicker
+                  value={moment(props.data.date, 'YYYY-MM')}
+                  placeholder={'Select Date'}
+                  bordered={false}
+                  picker="month"
+                  suffixIcon={<></>}
+                  onChange={(date, dateString) => {
+                    const newData = { ...props.data };
+                    newData.date = dateString;
+                    props.setData(newData);
+                  }}
+                />
+              ) : (
+                props.data.date
+              )}
+            </li>
+            {/* <li>
               <Emoji symbol="🌏" label="Location:" /> {props.location}
+            </li> */}
+            <li>
+              <LinkOutlined />{' '}
+              {props.isMyProfile ? (
+                <div style={{ display: 'inline-block', width: '145px' }}>
+                  <TextInput
+                    editable={props.isMyProfile}
+                    text={props.data.link}
+                    onChange={(newString: string) => {
+                      const newData = { ...props.data };
+                      newData.link = newString;
+                      props.setData(newData);
+                    }}
+                  />
+                </div>
+              ) : (
+                <a target="_blank" href={props.data.link}>
+                  {formatLink(props.data.link)}
+                </a>
+              )}
             </li>
             <li>
-              <Emoji symbol="🔗" label="Link:" />{' '}
-              <a target="_blank" href={props.link}>
-                {formatLink(props.link)}
-              </a>
-            </li>
-            <li>
-              <Emoji symbol="👁️" label="Views:" /> {props.views}
+              <EyeOutlined /> {props.data.views}
             </li>
           </ul>
           <div style={{ textAlign: 'center' }}></div>
