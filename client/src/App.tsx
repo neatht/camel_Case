@@ -17,8 +17,8 @@ function App() {
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/profile-setup" exact component={ProfileSetup} />
+        <Route path="/profile/:userID?" exact component={Profile} />
+        <Route path="/profile-setup/:userID?" component={ProfileSetup} />
         <Route path="/api-test" exact component={APITest} />
         <PrivateRoute path="/tests" exact component={Tests} />
       </Switch>

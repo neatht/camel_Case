@@ -11,12 +11,11 @@ exports[`Testing App renders without crashing 1`] = `
     <Route
       component={[Function]}
       exact={true}
-      path="/profile"
+      path="/profile/:userID?"
     />
     <Route
       component={[Function]}
-      exact={true}
-      path="/profile-setup"
+      path="/profile-setup/:userID?"
     />
     <Route
       component={[Function]}

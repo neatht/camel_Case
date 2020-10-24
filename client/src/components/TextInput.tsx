@@ -4,6 +4,7 @@ import './TextInput.css';
 
 type TextInputProps = {
   text?: string;
+  placeholder?: string;
   padding?: string;
   radius?: string;
   editable?: boolean;
@@ -28,6 +29,7 @@ function TextInput(props: TextInputProps) {
   const [editing, setEditing] = useState(false);
   const inputRef = useRef<any>(null);
   const displayTextRef = useRef<any>(null);
+  const placeholder = props.placeholder ? props.placeholder : '';
 
   const finish = () => {
     setEditing(false);
@@ -67,7 +69,11 @@ function TextInput(props: TextInputProps) {
         ref={displayTextRef}
         className={editing ? 'text-input-display-none' : ''}
       >
-        {props.text}
+        {props.text ? (
+          props.text
+        ) : (
+          <span className="placeholder">{placeholder}</span>
+        )}
       </div>
       {props.multiline ? (
         <div className={editing ? '' : 'text-input-display-none'}>
@@ -76,6 +82,7 @@ function TextInput(props: TextInputProps) {
             ref={inputRef}
             onBlur={() => finish()}
             value={text}
+            placeholder={placeholder}
             onChange={handleChange}
           />
         </div>
@@ -86,6 +93,7 @@ function TextInput(props: TextInputProps) {
             onBlur={() => finish()}
             type="text"
             value={text}
+            placeholder={placeholder}
             onChange={handleChange}
           />
         </div>

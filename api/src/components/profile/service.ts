@@ -68,7 +68,7 @@ export const checkProfileService = async (req: any, res: express.Response, next:
 export const addProfileService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string = 'INSERT INTO profile(user_id, first_name, \
     last_name, bio, date_of_birth, location, looking_for_work, public, \
-    gender, join_date) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+    gender, join_date, public_location) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
   const queryParams = [
     req.user.sub.split('|')[1],
     req.body.data.firstName,
@@ -79,7 +79,8 @@ export const addProfileService = async (req: any, res: express.Response, next: e
     req.body.data.lookingForWork.toString(),
     req.body.data.public.toString(),
     req.body.data.gender,
-    new Date()
+    new Date(),
+    req.body.data.publicLocation
   ];
   await service(req, next, query, queryParams);
 }
@@ -113,7 +114,7 @@ export const updateProfileService = async (req: any, res: express.Response, next
     req.body.data.lookingForWork,
     req.body.data.public,
     req.body.data.gender,
-    req.body.data.publicLocation ? req.body.data.publicLocation.toString() : null,
+    req.body.data.publicLocation,
     req.user.sub.split('|')[1]
   ];
   await service(req, next, query, queryParams);

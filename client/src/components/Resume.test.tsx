@@ -4,7 +4,7 @@ import Resume from './Resume';
 
 describe('Testing Resume', () => {
   it('renders without crashing', () => {
-    const component = shallow(<Resume isMyProfile={true} userID="string" />);
+    const component = shallow(<Resume />);
     expect(component).toMatchSnapshot();
     component.unmount();
   });

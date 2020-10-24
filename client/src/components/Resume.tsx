@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Popover, Spin, Switch, Tooltip } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserAddOutlined, UserOutlined } from '@ant-design/icons';
 
 import Emoji from './Emoji';
 
@@ -11,73 +11,170 @@ import TextInput from './TextInput';
 import { useEffect } from 'react';
 import { Large } from '../stories/Button.stories';
 import SocialLinks from './SocialLinks';
+import { useAuth0 } from '@auth0/auth0-react';
+import Loading from './Loading';
 
-// needs to have all props bar userID removed.
 type ResumeProps = {
+  /** UserID of resume to get. If left blank, the logged in user will be fetched */
   userID?: string;
-  name?: string;
-  profile?: string;
-  student?: string;
-  location?: string;
-  work?: boolean;
-  isMyProfile?: boolean;
 };
 
 type ResumeData = {
-  name: string;
-  bio: string;
-  location: string;
-  showLocation: boolean;
-  lookingForWork: boolean;
-  student: boolean;
-  institution: string;
-  public: boolean;
-  gender: string;
-  DOB: string;
+  firstName?: string;
+  lastName?: string;
+  bio?: string;
+  location?: string;
+  publicLocation?: boolean;
+  lookingForWork?: boolean;
+  //student: boolean;
+  //institution: string;
+  public?: boolean;
+  gender?: string;
+  DOB?: string;
   profilePicture?: string;
   heroPicture?: string;
 };
 
 function Resume(props: ResumeProps) {
+  const { getAccessTokenSilently } = useAuth0();
+  const isMyProfile = !props.userID ? true : false;
+
   const [isLoading, setIsLoading] = useState(true);
 
-  const isMyProfile = props.isMyProfile || false;
-  const [data, setData] = useState<ResumeData>();
+  const [profileData, setProfileData] = useState<ResumeData>();
+  const [updateProfileData, setUpdateProfileData] = useState<ResumeData>();
 
-  // EDIT ME
+  /**
+   * Fetches profile data and sets appropriately
+   *
+   */
   async function fetchData(): Promise<void> {
+    setIsLoading(true);
+
+    // If there is no userID, fetch own profile
+    const route = isMyProfile
+      ? 'profile/getOwnProfile'
+      : `profile/${props.userID}`;
+
+    // Call API
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await fetch('/api/' + route, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Check response is okay
+      if (!res.ok) {
+        console.error('Invalid response code', res.status, res.statusText);
+        return;
+      }
+
+      // Check if response has profile data
+      const resBody = await res.json();
+      const data = 'data' in resBody ? resBody['data'] : {};
+
+      // Set profile data (empty object if invalid)
+      // TODO: Could add warning?
+      console.log('setting data...', { data });
+      setProfileData(data);
+      setIsLoading(false);
+    } catch (e) {
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      console.error(res, e);
+      //return res;
+    }
     // GET data
-    setData({
-      name: 'Jane Doe',
+    /*setData({
+      firstName: 'Jane',
+      lastName: 'Doe',
       gender: 'string',
       lookingForWork: true,
       bio:
         'I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design.',
       location: 'Melbourne, Australia ',
-      showLocation: false,
-      student: true,
-      institution: 'The University of Melbourne',
+      publicLocation: false,
+      //student: true,
+      //institution: 'The University of Melbourne',
       public: true,
-      DOB: '',
-      // heroPicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
-      // profilePicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
-    });
+      //DOB: '',
+      //heroPicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
+      //profilePicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
+    });*/
     setIsLoading(false);
   }
 
-  // EDIT ME
-  async function saveData(): Promise<void> {
-    // PUT data
-  }
+  // Update API when profile data change
+  useEffect(() => {
+    console.log('checking to update profile...');
+    async function saveData(): Promise<void> {
+      //setIsLoading(true);
+
+      // If there is no userID, fetch own profile
+      const route = 'profile';
+
+      console.log('saving', { updateProfileData });
+
+      // Call API
+      try {
+        const token = await getAccessTokenSilently();
+        const res = await fetch('/api/' + route, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ data: updateProfileData }),
+        });
+
+        // Check response is okay
+        if (!res.ok) {
+          console.error('Invalid response code', res.status, res.statusText);
+          return;
+        }
+        console.log('updated successfully?', res.ok, res.statusText);
+        fetchData();
+        setIsLoading(false);
+      } catch (e) {
+        if (setIsLoading) {
+          setIsLoading(false);
+        }
+        const res = {
+          status: 'error',
+          message: [
+            'Exception from fetch on client side (not API) - check if the API stopped running',
+            e,
+          ],
+        };
+        console.error(res, e);
+        //return res;
+      }
+    }
+    if (updateProfileData !== profileData) {
+      console.log('updating profile');
+      saveData();
+    }
+  }, [updateProfileData]);
 
   useEffect(() => {
+    console.log('initial fetch from resume');
     fetchData();
   }, []);
 
   if (isLoading) {
     return (
       <div className="container-primary resume container-scroll">
-        <Spin size={'large'} />
+        <Loading messages={['Getting profile information']} />
       </div>
     );
   } else {
@@ -85,21 +182,21 @@ function Resume(props: ResumeProps) {
       <div className="container-primary resume container-scroll">
         <div
           style={
-            data?.heroPicture
-              ? { backgroundImage: `url(${data?.heroPicture})` }
+            profileData?.heroPicture
+              ? { backgroundImage: `url(${profileData?.heroPicture})` }
               : {}
           }
           className="container-secondary resume-hero"
         ></div>
         <div
           style={
-            data?.profilePicture
-              ? { backgroundImage: `url(${data?.profilePicture})` }
+            profileData?.profilePicture
+              ? { backgroundImage: `url(${profileData?.profilePicture})` }
               : {}
           }
           className="container-secondary resume-picture"
         >
-          {data?.profilePicture ? (
+          {profileData?.profilePicture ? (
             <></>
           ) : (
             <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
@@ -111,14 +208,19 @@ function Resume(props: ResumeProps) {
               <TextInput
                 editable={isMyProfile}
                 onChange={(newString: string) => {
-                  if (data) {
-                    const newData = { ...data };
-                    newData.name = newString;
-                    setData(newData);
-                    saveData();
+                  if (profileData) {
+                    const newData = {} as ResumeData;
+                    // Assume that name field is firstName + lastName split by space (not great)
+                    newData.firstName = newString.split(' ')[0];
+                    if (newString.split(' ').length > 1) {
+                      newData.lastName = newString.split(' ')[1];
+                    }
+                    //console.log({ newData });
+                    setUpdateProfileData(newData);
+                    //saveData();
                   }
                 }}
-                text={data?.name}
+                text={`${profileData?.firstName} ${profileData?.lastName}`}
               />
             </strong>
           </h1>
@@ -132,13 +234,13 @@ function Resume(props: ResumeProps) {
                       I am open to work opportunities
                       <div style={{ paddingLeft: '10px', float: 'right' }}>
                         <Switch
-                          defaultChecked={data?.lookingForWork}
+                          defaultChecked={profileData?.lookingForWork}
                           onChange={() => {
-                            if (data) {
-                              const newData = { ...data };
-                              newData.lookingForWork = !data?.lookingForWork;
-                              setData(newData);
-                              saveData();
+                            if (profileData) {
+                              const newData = {} as ResumeData;
+                              newData.lookingForWork = !profileData?.lookingForWork;
+                              setUpdateProfileData(newData);
+                              //saveData();
                             }
                           }}
                         />
@@ -147,11 +249,15 @@ function Resume(props: ResumeProps) {
                   }
                   trigger="click"
                 >
-                  <li style={data?.lookingForWork ? {} : { opacity: '0.5' }}>
+                  <li
+                    style={
+                      profileData?.lookingForWork ? {} : { opacity: '0.5' }
+                    }
+                  >
                     <Emoji symbol="✅" label="Open to work opportunities" />
                   </li>
                 </Popover>
-              ) : data?.lookingForWork ? (
+              ) : profileData?.lookingForWork ? (
                 <Tooltip title="Open to work opportunities" placement="bottom">
                   <li>
                     <Emoji symbol="✅" label="Open to work opportunities" />
@@ -170,14 +276,16 @@ function Resume(props: ResumeProps) {
                           <TextInput
                             editable={isMyProfile}
                             onChange={(newString: string) => {
-                              if (data) {
-                                const newData = { ...data };
+                              if (profileData) {
+                                //const newData = { ...data };
+                                const newData = {} as ResumeData;
                                 newData.location = newString;
-                                setData(newData);
-                                saveData();
+                                setUpdateProfileData(newData);
+                                //saveData();
                               }
                             }}
-                            text={data?.location}
+                            text={profileData?.location}
+                            placeholder={isMyProfile ? 'Location' : undefined}
                           />
                         </strong>
                       </h3>
@@ -185,13 +293,14 @@ function Resume(props: ResumeProps) {
                       <div style={{ paddingLeft: '10px', float: 'right' }}>
                         {' '}
                         <Switch
-                          defaultChecked={data?.showLocation}
+                          defaultChecked={profileData?.publicLocation}
                           onChange={() => {
-                            if (data) {
-                              const newData = { ...data };
-                              newData.showLocation = !data?.showLocation;
-                              setData(newData);
-                              saveData();
+                            if (profileData) {
+                              //const newData = { ...data };
+                              const newData = {} as ResumeData;
+                              newData.publicLocation = !profileData?.publicLocation;
+                              setUpdateProfileData(newData);
+                              //saveData();
                             }
                           }}
                         />
@@ -201,12 +310,16 @@ function Resume(props: ResumeProps) {
                   title="Where are you located?"
                   trigger="click"
                 >
-                  <li style={data?.showLocation ? {} : { opacity: '0.5' }}>
+                  <li
+                    style={
+                      profileData?.publicLocation ? {} : { opacity: '0.5' }
+                    }
+                  >
                     <Emoji symbol="🌏" label="Location" />
                   </li>
                 </Popover>
-              ) : data?.showLocation ? (
-                <Tooltip title={data?.location} placement="bottom">
+              ) : profileData?.publicLocation ? (
+                <Tooltip title={profileData?.location} placement="bottom">
                   <li>
                     <Emoji symbol="🌏" label="Location" />
                   </li>
@@ -214,7 +327,8 @@ function Resume(props: ResumeProps) {
               ) : (
                 <></>
               )}
-              {isMyProfile ? (
+              {/* No student info in route currently...
+                isMyProfile ? (
                 <Popover
                   content={
                     <div>
@@ -224,13 +338,15 @@ function Resume(props: ResumeProps) {
                             editable={isMyProfile}
                             onChange={(newString: string) => {
                               if (data) {
-                                const newData = { ...data };
+                                //const newData = { ...data };
+                                const newData = {} as ResumeData;
                                 newData.institution = newString;
-                                setData(newData);
-                                saveData();
+                                setUpdatProfileData(newData);
+                                //saveData();
                               }
                             }}
                             text={data?.institution}
+                            placeholder={}
                           />
                         </strong>
                       </h3>
@@ -241,10 +357,11 @@ function Resume(props: ResumeProps) {
                           defaultChecked={data?.student}
                           onChange={() => {
                             if (data) {
-                              const newData = { ...data };
-                              newData.student = !data?.student;
-                              setData(newData);
-                              saveData();
+                              // UPDATE
+                              //const newData = { ...data };
+                              //newData.student = !data?.student;
+                              //setData(newData);
+                              //saveData();
                             }
                           }}
                         />
@@ -266,7 +383,7 @@ function Resume(props: ResumeProps) {
                 </Tooltip>
               ) : (
                 <></>
-              )}
+              )*/}
             </ul>
             <SocialLinks isMyProfile={isMyProfile} userID={props.userID} />
           </div>
@@ -278,14 +395,16 @@ function Resume(props: ResumeProps) {
             multiline={true}
             editable={isMyProfile}
             onChange={(newString: string) => {
-              if (data) {
-                const newData = { ...data };
+              if (profileData) {
+                //const newData = { ...data };
+                const newData = {} as ResumeData;
                 newData.bio = newString;
-                setData(newData);
-                saveData();
+                setUpdateProfileData(newData);
+                //saveData();
               }
             }}
-            text={data?.bio}
+            text={profileData?.bio}
+            placeholder={isMyProfile ? 'Enter a bio' : undefined}
           />
         </div>
         <ResumeEntry type="Skills" display="inline" isMyProfile={isMyProfile} />
