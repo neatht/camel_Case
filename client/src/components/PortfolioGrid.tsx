@@ -6,7 +6,7 @@ import './PortfolioGrid.css';
 import { Tooltip } from 'antd';
 
 type PortfolioGridProps = {
-  isMyProfile?: boolean;
+  userID?: string;
 };
 
 type PortfolioObjectData = {
@@ -27,7 +27,7 @@ type PortfolioObjectData = {
 function PortfolioGrid(props: PortfolioGridProps) {
   const [data, setData] = useState<Array<PortfolioObjectData>>([]);
   //const [fetchError, setFetchError] = useState(false);
-  const isMyProfile = props.isMyProfile || false;
+  const isMyProfile = !props.userID ? true : false;
 
   // EDIT ME
   async function fetchData(): Promise<void> {
