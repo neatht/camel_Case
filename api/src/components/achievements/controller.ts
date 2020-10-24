@@ -8,7 +8,7 @@
 import express from 'express';
 import { getAchievementsService, updateAchievementService, getOwnAchievementsService } from './service';
 import { checkProfileService } from '../profile/service'
-import { checkOthersProfileService } from '../Achievements/service'
+import { checkOthersProfileService } from '../achievements/service'
 import dotenv from 'dotenv';
 dotenv.config();
 
