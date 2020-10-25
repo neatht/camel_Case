@@ -9,6 +9,7 @@
   /* flex-direction: row; */
   /* display: inline-grid; */
   /* grid-auto-flow: column; */
+  position: relative;
   width: 100%;
   height: calc((0.75 * var(--unit-width) * var(--unit-ratio)));
   padding: 0;
@@ -27,8 +28,11 @@
   border-radius: var(--border-radius-secondary);
 }
 .portfolio-hero-edit {
+  box-shadow: var(--inner-shadow);
+  border-radius: var(--border-radius-secondary);
+
   /* text-align: left; */
-  padding: var(--unit-margin);
+  /* padding: var(--unit-margin); */
   /* overflow-y: scroll; */
   /* display: flexbox; */
 }
