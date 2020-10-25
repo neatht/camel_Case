@@ -141,7 +141,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
       </div>
 
       <PortfolioHero
-        id={props.data.projectID}
+        projectID={props.data.projectID}
         isOpen={!thumbnail}
         isMyProfile={props.isMyProfile}
       />
