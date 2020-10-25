@@ -40,7 +40,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
 
     // Dummy for now
     setData([
-      {
+      /*{
         id: '1',
         title: 'Project 1',
         type: 'website',
@@ -290,7 +290,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
         views: '10',
         location: 'Melbourne, Australia',
         link: 'https://www.w3.org/',
-      },
+      },*/
     ]);
   }
 
