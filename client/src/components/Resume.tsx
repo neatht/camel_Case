@@ -13,6 +13,7 @@ import { Large } from '../stories/Button.stories';
 import SocialLinks from './SocialLinks';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
+import { createTrue } from 'typescript';
 
 type ResumeProps = {
   /** UserID of resume to get. If left blank, the logged in user will be fetched */
@@ -254,13 +255,21 @@ function Resume(props: ResumeProps) {
                       profileData?.lookingForWork ? {} : { opacity: '0.5' }
                     }
                   >
-                    <Emoji symbol="✅" label="Open to work opportunities" />
+                    <Emoji
+                      symbol="✅"
+                      label="Open to work opportunities"
+                      resize={true}
+                    />
                   </li>
                 </Popover>
               ) : profileData?.lookingForWork ? (
                 <Tooltip title="Open to work opportunities" placement="bottom">
                   <li>
-                    <Emoji symbol="✅" label="Open to work opportunities" />
+                    <Emoji
+                      symbol="✅"
+                      label="Open to work opportunities"
+                      resize={true}
+                    />
                   </li>
                 </Tooltip>
               ) : (
@@ -315,13 +324,13 @@ function Resume(props: ResumeProps) {
                       profileData?.publicLocation ? {} : { opacity: '0.5' }
                     }
                   >
-                    <Emoji symbol="🌏" label="Location" />
+                    <Emoji symbol="🌏" label="Location" resize={true} />
                   </li>
                 </Popover>
               ) : profileData?.publicLocation ? (
                 <Tooltip title={profileData?.location} placement="bottom">
                   <li>
-                    <Emoji symbol="🌏" label="Location" />
+                    <Emoji symbol="🌏" label="Location" resize={true} />
                   </li>
                 </Tooltip>
               ) : (
