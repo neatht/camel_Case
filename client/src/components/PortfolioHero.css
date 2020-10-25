@@ -9,6 +9,7 @@
   /* flex-direction: row; */
   /* display: inline-grid; */
   /* grid-auto-flow: column; */
+  position: relative;
   width: 100%;
   height: calc((0.75 * var(--unit-width) * var(--unit-ratio)));
   padding: 0;

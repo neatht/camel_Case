@@ -6,6 +6,7 @@ import { EditOutlined } from '@ant-design/icons';
 import placeholderFolioImage from '../placeholder-folio-image.png';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Tooltip } from 'antd';
+import Uploader from './Uploader';
 
 type PortfolioHeroProps = {
   isOpen: boolean;
@@ -120,26 +121,29 @@ function PortfolioHero(props: PortfolioHeroProps) {
         }`}
       >
         {props.isMyProfile ? (
-          <div
-            onClick={() => {
-              if (editing && editingState) {
-                setEditing(!editing);
-                setTimeout(() => setEditingState(!editingState), 1000);
-              } else if (!editing && !editingState) {
-                setEditingState(!editingState);
-                setTimeout(() => setEditing(!editing), 50);
-              } else {
-                setEditingState(false);
-                setEditing(false);
-              }
-            }}
-            // onMouseUp={() => {
-            //   setEditing(!editing);
-            // }}
-            className="display-top-right container-secondary"
-          >
-            <EditOutlined />
-          </div>
+          <>
+            <div
+              onClick={() => {
+                if (editing && editingState) {
+                  setEditing(!editing);
+                  setTimeout(() => setEditingState(!editingState), 1000);
+                } else if (!editing && !editingState) {
+                  setEditingState(!editingState);
+                  setTimeout(() => setEditing(!editing), 50);
+                } else {
+                  setEditingState(false);
+                  setEditing(false);
+                }
+              }}
+              // onMouseUp={() => {
+              //   setEditing(!editing);
+              // }}
+              className="display-top-right container-secondary"
+            >
+              <EditOutlined />
+            </div>
+            <Uploader />
+          </>
         ) : (
           ''
         )}
