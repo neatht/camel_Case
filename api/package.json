@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build": "tsc",
+    "build": "tsc --skipLibCheck",
     "prestart": "npm run build",
     "start": "node .",
     "predeploy": "npm install -g pm2",
