@@ -51,11 +51,11 @@ function SocialLinks(props: SocialLinksProps) {
       entries: [
         //"phoneNumber": '0492837116',
         // "emailAddress": 'mailto:email@example.com',
-        'https://www.github.com',
+        //'https://www.github.com',
         // 'https://www.twitter.com',
-        'https://www.behance.com',
-        'https://www.dribbble.com',
-        'https://www.linkedin.com',
+        //'https://www.behance.com',
+        //'https://www.dribbble.com',
+        //'https://www.linkedin.com',
         // 'https://www.facebook.com',
         // 'https://www.instagram.com',
         // 'https://www.google.com',
@@ -108,6 +108,7 @@ function SocialLinks(props: SocialLinksProps) {
                       ></div>
                     </Tooltip>
                     <TextInput
+                      placeholder="Enter social link"
                       editable={props.isMyProfile}
                       onChange={(newString: string) => {
                         if (data) {
@@ -161,7 +162,7 @@ function SocialLinks(props: SocialLinksProps) {
               onClick={() => {
                 if (data) {
                   const newData = { ...data };
-                  newData.entries.push('Enter URL');
+                  newData.entries.push('');
                   setData(newData);
                   saveData();
                 }
