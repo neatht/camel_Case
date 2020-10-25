@@ -175,7 +175,7 @@ function Profile() {
               {'firstName' in profileInfo ? (
                 <>
                   <Resume userID={userID} />
-                  <PortfolioGrid />
+                  <PortfolioGrid isMyProfile={true} />
                 </>
               ) : null}
 
