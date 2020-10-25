@@ -6,6 +6,7 @@
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: var(--unit-margin);
+  min-width: 450px;
 }
 .resume-badges {
   display: inline-grid;
