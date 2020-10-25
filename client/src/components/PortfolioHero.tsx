@@ -98,6 +98,96 @@ function PortfolioHero(props: PortfolioHeroProps) {
             'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
         },
       ];
+    } else if (props.id === '5') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/CsNzYxy/example5.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '6') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/gWDkgdh/example6.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '7') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/8j5MMLw/example7.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '8') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/rybJT5c/example4.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '9') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/SBWrhmP/example30.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
     } else {
       d = [];
     }

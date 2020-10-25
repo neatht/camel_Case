@@ -145,7 +145,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
       </div>
       <div className="portfolio-object-body">
         <div>
-          <AuthorBadge author="Alex Shepard" tagline="Computer science student at the University of Melbourne" />
+          <AuthorBadge author={props.data.author} tagline="Computer science student at the University of Melbourne" />
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             <TextInput
