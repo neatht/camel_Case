@@ -4,36 +4,29 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Tooltip, Upload } from 'antd';
+import { stringType } from 'aws-sdk/clients/iam';
 import React, { useRef, useState } from 'react';
 
 import './Uploader.css';
 
 type TextInputProps = {
-  text?: string;
-  padding?: string;
-  radius?: string;
-  editable?: boolean;
-  multiline?: boolean;
-  maxLen?: number;
-  onChange?: Function;
+  onUpload: Function;
 };
 
 function Uploader(props: TextInputProps) {
-  const [text, setText] = useState<any>();
-  const [editing, setEditing] = useState(false);
+  const [type, setType] = useState<string>('');
+  // const [editing, setEditing] = useState(false);
   const inputRef = useRef<any>(null);
-  const displayTextRef = useRef<any>(null);
+  // const displayTextRef = useRef<any>(null);
 
   return (
     <div
-      style={{
-        height: '500px',
-        backgroundImage: `url(${text})`,
-        backgroundSize: 'fit',
-      }}
+
     >
-      <img src={text} width="100px" height="100px"></img>
+      {/* <embed src={text} width="100px" height="100px" /> */}
+      {/* <img src={text} width="100px" height="100px"></img> */}
       <input
+        style={{ display: 'none' }}
         ref={inputRef}
         onChange={() => {
           // inputRef.current.files[0].name;
@@ -45,7 +38,7 @@ function Uploader(props: TextInputProps) {
             () => {
               // convert image file to base64 string
               console.log(reader.result?.toString());
-              setText(reader.result);
+              props.onUpload(reader.result, type);
             },
             false
           );
@@ -61,19 +54,35 @@ function Uploader(props: TextInputProps) {
         +
         <div className="uploader-inner">
           <Tooltip title="Upload Film" placement="bottom">
-            <Upload>
-              <div className="uploader-item">
-                <VideoCameraOutlined />
-              </div>
-            </Upload>
+            <div
+              onClick={() => {
+                inputRef.current.click();
+                setType('video');
+              }}
+              className="uploader-item"
+            >
+              <VideoCameraOutlined />
+            </div>
           </Tooltip>
           <Tooltip title="Upload Image" placement="bottom">
-            <div className="uploader-item">
+            <div
+              onClick={() => {
+                inputRef.current.click();
+                setType('image');
+              }}
+              className="uploader-item"
+            >
               <FileImageOutlined />
             </div>
           </Tooltip>
           <Tooltip title="Upload PDF" placement="bottom">
-            <div className="uploader-item">
+            <div
+              onClick={() => {
+                inputRef.current.click();
+                setType('pdf');
+              }}
+              className="uploader-item"
+            >
               <FilePdfOutlined />
             </div>
           </Tooltip>

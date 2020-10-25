@@ -28,6 +28,9 @@
   border-radius: var(--border-radius-secondary);
 }
 .portfolio-hero-edit {
+  box-shadow: var(--inner-shadow);
+  border-radius: var(--border-radius-secondary);
+
   /* text-align: left; */
   padding: var(--unit-margin);
   /* overflow-y: scroll; */

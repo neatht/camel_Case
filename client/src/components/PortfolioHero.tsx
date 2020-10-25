@@ -7,6 +7,7 @@ import placeholderFolioImage from '../placeholder-folio-image.png';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Tooltip } from 'antd';
 import Uploader from './Uploader';
+import { stringList } from 'aws-sdk/clients/datapipeline';
 
 type PortfolioHeroProps = {
   isOpen: boolean;
@@ -16,7 +17,7 @@ type PortfolioHeroProps = {
 
 type PortfolioHeroData = {
   type: string;
-  url: string;
+  url: any;
 };
 
 function PortfolioHero(props: PortfolioHeroProps) {
@@ -142,7 +143,18 @@ function PortfolioHero(props: PortfolioHeroProps) {
             >
               <EditOutlined />
             </div>
-            <Uploader />
+            <Uploader
+              onUpload={(file: any, typeName: string) => {
+                if (media) {
+                  const newMedia = [...media];
+                  newMedia.push({
+                    type: typeName,
+                    url: file,
+                  });
+                  setMedia(newMedia);
+                }
+              }}
+            />
           </>
         ) : (
           ''
