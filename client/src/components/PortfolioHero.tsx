@@ -208,7 +208,9 @@ function PortfolioHero(props: PortfolioHeroProps) {
     return (
       <div
         className={`portfolio-hero  ${
-          editing ? 'portfolio-hero-edit container-scroll' : ''
+          
+          (editing ? 'portfolio-hero-edit container-scroll' : '') +
+          (!media || media?.length === 0 ? ' container-media ' : '')
         }`}
       >
         {props.isMyProfile ? (
@@ -475,12 +477,13 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 }
               })
             ) : (
-              <div
-                className={`portfolio-hero-media container-secondary ${
-                  slide === 0 ? 'portfolio-hero-media-max' : ''
-                }`}
-                style={{ backgroundImage: `url(${placeholderFolioImage})` }}
-              ></div>
+              <></>
+              // <div
+              //   className={`portfolio-hero-media container-secondary ${
+              //     slide === 0 ? 'portfolio-hero-media-max' : ''
+              //   }`}
+              //   style={{ backgroundImage: `url(${placeholderFolioImage})` }}
+              // ></div>
             )}
           </div>
         )}
