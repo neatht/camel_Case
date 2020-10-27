@@ -26,6 +26,8 @@
 
 ## :tada: Getting Started
 
+Time to get started!
+
 ### :house: Local Installation
 
 These instructions will help you get a copy of the project up and running for development and testing. This project runs on an Express backend and React frontend with TypeScript. You will need `npm` and `yarn` installed to start.
