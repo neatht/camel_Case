@@ -20,9 +20,7 @@ function Uploader(props: TextInputProps) {
   // const displayTextRef = useRef<any>(null);
 
   return (
-    <div
-
-    >
+    <div>
       {/* <embed src={text} width="100px" height="100px" /> */}
       {/* <img src={text} width="100px" height="100px"></img> */}
       <input
