@@ -9,7 +9,7 @@ import './Resume.css';
 import ResumeEntry from './ResumeEntry';
 import TextInput from './TextInput';
 import { useEffect } from 'react';
-import { Large } from '../stories/Button.stories';
+//import { Large } from '../stories/Button.stories';
 import SocialLinks from './SocialLinks';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
@@ -190,18 +190,23 @@ function Resume(props: ResumeProps) {
           className="container-secondary resume-hero"
         ></div>
         <div
-          style={
+          /*style={
             profileData?.profilePicture
               ? { backgroundImage: `url(${profileData?.profilePicture})` }
               : {}
-          }
+          }*/
+          style={{
+            backgroundImage: `url(${'https://i.imgur.com/h2E4WGw.jpg'})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+          }}
           className="container-secondary resume-picture"
         >
-          {profileData?.profilePicture ? (
+          {/*{profileData?.profilePicture ? (
             <></>
           ) : (
             <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
-          )}
+          )}*/}
         </div>
         <div className="resume-name">
           <h1>
