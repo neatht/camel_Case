@@ -126,6 +126,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
               props.setData(newData);
             }}
             text={props.data.title}
+            placeholder="Title"
           />
         </h2>
       </div>
@@ -145,7 +146,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
       </div>
       <div className="portfolio-object-body">
         <div>
-          <AuthorBadge author={props.data.author} tagline="Computer science student at the University of Melbourne" />
+          <AuthorBadge
+            author={props.data.author}
+            tagline="Computer Science Student at the University of Melbourne"
+          />
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             <TextInput
@@ -158,6 +162,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 props.setData(newData);
               }}
               text={props.data.shortDescription}
+              placeholder="Description"
             />
           </div>
         </div>
@@ -166,20 +171,21 @@ function PortfolioObject(props: PortfolioObjectProps) {
             <li>
               {props.isMyProfile ? (
                 <Select
-                  showSearch
                   style={{ width: '100%' }}
-                  placeholder="Select a person"
-                  optionFilterProp="children"
+                  placeholder="Project Type"
                   onChange={(value) => {
                     const newData = { ...props.data };
                     newData.type = value;
                     props.setData(newData);
                   }}
                   value={props.data.type}
-                  filterOption={true}
                 >
-                  <Option value="App">App</Option>
-                  <Option value="Website">Website</Option>
+                  <Option value="app">
+                    <Emoji symbol="📱" /> App
+                  </Option>
+                  <Option value="website">
+                    <Emoji symbol="🖥" /> Website
+                  </Option>
                 </Select>
               ) : (
                 <div
@@ -203,7 +209,11 @@ function PortfolioObject(props: PortfolioObjectProps) {
                     props.setData(newData);
                   }}
                   value={props.data.tags}
-                ></Select>
+                >
+                  <Option value="React">React</Option>
+                  <Option value="TypeScript">TypeScript</Option>
+                  <Option value="Express">Express</Option>
+                </Select>
               ) : props.data.tags ? (
                 <div style={{ display: 'inline-block', width: '100%' }}>
                   {props.data.tags.map((value, index) => {
@@ -221,7 +231,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
               <CalendarOutlined />{' '}
               {props.isMyProfile ? (
                 <DatePicker
-                  value={moment(props.data.date, 'YYYY-MM')}
+                  value={moment(props.data.date, 'MMM YYYY')}
                   placeholder={'Select Date'}
                   bordered={false}
                   picker="month"
@@ -231,6 +241,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                     newData.date = dateString;
                     props.setData(newData);
                   }}
+                  format={'MMM YYYY'}
                 />
               ) : (
                 props.data.date
@@ -246,6 +257,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   <TextInput
                     editable={props.isMyProfile}
                     text={props.data.link}
+                    placeholder="Link"
                     onChange={(newString: string) => {
                       const newData = { ...props.data };
                       newData.link = newString;

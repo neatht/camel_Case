@@ -321,15 +321,15 @@ function PortfolioGrid(props: PortfolioGridProps) {
               // Place Holder
               const d = {
                 id: 'id',
-                title: 'Project Title',
-                type: 'Website',
+                title: '',
+                type: '',
                 // media: { type: string; url: string }[];
-                date: '',
-                author: 'string',
-                shortDescription: 'Short Description.',
+                date: 'Oct 2020',
+                author: 'Alex Shepard',
+                shortDescription: '',
                 views: '0',
-                link: 'Link to project',
-                location: 'string',
+                link: '',
+                location: '',
                 new: true,
               };
               newData.push(d);

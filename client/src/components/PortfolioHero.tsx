@@ -208,33 +208,34 @@ function PortfolioHero(props: PortfolioHeroProps) {
     return (
       <div
         className={`portfolio-hero  ${
-          
           (editing ? 'portfolio-hero-edit container-scroll' : '') +
           (!media || media?.length === 0 ? ' container-media ' : '')
         }`}
       >
         {props.isMyProfile ? (
           <>
-            <div
-              onClick={() => {
-                if (editing && editingState) {
-                  setEditing(!editing);
-                  setTimeout(() => setEditingState(!editingState), 1000);
-                } else if (!editing && !editingState) {
-                  setEditingState(!editingState);
-                  setTimeout(() => setEditing(!editing), 50);
-                } else {
-                  setEditingState(false);
-                  setEditing(false);
-                }
-              }}
-              // onMouseUp={() => {
-              //   setEditing(!editing);
-              // }}
-              className="display-top-right container-secondary"
-            >
-              <EditOutlined />
-            </div>
+            <Tooltip title="Edit media">
+              <div
+                onClick={() => {
+                  if (editing && editingState) {
+                    setEditing(!editing);
+                    setTimeout(() => setEditingState(!editingState), 1000);
+                  } else if (!editing && !editingState) {
+                    setEditingState(!editingState);
+                    setTimeout(() => setEditing(!editing), 50);
+                  } else {
+                    setEditingState(false);
+                    setEditing(false);
+                  }
+                }}
+                // onMouseUp={() => {
+                //   setEditing(!editing);
+                // }}
+                className="display-top-right container-secondary"
+              >
+                <EditOutlined />
+              </div>
+            </Tooltip>
             <Uploader
               onUpload={(file: any, typeName: string) => {
                 if (media) {
