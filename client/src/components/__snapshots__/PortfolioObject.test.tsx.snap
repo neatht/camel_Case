@@ -23,6 +23,7 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
         editable={false}
         onChange={[Function]}
         padding="2px 85px 2px 85px"
+        placeholder="Title"
         text="Project 1"
       />
     </h2>
@@ -54,7 +55,7 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
     <div>
       <AuthorBadge
         author="Author 1"
-        tagline="Author Tagline"
+        tagline="Computer Science Student at the University of Melbourne"
       />
       <br />
       <div
@@ -70,6 +71,7 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
           multiline={true}
           onChange={[Function]}
           padding="10px"
+          placeholder="Description"
           text="This is a short description about the project"
         />
       </div>

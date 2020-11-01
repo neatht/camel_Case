@@ -6,6 +6,13 @@ exports[`Testing AuthorBadge renders without crashing 1`] = `
 >
   <div
     className="profilePicture"
+    style={
+      Object {
+        "backgroundImage": "undefined",
+        "backgroundPosition": "center",
+        "backgroundSize": "cover",
+      }
+    }
   >
     <ForwardRef(UserOutlined)
       style={
