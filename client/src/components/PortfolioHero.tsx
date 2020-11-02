@@ -15,6 +15,7 @@ type PortfolioHeroProps = {
   isMyProfile: boolean;
   projectID?: string;
   userID?: string;
+  new: boolean;
 };
 
 type PortfolioHeroData = {
@@ -94,14 +95,64 @@ function PortfolioHero(props: PortfolioHeroProps) {
     }
   }
 
-  // EDIT ME
-  async function saveData(): Promise<void> {
-    // PUT data
+  async function saveData(
+    action: string,
+    updatePortfolioHeroData: PortfolioHeroData[]
+  ): Promise<void> {
+    //setIsLoading(true);
+
+    const route = `media/${props.projectID}`;
+
+    console.log(updatePortfolioHeroData);
+
+    // Call API
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await fetch('/api/' + route, {
+        method: action,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: updatePortfolioHeroData }),
+      });
+
+      // Check response is okay
+      if (!res.ok) {
+        console.error('Invalid response code', res.status, res.statusText);
+        return;
+      }
+      console.log('updated successfully?', res.ok, res.statusText);
+      // fetchData();
+      // setIsLoading(false);
+    } catch (e) {
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      console.error(res, e);
+      //return res;
+    }
+    fetchData();
   }
 
   useEffect(() => {
-    fetchData();
-  }, [props.projectID]);
+    if (props.new && props.projectID){
+      const newData = {} as PortfolioHeroData;
+      newData.datePosted = '';
+      newData.link = '';
+      newData.mediaName = '';
+      newData.mediaType = '';
+      newData.projectID = props.projectID;
+      newData.userID = '';
+      saveData('POST', [newData]);
+    } else {
+      fetchData();
+    }
+    }, [props.projectID]);
 
   // props.isOpen ?
   if (props.isOpen) {
@@ -205,7 +256,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                   newMedia.splice(source.index, 1);
                   newMedia.splice(destination.index, 0, movedMedia);
                   setMedia(newMedia);
-                  saveData();
+                  // saveData();
                 }
               }}
             >
@@ -264,7 +315,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                               const newMedia = [...media];
                                               newMedia.splice(index, 1);
                                               setMedia(newMedia);
-                                              saveData();
+                                              // saveData();
                                               // Remove
                                             }}
                                           ></div>
@@ -306,7 +357,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                               const newMedia = [...media];
                                               newMedia.splice(index, 1);
                                               setMedia(newMedia);
-                                              saveData();
+                                              // saveData();
                                               // Remove
                                             }}
                                           ></div>
