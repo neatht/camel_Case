@@ -43,6 +43,7 @@ exports[`Testing HomeHero renders without crashing 1`] = `
         }
       >
         <Emoji
+          resize={false}
           symbol="🛰️"
         />
         <br />

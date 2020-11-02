@@ -6,6 +6,8 @@ import { EditOutlined } from '@ant-design/icons';
 import placeholderFolioImage from '../placeholder-folio-image.png';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Tooltip } from 'antd';
+import Uploader from './Uploader';
+import { stringList } from 'aws-sdk/clients/datapipeline';
 
 type PortfolioHeroProps = {
   isOpen: boolean;
@@ -15,7 +17,7 @@ type PortfolioHeroProps = {
 
 type PortfolioHeroData = {
   type: string;
-  url: string;
+  url: any;
 };
 
 function PortfolioHero(props: PortfolioHeroProps) {
@@ -96,6 +98,96 @@ function PortfolioHero(props: PortfolioHeroProps) {
             'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
         },
       ];
+    } else if (props.id === '5') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/CsNzYxy/example5.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '6') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/gWDkgdh/example6.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '7') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/8j5MMLw/example7.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '8') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/rybJT5c/example4.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
+    } else if (props.id === '9') {
+      d = [
+        { type: 'image', url: 'https://i.ibb.co/SBWrhmP/example30.png' },
+        { type: 'image', url: 'https://i.ibb.co/BNZxQ2z/example0.jpg' },
+        { type: 'image', url: 'https://i.ibb.co/TYYyXDH/example1.png' },
+        { type: 'image', url: 'https://i.ibb.co/pZmXQb5/example2.png' },
+        { type: 'image', url: 'https://i.ibb.co/SwzRr9S/example3.png' },
+        {
+          type: 'pdf',
+          url:
+            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+        },
+        {
+          type: 'video',
+          url:
+            'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
+        },
+      ];
     } else {
       d = [];
     }
@@ -116,30 +208,47 @@ function PortfolioHero(props: PortfolioHeroProps) {
     return (
       <div
         className={`portfolio-hero  ${
-          editing ? 'portfolio-hero-edit container-scroll' : ''
+          (editing ? 'portfolio-hero-edit container-scroll' : '') +
+          (!media || media?.length === 0 ? ' container-media ' : '')
         }`}
       >
         {props.isMyProfile ? (
-          <div
-            onClick={() => {
-              if (editing && editingState) {
-                setEditing(!editing);
-                setTimeout(() => setEditingState(!editingState), 1000);
-              } else if (!editing && !editingState) {
-                setEditingState(!editingState);
-                setTimeout(() => setEditing(!editing), 50);
-              } else {
-                setEditingState(false);
-                setEditing(false);
-              }
-            }}
-            // onMouseUp={() => {
-            //   setEditing(!editing);
-            // }}
-            className="display-top-right container-secondary"
-          >
-            <EditOutlined />
-          </div>
+          <>
+            <Tooltip title="Edit media">
+              <div
+                onClick={() => {
+                  if (editing && editingState) {
+                    setEditing(!editing);
+                    setTimeout(() => setEditingState(!editingState), 1000);
+                  } else if (!editing && !editingState) {
+                    setEditingState(!editingState);
+                    setTimeout(() => setEditing(!editing), 50);
+                  } else {
+                    setEditingState(false);
+                    setEditing(false);
+                  }
+                }}
+                // onMouseUp={() => {
+                //   setEditing(!editing);
+                // }}
+                className="display-top-right container-secondary"
+              >
+                <EditOutlined />
+              </div>
+            </Tooltip>
+            <Uploader
+              onUpload={(file: any, typeName: string) => {
+                if (media) {
+                  const newMedia = [...media];
+                  newMedia.push({
+                    type: typeName,
+                    url: file,
+                  });
+                  setMedia(newMedia);
+                }
+              }}
+            />
+          </>
         ) : (
           ''
         )}
@@ -369,12 +478,13 @@ function PortfolioHero(props: PortfolioHeroProps) {
                 }
               })
             ) : (
-              <div
-                className={`portfolio-hero-media container-secondary ${
-                  slide === 0 ? 'portfolio-hero-media-max' : ''
-                }`}
-                style={{ backgroundImage: `url(${placeholderFolioImage})` }}
-              ></div>
+              <></>
+              // <div
+              //   className={`portfolio-hero-media container-secondary ${
+              //     slide === 0 ? 'portfolio-hero-media-max' : ''
+              //   }`}
+              //   style={{ backgroundImage: `url(${placeholderFolioImage})` }}
+              // ></div>
             )}
           </div>
         )}

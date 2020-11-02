@@ -17,7 +17,7 @@
   display: inline-block;
 }
 
-.exit-button-resume-entry{
+.exit-button-resume-entry {
   opacity: 0;
   transition: opacity 0.3s;
   top: -15px;
@@ -25,7 +25,7 @@
   background: var(--del-gradient);
 }
 
-.resume-entry li:hover .exit-button-resume-entry{
+.resume-entry li:hover .exit-button-resume-entry {
   opacity: 1;
 }
 
@@ -41,15 +41,13 @@
   box-sizing: content-box;
   background-color: var(--background-color-primary);
   box-shadow: var(--inner-shadow), var(--drop-shadow);
-
-
 }
 
-.resume-entry-inline .resume-entry-date{
+.resume-entry-inline .resume-entry-date {
   display: none;
 }
 
-.resume-entry-inline .resume-sub-text{
+.resume-entry-inline .resume-sub-text {
   display: none;
 }
 
@@ -70,10 +68,9 @@
 .resume-entry-grid {
   display: grid;
   grid-template-columns: 100px auto;
-
 }
 
-.resume-entry-block .resume-entry-date{
+.resume-entry-block .resume-entry-date {
   font-family: 'Rubik Mono One', sans-serif;
   font-size: 0.75em;
   text-align: right;
@@ -82,12 +79,9 @@
   overflow-x: hidden;
   margin-top: 4px;
   border-right: 1px solid var(--color-app);
-  opacity: 0.6;
-  
+  /*opacity: 0.6;*/
 }
 
-.resume-entry-block .resume-sub-text{
+.resume-entry-block .resume-sub-text {
   opacity: 0.6;
 }
-
-
