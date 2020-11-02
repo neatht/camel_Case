@@ -99,6 +99,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
         thumbnail ? 'thumbnail' : 'container-scroll'
       }`}
     >
+      {props.data.projectID}
       {props.isMyProfile ? (
         <div
           onClick={() => {

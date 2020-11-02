@@ -41,11 +41,11 @@ function PortfolioHero(props: PortfolioHeroProps) {
     // setIsLoading(true);
 
     // If there is no userID, fetch own profile
-    // const route = isMyProfile
-    //   ? `project/media/getOwnMedia/${props.projectID}`
-    //   : `project/media/${props.userID}`;
+    const route = isMyProfile
+      ? `project/media/getOwnMedia/${props.projectID}`
+      : `project/media/${props.userID}`;
 
-    const route = 'project/media/30588745/1';
+    // const route = 'project/media/30588745/1';
 
     try {
       const token = await getAccessTokenSilently();

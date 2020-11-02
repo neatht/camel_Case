@@ -135,6 +135,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
       console.error(res, e);
       //return res;
     }
+    fetchData();
   }
 
   useEffect(() => {
@@ -172,7 +173,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 const newPortfolioGridData = [...portfolioGridData];
                 newPortfolioGridData.push(newData);
                 saveData('POST', newData);
-                setPortfolioGridData(newPortfolioGridData);
+                // setPortfolioGridData(newPortfolioGridData);
                 setNewEntry(true);
               }}
             >
