@@ -10,11 +10,11 @@ export const addMediaService = async (req: any, res: express.Response, next: exp
 
   const queryParams = [
     new Date(),
-    req.body.data.s3ObjUrl,
-    req.body.data.s3ObjID,
+    req.body.data.link,
+    req.body.data.mediaID,
     req.body.data.mediaName,
     req.body.data.projectID,
-    req.body.data.fileType,
+    req.body.data.mediaCategory,
     req.body.data.userID
   ]
 
