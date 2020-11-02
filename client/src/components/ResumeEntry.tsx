@@ -2,6 +2,7 @@ import { Spin, Tooltip } from 'antd';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import CompanyAutoComplete from './CompanyAutoComplete';
 
 import './ResumeEntry.css';
 import TextInput from './TextInput';
@@ -26,6 +27,7 @@ function ResumeEntry(props: ResumeEntryProps) {
     if (props.type === 'Skills') {
       setData({
         entries: [
+          /*
           { text: 'HTML' },
           { text: 'CSS' },
           { text: 'JavaScript' },
@@ -35,51 +37,20 @@ function ResumeEntry(props: ResumeEntryProps) {
           { text: 'Java' },
           { text: 'Graphic Design' },
           { text: 'Photoshop' },
-          { text: 'Illustrator' },
+          { text: 'Illustrator' },*/
         ],
       });
     } else if (props.type === 'Experience') {
       setData({
-        entries: [
-          {
-            date: '2020',
-            text: 'Internship at a Company',
-            subText: 'as a Full Stack Developer',
-          },
-          {
-            date: '2019',
-            text: 'Internship at a different Company',
-            subText: 'as a Front end Developer',
-          },
-          {
-            date: '2018-Current',
-            text: 'Part time job',
-            subText: 'doing something',
-          },
-        ],
+        entries: [],
       });
     } else if (props.type === 'Achievements') {
       setData({
-        entries: [
-          { date: '2020', text: 'First Cass Honours' },
-          { date: '2020', text: 'First in Hackathon' },
-        ],
+        entries: [],
       });
     } else if (props.type === 'Education') {
       setData({
-        entries: [
-          {
-            date: '2018-20',
-            text: 'The University of Melbourne',
-            subText:
-              'Bachelor of Science - Major in computing and software systems',
-          },
-          {
-            date: '2017',
-            text: 'School College',
-            subText: 'Completed International Baccalaureate Diploma',
-          },
-        ],
+        entries: [],
       });
     } else {
       console.log(TypeError('There is no Resume Entry type of ' + props.type));
@@ -143,6 +114,7 @@ function ResumeEntry(props: ResumeEntryProps) {
                       padding="5px"
                       radius="50px"
                       text={value.text}
+                      placeholder={props.type.replace(/[sS]$/, '')}
                     />
                   </div>
                 </li>
@@ -167,17 +139,15 @@ function ResumeEntry(props: ResumeEntryProps) {
                   )}
                   <div className="resume-entry-grid">
                     <div className="resume-entry-date">
-                      <TextInput
-                        editable={props.isMyProfile}
-                        onChange={(newString: string) => {
-                          const newData = { ...data };
-                          newData.entries[index].date = newString;
-                          setData(newData);
-                          saveData();
-                        }}
-                        padding="2px"
-                        text={value.date}
-                      />
+                      {/** Add picture here... */}
+                      {value.subText ? (
+                        <span>
+                          <img
+                            src={`//logo.clearbit.com/${value.subText}.com`}
+                            style={{ width: 75, height: 75 }}
+                          />
+                        </span>
+                      ) : undefined}
                     </div>
 
                     <div>
@@ -191,10 +161,33 @@ function ResumeEntry(props: ResumeEntryProps) {
                         }}
                         padding="2px"
                         text={value.text}
+                        placeholder="Job Title"
+                      />
+
+                      <TextInput
+                        editable={props.isMyProfile}
+                        onChange={(newString: string) => {
+                          const newData = { ...data };
+                          newData.entries[index].date = newString;
+                          setData(newData);
+                          saveData();
+                        }}
+                        padding="2px"
+                        text={value.date}
+                        placeholder="Date"
                       />
 
                       <div className="resume-sub-text">
-                        <TextInput
+                        <CompanyAutoComplete
+                          placeholder="Organisation"
+                          onSelect={(newString: string) => {
+                            const newData = { ...data };
+                            newData.entries[index].subText = newString;
+                            setData(newData);
+                            saveData();
+                          }}
+                        />
+                        {/*<TextInput
                           editable={props.isMyProfile}
                           onChange={(newString: string) => {
                             const newData = { ...data };
@@ -204,7 +197,7 @@ function ResumeEntry(props: ResumeEntryProps) {
                           }}
                           padding="2px"
                           text={value.subText}
-                        />
+                        />*/}
                       </div>
                     </div>
                   </div>
@@ -224,9 +217,9 @@ function ResumeEntry(props: ResumeEntryProps) {
                 if (data) {
                   const newData = { ...data };
                   newData.entries.push({
-                    date: 'date',
-                    text: props.type.replace(/[sS]$/, ''),
-                    subText: 'More Info',
+                    date: '',
+                    text: '',
+                    subText: '',
                   });
                   setData(newData);
                   saveData();

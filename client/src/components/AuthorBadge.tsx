@@ -5,15 +5,32 @@ import './AuthorBadge.css';
 import { UserOutlined } from '@ant-design/icons';
 
 type PortfolioObjectProps = {
+  /** Author's name to be included */
   author: string;
-  tagline: string;
+  /** Tagline about the author to be included under the name */
+  tagline?: string;
+  /** A link to a profile picture */
+  profilePictureLink?: string;
 };
 
 function AuthorBadge(props: PortfolioObjectProps) {
   return (
     <div className="authorBadge">
-      <div className="profilePicture">
-        <UserOutlined style={{ fontSize: '32px', color: '#fff' }} />
+      <div
+        className="profilePicture"
+        style={{
+          backgroundImage: `${
+            props.profilePictureLink
+              ? `url(${props.profilePictureLink})`
+              : undefined
+          }`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+        }}
+      >
+        {!props.profilePictureLink ? (
+          <UserOutlined style={{ fontSize: '32px', color: '#fff' }} />
+        ) : null}
       </div>
       <div className="authorName">
         <h4>

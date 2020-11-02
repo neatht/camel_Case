@@ -38,7 +38,7 @@ export function Header({ pageKey }: HeaderProps) {
             <Link to="/" className="navTitle">
               {' '}
               <div style={{ fontSize: '1.2em' }} className="gradient">
-                <Emoji symbol="🛰️" /> <strong>Glowbal</strong>
+                <Emoji symbol="🛰️" resize={false} /> <strong>Glowbal</strong>
               </div>
             </Link>
           }
@@ -77,7 +77,7 @@ export function Header({ pageKey }: HeaderProps) {
             {/* TODO: Protected route once authentication is set up */}
           </Menu.Item>
 
-          <Menu.Item
+          {/*<Menu.Item
             key="tests"
             icon={
               <span role="img" aria-hidden="true">
@@ -88,7 +88,7 @@ export function Header({ pageKey }: HeaderProps) {
             <NavLink exact to="/tests">
               Tests
             </NavLink>{' '}
-          </Menu.Item>
+          </Menu.Item>*/}
         </Menu>
 
         <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>

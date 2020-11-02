@@ -136,6 +136,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
               props.setData(newData);
             }}
             text={props.data.projectName}
+            placeholder="Title"
           />
         </h2>
       </div>
@@ -156,6 +157,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
       <div className="portfolio-object-body">
         <div>
           {/* <AuthorBadge author={props.data.author} tagline="Author Tagline" /> */}
+          {/* <AuthorBadge
+            author={props.data.author}
+            tagline="Computer Science Student at the University of Melbourne"
+          /> */}
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             {/* <TextInput
@@ -168,104 +173,127 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 props.setData(newData);
               }}
               text={props.data.shortDescription}
-            /> */}
+              placeholder="Description"
+            />
           </div>
-        </div>
-        <div className="container-secondary portfolio-side-bar">
-          <ul>
-            <li>
-              {props.isMyProfile ? (
-                <Select
-                  showSearch
-                  style={{ width: '100%' }}
-                  placeholder="Select a person"
-                  optionFilterProp="children"
-                  onChange={(value) => {
-                    const newData = { ...props.data };
-                    newData.projectType = value;
-                    props.setData(newData);
-                  }}
-                  value={props.data.projectType}
-                  filterOption={true}
-                >
-                  <Option value="website">website</Option>
-                  <Option value="app">app</Option>
-                  <Option value="code">code</Option>
-                  <Option value="academic">academic</Option>
-                  <Option value="model">model</Option>
-                  <Option value="game">game</Option>
-                  <Option value="video">video</Option>
-                  <Option value="audio">audio</Option>
-                  <Option value="presentation">presentation</Option>
-                </Select>
-              ) : (
-                <div
-                  style={{ width: '100%', textAlign: 'center' }}
-                  className="portfolio-tag"
-                >
-                  {props.data.projectType}
-                </div>
-              )}
-            </li>
-            <li>
-              {props.isMyProfile ? (
-                <Select
-                  mode="tags"
-                  style={{ display: 'inline-block', width: '100%' }}
-                  placeholder="Tags"
-                  onChange={(value) => {
-                    // console.log(value);
-                    const newData = { ...props.data };
-                    newData.tags = value;
-                    props.setData(newData);
-                  }}
-                  value={props.data.tags}
-                ></Select>
-              ) : props.data.tags ? (
-                <div style={{ display: 'inline-block', width: '100%' }}>
-                  {props.data.tags.map((value, index) => {
-                    return <div className="portfolio-tag">{value}</div>;
-                  })}
-                </div>
-              ) : (
-                <></>
-              )}
-            </li>
-            <li style={{ textAlign: 'center' }}>
-              <LineOutlined />
-            </li>
-            <li>
-              <CalendarOutlined /> {' ' + date(props.data.datePosted)}
-            </li>
-            {/* <li>
-              <Emoji symbol="🌏" label="Location:" /> {props.location}
-            </li> */}
-            <li>
-              <LinkOutlined />{' '}
-              {props.isMyProfile ? (
-                <div style={{ display: 'inline-block', width: '145px' }}>
-                  <TextInput
-                    editable={props.isMyProfile}
-                    placeholder={'Link to project'}
-                    text={props.data.link}
-                    onChange={(newString: string) => {
-                      const newData = { ...props.data };
-                      newData.link = newString;
-                      props.setData(newData);
-                    }}
-                  />
-                </div>
-              ) : (
-                <a target="_blank" href={props.data.link}>
-                  {props.data.link ? formatLink(props.data.link) : null}
-                </a>
-              )}
-            </li>
-            <li>
-              <EyeOutlined /> {props.data.views}
-            </li>
-          </ul>
-          <div style={{ textAlign: 'center' }}></div>
+            </div> */}
+            <div className="container-secondary portfolio-side-bar">
+              <ul>
+                <li>
+                  {props.isMyProfile ? (
+                    <Select
+                      style={{ width: '100%' }}
+                      placeholder="Project Type"
+                      onChange={(value) => {
+                        const newData = { ...props.data };
+                        newData.projectType = value;
+                        props.setData(newData);
+                      }}
+                      value={props.data.projectType}
+                      filterOption={true}
+                    >
+                      <Option value="website">website</Option>
+                      <Option value="app">app</Option>
+                      <Option value="code">code</Option>
+                      <Option value="academic">academic</Option>
+                      <Option value="model">model</Option>
+                      <Option value="game">game</Option>
+                      <Option value="video">video</Option>
+                      <Option value="audio">audio</Option>
+                      <Option value="presentation">presentation</Option>
+                      {/* value={props.data.type} */}
+                    </Select>
+                  ) : (
+                    <div
+                      style={{ width: '100%', textAlign: 'center' }}
+                      className="portfolio-tag"
+                    >
+                      {props.data.projectType}
+                    </div>
+                  )}
+                </li>
+                <li>
+                  {props.isMyProfile ? (
+                    <Select
+                      mode="tags"
+                      style={{ display: 'inline-block', width: '100%' }}
+                      placeholder="Tags"
+                      onChange={(value) => {
+                        // console.log(value);
+                        const newData = { ...props.data };
+                        newData.tags = value;
+                        props.setData(newData);
+                      }}
+                      value={props.data.tags}
+                    >
+                      <Option value="React">React</Option>
+                      <Option value="TypeScript">TypeScript</Option>
+                      <Option value="Express">Express</Option>
+                    </Select>
+                  ) : props.data.tags ? (
+                    <div style={{ display: 'inline-block', width: '100%' }}>
+                      {props.data.tags.map((value, index) => {
+                        return <div className="portfolio-tag">{value}</div>;
+                      })}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </li>
+                <li style={{ textAlign: 'center' }}>
+                  <LineOutlined />
+                </li>
+                <li>
+                  <CalendarOutlined />{' '}
+                  {props.isMyProfile ? (
+                    <></>
+                    // <DatePicker
+                    //   value={moment(props.data.date, 'MMM YYYY')}
+                    //   placeholder={'Select Date'}
+                    //   bordered={false}
+                    //   picker="month"
+                    //   suffixIcon={<></>}
+                    //   onChange={(date, dateString) => {
+                    //     const newData = { ...props.data };
+                    //     newData.date = dateString;
+                    //     props.setData(newData);
+                    //   }}
+                    //   format={'MMM YYYY'}
+                    // />
+                  ) : (
+                    <></>
+                    // props.data.date
+                  )}
+                </li>
+                <li>
+                  <LinkOutlined />{' '}
+                  {props.isMyProfile ? (
+                    <div style={{ display: 'inline-block', width: '145px' }}>
+                      <TextInput
+                        editable={props.isMyProfile}
+                        placeholder={'Link to project'}
+                        text={props.data.link}
+                        // placeholder="Link"
+                        onChange={(newString: string) => {
+                          const newData = { ...props.data };
+                          newData.link = newString;
+                          props.setData(newData);
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <a target="_blank" href={props.data.link}>
+                      {props.data.link ? formatLink(props.data.link) : null}
+                    </a>
+                  )}
+                </li>
+                <li>
+                  <EyeOutlined /> {props.data.views}
+                </li>
+              </ul>
+              <div style={{ textAlign: 'center' }}></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

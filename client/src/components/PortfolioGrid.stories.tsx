@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import PortfolioGrid from './PortfolioGrid';
 
 export default {
-  title: 'General/Portfolio Grid',
+  title: 'Portfolio/Portfolio Grid',
   component: PortfolioGrid,
 } as Meta;
 
