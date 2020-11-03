@@ -5,6 +5,7 @@
 // Library imports
 import express from 'express';
 import path from 'path';
+import bodyParser from 'body-parser';
 
 // Route imports
 import profileRouter from './components/profile/routes';
@@ -29,7 +30,8 @@ import { errorHandler } from './middleware/error';
 export const register = (app: express.Application) => {
   // Register middleware
   app.use(express.static(path.join(__dirname, 'client/build')));
-  app.use(express.json());
+  app.use(express.json({limit: '25mb'}));
+  app.use(express.urlencoded({extended: true, limit: '25mb'}));
 
   // Register routes
   app.use('/api/profile', profileRouter);

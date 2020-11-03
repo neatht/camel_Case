@@ -36,7 +36,8 @@ function Uploader(props: TextInputProps) {
             () => {
               // convert image file to base64 string
               console.log(reader.result?.toString());
-              props.onUpload(reader.result, type);
+              const fileType = file.type ? file.type : file.name.split('.')[1];
+              props.onUpload(reader.result, fileType, type);
             },
             false
           );

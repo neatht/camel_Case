@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import './PortfolioHero.css';
 import { EditOutlined } from '@ant-design/icons';
@@ -25,6 +26,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
   const [editingState, setEditingState] = useState(false);
   const [slide, setSlide] = useState(0);
   const [media, setMedia] = useState<PortfolioHeroData[]>();
+  const { getAccessTokenSilently } = useAuth0();
   // const [isLoading, setIsLoading] = useState(true);
 
   async function fetchData(): Promise<void> {
@@ -194,6 +196,26 @@ function PortfolioHero(props: PortfolioHeroProps) {
     setMedia(d);
   }
 
+  async function uploadMedia(
+    file: any,
+    type: string,
+    mediaCategory: string
+  ): Promise<void> {
+    const token = await getAccessTokenSilently();
+
+    await fetch('/api/project/media', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      // TODO: generate project ID on front end when creating new projects
+      body: JSON.stringify({
+        data: { mediaCategory, file, fileType: type, projectID: 1 },
+      }),
+    });
+  }
+
   // EDIT ME
   async function saveData(): Promise<void> {
     // PUT data
@@ -237,13 +259,18 @@ function PortfolioHero(props: PortfolioHeroProps) {
               </div>
             </Tooltip>
             <Uploader
-              onUpload={(file: any, typeName: string) => {
+              onUpload={async (
+                file: any,
+                type: string,
+                mediaCategory: string
+              ) => {
                 if (media) {
                   const newMedia = [...media];
                   newMedia.push({
-                    type: typeName,
+                    type: mediaCategory,
                     url: file,
                   });
+                  await uploadMedia(file, type, mediaCategory);
                   setMedia(newMedia);
                 }
               }}
