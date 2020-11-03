@@ -19,6 +19,10 @@ exports[`Testing App renders without crashing 1`] = `
     />
     <Route
       component={[Function]}
+      path="/search/:query?"
+    />
+    <Route
+      component={[Function]}
       exact={true}
       path="/api-test"
     />
