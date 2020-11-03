@@ -27,17 +27,6 @@ function Home() {
         <FilterAndSort />
         <PortfolioGrid />
       </div>
-
-      {isAuthenticated ? (
-        <div>
-          <h2> User: {user.name} </h2>
-          <p> Email: {user.email} </p>
-        </div>
-      ) : (
-        <div>
-          <h2> Not logged in </h2>
-        </div>
-      )}
     </div>
   );
 }

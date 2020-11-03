@@ -9,11 +9,13 @@ import './Resume.css';
 import ResumeEntry from './ResumeEntry';
 import TextInput from './TextInput';
 import { useEffect } from 'react';
-//import { Large } from '../stories/Button.stories';
 import SocialLinks from './SocialLinks';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
-import { createTrue } from 'typescript';
+
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
 
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
