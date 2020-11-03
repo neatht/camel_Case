@@ -55,7 +55,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
     try {
       const token = await getAccessTokenSilently();
-      const res = await fetch('API_URL' + route, {
+      const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
