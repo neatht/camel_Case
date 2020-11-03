@@ -42,6 +42,16 @@ SSL_CRT_FILE=../server.cert
 SSL_KEY_FILE=../server.key
 ```
 
+Self signed SSL certificates may be rejected by applications for dev. 
+Some example workarounds:
+
+```
+In Chrome, into the address bar type, and enable:
+	chrome://flags/#allow-insecure-localhost
+
+In Postman, disable SSL verification
+```
+
 #### 🖥 API Server: Express
 
 First start by installing and running the Express backend in the `api` directory.
@@ -103,6 +113,13 @@ In should open automatically, however the app can be found at:
 ```
 localhost:6006
 ```
+
+### :computer: API: Stoplight
+
+The backend routes are documented using [Stoplight](https://camelcase.stoplight.io)
+
+It is hosted online at the above link.
+
 
 ## :raising_hand: Contributors
 

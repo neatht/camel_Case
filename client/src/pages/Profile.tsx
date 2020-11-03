@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import './Profile.css';
 
@@ -29,6 +29,8 @@ function Profile() {
   const { getAccessTokenSilently } = useAuth0();
 
   const { userID } = useParams<ParamType>();
+
+  let history = useHistory();
 
   console.log({ userID });
 
@@ -190,7 +192,9 @@ function Profile() {
                     <strong> Profile Setup </strong>
                   </>
                 }
-                closable={false}
+                onCancel={() => {
+                  history.goBack();
+                }}
                 visible={
                   hasFetchedOnce &&
                   Object.keys(profileInfo).length === 0 &&

@@ -41,16 +41,17 @@ function HomeHero() {
               <strong>Glowbal</strong>
             </h1>
 
-            <p> Showcase your best work by creating a profile and...</p>
-
             {!isAuthenticated ? (
-              <Button type="primary" onClick={() => loginWithRedirect()}>
-                {' '}
-                <span className="rocket">
-                  <Emoji symbol="🚀" />
-                </span>{' '}
-                <strong className="rocket">Get Discovered</strong>
-              </Button>
+              <>
+                <p> Showcase your best work by creating a profile and...</p>
+                <Button type="primary" onClick={() => loginWithRedirect()}>
+                  {' '}
+                  <span className="rocket">
+                    <Emoji symbol="🚀" />
+                  </span>{' '}
+                  <strong className="rocket">Get Discovered</strong>
+                </Button>
+              </>
             ) : null}
           </div>
         </div>

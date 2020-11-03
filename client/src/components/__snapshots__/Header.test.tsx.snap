@@ -93,6 +93,7 @@ exports[`Testing Header renders home without crashing 1`] = `
     >
       <Search
         enterButton={true}
+        onSearch={[Function]}
         style={
           Object {
             "width": 300,
@@ -198,6 +199,7 @@ exports[`Testing Header renders profile without crashing 1`] = `
     >
       <Search
         enterButton={true}
+        onSearch={[Function]}
         style={
           Object {
             "width": 300,

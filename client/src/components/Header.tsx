@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, Redirect, useHistory } from 'react-router-dom';
 
 import { PageHeader, Menu, Input, Space } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
@@ -24,6 +24,8 @@ type HeaderProps = {
 
 export function Header({ pageKey }: HeaderProps) {
   const [currentPageSelection, setCurrentPageSelection] = useState(pageKey);
+
+  const history = useHistory();
 
   const handleMenuClick = (event: MenuClickEvent) => {
     setCurrentPageSelection(event.key);
@@ -92,7 +94,13 @@ export function Header({ pageKey }: HeaderProps) {
         </Menu>
 
         <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
-          <Search style={{ width: 300 }} enterButton />
+          <Search
+            style={{ width: 300 }}
+            enterButton
+            onSearch={(value) => {
+              history.push(`/search/${value}`);
+            }}
+          />
           {/*<Avatar icon={<UserOutlined/>} />*/}
           <LoginButton />
         </Space>

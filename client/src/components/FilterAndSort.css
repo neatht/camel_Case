@@ -5,7 +5,9 @@
   top: var(--unit-margin);
   padding-bottom: calc(3 * var(--unit-margin));
   height: fit-content;
+  max-width: 350px;
 }
+
 .floating-hamburger {
   border-radius: 50%;
   background-color: var(--background-color-secondary);
@@ -75,4 +77,8 @@
   border-color: #ffffffe0;
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.01) !important;
+}
+
+.filter-and-sort .ant-input {
+  width: 270px !important;
 }

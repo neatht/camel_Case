@@ -22,7 +22,8 @@ export const searchProject = async (req: any, res: express.Response, next: expre
         project_id: row.project_id,
         project_name: row.project_name,
         author_first_name: row.first_name,
-        author_last_name: row.last_name
+        author_last_name: row.last_name,
+        user_id: row.user_id
       };
       rows.push(builtRow);
     });
