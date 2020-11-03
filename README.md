@@ -7,10 +7,6 @@
 <br/>
 
 <div align="center">
-    ![Glowbal Demo](https://github.com/neatht/camel_Case/blob/feature/finish-search/demo.gif)
-</div>
-
-<div align="center">
     <a href="https://www.notion.so/camel_Case-0a5b3335242b4dbcb35522caebb87548">
         <img src="https://img.shields.io/badge/documentation-Notion-000000?style=for-the-badge&logo=Notion"/>
     </a>
