@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import Header from '../components/Header';
-import SocialLinks from '../components/SocialLinks';
-import PortfolioGrid from '../components/PortfolioGrid';
 import FilterAndSort from '../components/FilterAndSort';
 
-import './Home.css';
-import HomeHero from '../components/HomeHero';
 import Loading from '../components/Loading';
 import PortfolioGridSearch from '../components/PortfolioGridSearch';
+import { useParams } from 'react-router-dom';
 
 const API_URL = process.env.API_URL
   ? process.env.API_URL
@@ -29,7 +26,15 @@ type FilterCallbackObject = {
   authorName?: string;
 };
 
-function Home() {
+type ParamType = {
+  query: string;
+};
+
+function Search() {
+  const { query } = useParams<ParamType>();
+
+  console.log({ query });
+
   const [isFetching, setIsFetching] = useState(false);
 
   const [searchData, setSearchData] = useState<
@@ -90,7 +95,9 @@ function Home() {
   async function fetchData(): Promise<void> {
     setIsFetching(true);
 
-    const route = 'search/project/%20';
+    const route = `search/project/${query}`;
+
+    console.log({ route });
 
     try {
       const res = await fetch(API_URL + route);
@@ -141,11 +148,13 @@ function Home() {
     fetchData();
   }, []);
 
+  if (isFetching) {
+    return <Loading messages={['Searching']} />;
+  }
+
   return (
     <div className="App">
-      <Header pageKey="home" />
-
-      <HomeHero />
+      <Header pageKey="search" />
 
       <div className="grid-main-layout-primary">
         <FilterAndSort
@@ -167,4 +176,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Search;
