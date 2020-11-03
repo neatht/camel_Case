@@ -18,7 +18,7 @@ dotenv.config();
  */
 export const searchProjectService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const keywords : string = '%' + req.params.query.split(' ').join('%') + '%';
-  const query : string = 'SELECT project.project_id, project.project_name, profile.first_name, profile.last_name \
+  const query : string = 'SELECT project.project_id, project.project_name, profile.first_name, profile.last_name, profile.user_id \
                           FROM project INNER JOIN profile ON project.user_id = profile.user_id \
                           WHERE project.project_name LIKE $1 AND profile.public = TRUE';
   try {
