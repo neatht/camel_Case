@@ -1,6 +1,11 @@
 // @ts-nocheck
-import { getUser } from './controller';
-import { getProfileService } from './service.ts';
+
+/**
+ * File contains unit tests for the profile API component.
+ */
+
+import { getUser, addUser, updateUser, deleteUser, getOwnUser } from './controller';
+import { getProfileService, checkProfileService, addProfileService, updateProfileService, deleteProfileService, getOwnProfileService } from './service';
 
 /**
  * Mock the service functions
@@ -10,7 +15,7 @@ jest.mock('./service.ts');
 /**
  * Mock req, res, next
  */
-const mReq = { poolClient: { end: () => { return; }} }
+const mReq = { poolClient: { end: () => { return; }}, user: { sub: 'provider|000' } }
 const mRes = { status: jest.fn().mockReturnThis(), json: jest.fn().mockReturnThis() };
 const mNext = jest.fn();
 
@@ -30,7 +35,7 @@ const result = {
 };
 
 /**
- * Tests for getUser function
+ * Tests for getUser controller
  */
 describe('getUser', () => {
   it('should return 404 error if cannot find profile', async () => {
@@ -103,5 +108,85 @@ describe('getUser', () => {
         publicLocation: result.public_location
       }
     });
+  });
+});
+
+/**
+ * Tests for addUser controller
+ */
+describe('addUser', () => {
+  it('should return 403 error if profile already exists', async () => {
+    checkProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return true;
+    });
+    await addUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(403);
+    expect(mRes.json).toHaveBeenCalledWith({
+      status: 'error',
+      message: 'Profile already exists.'
+    });
+  });
+
+  it('should return 200 success if profile successfully added', async () => {
+    checkProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return false;
+    });
+    await addUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(200);
+    expect(mRes.json).toHaveBeenCalledWith({
+      status: 'success'
+    });
+  })
+});
+
+/**
+ * Tests for updateUser controller
+ */
+describe('updateUser', () => {
+  it('should return 404 error if profile does not exist', async () => {
+    checkProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return false;
+    });
+    await updateUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(404);
+    expect(mRes.json).toHaveBeenCalledWith({
+      status: 'error',
+      message: 'Profile does not exist.'
+    })
+  });
+
+  it('should return 200 success if profile successfully updated', async () => {
+    checkProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return true;
+    });
+    await updateUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(200);
+    expect(mRes.json).toHaveBeenCalledWith({
+      status: 'success'
+    })
+  })
+})
+
+/**
+ * Tests for deleteUser controller
+ */
+describe('deleteUser', () => {
+  it('should return 404 error if profile does not exist', async () => {
+    checkProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return false;
+    });
+    await deleteUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(404);
+  });
+
+  it('should return 200 success if profile successfully deleted', async () => {
+    checkProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return true;
+    });
+    await deleteUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(200);
+    expect(mRes.json).toHaveBeenCalledWith({
+      status: 'success'
+    })
   });
 });
