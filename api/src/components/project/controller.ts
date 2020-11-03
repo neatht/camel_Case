@@ -13,7 +13,8 @@ import {
   getAllProjectsByUserService,
   updateMediaService,
   deleteProjectService,
-  deleteMediaService
+  deleteMediaService,
+  addProjectMediaService
 } from './service';
 
 import { checkProfileService, checkPublicService } from '../../helpers/service';
@@ -82,6 +83,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
 
     // get object url and add to db
     await addMediaService(req, res, next);
+    await addProjectMediaService(req, next);
 
     req.poolClient.end();
     res.status(200);
