@@ -17,10 +17,6 @@ const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
 
-const API_URL = process.env.REACT_APP_API_URL
-  ? process.env.REACT_APP_API_URL
-  : 'https://localhost:5000/api/';
-
 type ResumeProps = {
   /** UserID of resume to get. If left blank, the logged in user will be fetched */
   userID?: string;
