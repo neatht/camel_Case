@@ -7,6 +7,10 @@
 <br/>
 
 <div align="center">
+    ![](demo.gif)
+</div>
+
+<div align="center">
     <a href="https://www.notion.so/camel_Case-0a5b3335242b4dbcb35522caebb87548">
         <img src="https://img.shields.io/badge/documentation-Notion-000000?style=for-the-badge&logo=Notion"/>
     </a>
@@ -40,6 +44,16 @@ To specify the certificates, in both `client` and `api`, add the following lines
 ```
 SSL_CRT_FILE=../server.cert
 SSL_KEY_FILE=../server.key
+```
+
+Self signed SSL certificates may be rejected by applications for dev. 
+Some example workarounds:
+
+```
+In Chrome, into the address bar type, and enable:
+	chrome://flags/#allow-insecure-localhost
+
+In Postman, disable SSL verification
 ```
 
 #### 🖥 API Server: Express
@@ -103,6 +117,13 @@ In should open automatically, however the app can be found at:
 ```
 localhost:6006
 ```
+
+### :computer: API: Stoplight
+
+The backend routes are documented using [Stoplight](https://camelcase.stoplight.io)
+
+It is hosted online at the above link.
+
 
 ## :raising_hand: Contributors
 
