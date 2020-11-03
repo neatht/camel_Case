@@ -158,26 +158,26 @@ function PortfolioObject(props: PortfolioObjectProps) {
       </div>
       <div className="portfolio-object-body">
         <div>
-        {/* <AuthorBadge author={props.data.author} tagline="Author Tagline" /> */}
-        {/* <AuthorBadge
+          {/* <AuthorBadge author={props.data.author} tagline="Author Tagline" /> */}
+          {/* <AuthorBadge
             author={props.data.author}
             tagline="Computer Science Student at the University of Melbourne"
           /> */}
-        <br />
-        <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
-          <TextInput
-            padding="10px"
-            multiline={true}
-            editable={props.isMyProfile}
-            onChange={(newString: string) => {
-              const newData = { ...props.data };
-              newData.location = newString;
-              props.setData(newData);
-            }}
-            text={props.data.location}
-            placeholder="Description"
-          />
-        </div>
+          <br />
+          <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
+            <TextInput
+              padding="10px"
+              multiline={true}
+              editable={props.isMyProfile}
+              onChange={(newString: string) => {
+                const newData = { ...props.data };
+                newData.location = newString;
+                props.setData(newData);
+              }}
+              text={props.data.location}
+              placeholder="Description"
+            />
+          </div>
         </div>
 
         <div className="container-secondary portfolio-side-bar">

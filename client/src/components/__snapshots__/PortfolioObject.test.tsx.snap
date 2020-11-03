@@ -29,9 +29,10 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
     </h2>
   </div>
   <PortfolioHero
-    id="1"
     isMyProfile={false}
     isOpen={false}
+    new={false}
+    projectID="1"
   />
   <div
     className="portfolio-object-overlay"
@@ -44,19 +45,12 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
           Project 1
         </strong>
       </h4>
-      <h5>
-        Author 1
-      </h5>
     </div>
   </div>
   <div
     className="portfolio-object-body"
   >
     <div>
-      <AuthorBadge
-        author="Author 1"
-        tagline="Computer Science Student at the University of Melbourne"
-      />
       <br />
       <div
         style={
@@ -72,7 +66,7 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
           onChange={[Function]}
           padding="10px"
           placeholder="Description"
-          text="This is a short description about the project"
+          text="Melbourne, Australia"
         />
       </div>
     </div>
@@ -140,8 +134,7 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
         </li>
         <li>
           <ForwardRef(CalendarOutlined) />
-           
-          2020-01
+           2020-01
         </li>
         <li>
           <ForwardRef(LinkOutlined) />
@@ -164,11 +157,6 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
               distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4
             </div>
           </a>
-        </li>
-        <li>
-          <ForwardRef(EyeOutlined) />
-           
-          10
         </li>
       </ul>
       <div
