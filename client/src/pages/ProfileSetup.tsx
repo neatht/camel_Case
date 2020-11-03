@@ -13,6 +13,10 @@ import Loading from '../components/Loading';
 import Resume from '../components/Resume';
 import PortfolioGrid from '../components/PortfolioGrid';
 
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
+
 type ParamType = {
   userID: string;
 };
@@ -53,7 +57,7 @@ function ProfileSetup() {
 
     try {
       const token = await getAccessTokenSilently();
-      await fetch('/api/' + route, {
+      await fetch(API_URL + route, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -114,7 +118,7 @@ function ProfileSetup() {
 
     try {
       const token = await getAccessTokenSilently();
-      await fetch('/api/' + route, {
+      await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

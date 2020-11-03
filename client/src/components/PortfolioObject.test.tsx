@@ -2,18 +2,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import PortfolioObject from './PortfolioObject';
 type PortfolioObjectData = {
-  id: string;
-  title: string;
-  type: string;
-  // media: { type: string; url: string }[];
-  date: string;
-  author: string;
-  shortDescription: string;
+  projectID?: string;
   tags?: string[];
-  views: string;
-  link: string;
-  location: string;
-  new?: boolean;
+  views?: number;
+  datePosted?: string;
+  location?: string;
+  projectName?: string;
+  link?: string;
+  userID?: string;
+  projectType?: string;
 };
 
 describe('Testing PortfolioObject', () => {
@@ -22,23 +19,26 @@ describe('Testing PortfolioObject', () => {
   it('renders without crashing', () => {
     const component = shallow(
       <PortfolioObject
+        new={false}
         data={{
-          id: '1',
-          title: 'Project 1',
-          type: 'website',
+          projectID: '1',
+          projectName: 'Project 1',
+          projectType: 'website',
           tags: ['one', 'two', 'three', 'four', 'five'],
-          date: '2020-01',
-          author: 'Author 1',
-          shortDescription: 'This is a short description about the project',
-          views: '10',
+          datePosted: '2020-01',
+          // author: 'Author 1',
+          // : 'This is a short description about the project',
+          views: 10,
+
+          userID: '10',
           location: 'Melbourne, Australia',
           link:
             'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4',
         }}
         isMyProfile={false}
         // EDIT ME
-        setData={(d: PortfolioObjectData) => {}}
-        delData={(id: string) => {}}
+        setData={(dd: PortfolioObjectData) => {}}
+        delData={(dd: PortfolioObjectData) => {}}
         portfolioObjectOpen={false}
       />
     );
