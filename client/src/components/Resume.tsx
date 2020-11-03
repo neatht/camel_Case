@@ -15,6 +15,10 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
 import { createTrue } from 'typescript';
 
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
+
 type ResumeProps = {
   /** UserID of resume to get. If left blank, the logged in user will be fetched */
   userID?: string;
@@ -60,7 +64,7 @@ function Resume(props: ResumeProps) {
     // Call API
     try {
       const token = await getAccessTokenSilently();
-      const res = await fetch('/api/' + route, {
+      const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -129,7 +133,7 @@ function Resume(props: ResumeProps) {
       // Call API
       try {
         const token = await getAccessTokenSilently();
-        const res = await fetch('/api/' + route, {
+        const res = await fetch(API_URL + route, {
           method: 'PUT',
           headers: {
             Authorization: `Bearer ${token}`,

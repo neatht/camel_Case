@@ -10,6 +10,9 @@ import { Tooltip } from 'antd';
 // import { useAuth0 } from '@auth0/auth0-react';
 import Uploader from './Uploader';
 import { stringList } from 'aws-sdk/clients/datapipeline';
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
 
 type PortfolioHeroProps = {
   isOpen: boolean;
@@ -52,7 +55,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
     try {
       const token = await getAccessTokenSilently();
-      const res = await fetch('/api/' + route, {
+      const res = await fetch('API_URL' + route, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -148,7 +151,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
   ): Promise<void> {
     const token = await getAccessTokenSilently();
 
-    await fetch('/api/project/media', {
+    await fetch(API_URL + 'project/media', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -256,7 +259,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
         {editingState ? (
           !media || media?.length === 0 ? (
-            <div>hi</div>
+            <></>
           ) : (
             <DragDropContext
               onDragEnd={({ destination, source }) => {

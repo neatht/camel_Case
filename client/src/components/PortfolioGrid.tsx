@@ -7,6 +7,10 @@ import { Tooltip } from 'antd';
 import Loading from './Loading';
 import { useAuth0 } from '@auth0/auth0-react';
 
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
+
 type PortfolioGridProps = {
   userID?: string;
 };
@@ -45,7 +49,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
 
     try {
       const token = await getAccessTokenSilently();
-      const res = await fetch('/api/' + route, {
+      const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -104,7 +108,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
     // Call API
     try {
       const token = await getAccessTokenSilently();
-      const res = await fetch('/api/' + route, {
+      const res = await fetch(API_URL + route, {
         method: action,
         headers: {
           Authorization: `Bearer ${token}`,
