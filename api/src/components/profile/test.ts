@@ -190,3 +190,38 @@ describe('deleteUser', () => {
     })
   });
 });
+
+/**
+ * Tests for getOwnUser controller
+ */
+describe('getOwnUser', () => {
+  it('should return 404 error if profile does not exist', async () => {
+    getOwnProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return null;
+    });
+    await getOwnUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(404);
+  });
+
+  it('should return 200 success with all profile data if existing profile is retrieved', async () => {
+    getOwnProfileService.mockImplementation((mReq, mRes, mNext) => {
+      return result;
+    });
+    await getOwnUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalledWith(200);
+    expect(mRes.json).toHaveBeenCalledWith({
+      status: 'success',
+      data: {
+        firstName: result.first_name,
+        lastName: result.last_name,
+        bio: result.bio,
+        location: result.location,
+        lookingForWork: result.looking_for_work,
+        public: result.public,
+        gender: result.gender,
+        DOB: result.date_of_birth,
+        publicLocation: result.public_location
+      }
+    });
+  });
+});
