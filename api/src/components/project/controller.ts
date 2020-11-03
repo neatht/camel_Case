@@ -7,13 +7,13 @@ import { validationResult } from 'express-validator';
 import {
   addMediaService,
   addProjectService,
-  getMediaService,
+  getProjectMediaService,
   getProjectService,
   updateProjectService,
   getAllProjectsByUserService,
-  updateMediaService,
+  updateProjectMediaService,
   deleteProjectService,
-  deleteMediaService,
+  deleteProjectMediaService,
   addProjectMediaService
 } from './service';
 
@@ -112,7 +112,7 @@ export const getMediaFromOwnProject = async (req: any, res: express.Response, ne
     }
 
     req.params.userID = userID;
-    const result = await getMediaService(req, res, next);
+    const result = await getProjectMediaService(req, res, next);
 
     req.poolClient.end();
     res.status(200);
@@ -139,7 +139,7 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
     }
 
     req.body.data.userID = userID;
-    await updateMediaService(req, res, next);
+    await updateProjectMediaService(req, res, next);
 
     req.poolClient.end();
     res.status(200);
@@ -166,7 +166,7 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
 
     const isPublic = await checkPublicService(req, next, userID);
     if (isPublic) {
-      const results = await getMediaService(req, res, next);
+      const results = await getProjectMediaService(req, res, next);
 
       req.poolClient.end();
       res.status(200);
@@ -430,7 +430,7 @@ export const deleteMedia = async (req: any, res: express.Response, next: express
     }
 
     req.body.data.userID = userID;
-    await deleteMediaService(req, res, next);
+    await deleteProjectMediaService(req, res, next);
 
     req.poolClient.end();
     res.status(200);

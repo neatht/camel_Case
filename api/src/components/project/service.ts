@@ -6,7 +6,7 @@ dotenv.config();
 
 export const addMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = 'INSERT INTO media(date_posted, link, media_id, media_name, \
-    media_type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;'
+    media_type) VALUES ($1, $2, $3, $4, $5);'
 
   const queryParams = [
     new Date(),
@@ -32,7 +32,7 @@ export const addProjectMediaService = async(req: any, next: express.NextFunction
   await service(req, next, query, queryParams);
 }
 
-export const updateMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const updateProjectMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = ['UPDATE media m SET'];
   const queryParams = [];
   let varCount = 1;
@@ -57,7 +57,7 @@ export const updateMediaService = async (req: any, res: express.Response, next: 
   await service(req, next, query.join(' '), queryParams);
 }
 
-export const getMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const getProjectMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query =
     'SELECT m.date_posted AS "datePosted", m.link, m.media_name AS "mediaName", \
       pm.project_id AS "projectID", m.media_type AS "mediaType", pm.media_id AS "mediaID", \
@@ -179,7 +179,7 @@ export const deleteProjectService = async (req: any, res: express.Response, next
   await service(req, next, query, queryParams);
 }
 
-export const deleteMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const deleteProjectMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query: string =
     'DELETE \
     FROM media m \
