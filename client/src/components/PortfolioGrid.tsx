@@ -164,8 +164,8 @@ function PortfolioGrid(props: PortfolioGridProps) {
               onClick={() => {
                 var date = new Date();
                 const newData = {} as PortfolioObjectData;
-                newData.projectName = 'New Project';
-                newData.projectType = 'website';
+                newData.projectName = '';
+                newData.projectType = '';
                 newData.datePosted = `${date.getDate()}/${
                   date.getMonth() + 1
                 }/${date.getFullYear()}`;

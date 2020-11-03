@@ -246,26 +246,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   <LineOutlined />
                 </li>
                 <li>
-                  <CalendarOutlined />{' '}
-                  {props.isMyProfile ? (
-                    <></>
-                    // <DatePicker
-                    //   value={moment(props.data.date, 'MMM YYYY')}
-                    //   placeholder={'Select Date'}
-                    //   bordered={false}
-                    //   picker="month"
-                    //   suffixIcon={<></>}
-                    //   onChange={(date, dateString) => {
-                    //     const newData = { ...props.data };
-                    //     newData.date = dateString;
-                    //     props.setData(newData);
-                    //   }}
-                    //   format={'MMM YYYY'}
-                    // />
-                  ) : (
-                    <></>
-                    // props.data.date
-                  )}
+                  <CalendarOutlined />
+
+                  {' ' + date(props.data.datePosted)}
                 </li>
                 <li>
                   <LinkOutlined />{' '}
@@ -289,9 +272,9 @@ function PortfolioObject(props: PortfolioObjectProps) {
                     </a>
                   )}
                 </li>
-                <li>
+                {/* <li>
                   <EyeOutlined /> {props.data.views}
-                </li>
+                </li> */}
               </ul>
               <div style={{ textAlign: 'center' }}></div>
             </div>
