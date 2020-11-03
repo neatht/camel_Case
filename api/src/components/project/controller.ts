@@ -29,26 +29,29 @@ aws.config.update({
   region: 'ap-southeast-2'
 });
 
-const signS3 = (fileType: string) => {
+const uploadS3 = (file: string, fileType: string) => {
   return new Promise( (resolve, reject) => {
     const s3 = new aws.S3();
     const key = uuidv4();
-    // Set up the payload of what we are sending to the S3 api
+    const fileDetails = file.split(',');
+    const base64String = fileDetails[1];
+    const buffer = Buffer.from(base64String, 'base64');
+
     const s3Params = {
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: key,
-      Expires: 500,
-      ContentType: fileType,
-      ACL: 'public-read'
-    };
-    s3.getSignedUrl('putObject', s3Params, (err: any, data: any) => {
+      ACL: 'public-read',
+      Body: buffer,
+      ContentType: fileType
+    }
+
+    s3.upload(s3Params, (err: any, data: any) => {
       if (err) {
         throw new Error(err);
       }
 
       const returnData = {
-        signedRequest: data,
-        url: `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${key}`,
+        url: data.Location,
         id: key
       }
 
@@ -72,10 +75,10 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
       });
     }
     req.body.data.userID = userID;
-    // get signed url
-    const s3obj: any = await signS3(req.body.data.fileType);
-    req.body.data.s3ObjUrl = s3obj.url;
-    req.body.data.s3ObjID = s3obj.id;
+
+    const response: any = await uploadS3(req.body.data.file, req.body.data.fileType);
+    req.body.data.link = response.url;
+    req.body.data.mediaID = response.id;
 
     // get object url and add to db
     await addMediaService(req, res, next);
@@ -85,7 +88,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
     return res.json({
       status: 'success',
       data: {
-        signedRequest: s3obj.signedRequest
+        response
       }
     });
   } catch (e) {

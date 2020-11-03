@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import './PortfolioHero.css';
 import { EditOutlined } from '@ant-design/icons';
 import placeholderFolioImage from '../placeholder-folio-image.png';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Tooltip } from 'antd';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 import Uploader from './Uploader';
 import { stringList } from 'aws-sdk/clients/datapipeline';
 
@@ -36,6 +37,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
   const [media, setMedia] = useState<PortfolioHeroData[]>();
 
   const isMyProfile = !props.userID ? true : false;
+
   // const [isLoading, setIsLoading] = useState(true);
 
   async function fetchData(): Promise<void> {
@@ -95,64 +97,77 @@ function PortfolioHero(props: PortfolioHeroProps) {
     }
   }
 
-  async function saveData(
-    action: string,
-    updatePortfolioHeroData: PortfolioHeroData[]
+  // async function saveData(
+  //   action: string,
+  //   updatePortfolioHeroData: PortfolioHeroData[]
+  // ): Promise<void> {
+  //   //setIsLoading(true);
+
+  //   const route = `media/${props.projectID}`;
+
+  //   console.log(updatePortfolioHeroData);
+
+  //   // Call API
+  //   try {
+  //     const token = await getAccessTokenSilently();
+  //     const res = await fetch('/api/' + route, {
+  //       method: action,
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ data: updatePortfolioHeroData }),
+  //     });
+
+  //     // Check response is okay
+  //     if (!res.ok) {
+  //       console.error('Invalid response code', res.status, res.statusText);
+  //       return;
+  //     }
+  //     console.log('updated successfully?', res.ok, res.statusText);
+  //     // fetchData();
+  //     // setIsLoading(false);
+  //   } catch (e) {
+  //     const res = {
+  //       status: 'error',
+  //       message: [
+  //         'Exception from fetch on client side (not API) - check if the API stopped running',
+  //         e,
+  //       ],
+  //     };
+  //     console.error(res, e);
+  //     //return res;
+  //   }
+  //   fetchData();
+  // }
+
+  async function uploadMedia(
+    file: any,
+    type: string,
+    mediaCategory: string
   ): Promise<void> {
-    //setIsLoading(true);
+    const token = await getAccessTokenSilently();
 
-    const route = `media/${props.projectID}`;
-
-    console.log(updatePortfolioHeroData);
-
-    // Call API
-    try {
-      const token = await getAccessTokenSilently();
-      const res = await fetch('/api/' + route, {
-        method: action,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+    await fetch('/api/project/media', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: {
+          mediaCategory,
+          file,
+          fileType: type,
+          projectID: props.projectID,
         },
-        body: JSON.stringify({ data: updatePortfolioHeroData }),
-      });
-
-      // Check response is okay
-      if (!res.ok) {
-        console.error('Invalid response code', res.status, res.statusText);
-        return;
-      }
-      console.log('updated successfully?', res.ok, res.statusText);
-      // fetchData();
-      // setIsLoading(false);
-    } catch (e) {
-      const res = {
-        status: 'error',
-        message: [
-          'Exception from fetch on client side (not API) - check if the API stopped running',
-          e,
-        ],
-      };
-      console.error(res, e);
-      //return res;
-    }
-    fetchData();
+      }),
+    });
   }
 
   useEffect(() => {
-    if (props.new && props.projectID){
-      const newData = {} as PortfolioHeroData;
-      newData.datePosted = '';
-      newData.link = '';
-      newData.mediaName = '';
-      newData.mediaType = '';
-      newData.projectID = props.projectID;
-      newData.userID = '';
-      saveData('POST', [newData]);
-    } else {
-      fetchData();
-    }
-    }, [props.projectID]);
+    fetchData();
+  }, [props.projectID]);
 
   // props.isOpen ?
   if (props.isOpen) {
@@ -188,20 +203,22 @@ function PortfolioHero(props: PortfolioHeroProps) {
               </div>
             </Tooltip>
             <Uploader
-              onUpload={(file: any, typeName: string) => {
-                if (media) {
+              onUpload={async (
+                file: any,
+                type: string,
+                mediaCategory: string
+              ) => {
+                if (media && props.projectID) {
                   const newMedia = [...media];
-                  if (props.projectID && props.userID) {
-                    newMedia.push({
-                      mediaName: '',
-                      mediaType: typeName,
-                      link: file,
-                      datePosted: '',
-                      userID: props.userID,
-                      projectID: props.projectID,
-                    });
-                  }
-
+                  newMedia.push({
+                    mediaType: mediaCategory,
+                    link: file,
+                    datePosted: '',
+                    mediaName: '',
+                    projectID: props.projectID,
+                    userID: '',
+                  });
+                  await uploadMedia(file, type, mediaCategory);
                   setMedia(newMedia);
                 }
               }}
@@ -459,7 +476,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
         style={{
           backgroundImage: `url(${
             media && media.length > 0 && media[0].mediaType === 'image'
-              ? media[0].mediaType
+              ? media[0].link
               : placeholderFolioImage
           })`,
         }}
