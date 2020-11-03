@@ -7,7 +7,7 @@
 <br/>
 
 <div align="center">
-    ![](demo.gif)
+    ![Glowbal Demo](https://github.com/neatht/camel_Case/blob/feature/finish-search/demo.gif)
 </div>
 
 <div align="center">
