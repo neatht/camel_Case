@@ -13,6 +13,10 @@ const { Option } = Select;
 const { Search } = Input;
 const { Paragraph, Text } = Typography;
 
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
+
 /**
  * Items before the API route input
  */
@@ -21,7 +25,7 @@ const selectBefore = (
     <Select defaultValue="GET" className="select-before">
       <Option value="GET">GET</Option>
     </Select>
-    <span> https://localhost:5000/api/</span>
+    <span> {API_URL}</span>
   </>
 );
 
@@ -56,7 +60,7 @@ function APITest() {
   /**
    * Used to call the API with the authentication token passed in automatically
    *
-   * @param route Route to call at https://localhost:5000/api/{route}
+   * @param route Route to call
    * @param callback Callback function with the the response JSON as data
    */
   async function callAPI(route: string, callback: (data: Object) => void) {
@@ -125,7 +129,7 @@ function APITest() {
             <Search
               addonBefore={selectBefore} //"GET https://localhost:5000/api/"
               defaultValue="test"
-              onSearch={(value) => callAPI(`/api/${value}`, setAPIResult)}
+              onSearch={(value) => callAPI(`${API_URL}${value}`, setAPIResult)}
             />
           </div>
 
@@ -135,7 +139,7 @@ function APITest() {
             style={{ width: 600, display: 'flex', justifyContent: 'center' }}
           >
             <Search
-              defaultValue="enter search URL"
+              placeholder="Enter API route"
               onSearch={(value) => callAPI(value, setAPIResult)}
             />
           </div>
