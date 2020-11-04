@@ -63,7 +63,7 @@ export const addDisplayPhoto = async (req: any, res: express.Response, next: exp
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -80,7 +80,7 @@ export const addDisplayPhoto = async (req: any, res: express.Response, next: exp
     await addMediaService(req, res, next);
     await addDisplayPhotoService(req, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -100,7 +100,7 @@ export const getDisplayPhoto = async (req: any, res: express.Response, next: exp
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -111,7 +111,7 @@ export const getDisplayPhoto = async (req: any, res: express.Response, next: exp
     req.params.userID = userID;
     const result = await getDisplayPhotoService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -128,7 +128,7 @@ export const deleteDisplayPhoto = async (req: any, res: express.Response, next: 
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -139,7 +139,7 @@ export const deleteDisplayPhoto = async (req: any, res: express.Response, next: 
     req.body.data = { userID };
     await deleteDisplayPhotoService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'
@@ -155,7 +155,7 @@ export const addHeroImage = async (req: any, res: express.Response, next: expres
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -172,7 +172,7 @@ export const addHeroImage = async (req: any, res: express.Response, next: expres
     await addMediaService(req, res, next);
     await addHeroImageService(req, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -192,7 +192,7 @@ export const getHeroImage = async (req: any, res: express.Response, next: expres
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -203,7 +203,7 @@ export const getHeroImage = async (req: any, res: express.Response, next: expres
     req.params.userID = userID;
     const result = await getHeroImageService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -220,7 +220,7 @@ export const deleteHeroImage = async (req: any, res: express.Response, next: exp
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -231,7 +231,7 @@ export const deleteHeroImage = async (req: any, res: express.Response, next: exp
     req.body.data = { userID };
     await deleteHeroImageService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'
