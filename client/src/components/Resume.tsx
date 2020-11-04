@@ -97,6 +97,11 @@ function Resume(props: ResumeProps) {
       // TODO: Could add warning?
       console.log('setting data...', { data });
       setProfileData(data);
+
+      const displayRes: any = await getOwnDisplayPhoto(token, API_URL);
+      const heroRes: any = await getOwnHeroImage(token, API_URL);
+      setProfilePicture(displayRes['link']);
+      setHeroPicture(heroRes['link']);
       setIsLoading(false);
     } catch (e) {
       if (setIsLoading) {
