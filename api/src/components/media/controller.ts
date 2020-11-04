@@ -77,6 +77,7 @@ export const addDisplayPhoto = async (req: any, res: express.Response, next: exp
     req.body.data.mediaID = response.id;
 
     // get object url and add to db
+    await deleteDisplayPhotoService(req, res, next);
     await addMediaService(req, res, next);
     await addDisplayPhotoService(req, next);
 
@@ -195,6 +196,7 @@ export const addHeroImage = async (req: any, res: express.Response, next: expres
     req.body.data.mediaID = response.id;
 
     // get object url and add to db
+    await deleteHeroImageService(req, res, next);
     await addMediaService(req, res, next);
     await addHeroImageService(req, next);
 
