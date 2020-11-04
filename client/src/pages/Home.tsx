@@ -11,8 +11,8 @@ import HomeHero from '../components/HomeHero';
 import Loading from '../components/Loading';
 import PortfolioGridSearch from '../components/PortfolioGridSearch';
 
-const API_URL = process.env.API_URL
-  ? process.env.API_URL
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
 
 type PortfolioObjectSearchData = {
