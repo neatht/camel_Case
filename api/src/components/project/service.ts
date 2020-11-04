@@ -6,49 +6,65 @@ dotenv.config();
 
 export const addMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
   const query = 'INSERT INTO media(date_posted, link, media_id, media_name, \
-    project_id, media_type, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;'
+    media_type) VALUES ($1, $2, $3, $4, $5);'
 
   const queryParams = [
     new Date(),
     req.body.data.link,
     req.body.data.mediaID,
     req.body.data.mediaName,
+    req.body.data.mediaCategory
+  ]
+
+  await service(req, next, query, queryParams);
+}
+
+export const addProjectMediaService = async(req: any, next: express.NextFunction) => {
+  const query = 'INSERT INTO project_media (project_id, media_id, user_id) \
+    VALUES ($1, $2, $3);'
+
+  const queryParams = [
     req.body.data.projectID,
-    req.body.data.mediaCategory,
+    req.body.data.mediaID,
     req.body.data.userID
   ]
 
   await service(req, next, query, queryParams);
 }
 
-export const updateMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query = ['UPDATE media SET'];
+export const updateProjectMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query = ['UPDATE media m SET'];
   const queryParams = [];
   let varCount = 1;
 
   if (req.body.data.mediaName) {
-    query.push(`media_name = $${varCount++},`);
+    query.push(`m.media_name = $${varCount++},`);
     queryParams.push(req.body.data.mediaName);
   }
 
   if (req.body.data.datePosted) {
-    query.push(`date_posted = $${varCount++},`);
+    query.push(`m.date_posted = $${varCount++},`);
     queryParams.push(req.body.data.datePosted);
   }
 
   const lastIndex = query.length - 1;
   query[lastIndex] = query[lastIndex].substring(0, query[lastIndex].length - 1);
 
-  query.push(`WHERE user_id = $${varCount++} AND project_id = $${varCount++} AND media_id = $${varCount};`);
+  query.push(`FROM project_media pm`)
+  query.push(`WHERE pm.media_id = m.media_id AND pm.user_id = $${varCount++} AND pm.project_id = $${varCount++} AND pm.media_id = $${varCount};`);
   queryParams.push(req.body.data.userID, req.body.data.projectID, req.body.data.mediaID);
 
   await service(req, next, query.join(' '), queryParams);
 }
 
-export const getMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query = 'SELECT date_posted AS "datePosted", link, media_name AS "mediaName", \
-    project_id AS "projectID", media_type AS "mediaType", media_id AS "mediaID", \
-    user_id AS "userID" FROM media WHERE project_id = $1 AND user_id = $2;'
+export const getProjectMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query =
+    'SELECT m.date_posted AS "datePosted", m.link, m.media_name AS "mediaName", \
+      pm.project_id AS "projectID", m.media_type AS "mediaType", pm.media_id AS "mediaID", \
+      pm.user_id AS "userID" \
+    FROM media m \
+    INNER JOIN project_media pm ON m.media_id = pm.media_id \
+    WHERE pm.project_id = $1 AND pm.user_id = $2;'
 
   const queryParams = [
     req.params.projectID,
@@ -163,8 +179,16 @@ export const deleteProjectService = async (req: any, res: express.Response, next
   await service(req, next, query, queryParams);
 }
 
-export const deleteMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
-  const query: string = 'DELETE FROM media WHERE user_id = $1 AND project_id = $2 AND media_id = $3;'
+export const deleteProjectMediaService = async (req: any, res: express.Response, next: express.NextFunction) => {
+  const query: string =
+    'DELETE \
+    FROM media m \
+    USING project_media pm \
+    WHERE m.media_id = pm.media_id AND \
+          pm.user_id = $1 AND \
+          pm.project_id = $2 AND \
+          pm.media_id = $3;'
+
   const queryParams: any[] = [req.body.data.userID, req.body.data.projectID, req.body.data.mediaID];
   await service(req, next, query, queryParams);
 }

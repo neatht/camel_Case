@@ -16,6 +16,7 @@ import linksRouter from './components/socialLinks/routes';
 import projectRouter from './components/project/routes';
 import experienceRouter from './components/experience/routes';
 import educationRouter from './components/education/routes';
+import mediaRouter from './components/media/routes';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -42,6 +43,7 @@ export const register = (app: express.Application) => {
   app.use('/api/project', projectRouter);
   app.use('/api/experience', experienceRouter);
   app.use('/api/education', educationRouter);
+  app.use('/api/media', mediaRouter);
 
   // authenticated test route
   app.get('/api/test', jwtCheck, (req:any, res) => {
