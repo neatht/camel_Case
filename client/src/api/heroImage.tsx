@@ -40,7 +40,7 @@ export async function getOwnHeroImage(
   token: string,
   apiUrl: stringType
 ): Promise<void> {
-  const res = await fetch(apiUrl + 'media/displayPhoto', {
+  const res = await fetch(apiUrl + 'media/heroImage', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
