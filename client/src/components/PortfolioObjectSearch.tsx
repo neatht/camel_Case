@@ -13,6 +13,7 @@ import {
   LinkOutlined,
 } from '@ant-design/icons';
 import Loading from './Loading';
+import AuthorBadge from './AuthorBadge';
 
 const API_URL = process.env.API_URL
   ? process.env.API_URL
@@ -169,6 +170,10 @@ function PortfolioObjectSearch(props: PortfolioObjectProps) {
             <h5>{`${props.data.author_first_name} ${props.data.author_last_name}`}</h5>
           </div>
         </div>
+        <AuthorBadge
+          author={`${props.data.author_first_name} ${props.data.author_last_name}`}
+          userID={props.data.user_id}
+        />
         <div className="portfolio-object-body">
           <div>
             <br />
