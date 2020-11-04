@@ -14,6 +14,17 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
 import UploaderImage from './UploaderImage';
 
+import {
+  uploadDisplayPhoto,
+  deleteDisplayPhoto,
+  getOwnDisplayPhoto,
+} from '../api/displayPhoto';
+import {
+  uploadHeroImage,
+  deleteHeroImage,
+  getOwnHeroImage,
+} from '../api/heroImage';
+
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
@@ -189,9 +200,15 @@ function Resume(props: ResumeProps) {
       <div className="container-primary resume container-scroll">
         {isMyProfile ? (
           <UploaderImage
-            onUpload={(file: any, type: string, mediaCategory: string) => {
-              //setHeroPicture(file);
-              //EDIT
+            onUpload={async (
+              file: any,
+              type: string,
+              mediaCategory: string
+            ) => {
+              const token = await getAccessTokenSilently();
+              await uploadHeroImage(file, type, mediaCategory, token, API_URL);
+              const res: any = await getOwnHeroImage(token, API_URL);
+              setHeroPicture(res['link']);
             }}
           />
         ) : (
@@ -220,9 +237,21 @@ function Resume(props: ResumeProps) {
         >
           {isMyProfile ? (
             <UploaderImage
-              onUpload={(file: any, type: string, mediaCategory: string) => {
-                //setProfilePicture();
-                //EDIT
+              onUpload={async (
+                file: any,
+                type: string,
+                mediaCategory: string
+              ) => {
+                const token = await getAccessTokenSilently();
+                await uploadDisplayPhoto(
+                  file,
+                  type,
+                  mediaCategory,
+                  token,
+                  API_URL
+                );
+                const res: any = await getOwnDisplayPhoto(token, API_URL);
+                setProfilePicture(res['link']);
               }}
             />
           ) : (

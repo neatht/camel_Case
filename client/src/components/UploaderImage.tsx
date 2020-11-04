@@ -30,7 +30,6 @@ function UploaderImage(props: TextInputProps) {
         onChange={() => {
           // inputRef.current.files[0].name;
           const file = inputRef.current.files[0];
-          console.log(file);
           const reader = new FileReader();
           reader.addEventListener(
             'load',
