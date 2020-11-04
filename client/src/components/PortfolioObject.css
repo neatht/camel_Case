@@ -1,20 +1,19 @@
 .portfolio-object {
   display: inline-block;
-  width:  var(--unit-width);
+  width: var(--unit-width);
   height: calc(100vh - 116px);
-  
-  transition: filter 0.3s, border-color 0.5s, width 1s, height 1s 0s,
-    padding 0.3s, margin 0.3s, opacity 0.2s;
+  /* box-shadow: var(--drop-shadow), 0px 0px 0px 1px #00000000; */
+
+  transition: box-shadow 0.2s, filter 0.3s, border-color 0.5s, width 1s,
+    height 1s 0s, padding 0.3s, margin 0.3s, opacity 0.2s;
 }
 
 .thumbnail {
   padding: 0;
-  height: calc( var(--unit) * var(--unit-ratio));
+  height: calc(var(--unit) * var(--unit-ratio));
   width: var(--unit);
   overflow: hidden;
 }
-
-
 
 /*===========================
   portfolio exit button
@@ -36,7 +35,7 @@
 } */
 
 .thumbnail .exit-button::before {
-  content: "";
+  content: '';
 }
 
 .thumbnail .exit-button {
@@ -47,11 +46,15 @@
   margin-left: -100%;
   height: 100%;
   border-radius: 0;
-  background-color: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+  border: 0;
+  box-shadow: none;
   /* background-color: aqua; */
 }
 
-
+.thumbnail .del-button {
+  display: none;
+}
 
 /*===========================
   portfolio overlay on hover
@@ -77,7 +80,11 @@
 .thumbnail .portfolio-object-overlay {
   opacity: 0;
   top: -80%;
-  background: linear-gradient(180deg, rgba(240, 240, 240, 0) 0%, var(--color-gradient) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(240, 240, 240, 0) 0%,
+    var(--color-gradient) 100%
+  );
   height: 100%;
   width: 100%;
 }
@@ -88,7 +95,9 @@
 }
 
 .thumbnail:hover {
-  box-shadow: drop-shadow(0px 2px 16px rgba(0, 0, 0, 0.2));
+  /* border-color: var(--color-primary); */
+  box-shadow: var(--inner-shadow), var(--drop-shadow-dark),
+    0px 0px 0px 1px var(--color-primary);
 }
 
 .portfolio-object-overlay .portfolio-meta {
@@ -100,8 +109,6 @@
   padding-left: 20px;
   padding-bottom: 20px;
 }
-
-
 
 /*===========================
   portfolio body and info
@@ -119,8 +126,6 @@
 .thumbnail .portfolio-object-body {
   opacity: 0;
 }
-
-
 
 /*===========================
   portfolio title and
@@ -147,8 +152,6 @@
   display: inline-flex;
 }
 
-
-
 /*===========================
   portfolio side bar
   ===========================*/
@@ -159,18 +162,30 @@
   width: 200px;
   height: 100%;
   /* margin-left: 30px; */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .portfolio-side-bar ul {
   padding: 0;
   list-style-type: none;
 }
 .portfolio-side-bar li {
-  padding-top: 10px;
+  /* padding-top: 10px; */
   padding-bottom: 10px;
 }
 
+.portfolio-tag {
+  display: inline-block;
+  background-color: var(--background-color-app);
+  box-shadow: var(--drop-shadow);
+  padding: 3px 10px;
+  margin-right: 3px;
+  margin-top: 3px;
+  border-radius: 100px;
+}
 
+.portfolio-side-bar .ant-select {
+  width: 170px !important;
+}
 
 /*===========================
   hide portfolio entry when
@@ -179,14 +194,13 @@
 
 .portfolio-object-open .thumbnail {
   opacity: 0;
+  border: 0 solid white;
   width: 0;
   height: 0;
   padding: 0;
   margin: 0;
   transition: width 0.8s, height 1s 0s, padding 0.3s, margin 0.3s, opacity 0.2s;
 }
-
-
 
 /*===========================
   tweak edit textbox 
@@ -199,6 +213,13 @@ h2 .ant-typography-edit-content {
   margin-right: 30px !important;
 }
 
-
-
-
+/*===========================
+  circle media edit 
+  ===========================*/
+.portfolio-hero .display-top-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+}

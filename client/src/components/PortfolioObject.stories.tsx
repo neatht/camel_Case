@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import PortfolioObject from './PortfolioObject';
 
 export default {
-  title: 'General/Portfolio Object',
+  title: 'Portfolio/Portfolio Object',
   component: PortfolioObject,
 } as Meta;
 

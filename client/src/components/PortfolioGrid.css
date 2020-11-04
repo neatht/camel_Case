@@ -1,11 +1,41 @@
 .grid {
-  display: inline-grid;
+  display: grid;
   grid-template-columns: repeat(var(--unit-col-num), auto);
-  grid-gap:  var(--unit-margin);
+  grid-gap: var(--unit-margin);
   transition: grid-gap 0.3s;
 }
 .portfolio-object-open .grid {
   grid-gap: 0px;
 }
 
+.portfolio-grid-add {
+  color: #fff;
+  text-align: center;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  line-height: 56px;
+  font-size: 2em;
 
+  /* make button take up 0 width */
+  /* position: relative;
+  right: 24px;
+  margin-right: -24px; */
+  border: var(--border);
+  box-shadow: var(--inner-shadow), var(--drop-shadow);
+  box-sizing: content-box;
+
+  background: var(--btn-gradient);
+  border-radius: 100px;
+  z-index: 100;
+  float: right;
+  position: fixed;
+  top: calc(100% - 88px);
+  margin-left: calc(var(--unit-width) - 56px);
+  transition: opacity 0.3s;
+}
+
+.portfolio-object-open .portfolio-grid-add {
+  opacity: 0;
+  z-index: -1;
+}

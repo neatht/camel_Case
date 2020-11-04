@@ -8,14 +8,21 @@ import './css/layout.css';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import ProfileSetup from './pages/ProfileSetup';
+import APITest from './pages/APITest';
+import Tests from './pages/Tests';
+import Search from './pages/Search';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/profile-setup" exact component={ProfileSetup} />
+        <Route path="/profile/:userID?" exact component={Profile} />
+        <Route path="/profile-setup/:userID?" component={ProfileSetup} />
+        <Route path="/search/:query?" component={Search} />
+        <Route path="/api-test" exact component={APITest} />
+        <PrivateRoute path="/tests" exact component={Tests} />
       </Switch>
     </Router>
   );

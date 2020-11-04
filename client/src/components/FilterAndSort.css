@@ -3,9 +3,11 @@
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: var(--unit-margin);
-  padding-bottom: calc(3*var(--unit-margin));
+  padding-bottom: calc(3 * var(--unit-margin));
   height: fit-content;
+  max-width: 350px;
 }
+
 .floating-hamburger {
   border-radius: 50%;
   background-color: var(--background-color-secondary);
@@ -49,5 +51,34 @@
 }
 
 .ant-tooltip-inner {
-  border-radius: 10px !important;
+  border-radius: var(--border-radius-secondary) !important;
+}
+
+.ant-select-selector,
+.ant-input {
+  border-radius: var(--border-radius-secondary) !important;
+  border-color: #ffffff !important;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
+  cursor: text;
+  background-color: rgba(0, 0, 0, 0.01) !important;
+}
+
+.ant-select-focused {
+  border-radius: var(--border-radius-secondary) !important;
+  outline: 0;
+  border: 0 !important;
+  box-shadow: inset 0px 5px 7px rgba(0, 0, 0, 0.2);
+  background-color: #00000000 !important;
+}
+
+.ant-input:focus,
+.ant-input-focused {
+  outline: 0;
+  border-color: #ffffffe0;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.01) !important;
+}
+
+.filter-and-sort .ant-input {
+  width: 270px !important;
 }

@@ -1,10 +1,19 @@
 .home-hero {
     background-color: var(--background-color-primary);
+    box-shadow: var(--inner-shadow);
 }
 .toggle-home-hero {
     position: relative;
     top: 30px;
     right: 50px;
+}
+
+.rocket {
+    padding-right: 5px;
+    background:#fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--drop-shadow);
 }
 
 .toggle-home-hero .anticon {

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { AutoComplete } from 'antd';
 
+import './CompanyAutoComplete.css';
+
 type CompanyAutoCompleteProps = {
   /** Callback function for when a company is selected */
   onSelect?: (value: string) => void;
@@ -9,6 +11,8 @@ type CompanyAutoCompleteProps = {
   onChange?: (value: string) => void;
   //** Initial value for the input field */
   initialValue?: string;
+  /** Placeholder value for the input field*/
+  placeholder?: string;
 };
 
 function CompanyAutoComplete(props: CompanyAutoCompleteProps) {
@@ -27,7 +31,7 @@ function CompanyAutoComplete(props: CompanyAutoCompleteProps) {
   async function searchResult(query: string) {
     const data = await fetchCompanyAutoComplete(query);
 
-    return data.map((item: any, idx: any) => {
+    return data.map((item: any) => {
       return {
         value: `${item.name}`,
         label: (
@@ -74,6 +78,7 @@ function CompanyAutoComplete(props: CompanyAutoCompleteProps) {
       onSearch={handleSearch}
       onChange={handleValueChange}
       value={value}
+      placeholder={props.placeholder ? props.placeholder : undefined}
     />
   );
 }

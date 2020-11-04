@@ -5,7 +5,7 @@ import AuthorBadge from './AuthorBadge';
 describe('Testing AuthorBadge', () => {
   it('renders without crashing', () => {
     const component = shallow(
-      <AuthorBadge author="author" tagline="tagline" />
+      <AuthorBadge author="author" tagline="tagline" userID={'123'} />
     );
     expect(component).toMatchSnapshot();
     component.unmount();
