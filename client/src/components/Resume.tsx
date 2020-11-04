@@ -12,6 +12,18 @@ import { useEffect } from 'react';
 import SocialLinks from './SocialLinks';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
+import UploaderImage from './UploaderImage';
+
+import {
+  uploadDisplayPhoto,
+  deleteDisplayPhoto,
+  getOwnDisplayPhoto,
+} from '../api/displayPhoto';
+import {
+  uploadHeroImage,
+  deleteHeroImage,
+  getOwnHeroImage,
+} from '../api/heroImage';
 
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
@@ -46,6 +58,9 @@ function Resume(props: ResumeProps) {
 
   const [profileData, setProfileData] = useState<ResumeData>();
   const [updateProfileData, setUpdateProfileData] = useState<ResumeData>();
+
+  const [profilePicture, setProfilePicture] = useState('');
+  const [heroPicture, setHeroPicture] = useState('');
 
   /**
    * Fetches profile data and sets appropriately
@@ -82,6 +97,11 @@ function Resume(props: ResumeProps) {
       // TODO: Could add warning?
       console.log('setting data...', { data });
       setProfileData(data);
+
+      const displayRes: any = await getOwnDisplayPhoto(token, API_URL);
+      const heroRes: any = await getOwnHeroImage(token, API_URL);
+      setProfilePicture(displayRes['link']);
+      setHeroPicture(heroRes['link']);
       setIsLoading(false);
     } catch (e) {
       if (setIsLoading) {
@@ -183,32 +203,71 @@ function Resume(props: ResumeProps) {
   } else {
     return (
       <div className="container-primary resume container-scroll">
+        {isMyProfile ? (
+          <UploaderImage
+            onUpload={async (
+              file: any,
+              type: string,
+              mediaCategory: string
+            ) => {
+              const token = await getAccessTokenSilently();
+              await uploadHeroImage(file, type, mediaCategory, token, API_URL);
+              const res: any = await getOwnHeroImage(token, API_URL);
+              setHeroPicture(res['link']);
+            }}
+          />
+        ) : (
+          <></>
+        )}
         <div
-          style={
-            profileData?.heroPicture
-              ? { backgroundImage: `url(${profileData?.heroPicture})` }
-              : {}
-          }
+          style={heroPicture ? { backgroundImage: `url(${heroPicture})` } : {}}
           className="container-secondary resume-hero"
         ></div>
+
         <div
-          /*style={
-            profileData?.profilePicture
-              ? { backgroundImage: `url(${profileData?.profilePicture})` }
+          style={
+            profilePicture
+              ? {
+                  backgroundImage: `url(${profilePicture})`,
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                }
               : {}
-          }*/
-          style={{
-            backgroundImage: `url(${'https://i.imgur.com/h2E4WGw.jpg'})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-          }}
+          }
           className="container-secondary resume-picture"
         >
-          {/*{profileData?.profilePicture ? (
+          {isMyProfile ? (
+            <UploaderImage
+              onUpload={async (
+                file: any,
+                type: string,
+                mediaCategory: string
+              ) => {
+                const token = await getAccessTokenSilently();
+                await uploadDisplayPhoto(
+                  file,
+                  type,
+                  mediaCategory,
+                  token,
+                  API_URL
+                );
+                const res: any = await getOwnDisplayPhoto(token, API_URL);
+                setProfilePicture(res['link']);
+              }}
+            />
+          ) : (
             <></>
+          )}
+
+          {profilePicture ? (
+            <></>
+          ) : isMyProfile ? (
+            <UserOutlined
+              style={{ fontSize: '64px', color: '#fff', marginTop: '-16px' }}
+            />
           ) : (
             <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
-          )}*/}
+          )}
         </div>
         <div className="resume-name">
           <h1>

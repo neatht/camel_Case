@@ -95,7 +95,7 @@ export const addDisplayPhoto = async (req: any, res: express.Response, next: exp
 
 
 
-export const getDisplayPhoto = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const getOwnDisplayPhoto = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
@@ -109,6 +109,32 @@ export const getDisplayPhoto = async (req: any, res: express.Response, next: exp
     }
 
     req.params.userID = userID;
+    const result = await getDisplayPhotoService(req, res, next);
+
+    req.poolClient.release();
+    res.status(200);
+    return res.json({
+      status: 'success',
+      data: result
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const getDisplayPhotoById = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const userID = req.params.userID;
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.release();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+
     const result = await getDisplayPhotoService(req, res, next);
 
     req.poolClient.release();
@@ -185,9 +211,7 @@ export const addHeroImage = async (req: any, res: express.Response, next: expres
   }
 }
 
-
-
-export const getHeroImage = async (req: any, res: express.Response, next: express.NextFunction) => {
+export const getOwnHeroImage = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
@@ -201,6 +225,32 @@ export const getHeroImage = async (req: any, res: express.Response, next: expres
     }
 
     req.params.userID = userID;
+    const result = await getHeroImageService(req, res, next);
+
+    req.poolClient.release();
+    res.status(200);
+    return res.json({
+      status: 'success',
+      data: result
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+export const getHeroImageById = async (req: any, res: express.Response, next: express.NextFunction) => {
+  try {
+    const userID = req.params.userID;
+    const profileExists = await checkProfileService(req, next, userID);
+    if (!profileExists) {
+      req.poolClient.release();
+      res.status(404);
+      return res.json({
+        status: 'error',
+        message: 'Profile does not exist.'
+      });
+    }
+
     const result = await getHeroImageService(req, res, next);
 
     req.poolClient.release();
