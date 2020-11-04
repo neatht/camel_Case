@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
-import PortfolioHero from './PortfolioHero';
+import PortfolioHeroSearch from './PortfolioHeroSearch';
 
 import './PortfolioObject.css';
 import TextInput from './TextInput';
@@ -154,11 +154,12 @@ function PortfolioObjectSearch(props: PortfolioObjectProps) {
           </h2>
         </div>
 
-        <PortfolioHero
+        <PortfolioHeroSearch
           new={false}
           projectID={props.data.project_id}
           isOpen={!thumbnail}
           isMyProfile={false}
+          userID={props.data.user_id}
         />
         <div className="portfolio-object-overlay">
           <div className="portfolio-meta">
