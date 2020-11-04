@@ -215,11 +215,7 @@ function Resume(props: ResumeProps) {
           <></>
         )}
         <div
-          style={
-            heroPicture
-              ? { backgroundImage: `url(${profileData?.heroPicture})` }
-              : {}
-          }
+          style={heroPicture ? { backgroundImage: `url(${heroPicture})` } : {}}
           className="container-secondary resume-hero"
         ></div>
 
@@ -227,7 +223,7 @@ function Resume(props: ResumeProps) {
           style={
             profilePicture
               ? {
-                  backgroundImage: `url(${profileData?.profilePicture})`,
+                  backgroundImage: `url(${profilePicture})`,
                   backgroundPosition: 'center',
                   backgroundSize: 'cover',
                 }
