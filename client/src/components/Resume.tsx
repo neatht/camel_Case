@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import SocialLinks from './SocialLinks';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
+import UploaderImage from './UploaderImage';
 
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
@@ -46,6 +47,9 @@ function Resume(props: ResumeProps) {
 
   const [profileData, setProfileData] = useState<ResumeData>();
   const [updateProfileData, setUpdateProfileData] = useState<ResumeData>();
+
+  const [profilePicture, setProfilePicture] = useState('');
+  const [heroPicture, setHeroPicture] = useState('');
 
   /**
    * Fetches profile data and sets appropriately
@@ -183,32 +187,57 @@ function Resume(props: ResumeProps) {
   } else {
     return (
       <div className="container-primary resume container-scroll">
+        {isMyProfile ? (
+          <UploaderImage
+            onUpload={(file: any, type: string, mediaCategory: string) => {
+              //setHeroPicture(file);
+              //EDIT
+            }}
+          />
+        ) : (
+          <></>
+        )}
         <div
           style={
-            profileData?.heroPicture
+            heroPicture
               ? { backgroundImage: `url(${profileData?.heroPicture})` }
               : {}
           }
           className="container-secondary resume-hero"
         ></div>
+
         <div
-          /*style={
-            profileData?.profilePicture
-              ? { backgroundImage: `url(${profileData?.profilePicture})` }
+          style={
+            profilePicture
+              ? {
+                  backgroundImage: `url(${profileData?.profilePicture})`,
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                }
               : {}
-          }*/
-          style={{
-            backgroundImage: `url(${'https://i.imgur.com/h2E4WGw.jpg'})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-          }}
+          }
           className="container-secondary resume-picture"
         >
-          {/*{profileData?.profilePicture ? (
+          {isMyProfile ? (
+            <UploaderImage
+              onUpload={(file: any, type: string, mediaCategory: string) => {
+                //setProfilePicture();
+                //EDIT
+              }}
+            />
+          ) : (
             <></>
+          )}
+
+          {profilePicture ? (
+            <></>
+          ) : isMyProfile ? (
+            <UserOutlined
+              style={{ fontSize: '64px', color: '#fff', marginTop: '-16px' }}
+            />
           ) : (
             <UserOutlined style={{ fontSize: '64px', color: '#fff' }} />
-          )}*/}
+          )}
         </div>
         <div className="resume-name">
           <h1>
