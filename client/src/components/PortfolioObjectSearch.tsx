@@ -15,8 +15,8 @@ import {
 import Loading from './Loading';
 import AuthorBadge from './AuthorBadge';
 
-const API_URL = process.env.API_URL
-  ? process.env.API_URL
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
 
 type PortfolioObjectSearchData = {
