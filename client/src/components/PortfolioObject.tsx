@@ -1,20 +1,14 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
-import SocialLinks from './SocialLinks';
 import PortfolioHero from './PortfolioHero';
 
 import './PortfolioObject.css';
-import Emoji from './Emoji';
-import AuthorBadge from './AuthorBadge';
-// import { useAuth0 } from '@auth0/auth0-react';
 import TextInput from './TextInput';
 import { useRef } from 'react';
-import { DatePicker, Dropdown, Select, Tooltip } from 'antd';
-import moment from 'moment';
+import { Select } from 'antd';
 import {
   CalendarOutlined,
-  EyeOutlined,
   LineOutlined,
   LinkOutlined,
 } from '@ant-design/icons';
@@ -43,8 +37,6 @@ type PortfolioObjectProps = {
 };
 
 function PortfolioObject(props: PortfolioObjectProps) {
-  // const { user, isAuthenticated, isLoading } = useAuth0();
-
   const containerPrimaryRef = useRef<any>(null);
 
   const [newEntry, setNewEntry] = useState(props.new);
@@ -114,11 +106,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
 
       <div
         onClick={() => {
-          // if (props.data.new) {
-          //   const newData = { ...props.data };
-          //   newData.new = false;
-          //   props.setData(newData);
-          // }
           transition();
           setNewEntry(false);
         }}
@@ -222,7 +209,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   style={{ display: 'inline-block', width: '100%' }}
                   placeholder="Tags"
                   onChange={(value) => {
-                    // console.log(value);
                     const newData = { ...props.data };
                     newData.tags = value;
                     props.setData(newData);
@@ -259,7 +245,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
                     editable={props.isMyProfile}
                     placeholder={'Link to project'}
                     text={props.data.link}
-                    // placeholder="Link"
                     onChange={(newString: string) => {
                       const newData = { ...props.data };
                       newData.link = newString;
@@ -273,9 +258,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
                 </a>
               )}
             </li>
-            {/* <li>
-                  <EyeOutlined /> {props.data.views}
-                </li> */}
           </ul>
           <div style={{ textAlign: 'center' }}></div>
         </div>

@@ -7,9 +7,7 @@ import { EditOutlined } from '@ant-design/icons';
 import placeholderFolioImage from '../placeholder-folio-image.png';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Tooltip } from 'antd';
-// import { useAuth0 } from '@auth0/auth0-react';
 import Uploader from './Uploader';
-import { stringList } from 'aws-sdk/clients/datapipeline';
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
@@ -51,8 +49,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
       ? `project/media/getOwnMedia/${props.projectID}`
       : `project/media/${props.userID}`;
 
-    // const route = 'project/media/30588745/1';
-
     try {
       const token = await getAccessTokenSilently();
       const res = await fetch(API_URL + route, {
@@ -71,19 +67,9 @@ function PortfolioHero(props: PortfolioHeroProps) {
       const resBody = await res.json();
       const data = 'data' in resBody ? resBody['data'] : {};
 
-      // Set profile data (empty object if invalid)
-      // TODO: Could add warning?
       console.log('setting media...', { data });
 
-      // data.sort((a: PortfolioObjectData, b: PortfolioObjectData) => {
-      //   if (a.projectID && b.projectID) {
-      //     if (a.projectID > b.projectID) return 1;
-      //     else return -1;
-      //   } else return 1;
-      // });
-
       setMedia(data);
-      // setIsLoading(false);
     } catch (e) {
       // if (setIsLoading) {
       //   setIsLoading(false);
@@ -99,50 +85,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
       //return res;
     }
   }
-
-  // async function saveData(
-  //   action: string,
-  //   updatePortfolioHeroData: PortfolioHeroData[]
-  // ): Promise<void> {
-  //   //setIsLoading(true);
-
-  //   const route = `media/${props.projectID}`;
-
-  //   console.log(updatePortfolioHeroData);
-
-  //   // Call API
-  //   try {
-  //     const token = await getAccessTokenSilently();
-  //     const res = await fetch('/api/' + route, {
-  //       method: action,
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ data: updatePortfolioHeroData }),
-  //     });
-
-  //     // Check response is okay
-  //     if (!res.ok) {
-  //       console.error('Invalid response code', res.status, res.statusText);
-  //       return;
-  //     }
-  //     console.log('updated successfully?', res.ok, res.statusText);
-  //     // fetchData();
-  //     // setIsLoading(false);
-  //   } catch (e) {
-  //     const res = {
-  //       status: 'error',
-  //       message: [
-  //         'Exception from fetch on client side (not API) - check if the API stopped running',
-  //         e,
-  //       ],
-  //     };
-  //     console.error(res, e);
-  //     //return res;
-  //   }
-  //   fetchData();
-  // }
 
   async function uploadMedia(
     file: any,
@@ -172,7 +114,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
     fetchData();
   }, [props.projectID]);
 
-  // props.isOpen ?
   if (props.isOpen) {
     return (
       <div
@@ -377,8 +318,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                               const newMedia = [...media];
                                               newMedia.splice(index, 1);
                                               setMedia(newMedia);
-                                              // saveData();
-                                              // Remove
                                             }}
                                           ></div>
                                         </Tooltip>
@@ -414,7 +353,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                           <></>
                         )}
                         {dropProvided.placeholder}
-                        {/* <div className="portfolio-hero-media container-secondary">add</div> */}
                       </div>
                     </div>
                   )}
@@ -461,12 +399,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
               })
             ) : (
               <></>
-              // <div
-              //   className={`portfolio-hero-media container-secondary ${
-              //     slide === 0 ? 'portfolio-hero-media-max' : ''
-              //   }`}
-              //   style={{ backgroundImage: `url(${placeholderFolioImage})` }}
-              // ></div>
             )}
           </div>
         )}

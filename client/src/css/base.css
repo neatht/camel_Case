@@ -1,5 +1,6 @@
-@import '~antd/dist/antd.css' (prefers-color-scheme: light);
-@import '~antd/dist/antd.dark.css' (prefers-color-scheme: dark);
+@import '~antd/dist/antd.css';
+/* @import '~antd/dist/antd.css' (prefers-color-scheme: light); */
+/* @import '~antd/dist/antd.dark.css' (prefers-color-scheme: dark); */
 
 @import url('https://fonts.googleapis.com/css?family=Livvic:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Rubik:regular,bold,italic&subset=latin,latin-ext');

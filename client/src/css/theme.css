@@ -83,7 +83,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --color-app: #ffffff;
 
@@ -106,4 +106,4 @@
   .portfolio-hero-media {
     filter: brightness(0.8) contrast(1.2);
   }
-}
+} */
