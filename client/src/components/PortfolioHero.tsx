@@ -43,12 +43,12 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
   async function fetchData(): Promise<void> {
     // setIsLoading(true);
-
+    console.log('fetching media');
     // If there is no userID, fetch own profile
     const route = isMyProfile
       ? `project/media/getOwnMedia/${props.projectID}`
-      : `project/media/${props.userID}`;
-
+      : `project/media/${props.userID}/${props.projectID}`;
+    console.log({ route });
     try {
       const token = await getAccessTokenSilently();
       const res = await fetch(API_URL + route, {
