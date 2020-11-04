@@ -68,7 +68,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -85,7 +85,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
     await addMediaService(req, res, next);
     await addProjectMediaService(req, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -103,7 +103,7 @@ export const getMediaFromOwnProject = async (req: any, res: express.Response, ne
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -114,7 +114,7 @@ export const getMediaFromOwnProject = async (req: any, res: express.Response, ne
     req.params.userID = userID;
     const result = await getProjectMediaService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -130,7 +130,7 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -141,7 +141,7 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
     req.body.data.userID = userID;
     await updateProjectMediaService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'
@@ -156,7 +156,7 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
     const userID = req.params.userID;
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -168,14 +168,14 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
     if (isPublic) {
       const results = await getProjectMediaService(req, res, next);
 
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success',
         data: results
       });
     } else {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(401);
       return res.json({
         status: 'error',
@@ -193,7 +193,7 @@ export const getProjectById = async (req: any, res: express.Response, next: expr
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -206,7 +206,7 @@ export const getProjectById = async (req: any, res: express.Response, next: expr
     if (isPublic) {
       const results = await getProjectService(req, res, next);
 
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success',
@@ -214,7 +214,7 @@ export const getProjectById = async (req: any, res: express.Response, next: expr
       });
     } else {
 
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(401);
       return res.json({
         status: 'error',
@@ -232,7 +232,7 @@ export const getAllProjectsByUser = async (req: any, res: express.Response, next
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -245,7 +245,7 @@ export const getAllProjectsByUser = async (req: any, res: express.Response, next
     if (isPublic) {
       const results = await getAllProjectsByUserService(req, res, next);
 
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success',
@@ -253,7 +253,7 @@ export const getAllProjectsByUser = async (req: any, res: express.Response, next
       });
     } else {
 
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(401);
       return res.json({
         status: 'error',
@@ -271,7 +271,7 @@ export const getAllOwnProjects = async (req: any, res: express.Response, next: e
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -282,7 +282,7 @@ export const getAllOwnProjects = async (req: any, res: express.Response, next: e
     req.params.userID = userID;
     const results = await getAllProjectsByUserService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -299,7 +299,7 @@ export const getOwnProjectById = async (req: any, res: express.Response, next: e
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -310,7 +310,7 @@ export const getOwnProjectById = async (req: any, res: express.Response, next: e
     req.params.userID = userID;
     const results = await getProjectService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -327,7 +327,7 @@ export const addProject = async (req: any, res: express.Response, next: express.
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -338,7 +338,7 @@ export const addProject = async (req: any, res: express.Response, next: express.
     req.body.data.userID = userID;
     await addProjectService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -354,7 +354,7 @@ export const updateProject = async (req: any, res: express.Response, next: expre
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -365,7 +365,7 @@ export const updateProject = async (req: any, res: express.Response, next: expre
     req.body.data.userID = userID;
     await updateProjectService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'
@@ -394,7 +394,7 @@ export const deleteProject = async (req: any, res: express.Response, next: expre
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -405,7 +405,7 @@ export const deleteProject = async (req: any, res: express.Response, next: expre
     req.body.data.userID = userID;
     await deleteProjectService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'
@@ -421,7 +421,7 @@ export const deleteMedia = async (req: any, res: express.Response, next: express
     const profileExists = await checkProfileService(req, next, userID);
 
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -432,7 +432,7 @@ export const deleteMedia = async (req: any, res: express.Response, next: express
     req.body.data.userID = userID;
     await deleteProjectMediaService(req, res, next);
 
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'

@@ -25,7 +25,7 @@ export const addExperience = async (req: any, res: express.Response, next: expre
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -35,7 +35,7 @@ export const addExperience = async (req: any, res: express.Response, next: expre
 
     const experienceID = await addExperienceService(req, res, next);
     console.log(`Experience created for userID: ${req.user.sub.split('|')[1]}`);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -63,7 +63,7 @@ export const updateExperience = async (req: any, res: express.Response, next: ex
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -73,7 +73,7 @@ export const updateExperience = async (req: any, res: express.Response, next: ex
 
     const experienceExists = await checkExperience(req, res, next);
     if (!experienceExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -82,7 +82,7 @@ export const updateExperience = async (req: any, res: express.Response, next: ex
     }
     await updateExperienceService(req, res, next);
     console.log(`Experience with experience_id: ${req.body.data.experienceID} updated for user_id: ${req.user.sub.split('|')[1]}`);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'
@@ -108,7 +108,7 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
     const userID = req.params.userID;
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -117,7 +117,7 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
     }
     const profileIsPublic = await checkPublicService(req, next, userID);
     if (!profileIsPublic) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(401);
       return res.json({
         status: 'error',
@@ -125,7 +125,7 @@ export const getExperiences = async (req: any, res: express.Response, next: expr
       });
     }
     const experiences = await getExperienceService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -153,7 +153,7 @@ export const deleteExperience = async (req: any, res: express.Response, next: ex
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -163,7 +163,7 @@ export const deleteExperience = async (req: any, res: express.Response, next: ex
 
     const experienceExists = await checkExperience(req, res, next);
     if (!experienceExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -172,7 +172,7 @@ export const deleteExperience = async (req: any, res: express.Response, next: ex
     } else {
       await deleteExperienceService(req, res, next);
       console.log(`Experience with experience_id: ${req.body.data.experienceID} deleted for user_id: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success'
@@ -199,7 +199,7 @@ export const getOwnExperiences = async (req: any, res: express.Response, next: e
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -207,7 +207,7 @@ export const getOwnExperiences = async (req: any, res: express.Response, next: e
       });
     }
     const experiences = await getOwnExperiencesService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
