@@ -196,6 +196,7 @@ export const addHeroImage = async (req: any, res: express.Response, next: expres
     req.body.data.mediaID = response.id;
 
     // get object url and add to db
+    await deleteHeroImageService(req, res, next);
     await addMediaService(req, res, next);
     await addHeroImageService(req, next);
 
