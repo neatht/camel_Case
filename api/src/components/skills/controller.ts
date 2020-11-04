@@ -24,7 +24,7 @@ export const getSkills = async (req: any, res: express.Response, next: express.N
   try {
     const profileExists: boolean = await checkOthersProfileService(req, res, next, req.params.userID);;
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -32,7 +32,7 @@ export const getSkills = async (req: any, res: express.Response, next: express.N
       });
     } else {
       const result = await getSkillsService(req, res, next);
-      req.poolClient.end();
+      req.poolClient.release();
       if (result === null || !result.public) {
         res.status(404);
         return res.json({
@@ -67,7 +67,7 @@ export const addSkill = async (req: any, res: express.Response, next: express.Ne
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -84,7 +84,7 @@ export const addSkill = async (req: any, res: express.Response, next: express.Ne
       }
       await updateSkillService(req, res, next, skills);
       console.log(`Skill added for userID: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success'
@@ -107,7 +107,7 @@ export const deleteSkill = async (req: any, res: express.Response, next: express
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -117,7 +117,7 @@ export const deleteSkill = async (req: any, res: express.Response, next: express
       const result = await getOwnSkillsService(req, res, next);
       const skills : object[] = result.skills;
       if (skills === null){
-        req.poolClient.end();
+        req.poolClient.release();
         res.status(404);
         return res.json({
           status: 'error',
@@ -126,7 +126,7 @@ export const deleteSkill = async (req: any, res: express.Response, next: express
       } else {
         const index : number = skills.indexOf(req.body.data.skill);
         if (index === -1){
-          req.poolClient.end();
+          req.poolClient.release();
           res.status(404);
           return res.json({
             status: 'error',
@@ -136,7 +136,7 @@ export const deleteSkill = async (req: any, res: express.Response, next: express
           skills.splice(index, 1);
           await updateSkillService(req, res, next, skills);
           console.log(`Skill deleted for userID: ${req.user.sub.split('|')[1]}`);
-          req.poolClient.end();
+          req.poolClient.release();
           res.status(200);
           return res.json({
             status: 'success'
@@ -160,7 +160,7 @@ export const deleteSkill = async (req: any, res: express.Response, next: express
 export const getOwnSkills = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const result = await getOwnSkillsService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
       if (result === null) {
         res.status(404);
         return res.json({

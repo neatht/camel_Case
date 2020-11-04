@@ -24,7 +24,7 @@ export const getLinks = async (req: any, res: express.Response, next: express.Ne
   try {
     const profileExists: boolean = await checkOthersProfileService(req, res, next, req.params.userID);;
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -32,7 +32,7 @@ export const getLinks = async (req: any, res: express.Response, next: express.Ne
       });
     } else {
       const result = await getLinksService(req, res, next);
-      req.poolClient.end();
+      req.poolClient.release();
       if (result === null || !result.public) {
         res.status(404);
         return res.json({
@@ -67,7 +67,7 @@ export const addLink = async (req: any, res: express.Response, next: express.Nex
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -84,7 +84,7 @@ export const addLink = async (req: any, res: express.Response, next: express.Nex
       }
       await updateLinkService(req, res, next, links);
       console.log(`Link added for userID: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success'
@@ -107,7 +107,7 @@ export const deleteLink = async (req: any, res: express.Response, next: express.
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -117,7 +117,7 @@ export const deleteLink = async (req: any, res: express.Response, next: express.
       const result = await getOwnLinksService(req, res, next);
       const links : object[] = result.social_links;
       if (links === null){
-        req.poolClient.end();
+        req.poolClient.release();
         res.status(404);
         return res.json({
           status: 'error',
@@ -126,7 +126,7 @@ export const deleteLink = async (req: any, res: express.Response, next: express.
       } else {
         const index : number = links.indexOf(req.body.data.link);
         if (index === -1){
-          req.poolClient.end();
+          req.poolClient.release();
           res.status(404);
           return res.json({
             status: 'error',
@@ -136,7 +136,7 @@ export const deleteLink = async (req: any, res: express.Response, next: express.
           links.splice(index, 1);
           await updateLinkService(req, res, next, links);
           console.log(`Link deleted for userID: ${req.user.sub.split('|')[1]}`);
-          req.poolClient.end();
+          req.poolClient.release();
           res.status(200);
           return res.json({
             status: 'success'
@@ -160,7 +160,7 @@ export const deleteLink = async (req: any, res: express.Response, next: express.
 export const getOwnLinks = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const result = await getOwnLinksService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
       if (result === null) {
         res.status(404);
         return res.json({

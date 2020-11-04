@@ -21,7 +21,7 @@ dotenv.config();
 export const getUser = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const result = await getProfileService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
     if (result === null) {
       res.status(404);
       return res.json({
@@ -95,7 +95,7 @@ export const addUser = async (req: any, res: express.Response, next: express.Nex
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(403);
       return res.json({
         status: 'error',
@@ -104,7 +104,7 @@ export const addUser = async (req: any, res: express.Response, next: express.Nex
     } else {
       await addProfileService(req, res, next);
       console.log(`Profile created for userID: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success'
@@ -129,7 +129,7 @@ export const updateUser = async (req: any, res: express.Response, next: express.
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -138,7 +138,7 @@ export const updateUser = async (req: any, res: express.Response, next: express.
     } else {
       await updateProfileService(req, res, next);
       console.log(`Profile updated for userID: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success',
@@ -164,7 +164,7 @@ export const deleteUser = async (req: any, res: express.Response,
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -173,7 +173,7 @@ export const deleteUser = async (req: any, res: express.Response,
     } else {
       await deleteProfileService(req, res, next);
       console.log(`Profile deleted for userID: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success'
@@ -198,7 +198,7 @@ export const deleteUser = async (req: any, res: express.Response,
 export const getOwnUser = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const result = await getOwnProfileService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
     if (result === null) {
       res.status(404);
       return res.json({

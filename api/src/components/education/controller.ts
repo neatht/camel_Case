@@ -25,7 +25,7 @@ export const getOwnEducation = async (req: any, res: express.Response, next: exp
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -33,7 +33,7 @@ export const getOwnEducation = async (req: any, res: express.Response, next: exp
       });
     }
     const education = await getOwnEducationService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -62,7 +62,7 @@ export const getEducation = async (req: any, res: express.Response, next: expres
     const userID = req.params.userID;
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -71,7 +71,7 @@ export const getEducation = async (req: any, res: express.Response, next: expres
     }
     const profileIsPublic = await checkPublicService(req, next, userID);
     if (!profileIsPublic) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(401);
       return res.json({
         status: 'error',
@@ -79,7 +79,7 @@ export const getEducation = async (req: any, res: express.Response, next: expres
       });
     }
     const education = await getEducationService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -107,7 +107,7 @@ export const addEducation = async (req: any, res: express.Response, next: expres
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -117,7 +117,7 @@ export const addEducation = async (req: any, res: express.Response, next: expres
 
     const educationID = await addEducationService(req, res, next);
     console.log(`Education created for userID: ${req.user.sub.split('|')[1]}`);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success',
@@ -145,7 +145,7 @@ export const updateEducation = async (req: any, res: express.Response, next: exp
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -155,7 +155,7 @@ export const updateEducation = async (req: any, res: express.Response, next: exp
 
     const educationExists = await checkEducationService(req, res, next);
     if (!educationExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -164,7 +164,7 @@ export const updateEducation = async (req: any, res: express.Response, next: exp
     }
     await updateEducationService(req, res, next);
     console.log(`Education with education_id: ${req.body.data.educationID} updated for user_id: ${req.user.sub.split('|')[1]}`);
-    req.poolClient.end();
+    req.poolClient.release();
     res.status(200);
     return res.json({
       status: 'success'
@@ -189,7 +189,7 @@ export const deleteEducation = async (req: any, res: express.Response, next: exp
     const userID = req.user.sub.split('|')[1];
     const profileExists = await checkProfileService(req, next, userID);
     if (!profileExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -199,7 +199,7 @@ export const deleteEducation = async (req: any, res: express.Response, next: exp
 
     const educationExists = await checkEducationService(req, res, next);
     if (!educationExists) {
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -208,7 +208,7 @@ export const deleteEducation = async (req: any, res: express.Response, next: exp
     } else {
       await deleteEducationService(req, res, next);
       console.log(`Experience with education_id: ${req.body.data.educationID} deleted for user_id: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success'

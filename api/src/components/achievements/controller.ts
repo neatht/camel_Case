@@ -25,7 +25,7 @@ export const getAchievements = async (req: any, res: express.Response, next: exp
   try {
     const profileExists: boolean = await checkOthersProfileService(req, res, next, req.params.userID);;
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -33,7 +33,7 @@ export const getAchievements = async (req: any, res: express.Response, next: exp
       });
     } else {
       const result = await getAchievementsService(req, res, next);
-      req.poolClient.end();
+      req.poolClient.release();
       if (result === null || !result.public) {
         res.status(404);
         return res.json({
@@ -68,7 +68,7 @@ export const addAchievement = async (req: any, res: express.Response, next: expr
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -85,7 +85,7 @@ export const addAchievement = async (req: any, res: express.Response, next: expr
       }
       await updateAchievementService(req, res, next, achievements);
       console.log(`Achievement added for userID: ${req.user.sub.split('|')[1]}`);
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(200);
       return res.json({
         status: 'success'
@@ -108,7 +108,7 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
   try {
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists){
-      req.poolClient.end();
+      req.poolClient.release();
       res.status(404);
       return res.json({
         status: 'error',
@@ -118,7 +118,7 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
       const result = await getOwnAchievementsService(req, res, next);
       const achievements : object[] = result.achievements;
       if (achievements === null){
-        req.poolClient.end();
+        req.poolClient.release();
         res.status(404);
         return res.json({
           status: 'error',
@@ -127,7 +127,7 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
       } else {
         const index : number = achievements.indexOf(req.body.data.achievement);
         if (index === -1){
-          req.poolClient.end();
+          req.poolClient.release();
           res.status(404);
           return res.json({
             status: 'error',
@@ -137,7 +137,7 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
           achievements.splice(index, 1);
           await updateAchievementService(req, res, next, achievements);
           console.log(`Achievement deleted for userID: ${req.user.sub.split('|')[1]}`);
-          req.poolClient.end();
+          req.poolClient.release();
           res.status(200);
           return res.json({
             status: 'success'
@@ -161,7 +161,7 @@ export const deleteAchievement = async (req: any, res: express.Response, next: e
 export const getOwnAchievements = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const result = await getOwnAchievementsService(req, res, next);
-    req.poolClient.end();
+    req.poolClient.release();
       if (result === null) {
         res.status(404);
         return res.json({
