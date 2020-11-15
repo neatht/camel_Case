@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Popover, Spin, Switch, Tooltip } from 'antd';
-import { UserAddOutlined, UserOutlined } from '@ant-design/icons';
+import { Popover, Switch, Tooltip } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 import Emoji from './Emoji';
 
@@ -16,12 +16,12 @@ import UploaderImage from './UploaderImage';
 
 import {
   uploadDisplayPhoto,
-  deleteDisplayPhoto,
+  //deleteDisplayPhoto,
   getOwnDisplayPhoto,
 } from '../api/displayPhoto';
 import {
   uploadHeroImage,
-  deleteHeroImage,
+  //deleteHeroImage,
   getOwnHeroImage,
 } from '../api/heroImage';
 
@@ -51,7 +51,7 @@ type ResumeData = {
 };
 
 function Resume(props: ResumeProps) {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const isMyProfile = !props.userID ? true : false;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -76,7 +76,7 @@ function Resume(props: ResumeProps) {
 
     // Call API
     try {
-      const token = await getAccessTokenSilently();
+      const token = isAuthenticated ? await getAccessTokenSilently() : '';
       const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -117,23 +117,6 @@ function Resume(props: ResumeProps) {
       console.error(res, e);
       //return res;
     }
-    // GET data
-    /*setData({
-      firstName: 'Jane',
-      lastName: 'Doe',
-      gender: 'string',
-      lookingForWork: true,
-      bio:
-        'I am a capable and creative computer science student with a flair for problem solving. I have strong technical, interpersonal and communication skills and am aiming to pursue a career in software engineering & design.',
-      location: 'Melbourne, Australia ',
-      publicLocation: false,
-      //student: true,
-      //institution: 'The University of Melbourne',
-      public: true,
-      //DOB: '',
-      //heroPicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
-      //profilePicture: 'https://i.ibb.co/BNZxQ2z/example0.jpg',
-    });*/
     setIsLoading(false);
   }
 
@@ -187,11 +170,13 @@ function Resume(props: ResumeProps) {
       console.log('updating profile');
       saveData();
     }
+    // eslint-disable-next-line
   }, [updateProfileData]);
 
   useEffect(() => {
     console.log('initial fetch from resume');
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   if (isLoading) {
@@ -482,23 +467,31 @@ function Resume(props: ResumeProps) {
             placeholder={isMyProfile ? 'Enter a bio' : undefined}
           />
         </div>
-        <ResumeEntry type="Skills" display="inline" isMyProfile={isMyProfile} />
         <ResumeEntry
-          type="Experience"
-          display="block"
-          isMyProfile={isMyProfile}
-        />
-
-        <ResumeEntry
-          type="Achievements"
+          type="skills"
           display="inline"
           isMyProfile={isMyProfile}
+          userID={props.userID}
+        />
+        <ResumeEntry
+          type="experience"
+          display="block"
+          isMyProfile={isMyProfile}
+          userID={props.userID}
         />
 
         <ResumeEntry
-          type="Education"
+          type="achievements"
+          display="inline"
+          isMyProfile={isMyProfile}
+          userID={props.userID}
+        />
+
+        <ResumeEntry
+          type="education"
           display="block"
           isMyProfile={isMyProfile}
+          userID={props.userID}
         />
 
         {/* </div> */}

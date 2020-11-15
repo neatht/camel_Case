@@ -30,14 +30,14 @@ type PortfolioHeroData = {
 };
 
 function PortfolioHero(props: PortfolioHeroProps) {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [editing, setEditing] = useState(false);
   const [editingState, setEditingState] = useState(false);
   const [slide, setSlide] = useState(0);
 
   const [media, setMedia] = useState<PortfolioHeroData[]>();
 
-  const isMyProfile = !props.userID ? true : false;
+  const isMyProfile = props.isMyProfile;
 
   // const [isLoading, setIsLoading] = useState(true);
 
@@ -50,7 +50,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
       : `project/media/${props.userID}/${props.projectID}`;
     console.log({ route });
     try {
-      const token = await getAccessTokenSilently();
+      const token = isAuthenticated ? await getAccessTokenSilently() : '';
       const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -112,6 +112,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, [props.projectID]);
 
   if (props.isOpen) {

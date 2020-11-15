@@ -13,6 +13,7 @@ import Loading from '../components/Loading';
 import Resume from '../components/Resume';
 import PortfolioGrid from '../components/PortfolioGrid';
 import PrivateProfileWarning from '../components/PrivateProfileWarning';
+import ProfileSignupCTA from '../components/ProfileSignupCTA';
 
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
@@ -26,7 +27,7 @@ function Profile() {
   const [profileInfo, setProfileInfo] = useState({});
   const [isPostingProfile, setIsPostingProfile] = useState(false);
   const [hasFetchedOnce, setHasFetchedOnce] = useState(false);
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   const { userID } = useParams<ParamType>();
 
@@ -118,7 +119,7 @@ function Profile() {
     const route = userID ? `profile/${userID}` : 'profile/getOwnProfile';
 
     try {
-      const token = await getAccessTokenSilently();
+      const token = isAuthenticated ? await getAccessTokenSilently() : '';
       await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -163,12 +164,15 @@ function Profile() {
     // eslint-disable-next-line
   }, []);
 
-  // EDIT ME
-  const isMyProfile = true;
-
   return (
     <div className="App">
       <Header pageKey="profile" />
+
+      {!userID && !isAuthenticated && hasFetchedOnce ? (
+        <>
+          <ProfileSignupCTA />
+        </>
+      ) : null}
 
       {userID && 'public' in profileInfo && !profileInfo['public'] ? (
         <PrivateProfileWarning />
@@ -198,7 +202,8 @@ function Profile() {
                 visible={
                   hasFetchedOnce &&
                   Object.keys(profileInfo).length === 0 &&
-                  !userID
+                  !userID &&
+                  isAuthenticated
                 }
                 footer={null}
               >

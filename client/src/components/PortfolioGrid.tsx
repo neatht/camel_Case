@@ -28,7 +28,7 @@ type PortfolioObjectData = {
 };
 
 function PortfolioGrid(props: PortfolioGridProps) {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [portfolioGridData, setPortfolioGridData] = useState<
     Array<PortfolioObjectData>
   >([]);
@@ -48,7 +48,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
       : `project/${props.userID}`;
 
     try {
-      const token = await getAccessTokenSilently();
+      const token = isAuthenticated ? await getAccessTokenSilently() : '';
       const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -144,6 +144,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   const [portfolioObjectOpen, setPortfolioObjectOpen] = useState(false);
@@ -191,6 +192,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
           {portfolioGridData.map((value, index) => {
             return (
               <PortfolioObject
+                key={value.projectID}
                 data={value}
                 new={
                   newEntry && index + 1 === portfolioGridData.length
