@@ -1,11 +1,5 @@
-import {
-  EditOutlined,
-  FileImageOutlined,
-  FilePdfOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Tooltip, Upload } from 'antd';
-import { stringType } from 'aws-sdk/clients/iam';
+import { EditOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 
 import './UploaderImage.css';

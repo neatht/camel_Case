@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 
 import Header from '../components/Header';
-import SocialLinks from '../components/SocialLinks';
-import PortfolioGrid from '../components/PortfolioGrid';
 import FilterAndSort from '../components/FilterAndSort';
 
 import './Home.css';
@@ -69,12 +66,10 @@ function Home() {
               return `${o.author_first_name} ${o.author_last_name}`
                 .toLowerCase()
                 .includes(val!.toLowerCase());
-              break;
             case 'project_name':
               return `${o.project_name}`
                 .toLowerCase()
                 .includes(val!.toLowerCase());
-              break;
           }
 
           return true;

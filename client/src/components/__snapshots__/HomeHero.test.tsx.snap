@@ -67,6 +67,7 @@ exports[`Testing HomeHero renders without crashing 1`] = `
           className="rocket"
         >
           <Emoji
+            resize={false}
             symbol="🚀"
           />
         </span>

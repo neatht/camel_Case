@@ -47,7 +47,7 @@ function HomeHero() {
                 <Button type="primary" onClick={() => loginWithRedirect()}>
                   {' '}
                   <span className="rocket">
-                    <Emoji symbol="🚀" />
+                    <Emoji symbol="🚀" resize={false} />
                   </span>{' '}
                   <strong className="rocket">Get Discovered</strong>
                 </Button>

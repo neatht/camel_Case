@@ -3,8 +3,7 @@ import {
   FilePdfOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Tooltip, Upload } from 'antd';
-import { stringType } from 'aws-sdk/clients/iam';
+import { Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 
 import './Uploader.css';

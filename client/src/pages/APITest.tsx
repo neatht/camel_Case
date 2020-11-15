@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Button, Input, Select, Spin, Typography } from 'antd';
+import { Input, Select, Spin, Typography } from 'antd';
 
 import Header from '../components/Header';
 import Emoji from '../components/Emoji';
 
-import useAccessToken from '../hooks/checkAccessToken';
 import LoginButton from '../components/LoginButton';
 import Loading from '../components/Loading';
 
@@ -49,12 +48,11 @@ function APITest() {
     async function getAccessToken() {
       await getAccessTokenSilently().then((accessToken) => {
         console.log('setting token to ', accessToken);
-        {
-          setVisibleToken(accessToken);
-        }
+        setVisibleToken(accessToken);
       });
     }
     getAccessToken();
+    // eslint-disable-next-line
   }, [isAuthenticated]);
 
   /**

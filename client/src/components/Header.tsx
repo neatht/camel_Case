@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, Link, Redirect, useHistory } from 'react-router-dom';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 
 import { PageHeader, Menu, Input, Space } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
