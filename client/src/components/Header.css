@@ -13,6 +13,19 @@ a.navTitle {
   color: rgba(0, 0, 0, 0.85);
 }
 
+.toggle-dark-mode {
+  border-radius: 100px;
+  padding: 8px;
+  box-shadow: var(--drop-shadow);
+  cursor: pointer;
+}
+.toggle-dark-mode::before {
+  content: "🌙";
+}
+[data-theme="dark"] .toggle-dark-mode::before {
+  content: "☀️";
+}
+
 .ant-input-group > .ant-input:first-child,
 .ant-input-group-addon:first-child {
   height: 40px;
@@ -20,6 +33,7 @@ a.navTitle {
   border: var(--border);
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1), var(--drop-shadow);
   background-color: rgba(0, 0, 0, 0.03);
+  color: var(--color-app) !important;
   /* box-shadow: var(--drop-shadow); */
 }
 
@@ -45,4 +59,12 @@ button.ant-btn.ant-btn-primary.ant-input-search-button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: var(--drop-shadow);
+  
 }
+
+.ant-menu-horizontal a {
+  color: var(--color-app) !important;
+  
+}
+
+

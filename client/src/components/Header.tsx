@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 
-import { PageHeader, Menu, Input, Space, Switch } from 'antd';
+import { PageHeader, Menu, Input, Space, Switch, Tooltip } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
@@ -97,14 +97,22 @@ export function Header({ pageKey }: HeaderProps) {
           </Menu.Item>*/}
         </Menu>
 
-        
-
         <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
-        <Switch
-          checkedChildren={<Emoji symbol="☀️" resize={false} />}
-          unCheckedChildren={<Emoji symbol="🌙" resize={false} />}
-          defaultChecked
-        />{'  '}
+          <Tooltip title="Toggle Dark Mode">
+            <div
+              className="toggle-dark-mode gradient"
+              onClick={() => {
+                if (
+                  document.documentElement.getAttribute('data-theme') === 'dark'
+                )
+                  document.documentElement.setAttribute('data-theme', 'light');
+                else
+                  document.documentElement.setAttribute('data-theme', 'dark');
+              }}
+            >
+            </div>
+          </Tooltip>
+          {'  '}
           <Search
             style={{ width: 300 }}
             enterButton

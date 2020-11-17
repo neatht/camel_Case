@@ -84,15 +84,16 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+/* @media (prefers-color-scheme: dark) { */
+  [data-theme="dark"] {
+    
     --color-app: #ffffff;
 
     --color-gradient: #333333;
 
     --background-color-app: #333333;
     --background-color-primary: #181818;
-    --background-color-secondary: rgba(255, 255, 255, 0.178);
+    --background-color-secondary: rgba(90, 90, 90, 0.6);
     --background-color-tertiary: rgba(0, 0, 0, 0.2);
 
     --border: 3px solid #353535;
@@ -104,4 +105,4 @@
 
     
   }
-}
+/* } */
