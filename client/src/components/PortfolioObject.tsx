@@ -65,6 +65,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
     if (containerPrimaryRef.current !== null) {
       containerPrimaryRef.current.scrollTop = 0;
     }
+    // eslint-disable-next-line
   }, []);
 
   const formatLink = (link: string) => {
@@ -134,6 +135,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
         projectID={props.data.projectID}
         isOpen={!thumbnail}
         isMyProfile={props.isMyProfile}
+        userID={props.data.userID}
       />
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
@@ -253,7 +255,11 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   />
                 </div>
               ) : (
-                <a target="_blank" href={props.data.link}>
+                <a
+                  target="_blank"
+                  href={props.data.link}
+                  rel="noopener noreferrer"
+                >
                   {props.data.link ? formatLink(props.data.link) : null}
                 </a>
               )}

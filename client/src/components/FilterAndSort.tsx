@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { Select, Space, Input, Tooltip, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 
-import Emoji from './Emoji';
-
 import './FilterAndSort.css';
 
 const { Option } = Select;

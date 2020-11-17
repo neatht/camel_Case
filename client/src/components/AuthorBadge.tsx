@@ -2,7 +2,7 @@ import React from 'react';
 
 import './AuthorBadge.css';
 
-import { UserOutlined } from '@ant-design/icons';
+import { RightOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 type PortfolioObjectProps = {
@@ -41,6 +41,11 @@ function AuthorBadge(props: PortfolioObjectProps) {
             <strong>{props.author}</strong>
           </h4>
           <h5>{props.tagline}</h5>
+        </div>
+        <div className="gotoProfile">
+          <Link to={`/profile/${props.userID}`}>
+            <RightOutlined style={{ color: 'grey' }} />
+          </Link>
         </div>
       </div>
     </Link>
