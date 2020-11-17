@@ -14,16 +14,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Loading from './Loading';
 import UploaderImage from './UploaderImage';
 
-import {
-  uploadDisplayPhoto,
-  //deleteDisplayPhoto,
-  getOwnDisplayPhoto,
-} from '../api/displayPhoto';
-import {
-  uploadHeroImage,
-  //deleteHeroImage,
-  getOwnHeroImage,
-} from '../api/heroImage';
+import { uploadDisplayPhoto, getOwnDisplayPhoto } from '../api/displayPhoto';
+import { uploadHeroImage, getOwnHeroImage } from '../api/heroImage';
 
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
@@ -94,7 +86,6 @@ function Resume(props: ResumeProps) {
       const data = 'data' in resBody ? resBody['data'] : {};
 
       // Set profile data (empty object if invalid)
-      // TODO: Could add warning?
       console.log('setting data...', { data });
       setProfileData(data);
 
@@ -115,7 +106,6 @@ function Resume(props: ResumeProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
     setIsLoading(false);
   }
@@ -163,7 +153,6 @@ function Resume(props: ResumeProps) {
           ],
         };
         console.error(res, e);
-        //return res;
       }
     }
     if (updateProfileData !== profileData) {
@@ -387,63 +376,6 @@ function Resume(props: ResumeProps) {
               ) : (
                 <></>
               )}
-              {/* No student info in route currently...
-                isMyProfile ? (
-                <Popover
-                  content={
-                    <div>
-                      <h3>
-                        <strong>
-                          <TextInput
-                            editable={isMyProfile}
-                            onChange={(newString: string) => {
-                              if (data) {
-                                //const newData = { ...data };
-                                const newData = {} as ResumeData;
-                                newData.institution = newString;
-                                setUpdatProfileData(newData);
-                                //saveData();
-                              }
-                            }}
-                            text={data?.institution}
-                            placeholder={}
-                          />
-                        </strong>
-                      </h3>
-                      I am a student
-                      <div style={{ paddingLeft: '10px', float: 'right' }}>
-                        {' '}
-                        <Switch
-                          defaultChecked={data?.student}
-                          onChange={() => {
-                            if (data) {
-                              // UPDATE
-                              //const newData = { ...data };
-                              //newData.student = !data?.student;
-                              //setData(newData);
-                              //saveData();
-                            }
-                          }}
-                        />
-                      </div>
-                    </div>
-                  }
-                  title="Where are you studying?"
-                  trigger="click"
-                >
-                  <li style={data?.student ? {} : { opacity: '0.5' }}>
-                    <Emoji symbol="🧑‍🎓" label="Location" />
-                  </li>
-                </Popover>
-              ) : data?.student ? (
-                <Tooltip title={data?.institution} placement="bottom">
-                  <li>
-                    <Emoji symbol="🧑‍🎓" label="Location" />
-                  </li>
-                </Tooltip>
-              ) : (
-                <></>
-              )*/}
             </ul>
             <SocialLinks isMyProfile={isMyProfile} userID={props.userID} />
           </div>
@@ -493,8 +425,6 @@ function Resume(props: ResumeProps) {
           isMyProfile={isMyProfile}
           userID={props.userID}
         />
-
-        {/* </div> */}
       </div>
     );
   }

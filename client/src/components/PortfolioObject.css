@@ -2,8 +2,6 @@
   display: inline-block;
   width: var(--unit-width);
   height: calc(100vh - 116px);
-  /* box-shadow: var(--drop-shadow), 0px 0px 0px 1px #00000000; */
-
   transition: box-shadow 0.2s, filter 0.3s, border-color 0.5s, width 1s,
     height 1s 0s, padding 0.3s, margin 0.3s, opacity 0.2s;
 }
@@ -15,33 +13,11 @@
   overflow: hidden;
 }
 
-/*===========================
-  portfolio exit button
-  ===========================*/
-
-/* .portfolio-exit {
-  width: 24px;
-  height: 24px;
-  background-color: var(--background-color-secondary);
-  filter: var(--drop-shadow);
-  border-radius: 24px;
-  z-index: 1;
-  float: right;
-}
-.portfolio-exit::before {
-  content: "✕";
-  font-size: 1.15em;
- 
-} */
-
 .thumbnail .exit-button::before {
   content: '';
 }
 
 .thumbnail .exit-button {
-  /* top: 0; */
-  /* right: 0; */
-  /* border: 0; */
   width: 100%;
   margin-left: -100%;
   height: 100%;
@@ -49,7 +25,6 @@
   background: rgba(0, 0, 0, 0);
   border: 0;
   box-shadow: none;
-  /* background-color: aqua; */
 }
 
 .thumbnail .del-button {
@@ -95,7 +70,6 @@
 }
 
 .thumbnail:hover {
-  /* border-color: var(--color-primary); */
   box-shadow: var(--inner-shadow), var(--drop-shadow-dark),
     0px 0px 0px 1px var(--color-primary);
 }
@@ -137,8 +111,8 @@
   transition: opacity 1s, height 1s, margin 1s;
   height: 1em;
   margin-bottom: 30px;
-  /* background-color: aqua; */
 }
+
 .thumbnail .portfolio-title {
   opacity: 0;
   height: 0;
@@ -157,19 +131,15 @@
   ===========================*/
 
 .portfolio-side-bar {
-  /* float: right; */
   text-align: left;
   width: 200px;
   height: 100%;
-  /* margin-left: 30px; */
-  /* overflow: hidden; */
 }
 .portfolio-side-bar ul {
   padding: 0;
   list-style-type: none;
 }
 .portfolio-side-bar li {
-  /* padding-top: 10px; */
   padding-bottom: 10px;
 }
 
@@ -207,7 +177,6 @@
   ===========================*/
 
 h2 .ant-typography-edit-content {
-  /* background-color: aqua !important; */
   text-align: center !important;
   margin-left: 15px !important;
   margin-right: 30px !important;

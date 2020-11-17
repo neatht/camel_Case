@@ -22,8 +22,6 @@ const API_URL = process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
 
 const SOCIAL_LINK_ICON: { [socialType: string]: JSX.Element } = {
-  //phoneNumber: <Space />,
-  // emailAddress: <MessageFilled />,
   'github.com': <GithubFilled />,
   'twitter.com': <TwitterCircleFilled />,
   'behance.com': <BehanceCircleFilled />,
@@ -90,7 +88,6 @@ function SocialLinks(props: SocialLinksProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
   }
 
@@ -138,7 +135,6 @@ function SocialLinks(props: SocialLinksProps) {
   }
 
   async function deleteLink(link: string): Promise<void> {
-    //setIsLoading(true);
 
     // If there is no userID, fetch own profile
     const route = props.isMyProfile ? 'links' : `links/${props.userID}`;
@@ -176,7 +172,6 @@ function SocialLinks(props: SocialLinksProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
   }
 

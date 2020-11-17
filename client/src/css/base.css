@@ -1,7 +1,4 @@
 @import '~antd/dist/antd.css';
-/* @import '~antd/dist/antd.css' (prefers-color-scheme: light); */
-/* @import '~antd/dist/antd.css'; */
-/* @import '~antd/dist/antd.dark.css'; */
 
 @import url('https://fonts.googleapis.com/css?family=Livvic:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Rubik:regular,bold,italic&subset=latin,latin-ext');
@@ -70,7 +67,6 @@ body {
 .exit-button::before {
   content: '✕';
   font-size: 1.15em;
-  /* margin-top: 100px; */
 }
 
 .del-button {
@@ -97,7 +93,6 @@ body {
 .del-button::before {
   content: "Delete";
   font-size: 1.15em;
-  /* margin-top: 100px; */
 }
 
 .save-button {
@@ -124,7 +119,6 @@ body {
 .save-button::before {
   content: "Save";
   font-size: 1.15em;
-  /* margin-top: 100px; */
 }
 
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 
-import { PageHeader, Menu, Input, Space, Switch, Tooltip } from 'antd';
+import { PageHeader, Menu, Input, Space, Tooltip } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
@@ -80,21 +80,7 @@ export function Header({ pageKey }: HeaderProps) {
             <NavLink exact to="/profile">
               Profile
             </NavLink>{' '}
-            {/* TODO: Protected route once authentication is set up */}
           </Menu.Item>
-
-          {/*<Menu.Item
-            key="tests"
-            icon={
-              <span role="img" aria-hidden="true">
-                🧪
-              </span>
-            }
-          >
-            <NavLink exact to="/tests">
-              Tests
-            </NavLink>{' '}
-          </Menu.Item>*/}
         </Menu>
 
         <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
@@ -109,8 +95,7 @@ export function Header({ pageKey }: HeaderProps) {
                 else
                   document.documentElement.setAttribute('data-theme', 'dark');
               }}
-            >
-            </div>
+            ></div>
           </Tooltip>
           {'  '}
           <Search
@@ -120,7 +105,6 @@ export function Header({ pageKey }: HeaderProps) {
               history.push(`/search/${value}`);
             }}
           />
-          {/*<Avatar icon={<UserOutlined/>} />*/}
           <LoginButton />
         </Space>
       </header>

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FilterAndSort from '../components/FilterAndSort';
 
-import './Home.css';
 import HomeHero from '../components/HomeHero';
 import Loading from '../components/Loading';
 import PortfolioGridSearch from '../components/PortfolioGridSearch';

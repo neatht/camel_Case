@@ -111,7 +111,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
           setNewEntry(false);
         }}
         className={`${newEntry ? 'save-button' : 'exit-button'}`}
-        // className={`${'exit-button'}`}
       ></div>
 
       <div className="portfolio-title">
@@ -142,16 +141,10 @@ function PortfolioObject(props: PortfolioObjectProps) {
           <h4>
             <strong>{props.data.projectName}</strong>
           </h4>
-          {/* <h5>{props.data.author}</h5> */}
         </div>
       </div>
       <div className="portfolio-object-body">
         <div>
-          {/* <AuthorBadge author={props.data.author} tagline="Author Tagline" /> */}
-          {/* <AuthorBadge
-            author={props.data.author}
-            tagline="Computer Science Student at the University of Melbourne"
-          /> */}
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             <TextInput
@@ -193,7 +186,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   <Option value="video">video</Option>
                   <Option value="audio">audio</Option>
                   <Option value="presentation">presentation</Option>
-                  {/* value={props.data.type} */}
                 </Select>
               ) : (
                 <div

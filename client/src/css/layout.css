@@ -1,7 +1,6 @@
 .container-primary {
   background-color: var(--background-color-primary);
   border-radius: var(--border-radius-primary);
-  /* filter: var(--drop-shadow); */
   border: var(--border);
   box-shadow: var(--inner-shadow), var(--drop-shadow-dark), 0px 0px 0px 1px #00000000;
   padding: calc(2*var(--unit-margin));

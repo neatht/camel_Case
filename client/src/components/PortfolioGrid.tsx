@@ -40,7 +40,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
   const [newEntry, setNewEntry] = useState(false);
 
   async function fetchData(): Promise<void> {
-    // setIsLoading(true);
 
     // If there is no userID, fetch own profile
     const route = isMyProfile
@@ -66,7 +65,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
       const data = 'data' in resBody ? resBody['data'] : {};
 
       // Set profile data (empty object if invalid)
-      // TODO: Could add warning?
       console.log('setting PortfolioGridData...', { data });
 
       data.sort((a: PortfolioObjectData, b: PortfolioObjectData) => {
@@ -90,7 +88,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
   }
 
@@ -98,7 +95,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
     action: string,
     updatePortfolioGridData: PortfolioObjectData
   ): Promise<void> {
-    //setIsLoading(true);
 
     // If there is no userID, fetch own profile
     const route = 'project';
@@ -123,8 +119,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
         return;
       }
       console.log('updated successfully?', res.ok, res.statusText);
-      // fetchData();
-      // setIsLoading(false);
+
     } catch (e) {
       if (setIsLoading) {
         setIsLoading(false);
@@ -137,7 +132,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
         ],
       };
       console.error(res, e);
-      //return res;
+
     }
     fetchData();
   }
@@ -178,7 +173,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 const newPortfolioGridData = [...portfolioGridData];
                 newPortfolioGridData.push(newData);
                 saveData('POST', newData);
-                // setPortfolioGridData(newPortfolioGridData);
                 setNewEntry(true);
               }}
             >

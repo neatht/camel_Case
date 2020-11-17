@@ -15,14 +15,12 @@ function HomeHero() {
     <>
       {isOpen ? (
         <div className="home-hero">
-          {/* <div className="toggle-home-hero" onClick={() => setIsOpen(!isOpen)}> */}
           <Tooltip title="Hide" placement="bottom">
             <div
               className="toggle-home-hero exit-button"
               onClick={() => setIsOpen(!isOpen)}
             ></div>
           </Tooltip>
-          {/* </div> */}
 
           <div
             className="home-CTA"

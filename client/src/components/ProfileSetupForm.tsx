@@ -113,16 +113,6 @@ function ProfileSetupForm(props: ProfileSetupFormProps) {
           name="public"
           valuePropName="checked"
         >
-          {/*<Select> Not working because value must be boolean and option only does strings
-            <Option value="public">
-              <Emoji symbol="🌏" />
-              Public
-            </Option>
-            <Option value="private">
-              <Emoji symbol="⛔️" />
-              Private
-            </Option>
-          </Select>*/}
           <Switch
             checkedChildren={
               <>
@@ -174,22 +164,6 @@ function ProfileSetupForm(props: ProfileSetupFormProps) {
             }
           />
         </Form.Item>
-
-        {/* TODO: check headline with API (not currently in route)
-        <Form.Item label="Headline (not in route)" name="headline">
-          <Input />
-        </Form.Item>
-        */}
-
-        {/* Confirmed works but wait until profile to set these up 
-        <Form.Item label="Bio" name="bio" rules={[{ max: 1000 }]}>
-          <Input />
-        </Form.Item>
-
-        <Form.Item label="Location" name="location" rules={[{ max: 100 }]}>
-          <Input />
-        </Form.Item>
-        */}
 
         <Form.Item>
           <Button

@@ -20,13 +20,10 @@ function Uploader(props: TextInputProps) {
 
   return (
     <div>
-      {/* <embed src={text} width="100px" height="100px" /> */}
-      {/* <img src={text} width="100px" height="100px"></img> */}
       <input
         style={{ display: 'none' }}
         ref={inputRef}
         onChange={() => {
-          // inputRef.current.files[0].name;
           const file = inputRef.current.files[0];
           console.log(file);
           const reader = new FileReader();

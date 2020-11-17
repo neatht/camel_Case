@@ -1,6 +1,5 @@
 header {
   display: flex;
-  /* font-weight: bold; */
 }
 
 header ul {
@@ -20,10 +19,10 @@ a.navTitle {
   cursor: pointer;
 }
 .toggle-dark-mode::before {
-  content: "🌙";
+  content: '🌙';
 }
-[data-theme="dark"] .toggle-dark-mode::before {
-  content: "☀️";
+[data-theme='dark'] .toggle-dark-mode::before {
+  content: '☀️';
 }
 
 .ant-input-group > .ant-input:first-child,
@@ -34,7 +33,6 @@ a.navTitle {
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1), var(--drop-shadow);
   background-color: rgba(0, 0, 0, 0.03);
   color: var(--color-app) !important;
-  /* box-shadow: var(--drop-shadow); */
 }
 
 button.ant-btn.ant-btn-primary.ant-input-search-button {
@@ -59,12 +57,8 @@ button.ant-btn.ant-btn-primary.ant-input-search-button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: var(--drop-shadow);
-  
 }
 
 .ant-menu-horizontal a {
   color: var(--color-app) !important;
-  
 }
-
-
