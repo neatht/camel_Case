@@ -18,7 +18,7 @@
 .text-input-editable:hover,
 .text-input-focus {
   /* border: var(--border); */
-  border-color: #ffffffe0;
+  border-color: var(--border-color);
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
   cursor: text;
   /* background-color: rgba(0, 0, 0, 0.02); */

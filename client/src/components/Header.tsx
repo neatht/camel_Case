@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 
-import { PageHeader, Menu, Input, Space } from 'antd';
+import { PageHeader, Menu, Input, Space, Switch } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
 import LoginButton from './LoginButton';
 import Emoji from './Emoji';
+
+import '../css/theme.css';
+import '../css/base.css';
+import '../css/layout.css';
 
 const { Search } = Input;
 
@@ -93,7 +97,14 @@ export function Header({ pageKey }: HeaderProps) {
           </Menu.Item>*/}
         </Menu>
 
+        
+
         <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
+        <Switch
+          checkedChildren={<Emoji symbol="☀️" resize={false} />}
+          unCheckedChildren={<Emoji symbol="🌙" resize={false} />}
+          defaultChecked
+        />{'  '}
           <Search
             style={{ width: 300 }}
             enterButton

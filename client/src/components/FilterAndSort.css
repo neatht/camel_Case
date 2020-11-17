@@ -57,7 +57,7 @@
 .ant-select-selector,
 .ant-input {
   border-radius: var(--border-radius-secondary) !important;
-  border-color: #ffffff !important;
+  border-color: var(--border-color) !important;
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
   cursor: text;
   background-color: rgba(0, 0, 0, 0.01) !important;
@@ -74,7 +74,7 @@
 .ant-input:focus,
 .ant-input-focused {
   outline: 0;
-  border-color: #ffffffe0;
+  border-color:var(--border-color);
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.01) !important;
 }
