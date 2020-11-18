@@ -91,6 +91,21 @@ exports[`Testing Header renders home without crashing 1`] = `
         }
       }
     >
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Toggle Dark Mode"
+        transitionName="zoom-big-fast"
+      >
+        <div
+          className="toggle-dark-mode gradient"
+          onClick={[Function]}
+        />
+      </Tooltip>
+        
       <Search
         enterButton={true}
         onSearch={[Function]}
@@ -197,6 +212,21 @@ exports[`Testing Header renders profile without crashing 1`] = `
         }
       }
     >
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Toggle Dark Mode"
+        transitionName="zoom-big-fast"
+      >
+        <div
+          className="toggle-dark-mode gradient"
+          onClick={[Function]}
+        />
+      </Tooltip>
+        
       <Search
         enterButton={true}
         onSearch={[Function]}

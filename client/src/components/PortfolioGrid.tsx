@@ -40,7 +40,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
   const [newEntry, setNewEntry] = useState(false);
 
   async function fetchData(): Promise<void> {
-
     // If there is no userID, fetch own profile
     const route = isMyProfile
       ? 'project/getOwnProjects'
@@ -95,7 +94,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
     action: string,
     updatePortfolioGridData: PortfolioObjectData
   ): Promise<void> {
-
     // If there is no userID, fetch own profile
     const route = 'project';
 
@@ -119,7 +117,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
         return;
       }
       console.log('updated successfully?', res.ok, res.statusText);
-
     } catch (e) {
       if (setIsLoading) {
         setIsLoading(false);
@@ -132,7 +129,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
         ],
       };
       console.error(res, e);
-
     }
     fetchData();
   }

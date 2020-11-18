@@ -127,7 +127,6 @@ function ResumeEntry(props: ResumeEntryProps) {
   async function createData(value: DataType): Promise<void> {
     // Education or experience
     if (props.type === 'education' || props.type === 'experience') {
-
       // If there is no userID, fetch own profile
       const route = props.type;
 
