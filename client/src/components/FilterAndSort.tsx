@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Select, Space, Input, Tooltip, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -13,6 +13,7 @@ type FilterAndSortProps = {
     cmp: (a: PortfolioObjectSearchData, b: PortfolioObjectSearchData) => number
   ) => void;
   clearCallBack: Function;
+  openCallBack: Function;
 };
 
 type FilterCallbackObject = {
@@ -31,6 +32,10 @@ type PortfolioObjectSearchData = {
 
 function FilterAndSort(props: FilterAndSortProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    props.openCallBack(isOpen);
+  }, [isOpen]);
 
   function getCmp(
     option: 'mostPopular' | 'projectName' | 'authorName'

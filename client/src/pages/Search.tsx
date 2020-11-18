@@ -36,6 +36,7 @@ function Search() {
   console.log({ query });
 
   const [isFetching, setIsFetching] = useState(false);
+  const [isFilterAndSortOpen, setIsFilterAndSortOpen] = useState(false);
 
   const [searchData, setSearchData] = useState<
     Array<PortfolioObjectSearchData>
@@ -152,7 +153,7 @@ function Search() {
   }
 
   return (
-    <div className="App">
+    <div className={`${isFilterAndSortOpen ? '' : 'grid-search'} App`}>
       <Header pageKey="search" />
 
       <div className="grid-main-layout-primary">
@@ -164,6 +165,9 @@ function Search() {
             filterSearchData(filter);
           }}
           clearCallBack={() => fetchData()}
+          openCallBack={(isOpen: boolean) => {
+            setIsFilterAndSortOpen(isOpen);
+          }}
         />
         {searchData && searchData.length !== 0 ? (
           <PortfolioGridSearch data={searchData} />

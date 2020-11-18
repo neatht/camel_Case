@@ -21,6 +21,14 @@
   margin: var(--unit-margin) calc(4*var(--unit-margin));
 }
 
+.grid-search {
+  --unit: 380px;
+  --unit-width: calc(
+    var(--unit-col-num) * var(--unit) + var(--unit-col-num) * var(--unit-margin) -
+      var(--unit-margin)
+  );
+}
+
 
 
 .container-scroll {
