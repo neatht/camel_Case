@@ -13,6 +13,7 @@ const Template: Story<any> = (args) => <ResumeEntry {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   type: 'experience',
-  display: 'inline',
+  display: 'block',
   isMyProfile: false,
+  userID: '5f954a93aeac5f006f9750c2',
 };
