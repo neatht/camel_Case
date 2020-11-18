@@ -221,6 +221,7 @@ function SocialLinks(props: SocialLinksProps) {
                       editable={props.isMyProfile}
                       onChange={(newString: string) => {
                         saveData(newString);
+                        deleteLink(value);
                       }}
                       text={value}
                     />

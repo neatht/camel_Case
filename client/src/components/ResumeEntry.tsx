@@ -482,6 +482,7 @@ function ResumeEntry(props: ResumeEntryProps) {
                         editable={props.isMyProfile}
                         onChange={(newString: string) => {
                           updateData(newString, 'title');
+                          deleteData(value, undefined);
                         }}
                         padding="5px"
                         radius="50px"
@@ -607,7 +608,7 @@ function ResumeEntry(props: ResumeEntryProps) {
                     newItem = 'New skill';
                     break;
                   case 'achievements':
-                    newItem = 'New skill';
+                    newItem = 'New achievement';
                     break;
                   case 'education':
                     newItem = {
