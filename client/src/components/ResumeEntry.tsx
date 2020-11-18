@@ -127,8 +127,6 @@ function ResumeEntry(props: ResumeEntryProps) {
   async function createData(value: DataType): Promise<void> {
     // Education or experience
     if (props.type === 'education' || props.type === 'experience') {
-      //setIsLoading(true);
-
       // If there is no userID, fetch own profile
       const route = props.type;
 
@@ -217,7 +215,6 @@ function ResumeEntry(props: ResumeEntryProps) {
           ],
         };
         console.error(res, e);
-        //return res;
       }
     }
   }
@@ -484,6 +481,7 @@ function ResumeEntry(props: ResumeEntryProps) {
                         editable={props.isMyProfile}
                         onChange={(newString: string) => {
                           updateData(newString, 'title');
+                          deleteData(value, undefined);
                         }}
                         padding="5px"
                         radius="50px"
@@ -609,7 +607,7 @@ function ResumeEntry(props: ResumeEntryProps) {
                     newItem = 'New skill';
                     break;
                   case 'achievements':
-                    newItem = 'New skill';
+                    newItem = 'New achievement';
                     break;
                   case 'education':
                     newItem = {

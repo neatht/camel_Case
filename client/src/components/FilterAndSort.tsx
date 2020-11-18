@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Select, Space, Input, Tooltip, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
@@ -13,6 +13,7 @@ type FilterAndSortProps = {
     cmp: (a: PortfolioObjectSearchData, b: PortfolioObjectSearchData) => number
   ) => void;
   clearCallBack: Function;
+  openCallBack: Function;
 };
 
 type FilterCallbackObject = {
@@ -31,6 +32,11 @@ type PortfolioObjectSearchData = {
 
 function FilterAndSort(props: FilterAndSortProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    props.openCallBack(isOpen);
+    // eslint-disable-next-line
+  }, [isOpen]);
 
   function getCmp(
     option: 'mostPopular' | 'projectName' | 'authorName'
@@ -111,19 +117,6 @@ function FilterAndSort(props: FilterAndSortProps) {
           </Tooltip>
         </div>
 
-        {/*<Select
-          mode="multiple"
-          placeholder="Project type"
-          style={{ width: '100%' }}
-        >
-          <Option value="app">
-            <Emoji symbol="📱" /> App
-          </Option>
-          <Option value="website">
-            <Emoji symbol="🖥" /> Website
-          </Option>
-        </Select>*/}
-
         <Input
           placeholder="Project name"
           onChange={(e) => {
@@ -137,11 +130,6 @@ function FilterAndSort(props: FilterAndSortProps) {
             props.filterCallback(getFilter('authorName', e));
           }}
         />
-
-        {/*<Select mode="multiple" placeholder="Tag" style={{ width: '100%' }}>
-          <Option value="tag1">Tag 1</Option>
-          <Option value="tag2">Tag 2</Option>
-        </Select>*/}
       </Space>
 
       <Space direction="vertical" style={{ width: 'calc(100%)' }}>

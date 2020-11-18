@@ -228,9 +228,6 @@ function PortfolioObjectSearch(props: PortfolioObjectProps) {
                   {portfolioData?.link ? formatLink(portfolioData?.link) : null}
                 </a>
               </li>
-              {/* <li>
-                    <EyeOutlined /> {props.data.views}
-                  </li> */}
             </ul>
             <div style={{ textAlign: 'center' }}></div>
           </div>

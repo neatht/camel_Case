@@ -39,8 +39,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
   const isMyProfile = props.isMyProfile;
 
-  // const [isLoading, setIsLoading] = useState(true);
-
   async function fetchData(): Promise<void> {
     // setIsLoading(true);
     console.log('fetching media');
@@ -71,9 +69,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
       setMedia(data);
     } catch (e) {
-      // if (setIsLoading) {
-      //   setIsLoading(false);
-      // }
       const res = {
         status: 'error',
         message: [
@@ -82,7 +77,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
   }
 
@@ -139,9 +133,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                     setEditing(false);
                   }
                 }}
-                // onMouseUp={() => {
-                //   setEditing(!editing);
-                // }}
                 className="display-top-right container-secondary"
               >
                 <EditOutlined />
@@ -218,7 +209,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                   newMedia.splice(source.index, 1);
                   newMedia.splice(destination.index, 0, movedMedia);
                   setMedia(newMedia);
-                  // saveData();
                 }
               }}
             >
@@ -277,8 +267,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                               const newMedia = [...media];
                                               newMedia.splice(index, 1);
                                               setMedia(newMedia);
-                                              // saveData();
-                                              // Remove
                                             }}
                                           ></div>
                                         </Tooltip>

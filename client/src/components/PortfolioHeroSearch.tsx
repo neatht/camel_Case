@@ -30,10 +30,7 @@ function PortfolioHeroSearch(props: PortfolioHeroProps) {
 
   const [media, setMedia] = useState<PortfolioHeroData[]>();
 
-  // const [isLoading, setIsLoading] = useState(true);
-
   async function fetchData(): Promise<void> {
-    // setIsLoading(true);
     console.log('fetching media');
     // If there is no userID, fetch own profile
     const route = `project/media/${props.userID}/${props.projectID}`;
@@ -55,9 +52,6 @@ function PortfolioHeroSearch(props: PortfolioHeroProps) {
 
       setMedia(data);
     } catch (e) {
-      // if (setIsLoading) {
-      //   setIsLoading(false);
-      // }
       const res = {
         status: 'error',
         message: [

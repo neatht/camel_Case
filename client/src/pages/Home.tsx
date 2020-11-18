@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FilterAndSort from '../components/FilterAndSort';
 
-import './Home.css';
 import HomeHero from '../components/HomeHero';
 import Loading from '../components/Loading';
 import PortfolioGridSearch from '../components/PortfolioGridSearch';
@@ -28,6 +27,7 @@ type FilterCallbackObject = {
 
 function Home() {
   const [isFetching, setIsFetching] = useState(false);
+  const [isFilterAndSortOpen, setIsFilterAndSortOpen] = useState(false);
 
   const [searchData, setSearchData] = useState<
     Array<PortfolioObjectSearchData>
@@ -137,7 +137,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="App">
+    <div className={`${isFilterAndSortOpen ? '' : 'grid-search'} App`}>
       <Header pageKey="home" />
 
       <HomeHero />
@@ -151,6 +151,9 @@ function Home() {
             filterSearchData(filter);
           }}
           clearCallBack={() => fetchData()}
+          openCallBack={(isOpen: boolean) => {
+            setIsFilterAndSortOpen(isOpen);
+          }}
         />
         {isFetching || !searchData ? (
           <Loading />

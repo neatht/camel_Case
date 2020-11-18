@@ -9,6 +9,7 @@ describe('Testing FilterAndSort', () => {
         filterCallback={() => {}}
         sortCallback={() => {}}
         clearCallBack={() => {}}
+        openCallBack={() => {}}
       />
     );
     expect(component).toMatchSnapshot();

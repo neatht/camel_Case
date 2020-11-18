@@ -1,6 +1,4 @@
 @import '~antd/dist/antd.css';
-/* @import '~antd/dist/antd.css' (prefers-color-scheme: light); */
-/* @import '~antd/dist/antd.dark.css' (prefers-color-scheme: dark); */
 
 @import url('https://fonts.googleapis.com/css?family=Livvic:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Rubik:regular,bold,italic&subset=latin,latin-ext');
@@ -69,7 +67,6 @@ body {
 .exit-button::before {
   content: '✕';
   font-size: 1.15em;
-  /* margin-top: 100px; */
 }
 
 .del-button {
@@ -96,7 +93,6 @@ body {
 .del-button::before {
   content: "Delete";
   font-size: 1.15em;
-  /* margin-top: 100px; */
 }
 
 .save-button {
@@ -123,7 +119,6 @@ body {
 .save-button::before {
   content: "Save";
   font-size: 1.15em;
-  /* margin-top: 100px; */
 }
 
 
@@ -145,6 +140,25 @@ body {
 
 .ant-btn {
   color: var(--button-font-color);
+}
+
+.ant-select {
+  color: var(--color-app) !important;
+}
+.ant-select-selection-item {
+  color: var(--color-app) !important;
+}
+.ant-input {
+  color: var(--color-app) !important;
+}
+.ant-result-title {
+  color: var(--color-app) !important;
+}
+
+.ant-select-multiple .ant-select-selection-item {
+  background-color: var(--background-color-secondary) !important;
+  border: 0;
+  box-shadow: var(--drop-shadow);
 }
 
 .App {

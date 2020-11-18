@@ -17,10 +17,6 @@
   line-height: 56px;
   font-size: 2em;
 
-  /* make button take up 0 width */
-  /* position: relative;
-  right: 24px;
-  margin-right: -24px; */
   border: var(--border);
   box-shadow: var(--inner-shadow), var(--drop-shadow);
   box-sizing: content-box;
