@@ -35,6 +35,7 @@ function FilterAndSort(props: FilterAndSortProps) {
 
   useEffect(() => {
     props.openCallBack(isOpen);
+    // eslint-disable-next-line
   }, [isOpen]);
 
   function getCmp(
