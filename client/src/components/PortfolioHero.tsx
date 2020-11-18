@@ -13,10 +13,15 @@ const API_URL = process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
 
 type PortfolioHeroProps = {
+  /** Whether the project is open or not */
   isOpen: boolean;
+  /** Whether the profile is editable */
   isMyProfile: boolean;
+  /** The projectID to fetch information from */
   projectID?: string;
+  /** The userID associated with the projectID */
   userID?: string;
+  /** Whether the project has just been created or not */
   new: boolean;
 };
 

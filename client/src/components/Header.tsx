@@ -23,6 +23,7 @@ type MenuClickEvent = {
 };
 
 type HeaderProps = {
+  /** Name of the tab that is selected - 'home' or 'profile' */
   pageKey: string;
 };
 

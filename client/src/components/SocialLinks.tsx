@@ -34,7 +34,9 @@ const SOCIAL_LINK_ICON: { [socialType: string]: JSX.Element } = {
 type SocialLinksData = string[];
 
 type SocialLinksProps = {
+  /** userID to fetch social links from */
   userID?: string;
+  /** Whether the links can be edited */
   isMyProfile: boolean;
 };
 

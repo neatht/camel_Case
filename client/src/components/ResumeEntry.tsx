@@ -9,9 +9,13 @@ import './ResumeEntry.css';
 import TextInput from './TextInput';
 
 type ResumeEntryProps = {
+  /** Resume entry type */
   type: 'skills' | 'achievements' | 'experience' | 'education';
+  /** Style of resume entry */
   display: 'block' | 'inline';
+  /** Flag to mark whether it is editable or not */
   isMyProfile: boolean;
+  /** The relevant userID */
   userID?: string;
 };
 

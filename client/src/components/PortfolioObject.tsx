@@ -28,11 +28,17 @@ type PortfolioObjectData = {
 };
 
 type PortfolioObjectProps = {
+  /** Project information to be displayed */
   data: PortfolioObjectData;
+  /** Callback function when the project is opened */
   portfolioObjectOpen: any;
+  /** Whether or not the user owns the project (editable) */
   isMyProfile: boolean;
+  /** Whether the project was just created or not */
   new: boolean;
+  /** Callback function when data is changed */
   setData: (d: PortfolioObjectData) => void;
+  /** Callback function when data is deleted */
   delData: (d: PortfolioObjectData) => void;
 };
 
