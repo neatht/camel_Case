@@ -135,7 +135,6 @@ function SocialLinks(props: SocialLinksProps) {
   }
 
   async function deleteLink(link: string): Promise<void> {
-
     // If there is no userID, fetch own profile
     const route = props.isMyProfile ? 'links' : `links/${props.userID}`;
 
@@ -265,7 +264,11 @@ function SocialLinks(props: SocialLinksProps) {
             <li
               className="skills-add"
               onClick={() => {
-                setLinks([...links!, '']);
+                if (links) {
+                  setLinks([...links!, '']);
+                } else {
+                  setLinks(['']);
+                }
               }}
             >
               +
