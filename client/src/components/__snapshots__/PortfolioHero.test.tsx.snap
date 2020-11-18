@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing PortfolioHero renders home without crashing 1`] = `
+<div
+  className="portfolio-hero"
+  style={
+    Object {
+      "backgroundImage": "url(placeholder-folio-image.png)",
+    }
+  }
+/>
+`;

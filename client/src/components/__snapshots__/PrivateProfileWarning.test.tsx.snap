@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing PrivateProfileWarning renders without crashing 1`] = `
+<div
+  className="private-profile-warning"
+>
+  <Result
+    extra={
+      <ForwardRef(InternalButton)
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+        onClick={[Function]}
+        type="primary"
+      >
+        Go Back
+      </ForwardRef(InternalButton)>
+    }
+    status="warning"
+    title="This profile is set to private"
+  />
+</div>
+`;
