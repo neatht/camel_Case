@@ -12,7 +12,7 @@ type PortfolioObjectProps = {
   tagline?: string;
   /** A link to a profile picture */
   profilePictureLink?: string;
-  /** userID for the author */
+  /** userID for the author used for link */
   userID: string;
 };
 
@@ -43,9 +43,7 @@ function AuthorBadge(props: PortfolioObjectProps) {
           <h5>{props.tagline}</h5>
         </div>
         <div className="gotoProfile">
-          <Link to={`/profile/${props.userID}`}>
-            <RightOutlined style={{ color: 'grey' }} />
-          </Link>
+          <RightOutlined style={{ color: 'grey' }} />
         </div>
       </div>
     </Link>

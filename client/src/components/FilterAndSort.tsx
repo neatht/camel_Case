@@ -8,10 +8,13 @@ import './FilterAndSort.css';
 const { Option } = Select;
 
 type FilterAndSortProps = {
+  /** Function to be called when filter is applied */
   filterCallback: (filter: FilterCallbackObject) => void;
+  /** Comparison function used to sort the projects */
   sortCallback: (
     cmp: (a: PortfolioObjectSearchData, b: PortfolioObjectSearchData) => number
   ) => void;
+  /** Function to be called when clear is pressed */
   clearCallBack: Function;
   openCallBack: Function;
 };

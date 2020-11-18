@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing ProfileSignupCTA renders without crashing 1`] = `
+<div
+  className="profile-signup-cta"
+>
+  <Result
+    extra={<LoginButton />}
+    status="info"
+    title="Sign up or login to create a profile"
+  />
+</div>
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Loading renders loading without crashing 1`] = `
+<div
+  className="loading"
+>
+  <Spin
+    size="default"
+    spinning={true}
+    wrapperClassName=""
+  />
+</div>
+`;

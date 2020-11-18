@@ -7,6 +7,7 @@ type EmojiProps = {
   label?: string;
   /** Emoji symbol to display e.g. 🚀 */
   symbol: string;
+  /** Whether the Emoji should be resized to fix alignment on WebKit (will not work with recolored Emojis) */
   resize?: boolean;
 };
 

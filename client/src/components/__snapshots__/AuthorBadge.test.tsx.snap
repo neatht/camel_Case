@@ -41,17 +41,13 @@ exports[`Testing AuthorBadge renders without crashing 1`] = `
     <div
       className="gotoProfile"
     >
-      <Link
-        to="/profile/123"
-      >
-        <ForwardRef(RightOutlined)
-          style={
-            Object {
-              "color": "grey",
-            }
+      <ForwardRef(RightOutlined)
+        style={
+          Object {
+            "color": "grey",
           }
-        />
-      </Link>
+        }
+      />
     </div>
   </div>
 </Link>
