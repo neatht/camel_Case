@@ -38,9 +38,7 @@ function Home() {
   ) {
     console.log('sorting search data');
     if (searchData) {
-      console.log('before', { searchData });
-      console.log('after', searchData.sort(cmp));
-      const sortedData = searchData.sort(cmp);
+      const sortedData = [...searchData].sort(cmp);
       setSearchData(sortedData);
     }
   }
