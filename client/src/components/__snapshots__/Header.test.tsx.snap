@@ -16,14 +16,10 @@ exports[`Testing Header renders home without crashing 1`] = `
             style={
               Object {
                 "fontSize": "1.2em",
+                "marginLeft": "40px",
               }
             }
           >
-            <Emoji
-              resize={false}
-              symbol="🛰️"
-            />
-             
             <strong>
               Glowbal
             </strong>
@@ -137,14 +133,10 @@ exports[`Testing Header renders profile without crashing 1`] = `
             style={
               Object {
                 "fontSize": "1.2em",
+                "marginLeft": "40px",
               }
             }
           >
-            <Emoji
-              resize={false}
-              symbol="🛰️"
-            />
-             
             <strong>
               Glowbal
             </strong>

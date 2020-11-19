@@ -142,7 +142,10 @@ function Home() {
 
       <HomeHero />
 
-      <div className="grid-main-layout-primary">
+      <div
+        style={{ gridTemplateColumns: 'auto auto' }}
+        className="grid-main-layout-primary"
+      >
         <FilterAndSort
           sortCallback={(cmp) => {
             sortSearchData(cmp);
