@@ -6,7 +6,6 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
 import LoginButton from './LoginButton';
-import Emoji from './Emoji';
 
 import '../css/theme.css';
 import '../css/base.css';
