@@ -8,6 +8,7 @@
 import express from 'express';
 import { getProfileService, checkProfileService, addProfileService, updateProfileService, deleteProfileService, getOwnProfileService } from './service';
 import dotenv from 'dotenv';
+import { ownProfileCache, profileCache, mediaCache, projectCache } from '../../cache/cache';
 dotenv.config();
 
 /**
@@ -127,6 +128,7 @@ export const addUser = async (req: any, res: express.Response, next: express.Nex
  */
 export const updateUser = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists) {
       req.poolClient.release();
@@ -137,6 +139,10 @@ export const updateUser = async (req: any, res: express.Response, next: express.
       });
     } else {
       await updateProfileService(req, res, next);
+      ownProfileCache.delStartsWith(`${userID}`);
+      projectCache.delStartsWith(`${userID}`);
+      mediaCache.delStartsWith(`${userID}`);
+      profileCache.delStartsWith(`${userID}`);
       console.log(`Profile updated for userID: ${req.user.sub.split('|')[1]}`);
       req.poolClient.release();
       res.status(200);
@@ -162,6 +168,7 @@ export const updateUser = async (req: any, res: express.Response, next: express.
 export const deleteUser = async (req: any, res: express.Response,
   next: express.NextFunction) => {
   try {
+    const userID = req.user.sub.split('|')[1];
     const profileExists: boolean = await checkProfileService(req, res, next);
     if (!profileExists) {
       req.poolClient.release();
@@ -172,6 +179,10 @@ export const deleteUser = async (req: any, res: express.Response,
       });
     } else {
       await deleteProfileService(req, res, next);
+      ownProfileCache.delStartsWith(`${userID}`);
+      projectCache.delStartsWith(`${userID}`);
+      mediaCache.delStartsWith(`${userID}`);
+      profileCache.delStartsWith(`${userID}`);
       console.log(`Profile deleted for userID: ${req.user.sub.split('|')[1]}`);
       req.poolClient.release();
       res.status(200);
@@ -197,7 +208,10 @@ export const deleteUser = async (req: any, res: express.Response,
  */
 export const getOwnUser = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
-    const result = await getOwnProfileService(req, res, next);
+    const userID = req.user.sub.split('|')[1];
+    const result = await ownProfileCache.get(`${userID}`, async () => {
+      return await getOwnProfileService(req, res, next);
+    });
     req.poolClient.release();
     if (result === null) {
       res.status(404);

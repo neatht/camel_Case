@@ -17,6 +17,7 @@ import {
   addProjectMediaService
 } from './service';
 
+import {projectCache, mediaCache, profileCache} from '../../cache/cache';
 import { checkProfileService, checkPublicService } from '../../helpers/service';
 
 dotenv.config();
@@ -84,6 +85,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
     // get object url and add to db
     await addMediaService(req, res, next);
     await addProjectMediaService(req, next);
+    mediaCache.delStartsWith(`${userID}_${req.params.projectID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -154,7 +156,11 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
 export const getMediaFromProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const userID = req.params.userID;
-    const profileExists = await checkProfileService(req, next, userID);
+
+    const profileExists = await profileCache.get(`${userID}`, async () => {
+      return await checkProfileService(req, next, userID);
+    });
+
     if (!profileExists) {
       req.poolClient.release();
       res.status(404);
@@ -164,9 +170,14 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
       });
     }
 
-    const isPublic = await checkPublicService(req, next, userID);
+    const isPublic = await profileCache.get(`status_${userID}`, async () => {
+      return await checkPublicService(req, next, userID);
+    });
+
     if (isPublic) {
-      const results = await getProjectMediaService(req, res, next);
+      const results = await mediaCache.get(`${userID}_${req.params.projectID}`, async () => {
+        return await getProjectMediaService(req, res, next);
+      });
 
       req.poolClient.release();
       res.status(200);
@@ -190,7 +201,9 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
 export const getProjectById = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
     const userID = req.params.userID;
-    const profileExists = await checkProfileService(req, next, userID);
+    const profileExists = await profileCache.get(`${userID}`, async () => {
+      return await checkProfileService(req, next, userID);
+    });
 
     if (!profileExists) {
       req.poolClient.release();
@@ -201,10 +214,14 @@ export const getProjectById = async (req: any, res: express.Response, next: expr
       })
     }
 
-    const isPublic = await checkPublicService(req, next, userID);
+    const isPublic = await profileCache.get(`status_${userID}`, async () => {
+      return await checkPublicService(req, next, userID);
+    });
 
     if (isPublic) {
-      const results = await getProjectService(req, res, next);
+      const results = await projectCache.get(`${userID}_${req.params.projectID}`, async () => {
+        return await getProjectService(req, res, next);
+      });
 
       req.poolClient.release();
       res.status(200);
@@ -337,6 +354,7 @@ export const addProject = async (req: any, res: express.Response, next: express.
 
     req.body.data.userID = userID;
     await addProjectService(req, res, next);
+    projectCache.delStartsWith(`${userID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -364,6 +382,7 @@ export const updateProject = async (req: any, res: express.Response, next: expre
 
     req.body.data.userID = userID;
     await updateProjectService(req, res, next);
+    projectCache.delStartsWith(`${userID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -404,6 +423,7 @@ export const deleteProject = async (req: any, res: express.Response, next: expre
 
     req.body.data.userID = userID;
     await deleteProjectService(req, res, next);
+    projectCache.delStartsWith(`${userID}_${req.body.data.projectID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -431,6 +451,7 @@ export const deleteMedia = async (req: any, res: express.Response, next: express
 
     req.body.data.userID = userID;
     await deleteProjectMediaService(req, res, next);
+    mediaCache.delStartsWith(`${userID}_${req.params.projectID}`);
 
     req.poolClient.release();
     res.status(200);
