@@ -11,49 +11,28 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
   <div
     className="portfolio-title"
   >
-    <h2>
-      <Paragraph
-        editable={
-          Object {
-            "onChange": [Function],
-          }
+    <h2
+      style={
+        Object {
+          "marginLeft": "85px",
+          "marginRight": "85px",
         }
-      >
-        Project 1
-      </Paragraph>
+      }
+    >
+      <TextInput
+        editable={false}
+        onChange={[Function]}
+        padding="2px 85px 2px 85px"
+        placeholder="Title"
+        text="Project 1"
+      />
     </h2>
   </div>
   <PortfolioHero
-    isMyProfile={true}
+    isMyProfile={false}
     isOpen={false}
-    media={
-      Array [
-        Object {
-          "type": "image",
-          "url": "https://i.ibb.co/BNZxQ2z/example0.jpg",
-        },
-        Object {
-          "type": "image",
-          "url": "https://i.ibb.co/TYYyXDH/example1.png",
-        },
-        Object {
-          "type": "image",
-          "url": "https://i.ibb.co/pZmXQb5/example2.png",
-        },
-        Object {
-          "type": "image",
-          "url": "https://i.ibb.co/SwzRr9S/example3.png",
-        },
-        Object {
-          "type": "pdf",
-          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-        },
-        Object {
-          "type": "video",
-          "url": "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4",
-        },
-      ]
-    }
+    new={false}
+    projectID="1"
   />
   <div
     className="portfolio-object-overlay"
@@ -66,77 +45,118 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
           Project 1
         </strong>
       </h4>
-      <h5>
-        Author 1
-      </h5>
     </div>
   </div>
   <div
     className="portfolio-object-body"
   >
     <div>
-      <AuthorBadge
-        author="Author 1"
-        tagline="Author Tagline"
-      />
       <br />
-      <Paragraph
-        editable={
+      <div
+        style={
           Object {
-            "onChange": [Function],
+            "marginLeft": "-10px",
+            "marginTop": "-10px",
           }
         }
       >
-        This is a short description about the project
-      </Paragraph>
+        <TextInput
+          editable={false}
+          multiline={true}
+          onChange={[Function]}
+          padding="10px"
+          placeholder="Description"
+          text="Melbourne, Australia"
+        />
+      </div>
     </div>
     <div
       className="container-secondary portfolio-side-bar"
     >
       <ul>
         <li>
-          <Emoji
-            label="Type:"
-            symbol="💻"
-          />
-           
-          website
+          <div
+            className="portfolio-tag"
+            style={
+              Object {
+                "textAlign": "center",
+                "width": "100%",
+              }
+            }
+          >
+            website
+          </div>
         </li>
         <li>
-          <Emoji
-            label="Date:"
-            symbol="📅"
-          />
-           
-          2020-01
+          <div
+            style={
+              Object {
+                "display": "inline-block",
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="portfolio-tag"
+            >
+              one
+            </div>
+            <div
+              className="portfolio-tag"
+            >
+              two
+            </div>
+            <div
+              className="portfolio-tag"
+            >
+              three
+            </div>
+            <div
+              className="portfolio-tag"
+            >
+              four
+            </div>
+            <div
+              className="portfolio-tag"
+            >
+              five
+            </div>
+          </div>
+        </li>
+        <li
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          <ForwardRef(LineOutlined) />
         </li>
         <li>
-          <Emoji
-            label="Location:"
-            symbol="🌏"
-          />
-           
-          Melbourne, Australia
+          <ForwardRef(CalendarOutlined) />
+           2020-01
         </li>
         <li>
-          <Emoji
-            label="Link:"
-            symbol="🔗"
-          />
+          <ForwardRef(LinkOutlined) />
            
           <a
-            href="{props.media}"
+            href="http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"
+            target="_blank"
           >
-            props.media
+            <div
+              style={
+                Object {
+                  "display": "inline-block",
+                  "marginBottom": "-5px",
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "width": "140px",
+                }
+              }
+            >
+              distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4
+            </div>
           </a>
-        </li>
-        <li>
-          <Emoji
-            label="Views:"
-            symbol="👁️"
-          />
-           
-          10
         </li>
       </ul>
       <div
@@ -145,9 +165,7 @@ exports[`Testing PortfolioObject renders without crashing 1`] = `
             "textAlign": "center",
           }
         }
-      >
-        <SocialLinks />
-      </div>
+      />
     </div>
   </div>
 </div>

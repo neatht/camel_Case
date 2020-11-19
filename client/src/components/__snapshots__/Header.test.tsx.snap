@@ -11,15 +11,23 @@ exports[`Testing Header renders home without crashing 1`] = `
           to="/"
         >
            
-          <span
-            aria-hidden="true"
-            role="img"
+          <div
+            className="gradient"
+            style={
+              Object {
+                "fontSize": "1.2em",
+              }
+            }
           >
-            📝
-          </span>
-           
-          Glowbal
-           
+            <Emoji
+              resize={false}
+              symbol="🛰️"
+            />
+             
+            <strong>
+              Glowbal
+            </strong>
+          </div>
         </ForwardRef>
       }
     />
@@ -43,8 +51,7 @@ exports[`Testing Header renders home without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            🏠
-             
+            <ForwardRef(HomeOutlined) />
           </span>
         }
         key="home"
@@ -62,8 +69,7 @@ exports[`Testing Header renders home without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            👨‍💼
-             
+            <ForwardRef(UserOutlined) />
           </span>
         }
         key="profile"
@@ -87,6 +93,7 @@ exports[`Testing Header renders home without crashing 1`] = `
     >
       <Search
         enterButton={true}
+        onSearch={[Function]}
         style={
           Object {
             "width": 300,
@@ -110,15 +117,23 @@ exports[`Testing Header renders profile without crashing 1`] = `
           to="/"
         >
            
-          <span
-            aria-hidden="true"
-            role="img"
+          <div
+            className="gradient"
+            style={
+              Object {
+                "fontSize": "1.2em",
+              }
+            }
           >
-            📝
-          </span>
-           
-          Glowbal
-           
+            <Emoji
+              resize={false}
+              symbol="🛰️"
+            />
+             
+            <strong>
+              Glowbal
+            </strong>
+          </div>
         </ForwardRef>
       }
     />
@@ -142,8 +157,7 @@ exports[`Testing Header renders profile without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            🏠
-             
+            <ForwardRef(HomeOutlined) />
           </span>
         }
         key="home"
@@ -161,8 +175,7 @@ exports[`Testing Header renders profile without crashing 1`] = `
             aria-hidden="true"
             role="img"
           >
-            👨‍💼
-             
+            <ForwardRef(UserOutlined) />
           </span>
         }
         key="profile"
@@ -186,6 +199,7 @@ exports[`Testing Header renders profile without crashing 1`] = `
     >
       <Search
         enterButton={true}
+        onSearch={[Function]}
         style={
           Object {
             "width": 300,

@@ -7,7 +7,7 @@
 }
 
 .profilePicture {
-  background-color: #40a9ff;
+  background: var(--gradient);
   width: 48px;
   height: 48px;
   border-radius: 64px;

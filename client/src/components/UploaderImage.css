@@ -1,0 +1,25 @@
+.uploader-image {
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 1em;
+  z-index: 100;
+
+  border: var(--border);
+  box-shadow: var(--inner-shadow), var(--drop-shadow);
+  box-sizing: content-box;
+
+  background: var(--btn-gradient);
+  border-radius: 30px;
+
+  transition: opacity 0.3s, width 0.3s, background 0.3s;
+
+  cursor: pointer;
+  position: relative;
+  float: right;
+  text-align: center;
+  margin-right: -24px;
+  margin-top: -24px;
+}
+

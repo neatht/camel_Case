@@ -1,108 +1,210 @@
-import React, { useState } from 'react';
-import { Button, DatePicker, Form, Input, Space, Steps } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Modal } from 'antd';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useParams } from 'react-router-dom';
 
 import './ProfileSetup.css';
-import 'emoji-mart/css/emoji-mart.css';
 
 import Header from '../components/Header';
-import CompanyAutoComplete from '../components/CompanyAutoComplete';
 
 import Emoji from '../components/Emoji';
+import ProfileSetupForm from '../components/ProfileSetupForm';
+import Loading from '../components/Loading';
+import Resume from '../components/Resume';
+import PortfolioGrid from '../components/PortfolioGrid';
 
-const { Step } = Steps;
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
+
+type ParamType = {
+  userID: string;
+};
 
 function ProfileSetup() {
-  const [step, setStep] = useState(0);
+  const [profileInfo, setProfileInfo] = useState({});
+  const [isPostingProfile, setIsPostingProfile] = useState(false);
+  const [hasFetchedOnce, setHasFetchedOnce] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
 
-  const NUM_STEPS = 3;
+  const { userID } = useParams<ParamType>();
 
-  function incrementStep() {
-    if (step < NUM_STEPS) {
-      setStep(step + 1);
+  console.log({ userID });
+
+  /**
+   * Used to create a profile through the API
+   *
+   * @param profileData The profile data to be posted
+   * @param callback Callback function with the profile data as argument when successful, and {} when unsuccessful. Can be used to setState
+   * @param setIsLoading Callback function to toggle when awaiting response
+   * @param route Specified route to call API at in form '/api/{route}'
+   *
+   * @returns res The response of the call
+   */
+  async function postProfile(
+    profileData: Object,
+    callback: (data: Object) => void,
+    setIsLoading?: (isLoading: boolean) => void,
+    route?: string
+  ) {
+    if (setIsLoading) {
+      setIsLoading(true);
+    }
+
+    if (!route) {
+      route = 'profile';
+    }
+
+    try {
+      const token = await getAccessTokenSilently();
+      await fetch(API_URL + route, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: profileData }),
+      })
+        .then((response) => response.json())
+        .then((res: Object) => {
+          if ('status' in res && res['status'] === 'success') {
+            callback(profileData);
+          } else {
+            callback({});
+          }
+          if (setIsLoading) {
+            setIsLoading(false);
+          }
+          return res;
+        });
+    } catch (e) {
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      callback({});
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      console.error(e);
+      return res;
     }
   }
 
-  function decrementStep() {
-    if (step > 0) {
-      setStep(step - 1);
+  /**
+   * Used to get a profile from the API
+   *
+   * @param {data: Object => void} callback Callback function with the profile data as argument when successful, and {} when unsuccessful. Can be used to setState
+   * @param {isLoading: boolean => void} setIsLoading Callback function to toggle when awaiting response
+   * @param {string} route Specified route to call API at in form '/api/{route}' Default is 'profile/getOwnProfile'
+   *
+   * @returns res The response of the call
+   */
+  async function getProfile(
+    callback: (data: Object) => void,
+    setIsLoading?: (isLoading: boolean) => void,
+    route?: string
+  ) {
+    if (setIsLoading) {
+      setIsLoading(true);
+    }
+
+    if (!route) {
+      route = 'profile/getOwnProfile';
+    }
+
+    try {
+      const token = await getAccessTokenSilently();
+      await fetch(API_URL + route, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((res: Object) => {
+          if (setIsLoading) {
+            setIsLoading(false);
+          }
+          if ('data' in res) {
+            callback(res['data']);
+          } else {
+            callback({});
+          }
+          return res;
+        });
+    } catch (e) {
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      callback({});
+      console.error(e);
+      return res;
     }
   }
 
-  const onFinish = (result: any) => {
-    console.log('finished form', result);
-  };
+  useEffect(() => {
+    const setFirstProfileInfo = (profileInfo: Object) => {
+      setProfileInfo(profileInfo);
+      setHasFetchedOnce(true);
+    };
+
+    getProfile(setFirstProfileInfo);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className="App">
       <Header pageKey="profile" />
 
-      <div className="content-area">
-        <h1>
-          <Emoji symbol="👋" />
-          <strong> Welcome</strong>
-        </h1>
+      <div className="grid-main-layout-primary">
+        {!hasFetchedOnce ? (
+          <Loading messages={['Loading Profile']} />
+        ) : (
+          <>
+            {/* ***** Actual Content Here ****** */}
 
-        <div className="steps" style={{ padding: 30 }}>
-          <Steps size="small" current={step}>
-            <Step title="Personal Information" />
-            <Step title="Education and Experience" />
-            <Step title="Projects" />
-          </Steps>
-        </div>
+            {'firstName' in profileInfo && 'lastName' in profileInfo ? (
+              <>
+                <Resume userID={userID} />
+                <PortfolioGrid />
+              </>
+            ) : null}
 
-        <div className="profile-form">
-          <Form
-            //{...layout}
-            name="basic"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            //onFinishFailed={onFinishFailed}
-          >
-            <Form.Item
-              label="First Name"
-              name="firstname"
-              rules={[
-                { required: true, message: 'Please enter your first name!' },
-              ]}
+            <Modal
+              title={
+                <>
+                  <Emoji symbol="👋" />
+                  <strong> Profile Setup </strong>
+                </>
+              }
+              closable={false}
+              visible={
+                hasFetchedOnce &&
+                Object.keys(profileInfo).length === 0 &&
+                !userID
+              }
+              footer={null}
             >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Last Name"
-              name="lastname"
-              rules={[
-                { required: true, message: 'Please enter your last name!' },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item label="Company" name="company" rules={[]}>
-              <CompanyAutoComplete />
-            </Form.Item>
-
-            <Form.Item label="Date" name="date" rules={[]}>
-              <DatePicker picker="month" format="MMM YYYY" />
-            </Form.Item>
-
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-
-        <div className="step-buttons">
-          <Space>
-            {step > 0 && <Button onClick={decrementStep}> Back </Button>}
-            <Button type="primary" onClick={incrementStep}>
-              {' '}
-              Next{' '}
-            </Button>
-          </Space>
-        </div>
+              <ProfileSetupForm
+                onFinish={(result) => {
+                  postProfile(result, setProfileInfo, setIsPostingProfile);
+                }}
+                submitLabel="Save"
+                isLoading={isPostingProfile}
+              />
+            </Modal>
+          </>
+        )}
       </div>
     </div>
   );

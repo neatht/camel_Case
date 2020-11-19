@@ -17,11 +17,37 @@
   display: inline-block;
 }
 
-.resume-entry-inline .resume-entry-date{
+.exit-button-resume-entry {
+  opacity: 0;
+  transition: opacity 0.3s;
+  top: -15px;
+  right: 5px;
+  background: var(--del-gradient);
+}
+
+.resume-entry li:hover .exit-button-resume-entry {
+  opacity: 1;
+}
+
+.resume-entry-add {
+  color: var(--color-app);
+  text-align: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  margin: auto;
+  border-radius: 100px;
+  border: var(--border);
+  box-sizing: content-box;
+  background-color: var(--background-color-primary);
+  box-shadow: var(--inner-shadow), var(--drop-shadow);
+}
+
+.resume-entry-inline .resume-entry-date {
   display: none;
 }
 
-.resume-entry-inline .resume-sub-text{
+.resume-entry-inline .resume-sub-text {
   display: none;
 }
 
@@ -37,14 +63,14 @@
   background-color: var(--background-color-secondary);
   box-shadow: var(--drop-shadow);
   border-radius: var(--border-radius-secondary);
-  display: grid;
-  grid-template-columns: 85px auto;
-  /* border: 1px solid; */
-  /* min-width: 50px; */
-  /* display: inline-block; */
 }
 
-.resume-entry-block .resume-entry-date{
+.resume-entry-grid {
+  display: grid;
+  grid-template-columns: 100px auto;
+}
+
+.resume-entry-block .resume-entry-date {
   font-family: 'Rubik Mono One', sans-serif;
   font-size: 0.75em;
   text-align: right;
@@ -53,10 +79,9 @@
   overflow-x: hidden;
   margin-top: 4px;
   border-right: 1px solid var(--color-app);
-  opacity: 0.6;
-  
+  /*opacity: 0.6;*/
 }
 
-.resume-entry-block .resume-sub-text{
+.resume-entry-block .resume-sub-text {
   opacity: 0.6;
 }

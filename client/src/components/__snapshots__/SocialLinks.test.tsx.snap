@@ -3,5 +3,11 @@
 exports[`Testing SocialLinks renders without crashing 1`] = `
 <div
   className="socialLinks"
-/>
+>
+  <Spin
+    size="default"
+    spinning={true}
+    wrapperClassName=""
+  />
+</div>
 `;

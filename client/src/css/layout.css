@@ -2,7 +2,8 @@
   background-color: var(--background-color-primary);
   border-radius: var(--border-radius-primary);
   /* filter: var(--drop-shadow); */
-  box-shadow: var(--drop-shadow);
+  border: var(--border);
+  box-shadow: var(--inner-shadow), var(--drop-shadow-dark), 0px 0px 0px 1px #00000000;
   padding: calc(2*var(--unit-margin));
 }
 
@@ -39,14 +40,14 @@
   padding-right: calc(2*var(--unit-margin) - 6px);
 }
 
-.container-scroll::-webkit-scrollbar {
+.container-scroll::-webkit-scrollbar, body::-webkit-scrollbar {
   width: 6px;
 }
-.container-scroll-x::-webkit-scrollbar {
+.container-scroll-x::-webkit-scrollbar, body::-webkit-scrollbar {
   height: 10px;
 }
 
-.container-scroll::-webkit-scrollbar-track, .container-scroll-x::-webkit-scrollbar-track {
+.container-scroll::-webkit-scrollbar-track, .container-scroll-x::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
   background: rgba(0,0,0,0);
 }
 
@@ -58,6 +59,11 @@
 .container-scroll:hover::-webkit-scrollbar-thumb {
   background-color: var(--background-color-tertiary) ;
   border-right: 3px solid var(--background-color-primary);
+  border-radius: 6px;
+}
+
+.container-scroll:hover::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  background-color: var(--background-color-tertiary) ;
   border-radius: 6px;
 }
 

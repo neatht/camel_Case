@@ -1,0 +1,7 @@
+.emoji {
+  /* Strange hack that centers emojis on retina displays 🤷‍♂️ */
+  display: inline-block;
+  font-size: 4em;
+  transform: scale(0.25) translateY(1.1em);
+  margin: -1em -0.333em;
+}

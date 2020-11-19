@@ -5,6 +5,7 @@
 
 import dotenv from 'dotenv';
 import express from 'express';
+import cors from 'cors';
 import https from 'https';
 import http from 'http';
 import fs from 'fs';
@@ -14,6 +15,9 @@ dotenv.config();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;
+
+// Use CORS to enable production API proxy (React deployed via serve)
+app.use(cors())
 
 https.createServer({
 	key: fs.readFileSync(process.env.SSL_KEY_FILE),
