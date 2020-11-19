@@ -6,7 +6,6 @@ import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
 import LoginButton from './LoginButton';
-import Emoji from './Emoji';
 
 import '../css/theme.css';
 import '../css/base.css';
@@ -44,8 +43,14 @@ export function Header({ pageKey }: HeaderProps) {
           title={
             <Link to="/" className="navTitle">
               {' '}
-              <div style={{ fontSize: '1.2em' }} className="gradient">
-                <Emoji symbol="🛰️" resize={false} /> <strong>Glowbal</strong>
+              <div
+                style={{
+                  fontSize: '1.2em',
+                  marginLeft: '40px',
+                }}
+                className="gradient"
+              >
+                <strong>Glowbal</strong>
               </div>
             </Link>
           }

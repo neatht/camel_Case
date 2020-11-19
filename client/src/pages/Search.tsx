@@ -156,7 +156,10 @@ function Search() {
     <div className={`${isFilterAndSortOpen ? '' : 'grid-search'} App`}>
       <Header pageKey="search" />
 
-      <div className="grid-main-layout-primary">
+      <div
+        style={{ gridTemplateColumns: 'auto auto' }}
+        className="grid-main-layout-primary"
+      >
         <FilterAndSort
           sortCallback={(cmp) => {
             sortSearchData(cmp);

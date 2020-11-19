@@ -38,9 +38,7 @@ function Home() {
   ) {
     console.log('sorting search data');
     if (searchData) {
-      console.log('before', { searchData });
-      console.log('after', searchData.sort(cmp));
-      const sortedData = searchData.sort(cmp);
+      const sortedData = [...searchData].sort(cmp);
       setSearchData(sortedData);
     }
   }
@@ -142,7 +140,10 @@ function Home() {
 
       <HomeHero />
 
-      <div className="grid-main-layout-primary">
+      <div
+        style={{ gridTemplateColumns: 'auto auto' }}
+        className="grid-main-layout-primary"
+      >
         <FilterAndSort
           sortCallback={(cmp) => {
             sortSearchData(cmp);

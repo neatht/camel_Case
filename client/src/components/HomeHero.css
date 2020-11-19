@@ -1,11 +1,26 @@
 .home-hero {
   background-color: var(--background-color-primary);
   box-shadow: var(--inner-shadow);
+  background-image: url(../hero.svg);
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 300px;
+
 }
+[data-theme='dark'] .home-hero {
+  background-image: url(../hero-dark.svg);
+}
+
 .toggle-home-hero {
   position: relative;
   top: 30px;
   right: 50px;
+}
+.home-hero h1 {
+  margin-top: 100px;
+
+
 }
 
 .rocket {
