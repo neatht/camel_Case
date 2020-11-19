@@ -44,8 +44,14 @@ export function Header({ pageKey }: HeaderProps) {
           title={
             <Link to="/" className="navTitle">
               {' '}
-              <div style={{ fontSize: '1.2em' }} className="gradient">
-                <Emoji symbol="🛰️" resize={false} /> <strong>Glowbal</strong>
+              <div
+                style={{
+                  fontSize: '1.2em',
+                  marginLeft: '40px',
+                }}
+                className="gradient"
+              >
+                <strong>Glowbal</strong>
               </div>
             </Link>
           }

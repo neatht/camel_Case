@@ -1,5 +1,9 @@
 header {
   display: flex;
+  background-image: url(../logo-rocket.svg);
+  background-repeat: no-repeat;
+  background-position: 15px;
+  background-size: 48px;
 }
 
 header ul {
