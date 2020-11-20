@@ -17,6 +17,7 @@ import projectRouter from './components/project/routes';
 import experienceRouter from './components/experience/routes';
 import educationRouter from './components/education/routes';
 import mediaRouter from './components/media/routes';
+import { connectPool } from './middleware/db';
 
 // Middleware imports
 import { jwtCheck } from './middleware/auth';
@@ -54,6 +55,15 @@ export const register = (app: express.Application) => {
       data: "Test successful"
     })
   });
+
+  app.get('/api/test/noAuth', connectPool, (req: any, res) => {
+    req.poolClient.release();
+    res.status(200);
+    res.json({
+      status: "success",
+      data: "Test successful"
+    })
+  })
 
   app.get('/api/getEmail', jwtCheck, (req: any, res) => {
     res.json({
