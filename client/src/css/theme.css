@@ -65,21 +65,15 @@
   }
 }
 
-@media only screen and (min-width: 1600px) {
+@media only screen and (min-width: 1700px) {
   :root {
     --unit-col-num: 4;
   }
 }
 
-@media only screen and (min-width: 1900px) {
-  :root {
-    --unit-col-num: 5;
-  }
-}
-
 @media only screen and (min-width: 2200px) {
   :root {
-    --unit: 300px;
+    --unit-col-num: 5;
   }
 }
 

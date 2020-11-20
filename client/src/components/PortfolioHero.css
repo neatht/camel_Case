@@ -40,8 +40,8 @@
   width: 0;
   /* overflow: hidden; */
   opacity: 0;
-  transition: box-shadow 0.5s, border-color 0.5s, width 0.5s, height 1s 0.1s,
-    margin 0.5s, opacity 0.5s;
+  transition: box-shadow 0.5s, border-color 0.5s, width 0.75s, height 1s 0.1s,
+    margin 0.5s, opacity 0.75s;
 }
 
 .portfolio-hero-edit .portfolio-hero-media {
@@ -62,7 +62,7 @@
 .portfolio-hero-media-max {
   width: calc(var(--unit-width) - 60px);
   opacity: 1;
-  transition: width 0.5s, height 0.5s 0.5s;
+  transition: width 0.75s, height 0.5s 0.5s;
   margin: 0;
 }
 
