@@ -31,7 +31,7 @@ function CompanyAutoComplete(props: CompanyAutoCompleteProps) {
   async function searchResult(query: string) {
     const data = await fetchCompanyAutoComplete(query);
 
-    return data.map((item: any) => {
+    return data.map((item: any, idx: any) => {
       return {
         value: `${item.name}`,
         label: (
