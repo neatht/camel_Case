@@ -71,17 +71,6 @@
   }
 }
 
-@media only screen and (min-width: 1900px) {
-  :root {
-    --unit-col-num: 5;
-  }
-}
-
-@media only screen and (min-width: 2200px) {
-  :root {
-    --unit: 300px;
-  }
-}
 
 [data-theme='dark'] {
   --color-app: #ffffff;
