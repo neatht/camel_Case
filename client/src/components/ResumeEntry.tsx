@@ -520,21 +520,31 @@ function ResumeEntry(props: ResumeEntryProps) {
                       <div className="resume-entry-date">
                         {/** Add picture here... */}
                         {value.location ? (
-                          <span>
-                            <img
-                              src={`//logo.clearbit.com/${value.location}`}
-                              style={{ width: 75, height: 75 }}
-                              alt="logo"
-                            />
-                          </span>
+                          <span
+                            style={{
+                              width: 75,
+                              height: 75,
+                              backgroundImage: `url(//logo.clearbit.com/${value.location})`,
+                              backgroundSize: 'contain',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundPosition: 'center',
+                              border: 'solid 1px #00000011',
+                              borderRadius: '8px',
+                            }}
+                          ></span>
                         ) : (
-                          <span>
-                            <img
-                              src={`//logo.clearbit.com/${value.location}`}
-                              style={{ width: 75, height: 75 }}
-                              alt="logo"
-                            />
-                          </span>
+                          <span
+                            style={{
+                              width: 75,
+                              height: 75,
+                              backgroundImage: `url(//logo.clearbit.com/${value.location})`,
+                              backgroundSize: 'contain',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundPosition: 'center',
+                              border: 'solid 1px #00000011',
+                              borderRadius: '8px',
+                            }}
+                          ></span>
                         )}
                       </div>
 
