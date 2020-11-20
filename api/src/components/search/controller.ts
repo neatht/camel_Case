@@ -1,8 +1,6 @@
 import express from 'express';
-import { validationResult } from 'express-validator';
 import { searchProjectService, searchUserService } from './service';
 import dotenv from 'dotenv';
-import { Json } from 'sequelize/types/lib/utils';
 dotenv.config();
 
 /**
@@ -14,6 +12,27 @@ dotenv.config();
  */
 export const searchProject = async (req: any, res: express.Response, next: express.NextFunction) => {
   try {
+    // if query searching for all projects, then use cache
+    // const result = await cache.get(
+    //   'searchProjectService' + req.params.query.split(' ').join('%'),
+    //   async () => {
+    //     const queryResult = await searchProjectService(req, res, next);
+    //     const rows : object[] = [];
+
+    //     queryResult.rows.forEach((row : any) => {
+    //       const builtRow : object = {
+    //         project_id: row.project_id,
+    //         project_name: row.project_name,
+    //         author_first_name: row.first_name,
+    //         author_last_name: row.last_name,
+    //         user_id: row.user_id
+    //       };
+    //       rows.push(builtRow);
+    //     });
+
+    //     return rows;
+    // });
+
     const queryResult = await searchProjectService(req, res, next);
     const rows : object[] = [];
 
@@ -28,7 +47,7 @@ export const searchProject = async (req: any, res: express.Response, next: expre
       rows.push(builtRow);
     });
 
-
+    req.poolClient.release();
     res.status(200);
     return res.json(rows);
   } catch (err){
@@ -50,7 +69,7 @@ export const searchUser = async (req: any, res: express.Response, next: express.
 
     queryResult.rows.forEach((row : any) => {
       const builtRow : object = {
-        profile_id: row.project_id,
+        profile_id: row.user_id,
         first_name: row.first_name,
         last_name: row.last_name,
         profile_picture: 'PLACEHOLDER'
@@ -58,7 +77,7 @@ export const searchUser = async (req: any, res: express.Response, next: express.
       rows.push(builtRow);
     });
 
-
+    req.poolClient.release();
     res.status(200);
     return res.json(rows);
   } catch (err) {
@@ -99,6 +118,7 @@ export const search = async (req: any, res: express.Response, next: express.Next
       userRows.push(builtRow);
     });
 
+    req.poolClient.release();
     res.status(200);
     return res.json(projectRows.concat(userRows));
 

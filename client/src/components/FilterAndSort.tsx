@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Select, Space, Input, Tooltip, Button } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
-
-import Emoji from './Emoji';
 
 import './FilterAndSort.css';
 
 const { Option } = Select;
 
 type FilterAndSortProps = {
+  /** Function to be called when filter is applied */
   filterCallback: (filter: FilterCallbackObject) => void;
+  /** Comparison function used to sort the projects */
   sortCallback: (
     cmp: (a: PortfolioObjectSearchData, b: PortfolioObjectSearchData) => number
   ) => void;
+  /** Function to be called when clear is pressed */
   clearCallBack: Function;
+  openCallBack: Function;
 };
 
 type FilterCallbackObject = {
@@ -33,6 +35,11 @@ type PortfolioObjectSearchData = {
 
 function FilterAndSort(props: FilterAndSortProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    props.openCallBack(isOpen);
+    // eslint-disable-next-line
+  }, [isOpen]);
 
   function getCmp(
     option: 'mostPopular' | 'projectName' | 'authorName'
@@ -85,7 +92,15 @@ function FilterAndSort(props: FilterAndSortProps) {
   }
 
   if (!isOpen) {
-    return (
+    // return ();
+  }
+
+  return (
+    <div
+      className={`${
+        isOpen ? '' : 'filter-min'
+      } container-primary filter-and-sort`}
+    >
       <Tooltip
         title="Browse Options"
         placement="left"
@@ -95,89 +110,68 @@ function FilterAndSort(props: FilterAndSortProps) {
           <MenuOutlined />
         </div>
       </Tooltip>
-    );
-  }
+      <div className="filter-content">
+        <Space direction="vertical" style={{ width: 'calc(100%)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h4>
+              <strong>Filter</strong>
+            </h4>
+            <Tooltip title="Hide" placement="bottom">
+              <div
+                className="exit-button"
+                onClick={() => setIsOpen(!isOpen)}
+              ></div>
+            </Tooltip>
+          </div>
 
-  return (
-    <div className="container-primary filter-and-sort">
-      <Space direction="vertical" style={{ width: 'calc(100%)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Input
+            placeholder="Project name"
+            onChange={(e) => {
+              props.filterCallback(getFilter('projectName', e));
+            }}
+          />
+
+          <Input
+            placeholder="Author name"
+            onChange={(e) => {
+              props.filterCallback(getFilter('authorName', e));
+            }}
+          />
+        </Space>
+
+        <Space direction="vertical" style={{ width: 'calc(100%)' }}>
+          <br />
+
           <h4>
-            <strong>Filter</strong>
+            <strong>Sort</strong>
           </h4>
-          <Tooltip title="Hide" placement="bottom">
-            <div
-              className="exit-button"
-              onClick={() => setIsOpen(!isOpen)}
-            ></div>
-          </Tooltip>
-        </div>
 
-        {/*<Select
-          mode="multiple"
-          placeholder="Project type"
-          style={{ width: '100%' }}
-        >
-          <Option value="app">
-            <Emoji symbol="📱" /> App
-          </Option>
-          <Option value="website">
-            <Emoji symbol="🖥" /> Website
-          </Option>
-        </Select>*/}
-
-        <Input
-          placeholder="Project name"
-          onChange={(e) => {
-            props.filterCallback(getFilter('projectName', e));
-          }}
-        />
-
-        <Input
-          placeholder="Author name"
-          onChange={(e) => {
-            props.filterCallback(getFilter('authorName', e));
-          }}
-        />
-
-        {/*<Select mode="multiple" placeholder="Tag" style={{ width: '100%' }}>
-          <Option value="tag1">Tag 1</Option>
-          <Option value="tag2">Tag 2</Option>
-        </Select>*/}
-      </Space>
-
-      <Space direction="vertical" style={{ width: 'calc(100%)' }}>
-        <br />
-
-        <h4>
-          <strong>Sort</strong>
-        </h4>
-
-        <Select
-          defaultValue="mostPopular"
-          style={{ width: '100%' }}
-          onSelect={(option) => {
-            return props.sortCallback(getCmp(option));
-          }}
-        >
-          <Option value="mostPopular">Most Popular</Option>
-          <Option value="projectName">Project Name</Option>
-          <Option value="authorName">Author Name</Option>
-        </Select>
-      </Space>
-
-      <div className="filter-and-sort-buttons" style={{ paddingTop: 30 }}>
-        <Space direction="horizontal">
-          <Button onClick={() => {}}>Apply</Button>
-          <Button
-            onClick={() => {
-              setIsOpen(false);
-              props.clearCallBack();
+          <Select
+            defaultValue="mostPopular"
+            style={{ width: '100%' }}
+            onSelect={(option) => {
+              return props.sortCallback(getCmp(option));
             }}
           >
-            Clear
-          </Button>
+            <Option value="mostPopular">Most Popular</Option>
+            <Option value="projectName">Project Name</Option>
+            <Option value="authorName">Author Name</Option>
+          </Select>
         </Space>
+
+        <div className="filter-and-sort-buttons" style={{ paddingTop: 30 }}>
+          <Space direction="horizontal">
+            <Button onClick={() => {}}>Apply</Button>
+            <Button
+              onClick={() => {
+                setIsOpen(false);
+                props.clearCallBack();
+              }}
+            >
+              Clear
+            </Button>
+          </Space>
+        </div>
       </div>
     </div>
   );

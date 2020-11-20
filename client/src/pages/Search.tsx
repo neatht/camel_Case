@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 
 import Header from '../components/Header';
 import FilterAndSort from '../components/FilterAndSort';
@@ -7,6 +6,7 @@ import FilterAndSort from '../components/FilterAndSort';
 import Loading from '../components/Loading';
 import PortfolioGridSearch from '../components/PortfolioGridSearch';
 import { useParams } from 'react-router-dom';
+import NoResultsWarning from '../components/NoResultsWarning';
 
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
@@ -36,6 +36,7 @@ function Search() {
   console.log({ query });
 
   const [isFetching, setIsFetching] = useState(false);
+  const [isFilterAndSortOpen, setIsFilterAndSortOpen] = useState(false);
 
   const [searchData, setSearchData] = useState<
     Array<PortfolioObjectSearchData>
@@ -74,12 +75,10 @@ function Search() {
               return `${o.author_first_name} ${o.author_last_name}`
                 .toLowerCase()
                 .includes(val!.toLowerCase());
-              break;
             case 'project_name':
               return `${o.project_name}`
                 .toLowerCase()
                 .includes(val!.toLowerCase());
-              break;
           }
 
           return true;
@@ -146,6 +145,7 @@ function Search() {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   if (isFetching) {
@@ -153,10 +153,13 @@ function Search() {
   }
 
   return (
-    <div className="App">
+    <div className={`${isFilterAndSortOpen ? '' : 'grid-search'} App`}>
       <Header pageKey="search" />
 
-      <div className="grid-main-layout-primary">
+      <div
+        style={{ gridTemplateColumns: 'auto auto' }}
+        className="grid-main-layout-primary"
+      >
         <FilterAndSort
           sortCallback={(cmp) => {
             sortSearchData(cmp);
@@ -165,11 +168,14 @@ function Search() {
             filterSearchData(filter);
           }}
           clearCallBack={() => fetchData()}
+          openCallBack={(isOpen: boolean) => {
+            setIsFilterAndSortOpen(isOpen);
+          }}
         />
-        {isFetching || !searchData ? (
-          <Loading />
-        ) : (
+        {searchData && searchData.length !== 0 ? (
           <PortfolioGridSearch data={searchData} />
+        ) : (
+          <NoResultsWarning />
         )}
       </div>
     </div>

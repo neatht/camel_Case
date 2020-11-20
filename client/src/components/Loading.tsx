@@ -6,6 +6,7 @@ import './Loading.css';
 type LoadingProps = {
   /** Messages that will be shown to the user with spinners e.g. "Loading profile" */
   messages?: Array<string>;
+  /** Whether to show the loading spinners or not */
   spinners?: boolean;
 };
 

@@ -1,7 +1,6 @@
 .container-primary {
   background-color: var(--background-color-primary);
   border-radius: var(--border-radius-primary);
-  /* filter: var(--drop-shadow); */
   border: var(--border);
   box-shadow: var(--inner-shadow), var(--drop-shadow-dark), 0px 0px 0px 1px #00000000;
   padding: calc(2*var(--unit-margin));
@@ -20,6 +19,14 @@
   grid-template-columns: auto var(--unit-width);
   grid-gap: calc(2* var(--unit-margin));
   margin: var(--unit-margin) calc(4*var(--unit-margin));
+}
+
+.grid-search {
+  --unit: 380px;
+  --unit-width: calc(
+    var(--unit-col-num) * var(--unit) + var(--unit-col-num) * var(--unit-margin) -
+      var(--unit-margin)
+  );
 }
 
 

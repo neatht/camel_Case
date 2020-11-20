@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing ProfileSetupForm renders without crashing 1`] = `
+<div
+  className="profile-form"
+>
+  <ForwardRef(InternalForm)
+    initialValues={
+      Object {
+        "lookingForWork": true,
+        "public": true,
+        "publicLocation": true,
+        "remember": true,
+      }
+    }
+    name="basic"
+    onFinish={[Function]}
+  >
+    <h3>
+      <strong>
+        Personal Information
+      </strong>
+    </h3>
+    <FormItem
+      label="First Name"
+      name="firstName"
+      rules={
+        Array [
+          Object {
+            "max": 50,
+            "message": "Please enter your first name",
+            "required": true,
+          },
+        ]
+      }
+    >
+      <Input
+        type="text"
+      />
+    </FormItem>
+    <FormItem
+      label="Last Name"
+      name="lastName"
+      rules={
+        Array [
+          Object {
+            "max": 50,
+            "message": "Please enter your last name",
+            "required": true,
+          },
+        ]
+      }
+    >
+      <Input
+        type="text"
+      />
+    </FormItem>
+    <FormItem
+      label="Gender"
+      name="gender"
+      rules={
+        Array [
+          Object {
+            "message": "Please enter your gender or select prefer not to say",
+            "required": true,
+          },
+        ]
+      }
+    >
+      <Select
+        bordered={true}
+        choiceTransitionName=""
+        transitionName="slide-up"
+      >
+        <Option
+          value="male"
+        >
+          <Emoji
+            symbol="👨‍💼"
+          />
+          Male
+        </Option>
+        <Option
+          value="female"
+        >
+          <Emoji
+            symbol="👩‍💼"
+          />
+          Female
+        </Option>
+        <Option
+          value="other"
+        >
+          <Emoji
+            symbol="🧑‍💼"
+          />
+          Other / Prefer not to say
+        </Option>
+      </Select>
+    </FormItem>
+    <h3>
+      <strong>
+        Profile Information
+      </strong>
+    </h3>
+    <FormItem
+      label="Profile Privacy"
+      name="public"
+      valuePropName="checked"
+    >
+      <Switch
+        checkedChildren={
+          <React.Fragment>
+            <Emoji
+              symbol="🌏"
+            />
+             Public
+          </React.Fragment>
+        }
+        unCheckedChildren={
+          <React.Fragment>
+            <Emoji
+              symbol="⛔️"
+            />
+             Private
+          </React.Fragment>
+        }
+      />
+    </FormItem>
+    <FormItem
+      label="Show your location"
+      name="publicLocation"
+      valuePropName="checked"
+    >
+      <Switch
+        checkedChildren={
+          <React.Fragment>
+            <Emoji
+              symbol="🌏"
+            />
+             Public
+          </React.Fragment>
+        }
+        unCheckedChildren={
+          <React.Fragment>
+            <Emoji
+              symbol="⛔️"
+            />
+             Private
+          </React.Fragment>
+        }
+      />
+    </FormItem>
+    <FormItem
+      label="Work Status"
+      name="lookingForWork"
+      valuePropName="checked"
+    >
+      <Switch
+        checkedChildren={
+          <React.Fragment>
+            <Emoji
+              symbol="✅"
+            />
+             Looking for work
+          </React.Fragment>
+        }
+        unCheckedChildren={
+          <React.Fragment>
+            <Emoji
+              symbol="❌"
+            />
+             Not looking for work
+          </React.Fragment>
+        }
+      />
+    </FormItem>
+    <FormItem>
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="submit"
+        loading={false}
+        type="primary"
+      >
+        Submit
+      </Button>
+    </FormItem>
+  </ForwardRef(InternalForm)>
+</div>
+`;

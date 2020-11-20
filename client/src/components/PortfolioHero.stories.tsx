@@ -12,7 +12,9 @@ const Template: Story<any> = (args) => <PortfolioHero {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  isOpen: false,
+  isOpen: true,
   isMyProfile: false,
-  id: '',
+  projectID: '53',
+  userID: '5f954a93aeac5f006f9750c2',
+  new: false,
 };

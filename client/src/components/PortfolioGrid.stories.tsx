@@ -12,4 +12,6 @@ export default {
 const Template: Story<any> = (args) => <PortfolioGrid {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  userID: '5f954a93aeac5f006f9750c2',
+};

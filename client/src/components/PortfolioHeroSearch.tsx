@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 
 import './PortfolioHero.css';
-import { EditOutlined } from '@ant-design/icons';
 import placeholderFolioImage from '../placeholder-folio-image.png';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { Tooltip } from 'antd';
-import Uploader from './Uploader';
 
 const API_URL = process.env.REACT_APP_API_URL
   ? process.env.REACT_APP_API_URL
@@ -31,18 +26,11 @@ type PortfolioHeroData = {
 };
 
 function PortfolioHeroSearch(props: PortfolioHeroProps) {
-  const [editing, setEditing] = useState(false);
-  const [editingState, setEditingState] = useState(false);
   const [slide, setSlide] = useState(0);
 
   const [media, setMedia] = useState<PortfolioHeroData[]>();
 
-  const isMyProfile = false;
-
-  // const [isLoading, setIsLoading] = useState(true);
-
   async function fetchData(): Promise<void> {
-    // setIsLoading(true);
     console.log('fetching media');
     // If there is no userID, fetch own profile
     const route = `project/media/${props.userID}/${props.projectID}`;
@@ -64,9 +52,6 @@ function PortfolioHeroSearch(props: PortfolioHeroProps) {
 
       setMedia(data);
     } catch (e) {
-      // if (setIsLoading) {
-      //   setIsLoading(false);
-      // }
       const res = {
         status: 'error',
         message: [
@@ -81,14 +66,14 @@ function PortfolioHeroSearch(props: PortfolioHeroProps) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, [props.projectID]);
 
   if (props.isOpen) {
     return (
       <div
         className={`portfolio-hero  ${
-          (editing ? 'portfolio-hero-edit container-scroll' : '') +
-          (!media || media?.length === 0 ? ' container-media ' : '')
+          '' + (!media || media?.length === 0 ? ' container-media ' : '')
         }`}
       >
         {media && media.length > 1 ? (

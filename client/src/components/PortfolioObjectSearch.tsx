@@ -6,7 +6,6 @@ import PortfolioHeroSearch from './PortfolioHeroSearch';
 import './PortfolioObject.css';
 import TextInput from './TextInput';
 import { useRef } from 'react';
-import { Select } from 'antd';
 import {
   CalendarOutlined,
   LineOutlined,
@@ -125,6 +124,7 @@ function PortfolioObjectSearch(props: PortfolioObjectProps) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   if (isLoading) {
@@ -220,13 +220,14 @@ function PortfolioObjectSearch(props: PortfolioObjectProps) {
               </li>
               <li>
                 <LinkOutlined />{' '}
-                <a target="_blank" href={portfolioData?.link}>
+                <a
+                  target="_blank"
+                  href={portfolioData?.link}
+                  rel="noopener noreferrer"
+                >
                   {portfolioData?.link ? formatLink(portfolioData?.link) : null}
                 </a>
               </li>
-              {/* <li>
-                    <EyeOutlined /> {props.data.views}
-                  </li> */}
             </ul>
             <div style={{ textAlign: 'center' }}></div>
           </div>

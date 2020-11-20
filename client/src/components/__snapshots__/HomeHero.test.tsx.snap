@@ -42,18 +42,10 @@ exports[`Testing HomeHero renders without crashing 1`] = `
           }
         }
       >
-        <Emoji
-          resize={false}
-          symbol="🛰️"
-        />
-        <br />
         <strong>
           Glowbal
         </strong>
       </h1>
-      <p>
-         Showcase your best work by creating a profile and...
-      </p>
       <Button
         block={false}
         ghost={false}
@@ -67,6 +59,7 @@ exports[`Testing HomeHero renders without crashing 1`] = `
           className="rocket"
         >
           <Emoji
+            resize={false}
             symbol="🚀"
           />
         </span>

@@ -105,7 +105,7 @@ export const getOwnDisplayPhoto = async (req: any, res: express.Response, next: 
       res.status(404);
       return res.json({
         status: 'error',
-        message: 'Profile does not exist.'
+        message: 'Profile does not exist'
       });
     }
 
@@ -132,7 +132,7 @@ export const getDisplayPhotoById = async (req: any, res: express.Response, next:
       res.status(404);
       return res.json({
         status: 'error',
-        message: 'Profile does not exist.'
+        message: 'Profile does not exist'
       });
     }
 
