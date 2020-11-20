@@ -1,21 +1,150 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing FilterAndSort renders without crashing 1`] = `
-<Tooltip
-  arrowPointAtCenter={false}
-  autoAdjustOverflow={true}
-  mouseEnterDelay={0.1}
-  mouseLeaveDelay={0.1}
-  placement="left"
-  title="Browse Options"
-  transitionName="zoom-big-fast"
-  trigger="hover"
+<div
+  className="filter-min container-primary filter-and-sort"
 >
-  <div
-    className="floating-hamburger"
-    onClick={[Function]}
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="left"
+    title="Browse Options"
+    transitionName="zoom-big-fast"
+    trigger="hover"
   >
-    <ForwardRef(MenuOutlined) />
+    <div
+      className="floating-hamburger"
+      onClick={[Function]}
+    >
+      <ForwardRef(MenuOutlined) />
+    </div>
+  </Tooltip>
+  <div
+    className="filter-content"
+  >
+    <Space
+      direction="vertical"
+      style={
+        Object {
+          "width": "calc(100%)",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <h4>
+          <strong>
+            Filter
+          </strong>
+        </h4>
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="bottom"
+          title="Hide"
+          transitionName="zoom-big-fast"
+        >
+          <div
+            className="exit-button"
+            onClick={[Function]}
+          />
+        </Tooltip>
+      </div>
+      <Input
+        onChange={[Function]}
+        placeholder="Project name"
+        type="text"
+      />
+      <Input
+        onChange={[Function]}
+        placeholder="Author name"
+        type="text"
+      />
+    </Space>
+    <Space
+      direction="vertical"
+      style={
+        Object {
+          "width": "calc(100%)",
+        }
+      }
+    >
+      <br />
+      <h4>
+        <strong>
+          Sort
+        </strong>
+      </h4>
+      <Select
+        bordered={true}
+        choiceTransitionName=""
+        defaultValue="mostPopular"
+        onSelect={[Function]}
+        style={
+          Object {
+            "width": "100%",
+          }
+        }
+        transitionName="slide-up"
+      >
+        <Option
+          value="mostPopular"
+        >
+          Most Popular
+        </Option>
+        <Option
+          value="projectName"
+        >
+          Project Name
+        </Option>
+        <Option
+          value="authorName"
+        >
+          Author Name
+        </Option>
+      </Select>
+    </Space>
+    <div
+      className="filter-and-sort-buttons"
+      style={
+        Object {
+          "paddingTop": 30,
+        }
+      }
+    >
+      <Space
+        direction="horizontal"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          Apply
+        </Button>
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+        >
+          Clear
+        </Button>
+      </Space>
+    </div>
   </div>
-</Tooltip>
+</div>
 `;

@@ -28,11 +28,17 @@ type PortfolioObjectData = {
 };
 
 type PortfolioObjectProps = {
+  /** Project information to be displayed */
   data: PortfolioObjectData;
+  /** Callback function when the project is opened */
   portfolioObjectOpen: any;
+  /** Whether or not the user owns the project (editable) */
   isMyProfile: boolean;
+  /** Whether the project was just created or not */
   new: boolean;
+  /** Callback function when data is changed */
   setData: (d: PortfolioObjectData) => void;
+  /** Callback function when data is deleted */
   delData: (d: PortfolioObjectData) => void;
 };
 
@@ -65,6 +71,7 @@ function PortfolioObject(props: PortfolioObjectProps) {
     if (containerPrimaryRef.current !== null) {
       containerPrimaryRef.current.scrollTop = 0;
     }
+    // eslint-disable-next-line
   }, []);
 
   const formatLink = (link: string) => {
@@ -110,7 +117,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
           setNewEntry(false);
         }}
         className={`${newEntry ? 'save-button' : 'exit-button'}`}
-        // className={`${'exit-button'}`}
       ></div>
 
       <div className="portfolio-title">
@@ -134,22 +140,17 @@ function PortfolioObject(props: PortfolioObjectProps) {
         projectID={props.data.projectID}
         isOpen={!thumbnail}
         isMyProfile={props.isMyProfile}
+        userID={props.data.userID}
       />
       <div className="portfolio-object-overlay">
         <div className="portfolio-meta">
           <h4>
             <strong>{props.data.projectName}</strong>
           </h4>
-          {/* <h5>{props.data.author}</h5> */}
         </div>
       </div>
       <div className="portfolio-object-body">
         <div>
-          {/* <AuthorBadge author={props.data.author} tagline="Author Tagline" /> */}
-          {/* <AuthorBadge
-            author={props.data.author}
-            tagline="Computer Science Student at the University of Melbourne"
-          /> */}
           <br />
           <div style={{ marginLeft: '-10px', marginTop: '-10px' }}>
             <TextInput
@@ -191,7 +192,6 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   <Option value="video">video</Option>
                   <Option value="audio">audio</Option>
                   <Option value="presentation">presentation</Option>
-                  {/* value={props.data.type} */}
                 </Select>
               ) : (
                 <div
@@ -253,7 +253,11 @@ function PortfolioObject(props: PortfolioObjectProps) {
                   />
                 </div>
               ) : (
-                <a target="_blank" href={props.data.link}>
+                <a
+                  target="_blank"
+                  href={props.data.link}
+                  rel="noopener noreferrer"
+                >
                   {props.data.link ? formatLink(props.data.link) : null}
                 </a>
               )}

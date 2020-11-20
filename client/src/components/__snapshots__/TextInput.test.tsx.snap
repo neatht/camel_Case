@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing TextInput renders without crashing 1`] = `
+<div
+  className="text-input"
+  onClick={[Function]}
+  style={
+    Object {
+      "borderRadius": undefined,
+      "padding": undefined,
+    }
+  }
+>
+  <div
+    className=""
+  >
+    <span
+      className="placeholder"
+    />
+  </div>
+  <div
+    className="text-input-display-none"
+  >
+    <input
+      onBlur={[Function]}
+      onChange={[Function]}
+      placeholder=""
+      type="text"
+    />
+  </div>
+</div>
+`;

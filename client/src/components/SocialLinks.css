@@ -1,5 +1,5 @@
 .socialLinks {
-  border-left: #000 1px solid;
+  border-left: var(--color-app) 1px solid;
   padding-left: 5px !important;
   margin-left: 5px;
   /* margin-top: -3px; */
@@ -7,7 +7,7 @@
 }
 
 .socialLinks a {
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--color-app);
 }
 
 .socialLinks ul {
@@ -32,7 +32,7 @@
 
 .skills-add {
   background-color: var(--background-color-primary) !important;
-  box-shadow: var(--inner-shadow), 0px 0px 0px 3px #fff, var(--drop-shadow) !important;
+  box-shadow: var(--inner-shadow), 0px 0px 0px 3px var(--border-color), var(--drop-shadow) !important;
 }
 
 .ant-popover {

@@ -38,6 +38,17 @@ exports[`Testing AuthorBadge renders without crashing 1`] = `
         tagline
       </h5>
     </div>
+    <div
+      className="gotoProfile"
+    >
+      <ForwardRef(RightOutlined)
+        style={
+          Object {
+            "color": "grey",
+          }
+        }
+      />
+    </div>
   </div>
 </Link>
 `;

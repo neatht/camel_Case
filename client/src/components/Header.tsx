@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { NavLink, Link, Redirect, useHistory } from 'react-router-dom';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 
-import { PageHeader, Menu, Input, Space } from 'antd';
+import { PageHeader, Menu, Input, Space, Tooltip } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
 import './Header.css';
 import LoginButton from './LoginButton';
-import Emoji from './Emoji';
+
+import '../css/theme.css';
+import '../css/base.css';
+import '../css/layout.css';
 
 const { Search } = Input;
 
@@ -19,6 +22,7 @@ type MenuClickEvent = {
 };
 
 type HeaderProps = {
+  /** Name of the tab that is selected - 'home' or 'profile' */
   pageKey: string;
 };
 
@@ -39,8 +43,14 @@ export function Header({ pageKey }: HeaderProps) {
           title={
             <Link to="/" className="navTitle">
               {' '}
-              <div style={{ fontSize: '1.2em' }} className="gradient">
-                <Emoji symbol="🛰️" resize={false} /> <strong>Glowbal</strong>
+              <div
+                style={{
+                  fontSize: '1.2em',
+                  marginLeft: '40px',
+                }}
+                className="gradient"
+              >
+                <strong>Glowbal</strong>
               </div>
             </Link>
           }
@@ -76,24 +86,24 @@ export function Header({ pageKey }: HeaderProps) {
             <NavLink exact to="/profile">
               Profile
             </NavLink>{' '}
-            {/* TODO: Protected route once authentication is set up */}
           </Menu.Item>
-
-          {/*<Menu.Item
-            key="tests"
-            icon={
-              <span role="img" aria-hidden="true">
-                🧪
-              </span>
-            }
-          >
-            <NavLink exact to="/tests">
-              Tests
-            </NavLink>{' '}
-          </Menu.Item>*/}
         </Menu>
 
         <Space style={{ marginLeft: 'auto', marginRight: '20px' }}>
+          <Tooltip title="Toggle Dark Mode">
+            <div
+              className="toggle-dark-mode gradient"
+              onClick={() => {
+                if (
+                  document.documentElement.getAttribute('data-theme') === 'dark'
+                )
+                  document.documentElement.setAttribute('data-theme', 'light');
+                else
+                  document.documentElement.setAttribute('data-theme', 'dark');
+              }}
+            ></div>
+          </Tooltip>
+          {'  '}
           <Search
             style={{ width: 300 }}
             enterButton
@@ -101,7 +111,6 @@ export function Header({ pageKey }: HeaderProps) {
               history.push(`/search/${value}`);
             }}
           />
-          {/*<Avatar icon={<UserOutlined/>} />*/}
           <LoginButton />
         </Space>
       </header>

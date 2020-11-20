@@ -3,13 +3,21 @@ import React, { useRef, useState } from 'react';
 import './TextInput.css';
 
 type TextInputProps = {
+  /** Text inside the text field */
   text?: string;
+  /** Text to show when there is no text */
   placeholder?: string;
+  /** CSS padding in px for the tex */
   padding?: string;
+  /** CSS radius  */
   radius?: string;
+  /** Whether the TextInput can be changed or just diplayed */
   editable?: boolean;
+  /** Whether the TextInput can have multiple lines */
   multiline?: boolean;
+  /** Maximum length of the TextInput */
   maxLen?: number;
+  /** Callback function when the text field changes */
   onChange: Function;
 };
 
@@ -46,11 +54,13 @@ function TextInput(props: TextInputProps) {
           : 'text-input'
       }
       onClick={() => {
-        if (props.editable) {
+        if (props.editable && !editing) {
           setText(props.text);
           setEditing(true);
           if (inputRef.current !== null && displayTextRef.current !== null) {
-            setTimeout(() => inputRef.current.focus(), 50);
+            setTimeout(() => {
+              if (inputRef.current !== null) inputRef.current.focus();
+            }, 50);
 
             let width = displayTextRef.current.offsetWidth;
             if (width > 0) {

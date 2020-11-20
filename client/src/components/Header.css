@@ -1,6 +1,9 @@
 header {
   display: flex;
-  /* font-weight: bold; */
+  background-image: url(../logo-rocket.svg);
+  background-repeat: no-repeat;
+  background-position: 15px;
+  background-size: 48px;
 }
 
 header ul {
@@ -13,6 +16,19 @@ a.navTitle {
   color: rgba(0, 0, 0, 0.85);
 }
 
+.toggle-dark-mode {
+  border-radius: 100px;
+  padding: 8px;
+  box-shadow: var(--drop-shadow);
+  cursor: pointer;
+}
+.toggle-dark-mode::before {
+  content: '🌙';
+}
+[data-theme='dark'] .toggle-dark-mode::before {
+  content: '☀️';
+}
+
 .ant-input-group > .ant-input:first-child,
 .ant-input-group-addon:first-child {
   height: 40px;
@@ -20,7 +36,7 @@ a.navTitle {
   border: var(--border);
   box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.1), var(--drop-shadow);
   background-color: rgba(0, 0, 0, 0.03);
-  /* box-shadow: var(--drop-shadow); */
+  color: var(--color-app) !important;
 }
 
 button.ant-btn.ant-btn-primary.ant-input-search-button {
@@ -34,16 +50,10 @@ button.ant-btn.ant-btn-primary.ant-input-search-button {
   border-bottom-right-radius: 100px;
 }
 
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected {
+.ant-menu {
   border-color: var(--color-primary) !important;
-  color: var(--color-primary);
+  color: var(--color-primary) !important;
+  background-color: var(--background-color-app);
 }
 .ant-menu-horizontal > .ant-menu-item-selected a {
   background: var(--color-app);
@@ -51,4 +61,8 @@ button.ant-btn.ant-btn-primary.ant-input-search-button {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: var(--drop-shadow);
+}
+
+.ant-menu-horizontal a {
+  color: var(--color-app) !important;
 }

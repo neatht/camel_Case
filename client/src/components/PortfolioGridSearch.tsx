@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import PortfolioObjectSearch from './PortfolioObjectSearch';
 
 import './PortfolioGrid.css';
-
-const API_URL = process.env.REACT_APP_API_URL
-  ? process.env.REACT_APP_API_URL
-  : 'https://localhost:5000/api/';
 
 type PortfolioGridSearchProps = {
   data: Array<PortfolioObjectSearchData>;
@@ -39,7 +35,7 @@ function PortfolioGridSearch(props: PortfolioGridSearchProps) {
           {props.data.map((portfolioData, index) => {
             return (
               <PortfolioObjectSearch
-                key={index}
+                key={portfolioData.project_id}
                 data={portfolioData}
                 portfolioObjectOpen={openPortfolioObject}
               />

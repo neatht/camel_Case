@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing NoResultsWarning renders without crashing 1`] = `
+<div
+  className="no-results-warning"
+>
+  <Result
+    status="warning"
+    title="No results found"
+  />
+</div>
+`;

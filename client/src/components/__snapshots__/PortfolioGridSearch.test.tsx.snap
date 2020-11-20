@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing PortfolioGridSearch renders home without crashing 1`] = `
+<div
+  className=""
+>
+  <div
+    className="grid"
+  >
+    <PortfolioObjectSearch
+      data={
+        Object {
+          "author_first_name": "Alex",
+          "author_last_name": "Shepard",
+          "project_id": "58",
+          "project_name": "Cards",
+          "user_id": "5f954a93aeac5f006f9750c2",
+        }
+      }
+      key="58"
+      portfolioObjectOpen={[Function]}
+    />
+    <PortfolioObjectSearch
+      data={
+        Object {
+          "author_first_name": "Alex",
+          "author_last_name": "Shepard",
+          "project_id": "53",
+          "project_name": "Breed App",
+          "user_id": "5f954a93aeac5f006f9750c2",
+        }
+      }
+      key="53"
+      portfolioObjectOpen={[Function]}
+    />
+  </div>
+</div>
+`;

@@ -13,10 +13,15 @@ const API_URL = process.env.REACT_APP_API_URL
   : 'https://localhost:5000/api/';
 
 type PortfolioHeroProps = {
+  /** Whether the project is open or not */
   isOpen: boolean;
+  /** Whether the profile is editable */
   isMyProfile: boolean;
+  /** The projectID to fetch information from */
   projectID?: string;
+  /** The userID associated with the projectID */
   userID?: string;
+  /** Whether the project has just been created or not */
   new: boolean;
 };
 
@@ -30,16 +35,14 @@ type PortfolioHeroData = {
 };
 
 function PortfolioHero(props: PortfolioHeroProps) {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [editing, setEditing] = useState(false);
   const [editingState, setEditingState] = useState(false);
   const [slide, setSlide] = useState(0);
 
   const [media, setMedia] = useState<PortfolioHeroData[]>();
 
-  const isMyProfile = !props.userID ? true : false;
-
-  // const [isLoading, setIsLoading] = useState(true);
+  const isMyProfile = props.isMyProfile;
 
   async function fetchData(): Promise<void> {
     // setIsLoading(true);
@@ -50,7 +53,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
       : `project/media/${props.userID}/${props.projectID}`;
     console.log({ route });
     try {
-      const token = await getAccessTokenSilently();
+      const token = isAuthenticated ? await getAccessTokenSilently() : '';
       const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -71,9 +74,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
       setMedia(data);
     } catch (e) {
-      // if (setIsLoading) {
-      //   setIsLoading(false);
-      // }
       const res = {
         status: 'error',
         message: [
@@ -82,7 +82,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
   }
 
@@ -112,6 +111,7 @@ function PortfolioHero(props: PortfolioHeroProps) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, [props.projectID]);
 
   if (props.isOpen) {
@@ -138,9 +138,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                     setEditing(false);
                   }
                 }}
-                // onMouseUp={() => {
-                //   setEditing(!editing);
-                // }}
                 className="display-top-right container-secondary"
               >
                 <EditOutlined />
@@ -217,7 +214,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                   newMedia.splice(source.index, 1);
                   newMedia.splice(destination.index, 0, movedMedia);
                   setMedia(newMedia);
-                  // saveData();
                 }
               }}
             >
@@ -276,8 +272,6 @@ function PortfolioHero(props: PortfolioHeroProps) {
                                               const newMedia = [...media];
                                               newMedia.splice(index, 1);
                                               setMedia(newMedia);
-                                              // saveData();
-                                              // Remove
                                             }}
                                           ></div>
                                         </Tooltip>

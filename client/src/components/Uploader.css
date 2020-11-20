@@ -14,14 +14,11 @@
   background: var(--btn-gradient);
   border-radius: 30px;
 
-  /* margin-left: calc(var(--unit-width) - 56px); */
   transition: opacity 0.3s, width 0.3s, background 0.3s;
 
   cursor: pointer;
   opacity: 0;
   position: absolute;
-  /* top: calc(100% - 110px); */
-  /* width: 40px; */
   text-align: center;
   transform: translate(50%);
   right: 50%;

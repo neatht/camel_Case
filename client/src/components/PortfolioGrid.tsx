@@ -28,7 +28,7 @@ type PortfolioObjectData = {
 };
 
 function PortfolioGrid(props: PortfolioGridProps) {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [portfolioGridData, setPortfolioGridData] = useState<
     Array<PortfolioObjectData>
   >([]);
@@ -40,15 +40,13 @@ function PortfolioGrid(props: PortfolioGridProps) {
   const [newEntry, setNewEntry] = useState(false);
 
   async function fetchData(): Promise<void> {
-    // setIsLoading(true);
-
     // If there is no userID, fetch own profile
     const route = isMyProfile
       ? 'project/getOwnProjects'
       : `project/${props.userID}`;
 
     try {
-      const token = await getAccessTokenSilently();
+      const token = isAuthenticated ? await getAccessTokenSilently() : '';
       const res = await fetch(API_URL + route, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,7 +64,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
       const data = 'data' in resBody ? resBody['data'] : {};
 
       // Set profile data (empty object if invalid)
-      // TODO: Could add warning?
       console.log('setting PortfolioGridData...', { data });
 
       data.sort((a: PortfolioObjectData, b: PortfolioObjectData) => {
@@ -90,7 +87,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
   }
 
@@ -98,8 +94,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
     action: string,
     updatePortfolioGridData: PortfolioObjectData
   ): Promise<void> {
-    //setIsLoading(true);
-
     // If there is no userID, fetch own profile
     const route = 'project';
 
@@ -123,8 +117,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
         return;
       }
       console.log('updated successfully?', res.ok, res.statusText);
-      // fetchData();
-      // setIsLoading(false);
     } catch (e) {
       if (setIsLoading) {
         setIsLoading(false);
@@ -137,13 +129,13 @@ function PortfolioGrid(props: PortfolioGridProps) {
         ],
       };
       console.error(res, e);
-      //return res;
     }
     fetchData();
   }
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   const [portfolioObjectOpen, setPortfolioObjectOpen] = useState(false);
@@ -177,7 +169,6 @@ function PortfolioGrid(props: PortfolioGridProps) {
                 const newPortfolioGridData = [...portfolioGridData];
                 newPortfolioGridData.push(newData);
                 saveData('POST', newData);
-                // setPortfolioGridData(newPortfolioGridData);
                 setNewEntry(true);
               }}
             >
@@ -191,6 +182,7 @@ function PortfolioGrid(props: PortfolioGridProps) {
           {portfolioGridData.map((value, index) => {
             return (
               <PortfolioObject
+                key={value.projectID}
                 data={value}
                 new={
                   newEntry && index + 1 === portfolioGridData.length

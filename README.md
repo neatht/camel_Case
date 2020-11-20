@@ -1,4 +1,9 @@
-<h1 align="center">🛰️<br>Glowbal</h1>
+
+<h1 align="center">
+	<img width="100px" src="client/src/logo-rocket.svg"></img>
+	<br>
+	Glowbal
+</h1>
 
 <div align="center">
     <strong>An ePortfolio web app built on React and Express</strong>
@@ -30,13 +35,62 @@
 
 These instructions will help you get a copy of the project up and running for development and testing. This project runs on an Express backend and React frontend with TypeScript. You will need `npm` and `yarn` installed to start.
 
+#### 🤫 Environment Variables
+
+Both the frontend and backend make use of environment variables that will need to be present out before building.
+
+In both the `client` and `api` directories, there is an example `.example.env` which should be filled out and renamed to `.env`
+
+`api/.env`
+
+```
+# Server settings
+NODE_ENV=development
+SERVER_PORT=5000
+
+# Authentication settings
+EMAIL_KEY=https://example.com/email
+AUTH0_AUDIENCE=
+AUTH0_ISSUER=
+JWKS_URI=
+
+# SSL settings
+SSL_CRT_FILE=../server.cert
+SSL_KEY_FILE=../server.key
+
+# Database settings
+DB_ENDPOINT=
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
+
+# AWS
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_BUCKET_NAME=
+```
+
+`client/.env`
+```
+# API settings
+REACT_APP_API_URL=https://localhost:5000/api/
+
+# Authentication settings
+REACT_APP_AUTH0_DOMAIN=
+REACT_APP_AUTH0_CLIENT_ID=
+REACT_AUDIENCE=
+```
+
+The keys used in the default deployment can be found in the #keys channel in Slack.
+
 #### :lock: SSL certificate
-Before building either servers, you will need an SSL certificate. 
+Before running the API, you will need an SSL certificate. 
+
 In the root directory, start by creating a certificate:
 ```
 openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.cert -days 365 -nodes
 ```
-To specify the certificates, in both `client` and `api`, add the following lines to the `.env`:
+To specify the certificates, in `api`, add the following lines to the `.env`:
 ```
 SSL_CRT_FILE=../server.cert
 SSL_KEY_FILE=../server.key
@@ -113,6 +167,8 @@ In should open automatically, however the app can be found at:
 ```
 localhost:6006
 ```
+
+Note that some components will require the use of the API so you should also run the API server locally at the same time
 
 ### :computer: API: Stoplight
 

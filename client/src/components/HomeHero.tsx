@@ -15,14 +15,12 @@ function HomeHero() {
     <>
       {isOpen ? (
         <div className="home-hero">
-          {/* <div className="toggle-home-hero" onClick={() => setIsOpen(!isOpen)}> */}
           <Tooltip title="Hide" placement="bottom">
             <div
               className="toggle-home-hero exit-button"
               onClick={() => setIsOpen(!isOpen)}
             ></div>
           </Tooltip>
-          {/* </div> */}
 
           <div
             className="home-CTA"
@@ -36,18 +34,16 @@ function HomeHero() {
             }}
           >
             <h1 style={{ fontSize: '3.5em' }} className="gradient">
-              <Emoji symbol="🛰️" resize={false} />
-              <br />
               <strong>Glowbal</strong>
             </h1>
 
             {!isAuthenticated ? (
               <>
-                <p> Showcase your best work by creating a profile and...</p>
+                {/* <p> Showcase your best work by creating a profile and...</p> */}
                 <Button type="primary" onClick={() => loginWithRedirect()}>
                   {' '}
                   <span className="rocket">
-                    <Emoji symbol="🚀" />
+                    <Emoji symbol="🚀" resize={false} />
                   </span>{' '}
                   <strong className="rocket">Get Discovered</strong>
                 </Button>

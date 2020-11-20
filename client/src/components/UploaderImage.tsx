@@ -1,11 +1,5 @@
-import {
-  EditOutlined,
-  FileImageOutlined,
-  FilePdfOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Tooltip, Upload } from 'antd';
-import { stringType } from 'aws-sdk/clients/iam';
+import { EditOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 
 import './UploaderImage.css';
@@ -16,14 +10,10 @@ type TextInputProps = {
 
 function UploaderImage(props: TextInputProps) {
   const [type, setType] = useState<string>('');
-  // const [editing, setEditing] = useState(false);
   const inputRef = useRef<any>(null);
-  // const displayTextRef = useRef<any>(null);
 
   return (
     <div>
-      {/* <embed src={text} width="100px" height="100px" /> */}
-      {/* <img src={text} width="100px" height="100px"></img> */}
       <input
         style={{ display: 'none' }}
         ref={inputRef}

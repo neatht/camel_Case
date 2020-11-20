@@ -9,7 +9,7 @@ type CompanyAutoCompleteProps = {
   onSelect?: (value: string) => void;
   /** Callback function for when the input field is changed */
   onChange?: (value: string) => void;
-  //** Initial value for the input field */
+  /** Initial value for the input field */
   initialValue?: string;
   /** Placeholder value for the input field*/
   placeholder?: string;

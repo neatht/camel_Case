@@ -3,8 +3,7 @@ import {
   FilePdfOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Tooltip, Upload } from 'antd';
-import { stringType } from 'aws-sdk/clients/iam';
+import { Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 
 import './Uploader.css';
@@ -21,13 +20,10 @@ function Uploader(props: TextInputProps) {
 
   return (
     <div>
-      {/* <embed src={text} width="100px" height="100px" /> */}
-      {/* <img src={text} width="100px" height="100px"></img> */}
       <input
         style={{ display: 'none' }}
         ref={inputRef}
         onChange={() => {
-          // inputRef.current.files[0].name;
           const file = inputRef.current.files[0];
           console.log(file);
           const reader = new FileReader();
@@ -35,7 +31,6 @@ function Uploader(props: TextInputProps) {
             'load',
             () => {
               // convert image file to base64 string
-              console.log(reader.result?.toString());
               const fileType = file.type ? file.type : file.name.split('.')[1];
               props.onUpload(reader.result, fileType, type);
             },

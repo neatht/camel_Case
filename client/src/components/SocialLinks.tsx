@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Popover, Space, Spin, Tooltip } from 'antd';
+import { Popover, Spin, Tooltip } from 'antd';
 import {
   BehanceCircleFilled,
   TwitterCircleFilled,
@@ -10,18 +10,18 @@ import {
   FacebookFilled,
   InstagramFilled,
   GlobalOutlined,
-  LineOutlined,
   EditOutlined,
-  //MessageFilled,
 } from '@ant-design/icons';
 
 import './SocialLinks.css';
-import { string } from 'prop-types';
 import TextInput from './TextInput';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const API_URL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : 'https://localhost:5000/api/';
 
 const SOCIAL_LINK_ICON: { [socialType: string]: JSX.Element } = {
-  //phoneNumber: <Space />,
-  // emailAddress: <MessageFilled />,
   'github.com': <GithubFilled />,
   'twitter.com': <TwitterCircleFilled />,
   'behance.com': <BehanceCircleFilled />,
@@ -31,41 +31,150 @@ const SOCIAL_LINK_ICON: { [socialType: string]: JSX.Element } = {
   'instagram.com': <InstagramFilled />,
 };
 
-type SocialLinksData = {
-  entries: string[];
-};
+type SocialLinksData = string[];
 
 type SocialLinksProps = {
+  /** userID to fetch social links from */
   userID?: string;
+  /** Whether the links can be edited */
   isMyProfile: boolean;
 };
 
 function SocialLinks(props: SocialLinksProps) {
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [data, setData] = useState<SocialLinksData>();
+  const [links, setLinks] = useState<SocialLinksData>();
 
-  // EDIT ME
   async function fetchData(): Promise<void> {
-    setData({
-      entries: [
-        //"phoneNumber": '0492837116',
-        // "emailAddress": 'mailto:email@example.com',
-        //'https://www.github.com',
-        // 'https://www.twitter.com',
-        //'https://www.behance.com',
-        //'https://www.dribbble.com',
-        //'https://www.linkedin.com',
-        // 'https://www.facebook.com',
-        // 'https://www.instagram.com',
-        // 'https://www.google.com',
-      ],
-    });
-    setIsLoading(false);
+    //setIsLoading(true);
+
+    // If there is no userID, fetch own profile
+    const route = props.isMyProfile ? 'links' : `links/${props.userID}`;
+
+    // Call API
+    try {
+      const token = isAuthenticated ? await getAccessTokenSilently() : '';
+      const res = await fetch(API_URL + route, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Check response is okay
+      if (!res.ok) {
+        console.error('Invalid response code', res.status, res.statusText);
+        return;
+      }
+
+      // Check if response has profile data
+      const resBody = await res.json();
+      const data =
+        'data' in resBody && 'links' in resBody['data']
+          ? resBody['data']['links']
+          : {};
+
+      console.log('setting data...', { data });
+      setLinks(data);
+
+      setIsLoading(false);
+    } catch (e) {
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      console.error(res, e);
+    }
   }
 
-  // EDIT ME
-  async function saveData(): Promise<void> {}
+  async function saveData(link: string): Promise<void> {
+    //setIsLoading(true);
+
+    // If there is no userID, fetch own profile
+    const route = props.isMyProfile ? 'links' : `links/${props.userID}`;
+
+    // Call API
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await fetch(API_URL + route, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: { link: link } }),
+      });
+
+      // Check response is okay
+      if (!res.ok) {
+        console.error('Invalid response code', res.status, res.statusText);
+        return;
+      }
+
+      fetchData();
+
+      setIsLoading(false);
+    } catch (e) {
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      console.error(res, e);
+      //return res;
+    }
+  }
+
+  async function deleteLink(link: string): Promise<void> {
+    // If there is no userID, fetch own profile
+    const route = props.isMyProfile ? 'links' : `links/${props.userID}`;
+
+    // Call API
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await fetch(API_URL + route, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: { link: link } }),
+      });
+
+      // Check response is okay
+      if (!res.ok) {
+        console.error('Invalid response code', res.status, res.statusText);
+        return;
+      }
+
+      fetchData();
+
+      setIsLoading(false);
+    } catch (e) {
+      if (setIsLoading) {
+        setIsLoading(false);
+      }
+      const res = {
+        status: 'error',
+        message: [
+          'Exception from fetch on client side (not API) - check if the API stopped running',
+          e,
+        ],
+      };
+      console.error(res, e);
+    }
+  }
 
   const sanitisedLink = (link: string) => {
     return link
@@ -76,6 +185,7 @@ function SocialLinks(props: SocialLinksProps) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   if (isLoading) {
@@ -84,26 +194,27 @@ function SocialLinks(props: SocialLinksProps) {
         <Spin />
       </div>
     );
-  } else if (data?.entries.length === 0 && !props.isMyProfile) {
+  } else if (links?.length === 0 && !props.isMyProfile) {
     return <></>;
   } else {
     return (
       // <div className="socialLinks">
       <ul className="socialLinks">
-        {data?.entries.map((value, index) => {
+        {links?.map((value, index) => {
           if (props.isMyProfile) {
             return (
               <Popover
+                key={value}
                 content={
                   <div>
                     <Tooltip title="Remove" placement="left">
                       <div
                         className="exit-button exit-button-social-links"
                         onClick={() => {
-                          const newData = { ...data };
-                          newData.entries.splice(index, 1);
-                          setData(newData);
-                          saveData();
+                          if (value === '') {
+                            setLinks(links.filter((link) => link !== ''));
+                          }
+                          deleteLink(value);
                         }}
                       ></div>
                     </Tooltip>
@@ -111,12 +222,8 @@ function SocialLinks(props: SocialLinksProps) {
                       placeholder="Enter social link"
                       editable={props.isMyProfile}
                       onChange={(newString: string) => {
-                        if (data) {
-                          const newData = { ...data };
-                          newData.entries[index] = newString;
-                          setData(newData);
-                          saveData();
-                        }
+                        saveData(newString);
+                        deleteLink(value);
                       }}
                       text={value}
                     />
@@ -160,11 +267,10 @@ function SocialLinks(props: SocialLinksProps) {
             <li
               className="skills-add"
               onClick={() => {
-                if (data) {
-                  const newData = { ...data };
-                  newData.entries.push('');
-                  setData(newData);
-                  saveData();
+                if (links) {
+                  setLinks([...links!, '']);
+                } else {
+                  setLinks(['']);
                 }
               }}
             >
