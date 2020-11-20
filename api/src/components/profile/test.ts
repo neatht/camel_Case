@@ -15,7 +15,7 @@ jest.mock('./service.ts');
 /**
  * Mock req, res, next
  */
-const mReq = { poolClient: { end: () => { return; }}, user: { sub: 'provider|000' } }
+const mReq = { poolClient: { release: () => { return; }}, user: { sub: 'provider|000' } }
 const mRes = { status: jest.fn().mockReturnThis(), json: jest.fn().mockReturnThis() };
 const mNext = jest.fn();
 
@@ -43,6 +43,7 @@ describe('getUser', () => {
       return null;
     });
     await getUser(mReq, mRes, mNext);
+    expect(mRes.status).toHaveBeenCalled();
     expect(mRes.status).toHaveBeenCalledWith(404);
   });
 

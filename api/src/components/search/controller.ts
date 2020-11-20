@@ -50,7 +50,7 @@ export const searchUser = async (req: any, res: express.Response, next: express.
 
     queryResult.rows.forEach((row : any) => {
       const builtRow : object = {
-        profile_id: row.project_id,
+        profile_id: row.user_id,
         first_name: row.first_name,
         last_name: row.last_name,
         profile_picture: 'PLACEHOLDER'
