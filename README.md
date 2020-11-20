@@ -1,4 +1,9 @@
-<h1 align="center">🛰️<br>Glowbal</h1>
+
+<h1 align="center">
+	<img width="100px" src="client/src/logo-rocket.svg"></img>
+	<br>
+	Glowbal
+</h1>
 
 <div align="center">
     <strong>An ePortfolio web app built on React and Express</strong>
