@@ -73,7 +73,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
       res.status(404);
       return res.json({
         status: 'error',
-        message: 'Profile does not exist.'
+        message: 'Profile does not exist'
       });
     }
     req.body.data.userID = userID;
@@ -109,7 +109,7 @@ export const getMediaFromOwnProject = async (req: any, res: express.Response, ne
       res.status(404);
       return res.json({
         status: 'error',
-        message: 'Profile does not exist.'
+        message: 'Profile does not exist'
       });
     }
 
@@ -136,7 +136,7 @@ export const updateMediaFromOwnProject = async (req: any, res: express.Response,
       res.status(404);
       return res.json({
         status: 'error',
-        message: 'Profile does not exist.'
+        message: 'Profile does not exist'
       });
     }
 
@@ -166,7 +166,7 @@ export const getMediaFromProject = async (req: any, res: express.Response, next:
       res.status(404);
       return res.json({
         status: 'error',
-        message: 'Profile does not exist.'
+        message: 'Profile does not exist'
       });
     }
 
