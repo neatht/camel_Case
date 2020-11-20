@@ -85,7 +85,7 @@ export const addMediaToProject = async (req: any, res: express.Response, next: e
     // get object url and add to db
     await addMediaService(req, res, next);
     await addProjectMediaService(req, next);
-    mediaCache.delStartsWith(`${userID}_${req.params.projectID}`);
+    mediaCache.del(`${userID}_${req.body.data.projectID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -354,7 +354,7 @@ export const addProject = async (req: any, res: express.Response, next: express.
 
     req.body.data.userID = userID;
     await addProjectService(req, res, next);
-    projectCache.delStartsWith(`${userID}`);
+    // projectCache.delStartsWith(`${userID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -382,7 +382,7 @@ export const updateProject = async (req: any, res: express.Response, next: expre
 
     req.body.data.userID = userID;
     await updateProjectService(req, res, next);
-    projectCache.delStartsWith(`${userID}`);
+    projectCache.delStartsWith(`${userID}_${req.body.data.projectID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -424,6 +424,7 @@ export const deleteProject = async (req: any, res: express.Response, next: expre
     req.body.data.userID = userID;
     await deleteProjectService(req, res, next);
     projectCache.delStartsWith(`${userID}_${req.body.data.projectID}`);
+    mediaCache.delStartsWith(`${userID}_${req.body.data.projectID}`);
 
     req.poolClient.release();
     res.status(200);
@@ -451,7 +452,7 @@ export const deleteMedia = async (req: any, res: express.Response, next: express
 
     req.body.data.userID = userID;
     await deleteProjectMediaService(req, res, next);
-    mediaCache.delStartsWith(`${userID}_${req.params.projectID}`);
+    mediaCache.delStartsWith(`${userID}_${req.data.body.projectID}`);
 
     req.poolClient.release();
     res.status(200);
