@@ -54,7 +54,7 @@ function TextInput(props: TextInputProps) {
           : 'text-input'
       }
       onClick={() => {
-        if (props.editable) {
+        if (props.editable && !editing) {
           setText(props.text);
           setEditing(true);
           if (inputRef.current !== null && displayTextRef.current !== null) {

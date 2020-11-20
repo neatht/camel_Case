@@ -28,7 +28,7 @@ export const searchProject = async (req: any, res: express.Response, next: expre
       rows.push(builtRow);
     });
 
-
+    req.poolClient.release();
     res.status(200);
     return res.json(rows);
   } catch (err){
@@ -59,6 +59,7 @@ export const searchUser = async (req: any, res: express.Response, next: express.
     });
 
 
+    req.poolClient.release();
     res.status(200);
     return res.json(rows);
   } catch (err) {
@@ -99,6 +100,7 @@ export const search = async (req: any, res: express.Response, next: express.Next
       userRows.push(builtRow);
     });
 
+    req.poolClient.release();
     res.status(200);
     return res.json(projectRows.concat(userRows));
 
